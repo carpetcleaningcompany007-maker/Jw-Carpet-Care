@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -791,41 +790,376 @@
     }
 
     // =========================
-    // REVIEWS (load 10 more + expand per review)
+    // REVIEWS (JW Carpet Care)
+    // load 10 more + expand per review
     // =========================
     const REVIEWS = [
-      { name:"Diana Roach", when:"2 weeks ago", stars:5, text:"Being new to the area we feel very fortunate to have chosen Paul of the Carpet Cleaning Company. From the 1st point of contact through to completion Paul was highly professional and very clear on pricing. We'd recently moved to a large house whose carpets were good quality but with a variety of unsightly stains. We were amazed at how Paul managed to remove all the incredibly stubborn stains which had seemingly ruined the carpets. We are so delighted with the results and have saved a fortune not having to replace them. Also more sustainable! We highly recommend Paul and what a lovely man he is too!" },
-      { name:"Carolyn Mills", when:"a week ago", stars:5, text:"Paul did a super job. Very thorough. Moved all the furniture, left no stone unturned. Had a lot of carpet cleaning equipment to do a good job. Very pleasant hard working chap and reasonably priced for the work involved. Deserves the five stars." },
-      { name:"kerrie glanville", when:"2 months ago", stars:5, text:"Paul visited me today 3/12/25.. did an absolute fantastic job on my stairs. They smell so fresh and look clean making my house feel cleaner! There is also a stain that he magically got out of my kids rooms that has been there years and …More" },
-      { name:"jac P", when:"3 months ago", stars:5, text:"Had my carpets cleaned by Paul a few days ago. I was reassured through out the whole process. Paul was punctual, polite and very knowledgeable as I asked about the products and equipment he used. My carpets look amazing 👏. Paul is a genuine professional and nice guy. I have recommended him to colleagues. Great experience from start to finish 👌" },
-      { name:"suzanne powell", when:"3 months ago", stars:5, text:"Had Paul over today to clean my large sofa. Lounge, stairs, landing and bedroom carpet. Superb service from start to finish. On time, polite and hardworking. Everything looks brand new!! Was thinking of having a new carpet, but so glad I contacted Paul, he's saved me a fortune!! Highly recommended and superb service." },
-      { name:"Eluned Harrison", when:"a month ago", stars:5, text:"Great job done on our Lime green sofas this week, all stains gone and looking so much better and brighter. Paul took great care with the fabric and in ensuring I was happy with everything before leaving. Would highly recommend." },
-      { name:"Patrick Maslin", when:"5 months ago", stars:5, text:"Paul provided a fantastic service. He was polite, friendly, on time and he worked quickly and efficiently. It was great value for money. My carpets were cleaned to a high professional standard and look amazing-so clean and bright. I highly recommend the Carpet Cleaning Company." },
-      { name:"jenna Hamar", when:"2 months ago", stars:5, text:"Paul cleaned all the carpets in my holiday let on Thursday and did a fantastic job, carpets spotless and fresh smelling. Excellent service, explains the process and quotes a price before doing the job. Would highly recommend." },
-      { name:"James Wilson", when:"4 months ago", stars:5, text:"I had my carpets cleaned by The Carpet Cleaning Company in Shrewsbury, and I’m really pleased with the results. Paul did an excellent job — he managed to remove all the stains and left the carpets looking like new. He was also very polite and professional throughout. I’d definitely recommend this company!" },
-      { name:"David Beardsall", when:"3 months ago", stars:5, text:"Paul did a very thorough job and worked hard to fit around our schedule. We had moved into a house with some old and stained carpets so we had low expectations but Paul's excellent work made them look so much better. He went above and beyond with every detail, staying late to make sure he got rid of every stain. Would highly recommend his work" },
-      { name:"kim nicholas", when:"a month ago", stars:5, text:"I had the carpet cleaning company come today at short notice . Paul was courteous and efficient and made my rug and carpet look brand new. Really happy with the results." },
-      { name:"Harry Hancock Davies", when:"5 months ago", stars:5, text:"Paul did an excellent job on our carpets throughout our house. We had multiple stains caused by our pets and such stains were deeply engrained into our carpet as they had been there for some time. When Paul finished the carpet was like …More" },
-      { name:"Chris Atherton", when:"4 months ago", stars:5, text:"Paul was friendly, professional and efficient. He went above and beyond to make sure that the finished result was perfect. We couldn’t be more pleased, the carpet looks like new. We will definitely be happy to have Paul back again when needed." },
-      { name:"Gourmet Vanilla", when:"3 months ago", stars:5, text:"Paul from the Carpet Cleaning Company has just finished dry cleaning our big sofa and two armchairs in Ludlow. He’s done a brilliant job, what an improvement! Paul was a pleasure to deal with. Thank you!" },
-      { name:"JANE WOOD", when:"3 months ago", stars:5, text:"Wouldn’t highly recommend this company Paul was professional throughout his visit, he was punctual, he explained the process and the products he would use to achieve the best results as a hygienic clean was required. The results were fantastic, I would highly recommend this company, I am extremely impressed and pleased. Thanks Paul." },
-      { name:"Alison Benbow", when:"a month ago", stars:5, text:"Paul tackled our farmhouse with enthusiasm , expertise and bags of energy for our big rooms . He has top quality machines and solutions and what a difference it has made . Thank you" },
-      { name:"Ellie may darkes (ellie)", when:"4 months ago", stars:5, text:"Came in and cleaned my carpets, did a fantastic job carpets look brand new I highly recommend! Thank you Paul" },
-      { name:"idris thomas", when:"5 months ago", stars:5, text:"Paul arrived today and cleaned three bedroom carpets, did a fantastic job would recommend.." },
-      { name:"E Stock", when:"a month ago", stars:5, text:"Lovely chap - definitely recommend the deep clean! Worth the small amount extra for a job excellently done. High end equipment and professional service. Highly recommend 😊" },
-      { name:"Ross Doodson", when:"a month ago", stars:5, text:"Superb and efficient service from start to finish. I thoroughly recommend Paul. A professional, trustworthy and high effective service. Thank you very much indeed!" },
-      { name:"Jonathan O’Rourke", when:"7 months ago", stars:5, text:"Amazing service provided and will definitely be using again. My carpets and sofa look brand new for a very reasonable price. Can’t recommend enough." },
-      { name:"Bodhi Hughes", when:"4 months ago", stars:5, text:"The carpet cleaning company are true professionals. My expectations with what could be done with my carpets was far exceeded. Thank you so much" },
-      { name:"Donna Jones", when:"a month ago", stars:5, text:"Absolutely amazing service carried out by Paul!\n\nPaul carried out a carpet clean at Shrewsbury and done a amazing job!!" },
-      { name:"Melanie Riches", when:"3 months ago", stars:5, text:"Very trustworthy, professional and reliable service. Would highly recommend, carpet and sofa came up as as new." },
-      { name:"Jenny James", when:"2 months ago", stars:5, text:"Very impressed with Paul's prompt and effective service - he got rid of everything including the impossible!" },
-      { name:"Robin Nicholas", when:"8 months ago", stars:5, text:"Saved a fortune, was going to get new carpets until a friend in Ludlow recommended this company. The carpets are like new. An excellent Company." },
-      { name:"Caroline Martin", when:"8 months ago", stars:5, text:"So happy with this company; Paul is chatty and approachable, knows his business very well and does a thorough job for a very reasonable price. No hesitation in recommending him." },
-      { name:"Christine Bourne", when:"7 months ago", stars:5, text:"An excellent job carried out very professionally. Really pleased with three piece suite and carpets. Ludlow should be proud of it’s trades people." },
-      { name:"Victor Munsanje", when:"6 months ago", stars:5, text:"Excellent service, will definitely hire them again. If you are looking for a professional service, honest and sincere, you are here." },
-      { name:"carol rowley", when:"4 months ago", stars:5, text:"Efficient,friendly and carpet looks new again. Would definitely recommend 👌" },
-      { name:"Chris Jennings", when:"4 months ago", stars:5, text:"Very good service from start to finish, would highly recommend." },
-      { name:"Anne Douthwaite", when:"5 hours ago", stars:5, text:"Excellent service. Can highly recommend! Two rugs cleaned and they look brand new again! Very reasonably priced and will definitely use again. Thank you!" }
+      {
+        name: "Paul Nicholas",
+        when: "4 months ago",
+        stars: 5,
+        text: "Outstanding service from James from start to finish! JW Carpet Care arrived on time, explained the whole process clearly, and got all the stains out of our carpet. The results were amazing, stains I thought would never come out have completely vanished, and the pile looks fresh and springy again, The carpets look like new and the whole house smells amazing! James was friendly, professional, and left everything tidy. It’s rare to find a company that combines great workmanship with excellent customer service. If you’re looking for carpet cleaning in Worcester, I can highly recommend JW Carpet Care, I will be definitely be using them again."
+      },
+      {
+        name: "MPM MPM",
+        when: "Edited 2 months ago",
+        stars: 5,
+        text: "Having seen alot of positive reviews we decided to have our 8 year old carpets cleaned. Had we not seen the reviews it wouldn't have been a consideration. Although they were not dirty (we don't wear outdoor footwear indoors) we wanted to freshen them up and were surprised by the results."
+      },
+      {
+        name: "will burgess",
+        when: "5 months ago",
+        stars: 5,
+        text: "James did a great job cleaning the carpet on our stairs and landing. Had multiple paint and dirt stains from renovations we were doing, and although we plan to change it in the future, he did an amazing job cleaning it. All stains gone and it looks so much better."
+      },
+      {
+        name: "Aisha Nazir",
+        when: "4 months ago",
+        stars: 5,
+        text: "Absolutely happy with the job thank you. Highly recommended. James thank you, really professional and got on with the Job."
+      },
+      {
+        name: "Jennifer Garbett",
+        when: "3 months ago",
+        stars: 5,
+        text: "After moving house and urgently needing our carpets cleaned, James kindly fitted us on on a Sunday 3 days after we moved. He was very professional, knowledgeable and realistic with what we could achieve."
+      },
+      {
+        name: "Richard Bates",
+        when: "2 months ago",
+        stars: 5,
+        text: "Had James clean our stairs, hall and landing carpets a couple of weeks ago. Our carpets were dirty after a few household jobs and trades. The reviews you read are real. James was professional at all times, arrived on time and did an amazing job. Would defo recommend him."
+      },
+      {
+        name: "Ben Thomas",
+        when: "2 months ago",
+        stars: 5,
+        text: "I couldn’t be happier with the results of our recent carpet clean. James tackled the stairs, landing, and lounge with absolute professionalism, and the transformation was remarkable."
+      },
+      {
+        name: "Rachel Pike",
+        when: "a week ago",
+        stars: 5,
+        text: "James was brilliant and went the extra mile to help us deal with the mess left by our elderly cat. The sofas and carpet look like new! I would highly recommend and will definitely use him again."
+      },
+      {
+        name: "Cath Wood",
+        when: "Edited 5 months ago",
+        stars: 5,
+        text: "Absolutely brilliant! My carpets look brand new. James is a lovely, polite, professional man who arrived on time and explained exactly what he would be doing. He worked solidly without a break and the results were amazing!"
+      },
+      {
+        name: "Gemma Wingfield",
+        when: "10 months ago",
+        stars: 5,
+        text: "James was very professional he turned up on time and did a fantastic job! We will definitely have James back to do our other rooms and sofas too. Thank you for your hard work. We really appreciate it."
+      },
+      {
+        name: "Matt Kitchen",
+        when: "5 months ago",
+        stars: 5,
+        text: "Had our carpet cleaned by James and he’s done an incredible job. Really happy with the results. He kept me informed on when he’d arrive and also didn’t over promise the outcome that could be achieved on our old cream carpets. The end results though are fantastic and well worth the money. I’d recommend to anyone. Thanks again James"
+      },
+      {
+        name: "Sue Bradshaw",
+        when: "6 months ago",
+        stars: 5,
+        text: "I recently hired James for carpet and furniture cleaning, and I couldn't be happier with the results. He cleaned both my carpets and 3-piece suite with exceptional skill and attention to detail."
+      },
+      {
+        name: "Robin Nicholas",
+        when: "5 months ago",
+        stars: 5,
+        text: "I’ve used JW Carpet Care twice now, and the quality of work and service has been outstanding both times. My carpets look like brand new after each visit. It’s not just about the top quality equipment; it’s the knowledge and experience that makes the difference."
+      },
+      {
+        name: "Andrew Lee",
+        when: "4 months ago",
+        stars: 5,
+        text: "We had a brilliant experience with James from JW Carpet Care. He was friendly, professional, and took real pride in his work. The results were outstanding and the whole place feels so much fresher."
+      },
+      {
+        name: "Carolyn Jones",
+        when: "3 months ago",
+        stars: 5,
+        text: "Excellent service throughout! James was professional, prompt and very friendly. He kept me informed from the moment I booked till the time he finished the job. Highly recommended as my lounge carpet looks brand new!"
+      },
+      {
+        name: "Catherine Wood",
+        when: "4 months ago",
+        stars: 5,
+        text: "Yet again a fabulous job on lounge and dining room carpets! James is punctual, professional, hard working, tidy and basically brilliant! The only person I would highly recommend to clean carpets. Just fantastic!"
+      },
+      {
+        name: "Jan Shelley",
+        when: "4 months ago",
+        stars: 5,
+        text: "Booked James to clean our 5 seater corner sofa and armchair. He was prompt, courteous and professional. Did an amazing job and it looks really good. Will definitely book again"
+      },
+      {
+        name: "Carly Baker",
+        when: "7 months ago",
+        stars: 5,
+        text: "I CANNOT PRAISE JW CARPETS ENOUGH!! I booked up having seen a Facebook advert. My carpets are 4 years old and I have a dog and a cat. My carpets hadn’t been cleaned professionally before. The difference was incredible."
+      },
+      {
+        name: "Gayle Francis",
+        when: "5 months ago",
+        stars: 5,
+        text: "Arrived on time and once James talked me through what he would be doing, he got straight to work! My carpets look new. Really happy with the service and price quoted. Would definitely recommend."
+      },
+      {
+        name: "Sarah Beckley",
+        when: "a year ago",
+        stars: 5,
+        text: "Before and after pics..... Unbelievable difference. Best carpet cleaner that have ever used. Very Professional. A+++++ communication, friendly and knows what he is talking about."
+      },
+      {
+        name: "Mandy Morgan",
+        when: "4 months ago",
+        stars: 5,
+        text: "Can’t recommend this company any higher! Carpet needed a lot of work and it came out looking like new. First class job from James, very friendly, professional and the carpet smelt amazing."
+      },
+      {
+        name: "amanda day",
+        when: "6 months ago",
+        stars: 5,
+        text: "James is extremely professional and helpful. He arrived on time, letting me know an hour before that he was on his way. He spent a great deal of time and care on cleaning our hall, stairs and bedroom. The carpets look great, I'm very happy with the whole experience. I will book him again."
+      },
+      {
+        name: "Di Butler",
+        when: "4 months ago",
+        stars: 5,
+        text: "We highly recommend James he was friendly, professional, on time and more importantly our carpets look like they are brand new. We are so, so happy! We have even asked him back to clean our upholstery. Thank you James."
+      },
+      {
+        name: "Julie Bevan",
+        when: "5 months ago",
+        stars: 5,
+        text: "James is a professional, genuine, hardworking person. Super reliable, friendly, and did a fabulous job. My carpets look and smell fresh, amazing. I can't recommend him enough 5 stars from me."
+      },
+      {
+        name: "Zoe Almond",
+        when: "3 months ago",
+        stars: 5,
+        text: "Thank you James for an excellent and very professional job in the lounge and stairs & landing. We will rebook you in the new year for the other rooms. I can totally recommend James for his efficient and friendly service."
+      },
+      {
+        name: "Matthew Cooke",
+        when: "2 years ago",
+        stars: 5,
+        text: "James was very friendly, arrived on time and extremely professional throughout. I was completely happy with the quality of clean and thought it was great value for money with no hidden costs involved. I would highly recommend James to anyone looking for great results."
+      },
+      {
+        name: "jayne smith",
+        when: "5 months ago",
+        stars: 5,
+        text: "James arron time. What a lovely man he is. He did a fantastic job my living room carpet looks amazing. Thank you so much."
+      },
+      {
+        name: "Faye Evans",
+        when: "5 months ago",
+        stars: 5,
+        text: "James is very professional and did a great job cleaning our carpets. Kept us updated and sent reminders. Very punctual and polite. I would recommend him."
+      },
+      {
+        name: "Elliot Whittaker",
+        when: "9 months ago",
+        stars: 5,
+        text: "Having used JW Carpet Care previously and been very happy with the results, I naturally contacted Jamie for his services again and was not disappointed! Great communication, fast, friendly and reliable, not to mention the quality of the work! Second to none in my opinion!"
+      },
+      {
+        name: "Amy Carney",
+        when: "5 months ago",
+        stars: 5,
+        text: "Amazing service from JW carpet care, James was friendly and on time and did a great job of cleaning our sofa. It looks brand new and smells great! Would definitely recommend!"
+      },
+      {
+        name: "Andrea Trickett-Born",
+        when: "3 months ago",
+        stars: 5,
+        text: "James is helpful, polite and reliable. The carpets he cleaned look like new. I’m delighted and am looking to book for the rest of the carpets in the house."
+      },
+      {
+        name: "Kerrie Birch",
+        when: "11 months ago",
+        stars: 5,
+        text: "Great service received from JW carpet care. Arrived promptly, organised and tidy. Sofas and carpet came up very well indeed considering they haven’t been cleaned since having the sofas."
+      },
+      {
+        name: "Tracy Griffiths",
+        when: "5 months ago",
+        stars: 5,
+        text: "Great service, carpets look fresh and clean. Highly recommend James."
+      },
+      {
+        name: "Tracey Culley",
+        when: "a month ago",
+        stars: 5,
+        text: "Great job and a lovely guy, highly recommend James for anyone wanting their carpets or sofa cleaning. Thank you James 😊"
+      },
+      {
+        name: "Sian-Louise Harley-Preller",
+        when: "10 months ago",
+        stars: 5,
+        text: "Absolutely brilliant service, clear and open communication and it's clear he really cares about his work. Worked incredibly hard in the time he was with us and the results were amazing!"
+      },
+      {
+        name: "Elayne Roberts",
+        when: "3 months ago",
+        stars: 5,
+        text: "Had stairs, landing and 3 bedrooms cleaned. They look brand new and Jason was so professional and completed work expertly. Would highly recommend him."
+      },
+      {
+        name: "JLR INSTAN",
+        when: "2 months ago",
+        stars: 5,
+        text: "I had my carpets cleaned today. Great professional and friendly service. From enquiry to the job being done the communication was excellent. Thank you 😊"
+      },
+      {
+        name: "denise reynolds",
+        when: "5 months ago",
+        stars: 5,
+        text: "Great job done by James. Arrived on time, evaluated task then just got on with it. Communication to agree date, time, confirmation & reminder email was top drawer. Definitely recommend."
+      },
+      {
+        name: "Suzy Adams",
+        when: "4 months ago",
+        stars: 5,
+        text: "James did great job on our carpets. Looking clean & refreshed. Would recommend"
+      },
+      {
+        name: "louise hunter",
+        when: "7 months ago",
+        stars: 5,
+        text: "Professional, polite and friendly service. Had both of my sofa's cleaned by James today and he did a fabulous job. I am so pleased, a very easy 5 stars, that are well deserved."
+      },
+      {
+        name: "Nikki Taylor",
+        when: "4 months ago",
+        stars: 5,
+        text: "Absolutely amazing job. Punctuality, professionalism, friendliness, couldn’t fault anything. The end result was incredible, my carpets looked as new and I had no idea they were going to look that good."
+      },
+      {
+        name: "Helen Pretty",
+        when: "11 months ago",
+        stars: 5,
+        text: "Thank you James for a great service with brilliant results! James was professional, friendly and very thorough with great communication throughout."
+      },
+      {
+        name: "Rachel Sweet",
+        when: "7 months ago",
+        stars: 5,
+        text: "James was super professional and really helpful with his advice. He got out a number of stains out of our new carpet and got it looking back to new! Would 100% recommend"
+      },
+      {
+        name: "Cathryn Bateman",
+        when: "8 months ago",
+        stars: 5,
+        text: "Excellent work. Second visit from James today, he did such a good job on our stair carpet we asked him to try to clean our very dirty rugs. Honest about what to expect and worked really hard."
+      },
+      {
+        name: "Navjyot Sabbharwal",
+        when: "2 years ago",
+        stars: 5,
+        text: "Highly recommend booking JW Carpet Care if you need your carpets cleaned! James left all carpeted areas in my flat fresh, clean and looking good! Prior to booking, I had a lot of questions, and James was patient and quick to reply."
+      },
+      {
+        name: "Charlotte Wisdom",
+        when: "Edited a year ago",
+        stars: 5,
+        text: "We called JW carpet care following leaving a large paint spillage on a brand new carpet. He came the following day and has worked a miracle! We are so amazed at the result, the stain has completely gone. We are so thankful."
+      },
+      {
+        name: "Charlotte Thomas",
+        when: "a year ago",
+        stars: 5,
+        text: "Amazing service! We had all our carpets cleaned today and I cannot fault the job he did, the house smells and looks so fresh! James is really friendly and reliable, we agreed a time and he was here bang on even in the snow ready to work."
+      },
+      {
+        name: "Katie Howse",
+        when: "5 months ago",
+        stars: 5,
+        text: "Highly Recommended! We have ‘Herringbone Alternative Flooring’ which needs an annual deep clean to keep it at it’s best, came up as new after booking JW Carpet Care!"
+      },
+      {
+        name: "Louise Roadknight",
+        when: "7 months ago",
+        stars: 5,
+        text: "Would highly recommend. My carpets look amazing! James was professional and friendly and did a fantastic job!"
+      },
+      {
+        name: "Javaid Akhter",
+        when: "10 months ago",
+        stars: 5,
+        text: "James is clearly a hard working conscientious person. He was meticulous in his approach when organising his work, and it showed with the end product. I wouldn't hesitate in recommending him. Great job, great service, commitment 100%."
+      },
+      {
+        name: "Julie O'sullivan",
+        when: "10 months ago",
+        stars: 5,
+        text: "We had all of our carpets cleaned, the service was brilliant. He came out to suit us and make sure everything would dry in time for the furniture to be delivered."
+      },
+      {
+        name: "Hayley Jacobs",
+        when: "9 months ago",
+        stars: 5,
+        text: "Absolutely outstanding. We always do our research and James is such a nice guy, really helpful and does an outstanding job, can't believe how our carpets look brand new again."
+      },
+      {
+        name: "Carl Stokes",
+        when: "a year ago",
+        stars: 5,
+        text: "Fantastic & professional job carried out by JW Carpet Care. I would 100% recommend this company for carpet cleaning and upholstery cleaning. James was prompt, professional and polite."
+      },
+      {
+        name: "Julie Crow",
+        when: "a year ago",
+        stars: 5,
+        text: "The whole process has been so easy because James has excellent communication. He arrived promptly and immediately got to work after explaining what was going to happen. The results are excellent."
+      },
+      {
+        name: "Ann Simpson",
+        when: "7 months ago",
+        stars: 5,
+        text: "James did a brilliant job on my carpet and chair I will certainly use him again. A very pleasant and polite young man who sorted out all my furniture for me too."
+      },
+      {
+        name: "Kelly Adderley",
+        when: "4 months ago",
+        stars: 5,
+        text: "Excellent service! Brought our carpet up like new after having a naughty puppy! Highly recommend!"
+      },
+      {
+        name: "Jo Cox",
+        when: "7 months ago",
+        stars: 5,
+        text: "James did a fantastic job of cleaning all the carpets in my new flat. It's great to start life in my new home with clean carpet under my feet. Many thanks."
+      },
+      {
+        name: "Lesley Langley",
+        when: "8 months ago",
+        stars: 5,
+        text: "Highly recommend James! Absolutely lovely man, very professional, keeps you informed from start to finish. We will definitely be having him here again"
+      },
+      {
+        name: "Janet Isaacs",
+        when: "a year ago",
+        stars: 5,
+        text: "Fabulous service from James. He came out at short notice to clean carpets and remove stains between tenants. Excellent job at a great price. Absolute pleasure to meet James, would highly recommend and will definitely use in the future."
+      },
+      {
+        name: "Nicki Paly",
+        when: "2 months ago",
+        stars: 5,
+        text: "James is great, very professional, great at communication, was there on time and did a great job! I’d recommend! 😊"
+      },
+      {
+        name: "Helen Warrington",
+        when: "8 months ago",
+        stars: 5,
+        text: "Very professional, a fantastic job, my carpet looks and smells amazing, James turned up on time, James is very friendly, I will definitely be recommending James to everyone."
+      }
     ];
 
     function starString(n){
@@ -983,4 +1317,3 @@
   </script>
 </body>
 </html>
-```
