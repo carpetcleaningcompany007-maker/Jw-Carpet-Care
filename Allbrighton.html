@@ -1,1269 +1,393 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>Albrighton Hall Commercial Calculator</title>
-  <meta name="description" content="Private commercial cleaning calculator for Albrighton Hall Hotel and Spa." />
-  <style>
-    :root{
-      --bg:#eef4fb;
-      --ink:#122033;
-      --muted:#60718a;
-      --brand:#1f5fbf;
-      --brand2:#163f7d;
-      --brand3:#0d2548;
-      --green:#14945c;
-      --green2:#0f7447;
-      --red:#c62828;
-      --gold:#b7791f;
-      --card:#ffffff;
-      --line:rgba(12,24,40,.10);
-      --shadow:0 18px 48px rgba(13,27,45,.10);
-      --shadow-soft:0 10px 24px rgba(15,35,65,.07);
-      --r:22px;
-      --max:1180px;
-      --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-    }
-
-    *{
-      box-sizing:border-box;
-      min-width:0;
-    }
-
-    html,body{
-      margin:0;
-      padding:0;
-      max-width:100%;
-      overflow-x:hidden;
-    }
-
-    body{
-      font-family:var(--font);
-      color:var(--ink);
-      background:
-        radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
-        radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
-        linear-gradient(180deg, #0d1f39 0%, #15335e 300px, var(--bg) 301px);
-      min-height:100vh;
-      overflow-x:hidden;
-      padding-bottom:92px;
-    }
-
-    a{text-decoration:none;color:inherit}
-    .hidden{display:none !important}
-
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:18px 14px 28px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      border:0;
-      cursor:pointer;
-      padding:11px 15px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:13px;
-      white-space:nowrap;
-      box-shadow:0 12px 28px rgba(0,0,0,.16);
-      transition:transform .12s ease, filter .12s ease;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-      filter:saturate(1.03);
-    }
-
-    .btn.primary{
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      color:#fff;
-    }
-
-    .btn.ghost{
-      background:rgba(255,255,255,.12);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.16);
-    }
-
-    .btn.green{
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#fff;
-    }
-
-    .btn.red{
-      background:linear-gradient(135deg,#ef5350,#c62828);
-      color:#fff;
-    }
-
-    input,select{
-      width:100%;
-      max-width:100%;
-      padding:12px 13px;
-      border-radius:14px;
-      border:1px solid rgba(12,24,40,.10);
-      background:#fff;
-      font:inherit;
-      font-size:13px;
-      outline:none;
-      transition:border-color .12s ease, box-shadow .12s ease;
-    }
-
-    input:focus,select:focus{
-      border-color:rgba(31,95,191,.55);
-      box-shadow:0 0 0 4px rgba(31,95,191,.12);
-    }
-
-    .gate{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-    }
-
-    .gate-card{
-      width:min(460px,100%);
-      background:rgba(255,255,255,.96);
-      border:1px solid rgba(255,255,255,.55);
-      border-radius:24px;
-      box-shadow:0 24px 60px rgba(0,0,0,.18);
-      overflow:hidden;
-    }
-
-    .gate-head{
-      padding:22px 20px 18px;
-      background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
-      color:#fff;
-    }
-
-    .gate-head h1{
-      margin:0;
-      font-size:28px;
-      line-height:1.05;
-      letter-spacing:-.03em;
-    }
-
-    .gate-head p{
-      margin:8px 0 0;
-      opacity:.88;
-      font-size:14px;
-      line-height:1.5;
-    }
-
-    .gate-body{padding:18px}
-
-    .error{
-      margin-top:10px;
-      color:var(--red);
-      font-size:13px;
-      font-weight:800;
-      display:none;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-      color:#fff;
-      padding:6px 0 14px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-
-    .brand-badge{
-      height:48px;
-      min-width:48px;
-      padding:4px 14px;
-      border-radius:10px;
-      background:rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 10px 22px rgba(0,0,0,.18);
-      color:#fff;
-      font-weight:1000;
-      letter-spacing:.08em;
-    }
-
-    .brand-copy{min-width:0}
-
-    .brand-title{
-      font-size:13px;
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      opacity:.92;
-    }
-
-    .brand span{
-      display:block;
-      font-size:13px;
-      opacity:.84;
-      margin-top:4px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width:420px;
-    }
-
-    .top-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .hero{
-      position:relative;
-      overflow:hidden;
-      background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
-      color:#fff;
-      border-radius:24px;
-      padding:18px 18px 16px;
-      box-shadow:0 24px 60px rgba(0,0,0,.18);
-    }
-
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:auto -80px -100px auto;
-      width:280px;
-      height:280px;
-      background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);
-      pointer-events:none;
-    }
-
-    .hero-top{
-      position:relative;
-      z-index:1;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-    }
-
-    .hero-copy{max-width:700px}
-
-    .hero-kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.12);
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:10px;
-    }
-
-    .hero h1{
-      margin:0;
-      font-size:28px;
-      line-height:1.04;
-      letter-spacing:-.03em;
-    }
-
-    .hero p{
-      margin:8px 0 0;
-      color:rgba(255,255,255,.86);
-      font-size:13.5px;
-      line-height:1.55;
-      max-width:60ch;
-    }
-
-    .hero-total{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:16px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(10px);
-    }
-
-    .hero-total b{
-      display:block;
-      font-size:18px;
-    }
-
-    .hero-total span{
-      display:block;
-      font-size:12px;
-      opacity:.84;
-    }
-
-    .hero-showcase{
-      position:relative;
-      z-index:1;
-      margin-top:14px;
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 16px 34px rgba(0,0,0,.18);
-    }
-
-    .hero-showcase img{
-      display:block;
-      width:100%;
-      height:220px;
-      object-fit:cover;
-      object-position:center;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:18px;
-      align-items:start;
-      margin-top:18px;
-    }
-
-    .card{
-      background:rgba(255,255,255,.94);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.55);
-      border-radius:var(--r);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-    }
-
-    .card-h{
-      padding:16px 16px 14px;
-      border-bottom:1px solid rgba(12,24,40,.08);
-      background:linear-gradient(135deg, rgba(31,95,191,.08), rgba(20,148,92,.05));
-    }
-
-    .card-h h2{
-      margin:0;
-      font-size:18px;
-      letter-spacing:-.02em;
-    }
-
-    .card-h small{
-      display:block;
-      margin-top:5px;
-      color:var(--muted);
-      font-weight:800;
-    }
-
-    .card-b{padding:16px}
-
-    .summary{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-bottom:14px;
-    }
-
-    .total-box,.info-box{
-      background:linear-gradient(135deg,#fff,#f7fbff);
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      padding:14px;
-      box-shadow:var(--shadow-soft);
-    }
-
-    .total-box{
-      background:
-        radial-gradient(340px 120px at 0% 0%, rgba(31,95,191,.10), transparent 55%),
-        linear-gradient(135deg,#fff,#f7fbff);
-    }
-
-    .total-box b{
-      display:block;
-      font-size:32px;
-      letter-spacing:-.04em;
-      margin-top:6px;
-      color:var(--brand3);
-    }
-
-    .total-box span,.info-box span{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-    }
-
-    .note{
-      font-size:12.5px;
-      line-height:1.55;
-      color:var(--muted);
-      font-weight:700;
-      margin:0;
-    }
-
-    .section-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:16px;
-      padding-top:14px;
-      border-top:1px dashed rgba(12,24,40,.12);
-      font-weight:950;
-    }
-
-    .plus{
-      width:30px;
-      height:30px;
-      border-radius:12px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      margin-right:8px;
-      box-shadow:0 10px 22px rgba(31,95,191,.25);
-    }
-
-    .items{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:12px;
-      margin-top:12px;
-    }
-
-    .item{
-      position:relative;
-      background:
-        radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.11), transparent 60%),
-        linear-gradient(135deg,#ffffff,#f8fbff);
-      border:1px solid rgba(31,95,191,.14);
-      border-radius:18px;
-      padding:13px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
-      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
-      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-    }
-
-    .item:hover{
-      transform:translateY(-2px);
-      border-color:rgba(31,95,191,.24);
-      box-shadow:0 16px 30px rgba(15,35,65,.12), 0 0 0 1px rgba(255,255,255,.85) inset;
-    }
-
-    .item h3{
-      margin:0;
-      font-size:14px;
-      line-height:1.2;
-    }
-
-    .item p{
-      margin:6px 0 0;
-      font-size:12px;
-      color:var(--muted);
-      font-weight:800;
-      line-height:1.45;
-    }
-
-    .price{
-      margin-top:8px;
-      color:var(--green);
-      font-size:14px;
-      font-weight:950;
-    }
-
-    .qty{
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-
-    .qbtn{
-      width:36px;
-      height:36px;
-      border-radius:12px;
-      border:1px solid rgba(12,24,40,.08);
-      background:#fff;
-      box-shadow:0 10px 18px rgba(10,18,32,.08);
-      font-weight:950;
-      cursor:pointer;
-      transition:transform .12s ease, box-shadow .12s ease;
-    }
-
-    .qbtn:hover{
-      transform:translateY(-1px);
-      box-shadow:0 12px 20px rgba(10,18,32,.10);
-    }
-
-    .qnum{
-      width:34px;
-      text-align:center;
-      font-weight:950;
-      font-size:15px;
-    }
-
-    .room-entry{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      background:#fff;
-      box-shadow:var(--shadow-soft);
-      padding:14px;
-      margin-top:12px;
-    }
-
-    .room-list{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      margin-top:12px;
-    }
-
-    .room-row{
-      border:1px solid rgba(31,95,191,.14);
-      border-radius:18px;
-      padding:13px;
-      background:
-        radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.08), transparent 60%),
-        linear-gradient(135deg,#ffffff,#f8fbff);
-      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
-    }
-
-    .room-grid{
-      display:grid;
-      grid-template-columns:1.4fr 1fr .9fr auto;
-      gap:10px;
-      align-items:end;
-    }
-
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-
-    .field label{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:950;
-      letter-spacing:.02em;
-    }
-
-    .room-meta{
-      margin-top:10px;
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:10px;
-    }
-
-    .meta-box{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:14px;
-      padding:10px 12px;
-      background:#fff;
-    }
-
-    .meta-box span{
-      display:block;
-      font-size:11px;
-      color:var(--muted);
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-    }
-
-    .meta-box b{
-      display:block;
-      margin-top:4px;
-      font-size:14px;
-      color:var(--brand3);
-    }
-
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .line{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-      padding:12px 12px;
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:16px;
-      background:linear-gradient(135deg,#fff,#f7faff);
-      box-shadow:0 8px 18px rgba(15,35,65,.05);
-    }
-
-    .line b{font-size:13px}
-
-    .line small{
-      display:block;
-      margin-top:4px;
-      color:var(--muted);
-      font-weight:850;
-      line-height:1.45;
-    }
-
-    .money{
-      font-weight:950;
-      color:var(--green);
-      white-space:nowrap;
-    }
-
-    .mutebox{
-      padding:13px 14px;
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      background:linear-gradient(135deg,#fff,#f7faff);
-      font-size:12.5px;
-      line-height:1.55;
-      color:var(--muted);
-      font-weight:700;
-      box-shadow:var(--shadow-soft);
-    }
-
-    .hr{
-      height:1px;
-      background:rgba(12,24,40,.10);
-      margin:12px 0;
-    }
-
-    .cta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:12px;
-    }
-
-    .sticky-bar{
-      position:fixed;
-      left:0;
-      right:0;
-      bottom:0;
-      background:linear-gradient(135deg,#0e2a55,#091a32);
-      color:#fff;
-      border-top:1px solid rgba(255,255,255,.10);
-      box-shadow:0 -14px 34px rgba(0,0,0,.28);
-      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-      z-index:9999;
-      backdrop-filter:blur(12px);
-    }
-
-    .sticky-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:nowrap;
-    }
-
-    .sticky-total{
-      display:flex;
-      flex-direction:column;
-      font-weight:900;
-      min-width:112px;
-    }
-
-    .sticky-total span{
-      font-size:11px;
-      opacity:.80;
-      line-height:1.1;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-
-    .sticky-total b{
-      font-size:18px;
-      letter-spacing:-.02em;
-      line-height:1.1;
-      margin-top:2px;
-    }
-
-    .sticky-actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:nowrap;
-      align-items:center;
-    }
-
-    footer{
-      text-align:center;
-      color:#5c6b80;
-      font-size:12px;
-      font-weight:700;
-      margin-top:20px;
-      padding-top:8px;
-    }
-
-    @media (max-width: 980px){
-      .grid,.summary,.room-grid,.room-meta{grid-template-columns:1fr}
-      .hero-top{align-items:flex-start}
-    }
-
-    @media (max-width: 600px){
-      body{padding-bottom:86px}
-      .wrap{padding:12px 12px 20px}
-      .topbar{padding:2px 0 10px}
-      .top-actions{display:none}
-      .brand-title,.brand span{display:none}
-      .hero{padding:14px 12px;border-radius:18px}
-      .hero-kicker,.hero-total{display:none}
-      .hero h1{font-size:20px}
-      .hero p{font-size:12.5px;line-height:1.45}
-      .hero-showcase img{
-        height:150px;
-        object-position:center;
-      }
-      .items{grid-template-columns:1fr;gap:10px}
-      .item{padding:11px;border-radius:16px}
-      .card-h{padding:13px 14px}
-      .card-b{padding:14px}
-      .room-entry{padding:12px}
-      .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-      .sticky-inner{gap:8px}
-      .sticky-total{min-width:84px}
-      .sticky-total span{font-size:10px}
-      .sticky-total b{font-size:15px}
-      .sticky-actions{gap:6px}
-      .sticky-actions .btn{
-        padding:9px 10px;
-        font-size:12px;
-        box-shadow:none;
-      }
-    }
-  </style>
-</head>
-<body>
-  <div id="gate" class="gate">
-    <div class="gate-card">
-      <div class="gate-head">
-        <h1>Albrighton Hall calculator</h1>
-        <p>Enter the password to open the private pricing page.</p>
+<script>
+  const PASSWORD = "albrighton123";
+  const VAT_RATE = 0.20;
+  const ROTARY_ROOM_RATE = 25;
+  const HWE_ROOM_RATE = 35;
+
+  const ROTARY_BANDS = [
+    { min: 0, max: 150, rate: 2.50, label: "Up to 150 m²" },
+    { min: 151, max: 399, rate: 2.20, label: "151 to 399 m²" },
+    { min: 400, max: 999, rate: 2.00, label: "400 to 999 m²" },
+    { min: 1000, max: Infinity, rate: 1.80, label: "1000+ m²" }
+  ];
+
+  const HWE_BANDS = [
+    { min: 0, max: 150, rate: 3.40, label: "Up to 150 m²" },
+    { min: 151, max: 399, rate: 3.10, label: "151 to 399 m²" },
+    { min: 400, max: 999, rate: 2.95, label: "400 to 999 m²" },
+    { min: 1000, max: Infinity, rate: 2.80, label: "1000+ m²" }
+  ];
+
+  let roomRows = [];
+  let roomCounter = 0;
+
+  const fmt = n => "£" + (Math.round((Number(n) || 0) * 100) / 100).toFixed(2);
+
+  function escapeHtml(str){
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function pickBand(m2, bands){
+    if (m2 <= 0) return null;
+    return bands.find(b => m2 >= b.min && m2 <= b.max) || bands[bands.length - 1];
+  }
+
+  function getRowTotals(row){
+    const sqm = Math.max(0, Number(row.sqm) || 0);
+    const isRotary = row.method === "rotary";
+    const band = pickBand(sqm, isRotary ? ROTARY_BANDS : HWE_BANDS);
+    const unit = band ? band.rate : 0;
+    const bandLabel = band ? band.label : "Waiting for square metres";
+    const total = sqm > 0 ? sqm * unit : 0;
+
+    return { sqm, band, unit, bandLabel, total };
+  }
+
+  function createRoomRowElement(row, index){
+    const totals = getRowTotals(row);
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "room-row";
+    wrapper.dataset.id = row.id;
+
+    wrapper.innerHTML = `
+      <div class="room-top">
+        <div class="room-badge">Room ${index + 1}</div>
+        <button class="btn red small" type="button" data-role="remove" data-id="${row.id}">Remove</button>
       </div>
-      <div class="gate-body">
+
+      <div class="room-grid">
         <div class="field">
-          <label for="passwordInput">Password</label>
-          <input id="passwordInput" type="password" placeholder="Enter password">
-        </div>
-        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;">
-          <button class="btn primary" id="unlockBtn" type="button">Open calculator</button>
-        </div>
-        <div class="error" id="passwordError">Password is incorrect.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="app" class="hidden">
-    <div class="wrap">
-      <div class="topbar">
-        <div class="brand">
-          <div class="brand-badge">AH</div>
-          <div class="brand-copy">
-            <div class="brand-title">Albrighton Hall Hotel and Spa</div>
-            <span>Commercial carpet cleaning calculator</span>
-          </div>
-        </div>
-        <div class="top-actions">
-          <button class="btn ghost" type="button" id="resetTop">Reset</button>
-        </div>
-      </div>
-
-      <section class="hero">
-        <div class="hero-top">
-          <div class="hero-copy">
-            <div class="hero-kicker">Private estimate</div>
-            <h1>Welcome to the Albrighton Hall calculator</h1>
-            <p>Enter each room or area, choose the method, type the square metres, and the calculator will work out the correct price band and total automatically.</p>
-          </div>
-          <div class="hero-total">
-            <div>
-              <b id="heroTotal">£0.00</b>
-              <span>Live total</span>
-            </div>
-          </div>
+          <label>Room or area name</label>
+          <input
+            type="text"
+            value="${escapeHtml(row.roomName)}"
+            data-role="room-name"
+            data-id="${row.id}"
+            placeholder="Example: Kitchen, Corridor, Function Room"
+          >
         </div>
 
-        <div class="hero-showcase">
-          <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1400&q=80" alt="Hotel carpet cleaning">
-        </div>
-      </section>
-
-      <div class="grid">
-        <section class="card">
-          <div class="card-h">
-            <h2>Build your quote</h2>
-            <small>Type the room name and square metres. The calculator works the band out for you.</small>
-          </div>
-          <div class="card-b">
-            <div class="summary">
-              <div class="total-box">
-                <span>Total estimate</span>
-                <b id="total">£0.00</b>
-              </div>
-              <div class="info-box">
-                <span>Helpful note</span>
-                <p class="note" style="margin-top:6px;">
-                  CSV download will include room name, method, square metres, band, rate, line total, subtotal, VAT and final total.
-                </p>
-              </div>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Rotary bonnet pricing</div>
-            </div>
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller commercial area</p><div class="price">£2.50 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size area</p><div class="price">£2.20 per m²</div></div></article>
-              <article class="item"><div><h3>400 to 999 m²</h3><p>Larger commercial area</p><div class="price">£2.00 per m²</div></div></article>
-              <article class="item"><div><h3>1000+ m²</h3><p>Large volume pricing</p><div class="price">£1.80 per m²</div></div></article>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Hot water extraction pricing</div>
-            </div>
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative clean</p><div class="price">£3.40 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size area</p><div class="price">£3.10 per m²</div></div></article>
-              <article class="item"><div><h3>400 to 999 m²</h3><p>Larger commercial area</p><div class="price">£2.95 per m²</div></div></article>
-              <article class="item"><div><h3>1000+ m²</h3><p>Large volume pricing</p><div class="price">£2.80 per m²</div></div></article>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Room and area entry</div>
-              <div><button class="btn primary" type="button" id="addAreaBtn">Add room</button></div>
-            </div>
-
-            <div class="room-entry">
-              <div class="mutebox">Start by naming the room or area you want to quote, then choose the method and enter the square metres.</div>
-              <div id="roomList" class="room-list"></div>
-
-              <div class="cta">
-                <button class="btn primary" type="button" id="addAreaBtnBottom">Add room</button>
-                <button class="btn red" type="button" id="resetBtn">Reset all</button>
-                <button class="btn green" type="button" id="downloadBtn">Download CSV</button>
-              </div>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Hotel room pricing</div>
-            </div>
-
-            <div class="room-entry">
-              <div class="field">
-                <label for="hotelRoomMethod">Hotel room cleaning method</label>
-                <select id="hotelRoomMethod">
-                  <option value="rotary">Rotary bonnet at £25 per room</option>
-                  <option value="hwe">Hot water extraction at £35 per room</option>
-                </select>
-              </div>
-
-              <div class="field" style="margin-top:12px;">
-                <label for="hotelRoomQty">Number of hotel rooms</label>
-                <input id="hotelRoomQty" type="number" min="0" step="1" value="0">
-              </div>
-
-              <div class="field" style="margin-top:12px;">
-                <label for="includeVat" style="display:flex;align-items:center;gap:10px;">
-                  <input id="includeVat" type="checkbox" style="width:18px;height:18px;flex:0 0 auto;">
-                  Include VAT at 20%
-                </label>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <aside class="card">
-          <div class="card-h">
-            <h2>Your selected items</h2>
-            <small>Updated live as you build the quote</small>
-          </div>
-          <div class="card-b">
-            <div class="list" id="selectedList"></div>
-
-            <div class="hr"></div>
-            <div class="mutebox">
-              This CSV is designed to look tidy when opened in Excel, Google Sheets, or Numbers.
-            </div>
-          </div>
-        </aside>
-      </div>
-
-      <footer>
-        © Private Albrighton Hall commercial calculator
-      </footer>
-    </div>
-
-    <div class="sticky-bar" id="stickyBar">
-      <div class="sticky-inner">
-        <div class="sticky-total">
-          <span>Your total</span>
-          <b id="totalSticky">£0.00</b>
+        <div class="field">
+          <label>Method</label>
+          <select data-role="method" data-id="${row.id}">
+            <option value="rotary" ${row.method === "rotary" ? "selected" : ""}>Rotary bonnet</option>
+            <option value="hwe" ${row.method === "hwe" ? "selected" : ""}>Hot water extraction</option>
+          </select>
         </div>
 
-        <div class="sticky-actions">
-          <button class="btn ghost" type="button" id="resetSticky">Reset</button>
+        <div class="field">
+          <label>Square metres</label>
+          <input
+            type="number"
+            min="0"
+            step="0.1"
+            value="${row.sqm}"
+            data-role="sqm"
+            data-id="${row.id}"
+          >
         </div>
       </div>
-    </div>
-  </div>
 
-  <script>
-    const PASSWORD = "albrighton123";
-    const VAT_RATE = 0.20;
-    const ROTARY_ROOM_RATE = 25;
-    const HWE_ROOM_RATE = 35;
-
-    const ROTARY_BANDS = [
-      { min: 0, max: 150, rate: 2.50, label: "Up to 150 m²" },
-      { min: 151, max: 399, rate: 2.20, label: "151 to 399 m²" },
-      { min: 400, max: 999, rate: 2.00, label: "400 to 999 m²" },
-      { min: 1000, max: Infinity, rate: 1.80, label: "1000+ m²" }
-    ];
-
-    const HWE_BANDS = [
-      { min: 0, max: 150, rate: 3.40, label: "Up to 150 m²" },
-      { min: 151, max: 399, rate: 3.10, label: "151 to 399 m²" },
-      { min: 400, max: 999, rate: 2.95, label: "400 to 999 m²" },
-      { min: 1000, max: Infinity, rate: 2.80, label: "1000+ m²" }
-    ];
-
-    let roomRows = [];
-    let roomCounter = 0;
-
-    const fmt = n => "£" + (Math.round((Number(n) || 0) * 100) / 100).toFixed(2);
-
-    function escapeHtml(str){
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
-    function pickBand(m2, bands){
-      if (m2 <= 0) return null;
-      return bands.find(b => m2 >= b.min && m2 <= b.max) || bands[bands.length - 1];
-    }
-
-    function addRoomRow(data = {}){
-      roomCounter += 1;
-      roomRows.push({
-        id: roomCounter,
-        roomName: data.roomName || "",
-        method: data.method || "rotary",
-        sqm: Number(data.sqm || 0)
-      });
-      renderRoomRows();
-      renderSelected();
-    }
-
-    function removeRoomRow(id){
-      roomRows = roomRows.filter(r => r.id !== id);
-      renderRoomRows();
-      renderSelected();
-    }
-
-    function resetAll(){
-      roomRows = [];
-      roomCounter = 0;
-      document.getElementById("hotelRoomMethod").value = "rotary";
-      document.getElementById("hotelRoomQty").value = 0;
-      document.getElementById("includeVat").checked = false;
-      renderRoomRows();
-      renderSelected();
-    }
-
-    function renderRoomRows(){
-      const wrap = document.getElementById("roomList");
-
-      if (!roomRows.length){
-        wrap.innerHTML = `<div class="mutebox" style="margin-top:12px;">No rooms added yet. Click Add room to begin.</div>`;
-        return;
-      }
-
-      wrap.innerHTML = roomRows.map(row => {
-        const sqm = Math.max(0, Number(row.sqm) || 0);
-        const band = pickBand(sqm, row.method === "rotary" ? ROTARY_BANDS : HWE_BANDS);
-        const unit = band ? band.rate : 0;
-        const bandLabel = band ? band.label : "Waiting for square metres";
-        const total = sqm > 0 ? sqm * unit : 0;
-
-        return `
-          <div class="room-row">
-            <div class="room-grid">
-              <div class="field">
-                <label>Room or area name</label>
-                <input type="text" value="${escapeHtml(row.roomName)}" data-role="room-name" data-id="${row.id}" placeholder="Example: Kitchen, Corridor, Function Room">
-              </div>
-
-              <div class="field">
-                <label>Method</label>
-                <select data-role="method" data-id="${row.id}">
-                  <option value="rotary" ${row.method === "rotary" ? "selected" : ""}>Rotary bonnet</option>
-                  <option value="hwe" ${row.method === "hwe" ? "selected" : ""}>Hot water extraction</option>
-                </select>
-              </div>
-
-              <div class="field">
-                <label>Square metres</label>
-                <input type="number" min="0" step="0.1" value="${row.sqm}" data-role="sqm" data-id="${row.id}">
-              </div>
-
-              <div>
-                <button class="btn red" type="button" data-role="remove" data-id="${row.id}">Remove</button>
-              </div>
-            </div>
-
-            <div class="room-meta">
-              <div class="meta-box">
-                <span>Price band</span>
-                <b>${bandLabel}</b>
-              </div>
-              <div class="meta-box">
-                <span>Rate</span>
-                <b>${band ? fmt(unit) + " per m²" : "—"}</b>
-              </div>
-              <div class="meta-box">
-                <span>Line total</span>
-                <b>${fmt(total)}</b>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    function calculate(){
-      let subtotal = 0;
-      const lines = [];
-
-      roomRows.forEach(row => {
-        const sqm = Math.max(0, Number(row.sqm) || 0);
-        if (!sqm) return;
-
-        const isRotary = row.method === "rotary";
-        const band = pickBand(sqm, isRotary ? ROTARY_BANDS : HWE_BANDS);
-        if (!band) return;
-
-        const lineTotal = sqm * band.rate;
-        subtotal += lineTotal;
-
-        lines.push({
-          roomName: row.roomName || "Unnamed room",
-          method: isRotary ? "Rotary bonnet" : "Hot water extraction",
-          sqm,
-          band: band.label,
-          rate: band.rate,
-          total: lineTotal
-        });
-      });
-
-      const hotelRoomQty = Math.max(0, Number(document.getElementById("hotelRoomQty").value) || 0);
-      const hotelRoomMethod = document.getElementById("hotelRoomMethod").value;
-
-      if (hotelRoomQty > 0){
-        const unit = hotelRoomMethod === "rotary" ? ROTARY_ROOM_RATE : HWE_ROOM_RATE;
-        const methodLabel = hotelRoomMethod === "rotary" ? "Rotary bonnet hotel room" : "Hot water extraction hotel room";
-        const lineTotal = hotelRoomQty * unit;
-
-        subtotal += lineTotal;
-
-        lines.push({
-          roomName: "Hotel rooms",
-          method: methodLabel,
-          sqm: "",
-          band: "Room rate",
-          rate: unit,
-          total: lineTotal,
-          qtyRooms: hotelRoomQty
-        });
-      }
-
-      const includeVat = document.getElementById("includeVat").checked;
-      const vat = includeVat ? subtotal * VAT_RATE : 0;
-      const total = subtotal + vat;
-
-      return { lines, subtotal, vat, total, includeVat };
-    }
-
-    function renderSelected(){
-      const result = calculate();
-
-      document.getElementById("total").textContent = fmt(result.total);
-      document.getElementById("totalSticky").textContent = fmt(result.total);
-      document.getElementById("heroTotal").textContent = fmt(result.total);
-
-      const selected = document.getElementById("selectedList");
-
-      if (!result.lines.length){
-        selected.innerHTML = `<div class="mutebox">No items selected yet. Add rooms or hotel room quantities to see the estimate.</div>`;
-        return;
-      }
-
-      let html = result.lines.map(line => {
-        const subText = line.qtyRooms
-          ? `${line.method} · ${line.qtyRooms} × ${fmt(line.rate)} · ${line.band}`
-          : `${line.method} · ${line.sqm} m² × ${fmt(line.rate)} · ${line.band}`;
-
-        return `
-          <div class="line">
-            <div>
-              <b>${line.roomName}</b>
-              <small>${subText}</small>
-            </div>
-            <div class="money">${fmt(line.total)}</div>
-          </div>
-        `;
-      }).join("");
-
-      html += `
-        <div class="hr"></div>
-        <div class="line">
-          <div><b>Subtotal</b><small>Before VAT</small></div>
-          <div class="money">${fmt(result.subtotal)}</div>
+      <div class="room-meta">
+        <div class="meta-box">
+          <span>Price band</span>
+          <b data-meta="band">${totals.bandLabel}</b>
         </div>
-      `;
-
-      if (result.includeVat){
-        html += `
-          <div class="line">
-            <div><b>VAT</b><small>20% added</small></div>
-            <div class="money">${fmt(result.vat)}</div>
-          </div>
-        `;
-      }
-
-      html += `
-        <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
-          <div><b>Total</b><small>Commercial estimate</small></div>
-          <div class="money">${fmt(result.total)}</div>
+        <div class="meta-box">
+          <span>Rate</span>
+          <b data-meta="rate">${totals.band ? fmt(totals.unit) + " per m²" : "—"}</b>
         </div>
-      `;
+        <div class="meta-box">
+          <span>Line total</span>
+          <b data-meta="total">${fmt(totals.total)}</b>
+        </div>
+      </div>
+    `;
 
-      selected.innerHTML = html;
-    }
+    return wrapper;
+  }
 
-    function downloadCsv(){
-      const result = calculate();
+  function renderRoomRows(){
+    const wrap = document.getElementById("roomList");
+    wrap.innerHTML = "";
 
-      const rows = [];
-      rows.push(["Albrighton Hall Commercial Quote"]);
-      rows.push(["Generated", new Date().toLocaleString()]);
-      rows.push([]);
-      rows.push(["Room / Area","Method","Square Metres","Band","Rate Per m² / Room","Line Total"]);
-
-      result.lines.forEach(line => {
-        rows.push([
-          line.roomName,
-          line.method,
-          line.qtyRooms ? line.qtyRooms + " rooms" : line.sqm,
-          line.band,
-          fmt(line.rate),
-          fmt(line.total)
-        ]);
-      });
-
-      rows.push([]);
-      rows.push(["","","","Subtotal", "", fmt(result.subtotal)]);
-      if (result.includeVat){
-        rows.push(["","","","VAT 20%", "", fmt(result.vat)]);
-      }
-      rows.push(["","","","Final Total", "", fmt(result.total)]);
-
-      const csv = rows.map(row =>
-        row.map(cell => `"${String(cell ?? "").replace(/"/g, '""')}"`).join(",")
-      ).join("\n");
-
-      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "albrighton_hall_quote.csv";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
-    function unlock(){
-      const input = document.getElementById("passwordInput");
-      const error = document.getElementById("passwordError");
-
-      if (input.value === PASSWORD){
-        document.getElementById("gate").classList.add("hidden");
-        document.getElementById("app").classList.remove("hidden");
-        error.style.display = "none";
-      } else {
-        error.style.display = "block";
-      }
-    }
-
-    document.getElementById("unlockBtn").addEventListener("click", unlock);
-    document.getElementById("passwordInput").addEventListener("keydown", e => {
-      if (e.key === "Enter") unlock();
+    roomRows.forEach((row, index) => {
+      wrap.appendChild(createRoomRowElement(row, index));
     });
+  }
 
-    document.getElementById("roomList").addEventListener("input", e => {
-      const id = Number(e.target.dataset.id);
-      const row = roomRows.find(r => r.id === id);
-      if (!row) return;
+  function updateRoomCard(id){
+    const row = roomRows.find(r => r.id === id);
+    const card = document.querySelector(`.room-row[data-id="${id}"]`);
+    if (!row || !card) return;
 
-      if (e.target.dataset.role === "room-name") row.roomName = e.target.value;
-      if (e.target.dataset.role === "sqm") row.sqm = Number(e.target.value || 0);
+    const totals = getRowTotals(row);
 
-      renderRoomRows();
-      renderSelected();
+    const bandEl = card.querySelector('[data-meta="band"]');
+    const rateEl = card.querySelector('[data-meta="rate"]');
+    const totalEl = card.querySelector('[data-meta="total"]');
+
+    if (bandEl) bandEl.textContent = totals.bandLabel;
+    if (rateEl) rateEl.textContent = totals.band ? fmt(totals.unit) + " per m²" : "—";
+    if (totalEl) totalEl.textContent = fmt(totals.total);
+  }
+
+  function addRoomRow(data = {}){
+    roomCounter += 1;
+    roomRows.push({
+      id: roomCounter,
+      roomName: data.roomName || "",
+      method: data.method || "rotary",
+      sqm: Number(data.sqm || 0)
     });
-
-    document.getElementById("roomList").addEventListener("change", e => {
-      const id = Number(e.target.dataset.id);
-      const row = roomRows.find(r => r.id === id);
-      if (!row) return;
-
-      if (e.target.dataset.role === "method") row.method = e.target.value;
-
-      renderRoomRows();
-      renderSelected();
-    });
-
-    document.getElementById("roomList").addEventListener("click", e => {
-      const btn = e.target.closest("[data-role='remove']");
-      if (!btn) return;
-      removeRoomRow(Number(btn.dataset.id));
-    });
-
-    document.getElementById("addAreaBtn").addEventListener("click", () => addRoomRow());
-    document.getElementById("addAreaBtnBottom").addEventListener("click", () => addRoomRow());
-    document.getElementById("resetBtn").addEventListener("click", resetAll);
-    document.getElementById("resetTop").addEventListener("click", resetAll);
-    document.getElementById("resetSticky").addEventListener("click", resetAll);
-    document.getElementById("downloadBtn").addEventListener("click", downloadCsv);
-
-    ["hotelRoomQty","hotelRoomMethod","includeVat"].forEach(id => {
-      document.getElementById(id).addEventListener("input", renderSelected);
-      document.getElementById(id).addEventListener("change", renderSelected);
-    });
-
     renderRoomRows();
     renderSelected();
-  </script>
-</body>
-</html>
+  }
+
+  function ensureAtLeastOneRow(){
+    if (!roomRows.length){
+      addRoomRow();
+    }
+  }
+
+  function removeRoomRow(id){
+    roomRows = roomRows.filter(r => r.id !== id);
+    if (!roomRows.length){
+      roomCounter = 0;
+      addRoomRow();
+      return;
+    }
+    renderRoomRows();
+    renderSelected();
+  }
+
+  function resetAll(){
+    roomRows = [];
+    roomCounter = 0;
+    document.getElementById("hotelRoomMethod").value = "rotary";
+    document.getElementById("hotelRoomQty").value = 0;
+    document.getElementById("includeVat").checked = false;
+    addRoomRow();
+  }
+
+  function calculate(){
+    let subtotal = 0;
+    const lines = [];
+
+    roomRows.forEach(row => {
+      const sqm = Math.max(0, Number(row.sqm) || 0);
+      if (!sqm) return;
+
+      const isRotary = row.method === "rotary";
+      const band = pickBand(sqm, isRotary ? ROTARY_BANDS : HWE_BANDS);
+      if (!band) return;
+
+      const lineTotal = sqm * band.rate;
+      subtotal += lineTotal;
+
+      lines.push({
+        roomName: row.roomName || "Unnamed room",
+        method: isRotary ? "Rotary bonnet" : "Hot water extraction",
+        sqm,
+        band: band.label,
+        rate: band.rate,
+        total: lineTotal
+      });
+    });
+
+    const hotelRoomQty = Math.max(0, Number(document.getElementById("hotelRoomQty").value) || 0);
+    const hotelRoomMethod = document.getElementById("hotelRoomMethod").value;
+
+    if (hotelRoomQty > 0){
+      const unit = hotelRoomMethod === "rotary" ? ROTARY_ROOM_RATE : HWE_ROOM_RATE;
+      const methodLabel = hotelRoomMethod === "rotary" ? "Rotary bonnet hotel room" : "Hot water extraction hotel room";
+      const lineTotal = hotelRoomQty * unit;
+
+      subtotal += lineTotal;
+
+      lines.push({
+        roomName: "Hotel rooms",
+        method: methodLabel,
+        sqm: "",
+        band: "Room rate",
+        rate: unit,
+        total: lineTotal,
+        qtyRooms: hotelRoomQty
+      });
+    }
+
+    const includeVat = document.getElementById("includeVat").checked;
+    const vat = includeVat ? subtotal * VAT_RATE : 0;
+    const total = subtotal + vat;
+
+    return { lines, subtotal, vat, total, includeVat };
+  }
+
+  function renderSelected(){
+    const result = calculate();
+
+    document.getElementById("total").textContent = fmt(result.total);
+    document.getElementById("totalSticky").textContent = fmt(result.total);
+    document.getElementById("heroTotal").textContent = fmt(result.total);
+
+    const selected = document.getElementById("selectedList");
+
+    if (!result.lines.length){
+      selected.innerHTML = `<div class="mutebox">No priced items yet. Start typing square metres or add hotel room quantities.</div>`;
+      return;
+    }
+
+    let html = result.lines.map(line => {
+      const subText = line.qtyRooms
+        ? `${line.method} · ${line.qtyRooms} × ${fmt(line.rate)} · ${line.band}`
+        : `${line.method} · ${line.sqm} m² × ${fmt(line.rate)} · ${line.band}`;
+
+      return `
+        <div class="line">
+          <div>
+            <b>${line.roomName}</b>
+            <small>${subText}</small>
+          </div>
+          <div class="money">${fmt(line.total)}</div>
+        </div>
+      `;
+    }).join("");
+
+    html += `
+      <div class="hr"></div>
+      <div class="line">
+        <div><b>Subtotal</b><small>Before VAT</small></div>
+        <div class="money">${fmt(result.subtotal)}</div>
+      </div>
+    `;
+
+    if (result.includeVat){
+      html += `
+        <div class="line">
+          <div><b>VAT</b><small>20% added</small></div>
+          <div class="money">${fmt(result.vat)}</div>
+        </div>
+      `;
+    }
+
+    html += `
+      <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
+        <div><b>Total</b><small>Commercial estimate</small></div>
+        <div class="money">${fmt(result.total)}</div>
+      </div>
+    `;
+
+    selected.innerHTML = html;
+  }
+
+  function downloadCsv(){
+    const result = calculate();
+
+    const rows = [];
+    rows.push(["Albrighton Hall Commercial Quote"]);
+    rows.push(["Generated", new Date().toLocaleString()]);
+    rows.push([]);
+    rows.push(["Room / Area","Method","Square Metres","Band","Rate","Line Total"]);
+
+    result.lines.forEach(line => {
+      rows.push([
+        line.roomName,
+        line.method,
+        line.qtyRooms ? `${line.qtyRooms} rooms` : line.sqm,
+        line.band,
+        fmt(line.rate),
+        fmt(line.total)
+      ]);
+    });
+
+    rows.push([]);
+    rows.push(["","","","Subtotal","",fmt(result.subtotal)]);
+    if (result.includeVat){
+      rows.push(["","","","VAT 20%","",fmt(result.vat)]);
+    }
+    rows.push(["","","","Final Total","",fmt(result.total)]);
+
+    const csv = rows.map(row =>
+      row.map(cell => `"${String(cell ?? "").replace(/"/g, '""')}"`).join(",")
+    ).join("\n");
+
+    const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "albrighton_hall_quote.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function unlock(){
+    const input = document.getElementById("passwordInput");
+    const error = document.getElementById("passwordError");
+
+    if (input.value === PASSWORD){
+      document.getElementById("gate").classList.add("hidden");
+      document.getElementById("app").classList.remove("hidden");
+      error.style.display = "none";
+    } else {
+      error.style.display = "block";
+    }
+  }
+
+  document.getElementById("unlockBtn").addEventListener("click", unlock);
+  document.getElementById("passwordInput").addEventListener("keydown", e => {
+    if (e.key === "Enter") unlock();
+  });
+
+  document.getElementById("roomList").addEventListener("input", e => {
+    const id = Number(e.target.dataset.id);
+    const row = roomRows.find(r => r.id === id);
+    if (!row) return;
+
+    if (e.target.dataset.role === "room-name") row.roomName = e.target.value;
+    if (e.target.dataset.role === "sqm") row.sqm = Number(e.target.value || 0);
+
+    updateRoomCard(id);
+    renderSelected();
+  });
+
+  document.getElementById("roomList").addEventListener("change", e => {
+    const id = Number(e.target.dataset.id);
+    const row = roomRows.find(r => r.id === id);
+    if (!row) return;
+
+    if (e.target.dataset.role === "method") {
+      row.method = e.target.value;
+      updateRoomCard(id);
+      renderSelected();
+    }
+  });
+
+  document.getElementById("roomList").addEventListener("click", e => {
+    const btn = e.target.closest("[data-role='remove']");
+    if (!btn) return;
+    removeRoomRow(Number(btn.dataset.id));
+  });
+
+  document.getElementById("addRoomTop").addEventListener("click", () => addRoomRow());
+  document.getElementById("addRoomBottom").addEventListener("click", () => addRoomRow());
+  document.getElementById("resetBtn").addEventListener("click", resetAll);
+  document.getElementById("resetTop").addEventListener("click", resetAll);
+  document.getElementById("resetSticky").addEventListener("click", resetAll);
+  document.getElementById("downloadBtn").addEventListener("click", downloadCsv);
+
+  ["hotelRoomQty","hotelRoomMethod","includeVat"].forEach(id => {
+    document.getElementById(id).addEventListener("input", renderSelected);
+    document.getElementById(id).addEventListener("change", renderSelected);
+  });
+
+  ensureAtLeastOneRow();
+  renderSelected();
+</script>
