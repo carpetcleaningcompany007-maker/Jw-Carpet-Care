@@ -22,22 +22,32 @@
       --line:rgba(12,24,40,.10);
       --shadow:0 18px 48px rgba(13,27,45,.10);
       --shadow-soft:0 10px 24px rgba(15,35,65,.07);
-      --shadow-strong:0 20px 40px rgba(15,35,65,.14);
       --r:22px;
-      --max:1240px;
+      --max:1180px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     }
 
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
+    *{
+      box-sizing:border-box;
+      min-width:0;
+    }
+
+    html,body{
+      margin:0;
+      padding:0;
+      max-width:100%;
+      overflow-x:hidden;
+    }
+
     body{
       font-family:var(--font);
       color:var(--ink);
       background:
         radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
         radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
-        linear-gradient(180deg, #0d1f39 0%, #15335e 320px, var(--bg) 321px);
+        linear-gradient(180deg, #0d1f39 0%, #15335e 300px, var(--bg) 301px);
       min-height:100vh;
+      overflow-x:hidden;
     }
 
     .hidden{display:none !important}
@@ -54,9 +64,8 @@
       font-weight:900;
       font-size:13px;
       white-space:nowrap;
-      box-shadow:0 12px 28px rgba(0,0,0,.16);
-      transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
       text-decoration:none;
+      transition:transform .12s ease, filter .12s ease;
     }
     .btn:hover{transform:translateY(-1px);filter:saturate(1.03)}
     .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
@@ -66,6 +75,7 @@
 
     input,select{
       width:100%;
+      max-width:100%;
       padding:13px 14px;
       border-radius:14px;
       border:2px solid rgba(12,24,40,.10);
@@ -73,12 +83,13 @@
       font:inherit;
       font-size:14px;
       outline:none;
-      transition:border-color .12s ease, box-shadow .12s ease, transform .12s ease;
+      transition:border-color .12s ease, box-shadow .12s ease;
     }
     input:focus,select:focus{
       border-color:rgba(31,95,191,.55);
       box-shadow:0 0 0 4px rgba(31,95,191,.12);
     }
+
     label{
       font-size:12px;
       color:var(--muted);
@@ -130,10 +141,13 @@
     }
 
     .wrap{
+      width:100%;
       max-width:var(--max);
       margin:0 auto;
-      padding:18px 14px 90px;
+      padding:18px 14px 100px;
+      overflow-x:hidden;
     }
+
     .topbar{
       display:flex;
       align-items:center;
@@ -142,13 +156,17 @@
       flex-wrap:wrap;
       color:#fff;
       padding:6px 0 14px;
+      width:100%;
     }
+
     .brand{
       display:flex;
       align-items:center;
       gap:12px;
       min-width:0;
+      max-width:100%;
     }
+
     .brand-badge{
       width:52px;
       height:52px;
@@ -159,9 +177,9 @@
       background:linear-gradient(135deg,var(--brand),var(--brand2));
       color:#fff;
       font-weight:1000;
-      box-shadow:0 10px 22px rgba(0,0,0,.18);
       flex:0 0 auto;
     }
+
     .brand-title{
       font-size:13px;
       font-weight:900;
@@ -169,6 +187,7 @@
       text-transform:uppercase;
       opacity:.92;
     }
+
     .brand span{
       display:block;
       font-size:13px;
@@ -184,7 +203,9 @@
       border-radius:24px;
       padding:22px 20px 18px;
       box-shadow:0 24px 60px rgba(0,0,0,.18);
+      width:100%;
     }
+
     .hero::after{
       content:"";
       position:absolute;
@@ -194,6 +215,7 @@
       background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);
       pointer-events:none;
     }
+
     .hero-top{
       position:relative;
       z-index:1;
@@ -202,8 +224,11 @@
       justify-content:space-between;
       gap:16px;
       flex-wrap:wrap;
+      width:100%;
     }
+
     .hero-copy{max-width:760px}
+
     .hero-kicker{
       display:inline-flex;
       align-items:center;
@@ -218,12 +243,14 @@
       text-transform:uppercase;
       margin-bottom:10px;
     }
+
     .hero h1{
       margin:0;
       font-size:30px;
       line-height:1.04;
       letter-spacing:-.03em;
     }
+
     .hero p{
       margin:8px 0 0;
       color:rgba(255,255,255,.86);
@@ -231,6 +258,7 @@
       line-height:1.55;
       max-width:68ch;
     }
+
     .hero-total{
       display:flex;
       align-items:center;
@@ -239,26 +267,29 @@
       border-radius:18px;
       background:rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(10px);
     }
     .hero-total b{display:block;font-size:22px}
     .hero-total span{display:block;font-size:12px;opacity:.84}
 
     .grid{
       display:grid;
-      grid-template-columns:1.18fr .82fr;
+      grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);
       gap:18px;
       align-items:start;
       margin-top:18px;
+      width:100%;
     }
+
     .card{
       background:rgba(255,255,255,.95);
-      backdrop-filter:blur(10px);
       border:1px solid rgba(255,255,255,.55);
       border-radius:var(--r);
       box-shadow:var(--shadow);
       overflow:hidden;
+      width:100%;
+      max-width:100%;
     }
+
     .card-h{
       padding:16px 16px 14px;
       border-bottom:1px solid rgba(12,24,40,.08);
@@ -270,16 +301,19 @@
 
     .summary{
       display:grid;
-      grid-template-columns:repeat(3,1fr);
+      grid-template-columns:repeat(3,minmax(0,1fr));
       gap:12px;
       margin-bottom:14px;
+      width:100%;
     }
+
     .summary-box{
       background:linear-gradient(135deg,#fff,#f7fbff);
       border:1px solid rgba(12,24,40,.08);
       border-radius:18px;
       padding:14px;
       box-shadow:var(--shadow-soft);
+      min-width:0;
     }
     .summary-box span{
       font-size:12px;
@@ -298,19 +332,23 @@
 
     .method-grid{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:14px;
       margin-top:14px;
+      width:100%;
     }
+
     .method-card{
       border:1px solid rgba(12,24,40,.08);
       border-radius:20px;
       padding:14px;
       background:linear-gradient(135deg,#fff,#f7fbff);
       box-shadow:var(--shadow-soft);
+      min-width:0;
     }
     .method-card h3{margin:0;font-size:16px}
     .method-card p{margin:6px 0 0;color:var(--muted);font-size:12.5px;font-weight:700;line-height:1.5}
+
     .band-list{display:grid;gap:8px;margin-top:12px}
     .band{
       display:flex;
@@ -323,6 +361,7 @@
       border:1px solid rgba(12,24,40,.08);
     }
     .band b{font-size:13px}
+
     .pill-rate{
       background:linear-gradient(135deg,var(--green),var(--green2));
       color:#fff;
@@ -331,6 +370,7 @@
       font-weight:900;
       font-size:12px;
       white-space:nowrap;
+      flex:0 0 auto;
     }
 
     .entry-panel{
@@ -338,10 +378,10 @@
       border:2px solid rgba(31,95,191,.18);
       border-radius:24px;
       overflow:hidden;
-      box-shadow:var(--shadow-strong);
       background:
         radial-gradient(700px 220px at 0% 0%, rgba(31,95,191,.10), transparent 60%),
         linear-gradient(135deg,#ffffff,#f4f9ff);
+      width:100%;
     }
 
     .entry-panel-head{
@@ -361,9 +401,7 @@
       opacity:.92;
     }
 
-    .entry-panel-body{
-      padding:18px;
-    }
+    .entry-panel-body{padding:18px}
 
     .section-head{
       display:flex;
@@ -374,12 +412,14 @@
       padding-top:14px;
       border-top:1px dashed rgba(12,24,40,.12);
       font-weight:950;
+      width:100%;
     }
     .section-head:first-child{
       margin-top:0;
       padding-top:0;
       border-top:0;
     }
+
     .plus{
       width:30px;
       height:30px;
@@ -390,14 +430,16 @@
       color:#fff;
       background:linear-gradient(135deg,var(--brand),var(--brand2));
       margin-right:8px;
-      box-shadow:0 10px 22px rgba(31,95,191,.25);
+      flex:0 0 auto;
     }
 
     .room-list{
       display:grid;
       gap:12px;
       margin-top:12px;
+      width:100%;
     }
+
     .room-row{
       border:2px solid rgba(31,95,191,.18);
       border-radius:20px;
@@ -405,8 +447,10 @@
       background:
         radial-gradient(340px 140px at 0% 0%, rgba(31,95,191,.10), transparent 60%),
         linear-gradient(135deg,#ffffff,#f5f9ff);
-      box-shadow:0 14px 30px rgba(15,35,65,.08);
+      width:100%;
+      overflow:hidden;
     }
+
     .room-row::before{
       content:"Enter room details here";
       display:inline-block;
@@ -419,30 +463,21 @@
       font-weight:1000;
       letter-spacing:.04em;
       text-transform:uppercase;
-      box-shadow:0 8px 18px rgba(242,168,29,.25);
     }
+
     .room-grid{
       display:grid;
-      grid-template-columns:1.35fr 1fr .85fr auto;
+      grid-template-columns:minmax(0,1.35fr) minmax(0,1fr) minmax(0,.85fr) auto;
       gap:12px;
       align-items:end;
+      width:100%;
     }
+
     .room-row label{
       font-size:12px;
       color:var(--brand3);
       font-weight:1000;
       margin-bottom:7px;
-    }
-    .room-row input,
-    .room-row select{
-      border:2px solid rgba(31,95,191,.14);
-      background:#fff;
-      box-shadow:0 6px 16px rgba(15,35,65,.05);
-    }
-    .room-row input:focus,
-    .room-row select:focus{
-      border-color:rgba(31,95,191,.55);
-      box-shadow:0 0 0 4px rgba(31,95,191,.12);
     }
 
     .room-actions{
@@ -454,16 +489,19 @@
 
     .extras-grid{
       display:grid;
-      grid-template-columns:1fr 1fr;
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:12px;
       margin-top:12px;
+      width:100%;
     }
+
     .input-card{
       border:1px solid rgba(12,24,40,.08);
       border-radius:18px;
       padding:14px;
       background:linear-gradient(135deg,#fff,#f7fbff);
       box-shadow:var(--shadow-soft);
+      min-width:0;
     }
     .input-card h3{margin:0 0 4px;font-size:15px}
     .input-card p{margin:0 0 12px;color:var(--muted);font-size:12px;font-weight:700}
@@ -479,9 +517,19 @@
       border-radius:16px;
       background:#fff;
     }
-    .toggle-row input{width:18px;height:18px}
+    .toggle-row input{
+      width:18px;
+      height:18px;
+      flex:0 0 auto;
+    }
 
-    .list{display:flex;flex-direction:column;gap:10px}
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      width:100%;
+    }
+
     .line{
       display:flex;
       justify-content:space-between;
@@ -491,7 +539,9 @@
       border:1px solid rgba(12,24,40,.08);
       border-radius:16px;
       background:linear-gradient(135deg,#fff,#f7faff);
-      box-shadow:0 8px 18px rgba(15,35,65,.05);
+      box-shadow:var(--shadow-soft);
+      width:100%;
+      min-width:0;
     }
     .line b{font-size:13px}
     .line small{
@@ -501,66 +551,204 @@
       font-weight:850;
       line-height:1.45;
     }
-    .money{font-weight:950;color:var(--green)}
-    .hr{height:1px;background:rgba(12,24,40,.10);margin:12px 0}
+    .money{
+      font-weight:950;
+      color:var(--green);
+      flex:0 0 auto;
+      white-space:nowrap;
+    }
+
+    .hr{
+      height:1px;
+      background:rgba(12,24,40,.10);
+      margin:12px 0;
+      width:100%;
+    }
 
     .sticky-bar{
       position:fixed;
       left:0;
       right:0;
       bottom:0;
+      width:100%;
+      max-width:100%;
+      overflow:hidden;
       background:linear-gradient(135deg,#0e2a55,#091a32);
       color:#fff;
       border-top:1px solid rgba(255,255,255,.10);
-      box-shadow:0 -14px 34px rgba(0,0,0,.28);
       padding:10px 12px calc(10px + env(safe-area-inset-bottom));
       z-index:9999;
-      backdrop-filter:blur(12px);
     }
+
     .sticky-inner{
+      width:100%;
       max-width:var(--max);
       margin:0 auto;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      flex-wrap:nowrap;
+      min-width:0;
     }
-    .sticky-total{display:flex;flex-direction:column;font-weight:900;min-width:112px}
-    .sticky-total span{font-size:11px;opacity:.80;line-height:1.1;text-transform:uppercase;letter-spacing:.05em}
-    .sticky-total b{font-size:18px;letter-spacing:-.02em;line-height:1.1;margin-top:2px}
-    .sticky-actions{display:flex;gap:8px;flex-wrap:nowrap;align-items:center}
+
+    .sticky-total{
+      display:flex;
+      flex-direction:column;
+      font-weight:900;
+      min-width:90px;
+      flex:0 0 auto;
+    }
+    .sticky-total span{
+      font-size:11px;
+      opacity:.80;
+      line-height:1.1;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+    .sticky-total b{
+      font-size:18px;
+      letter-spacing:-.02em;
+      line-height:1.1;
+      margin-top:2px;
+      white-space:nowrap;
+    }
+
+    .sticky-actions{
+      display:flex;
+      gap:8px;
+      align-items:center;
+      min-width:0;
+      flex:1 1 auto;
+      justify-content:flex-end;
+    }
 
     @media (max-width: 980px){
-      .grid,.summary,.method-grid,.extras-grid,.room-grid{grid-template-columns:1fr}
-      .hero-top{align-items:flex-start}
+      .grid,
+      .summary,
+      .method-grid,
+      .extras-grid,
+      .room-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-top{
+        align-items:flex-start;
+      }
     }
 
     @media (max-width: 600px){
-      body{padding-bottom:86px}
-      .wrap{padding:12px 12px 20px}
-      .topbar{padding:2px 0 10px}
-      .top-actions{display:none}
-      .brand-title,.brand span{display:none}
-      .brand-badge{width:44px;height:44px}
-      .hero{padding:14px 12px;border-radius:18px}
-      .hero-kicker,.hero-total{display:none}
-      .hero h1{font-size:21px}
-      .hero p{font-size:12.5px;line-height:1.45}
-      .card-h{padding:13px 14px}
-      .card-b{padding:14px}
-      .entry-panel-head{padding:15px 14px 14px}
-      .entry-panel-head h3{font-size:19px}
-      .entry-panel-body{padding:14px}
-      .room-row{padding:14px}
-      .room-row::before{margin-bottom:10px;font-size:10px}
-      .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-      .sticky-inner{gap:8px}
-      .sticky-total{min-width:84px}
-      .sticky-total span{font-size:10px}
-      .sticky-total b{font-size:15px}
-      .sticky-actions{gap:6px}
-      .sticky-actions .btn{padding:9px 10px;font-size:12px;box-shadow:none}
+      body{
+        padding-bottom:86px;
+      }
+
+      .wrap{
+        padding:12px 12px 20px;
+      }
+
+      .topbar{
+        padding:2px 0 10px;
+      }
+
+      .top-actions{
+        display:none;
+      }
+
+      .brand-title,
+      .brand span{
+        display:none;
+      }
+
+      .brand-badge{
+        width:44px;
+        height:44px;
+      }
+
+      .hero{
+        padding:14px 12px;
+        border-radius:18px;
+      }
+
+      .hero-kicker,
+      .hero-total{
+        display:none;
+      }
+
+      .hero h1{
+        font-size:21px;
+      }
+
+      .hero p{
+        font-size:12.5px;
+        line-height:1.45;
+      }
+
+      .card-h{
+        padding:13px 14px;
+      }
+
+      .card-b{
+        padding:14px;
+      }
+
+      .entry-panel-head{
+        padding:15px 14px 14px;
+      }
+
+      .entry-panel-head h3{
+        font-size:19px;
+      }
+
+      .entry-panel-body{
+        padding:14px;
+      }
+
+      .room-row{
+        padding:14px;
+      }
+
+      .room-row::before{
+        margin-bottom:10px;
+        font-size:10px;
+      }
+
+      .sticky-bar{
+        padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+      }
+
+      .sticky-inner,
+      .topbar,
+      .hero-top,
+      .room-grid,
+      .summary,
+      .method-grid,
+      .extras-grid,
+      .grid{
+        width:100%;
+        max-width:100%;
+      }
+
+      .sticky-total{
+        min-width:84px;
+      }
+
+      .sticky-total span{
+        font-size:10px;
+      }
+
+      .sticky-total b{
+        font-size:15px;
+      }
+
+      .sticky-actions{
+        gap:6px;
+      }
+
+      .sticky-actions .btn{
+        flex:1 1 auto;
+        min-width:0;
+        padding:9px 10px;
+        font-size:12px;
+      }
     }
   </style>
 </head>
@@ -604,7 +792,7 @@
           <div class="hero-copy">
             <div class="hero-kicker">Commercial pricing tool</div>
             <h1>Albrighton Hall cleaning calculator</h1>
-            <p>Add areas room by room, choose the method for each one, and the calculator totals everything automatically. You can also add hotel bedroom counts separately.</p>
+            <p>Add areas room by room, choose the method for each one, and total everything automatically.</p>
           </div>
           <div class="hero-total">
             <div>
@@ -619,7 +807,7 @@
         <section class="card">
           <div class="card-h">
             <h2>Build the quote</h2>
-            <small>Enter the pricing details clearly below. The calculator will work everything out for you.</small>
+            <small>Enter the pricing details below and it will total automatically.</small>
           </div>
           <div class="card-b">
             <div class="summary">
@@ -652,7 +840,7 @@
 
               <div class="method-card">
                 <h3>Hot water extraction pricing</h3>
-                <p>Deeper restorative cleaning with higher labour and moisture load.</p>
+                <p>Deeper restorative cleaning with softer pricing.</p>
                 <div class="band-list">
                   <div class="band"><div><b>Up to 150 m²</b></div><div class="pill-rate">£3.60 per m²</div></div>
                   <div class="band"><div><b>151 to 399 m²</b></div><div class="pill-rate">£3.30 per m²</div></div>
@@ -666,7 +854,7 @@
             <div class="entry-panel">
               <div class="entry-panel-head">
                 <h3>Enter pricing details here</h3>
-                <p>This is the main data entry area. Add each room or area, choose the cleaning method, and enter the square metres. The calculator will total it all up automatically.</p>
+                <p>Add each room or area, choose the method, then enter the square metres.</p>
               </div>
 
               <div class="entry-panel-body">
@@ -679,6 +867,7 @@
 
                 <div class="room-actions">
                   <button id="addRoomBtn" class="btn primary" type="button">Add area</button>
+                  <button id="resetBtn" class="btn red" type="button">Reset all</button>
                   <button id="downloadBtn" class="btn ghost" type="button">Download CSV</button>
                 </div>
 
@@ -715,7 +904,7 @@
         <aside class="card" id="breakdownCard">
           <div class="card-h">
             <h2>Your breakdown</h2>
-            <small>Shows each room entered, the method, and the price band used.</small>
+            <small>Shows each area entered, the method, and the price used.</small>
           </div>
           <div class="card-b">
             <div class="list" id="breakdownList"></div>
@@ -744,7 +933,7 @@
                   <div class="line">
                     <div>
                       <b>Combi</b>
-                      <small>Use this when an area needs both bonnet and extraction. The calculator adds both rates together.</small>
+                      <small>Use this when an area needs both bonnet and extraction.</small>
                     </div>
                   </div>
                 </div>
@@ -828,6 +1017,16 @@
 
     function removeRoomRow(id){
       roomRows = roomRows.filter(r => r.id !== id);
+      renderRoomRows();
+      render();
+    }
+
+    function resetAll(){
+      roomRows = [];
+      roomCounter = 0;
+      document.getElementById("rotaryRooms").value = 0;
+      document.getElementById("hweRooms").value = 0;
+      document.getElementById("includeVat").checked = false;
       renderRoomRows();
       render();
     }
@@ -1060,6 +1259,7 @@
     });
 
     document.getElementById("addRoomBtn").addEventListener("click", () => addRoomRow());
+    document.getElementById("resetBtn").addEventListener("click", resetAll);
     document.getElementById("downloadBtn").addEventListener("click", downloadCsv);
 
     ["rotaryRooms","hweRooms","includeVat"].forEach(id => {
@@ -1067,7 +1267,8 @@
       document.getElementById(id).addEventListener("change", render);
     });
 
-    addRoomRow({ roomName: "Example area", method: "rotary", sqm: 100 });
+    renderRoomRows();
+    render();
   </script>
 </body>
 </html>
