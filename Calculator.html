@@ -52,12 +52,13 @@
 
     .hero{
       background:linear-gradient(135deg,#10305d,#0c2243 65%,#0a1930);
-      color:#fff;border-radius:28px;padding:24px;box-shadow:0 30px 70px rgba(0,0,0,.22);
+      color:#fff;border-radius:28px;padding:18px 20px;box-shadow:0 30px 70px rgba(0,0,0,.22);
     }
-    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center}
-    .hero h1{margin:0;font-size:40px;line-height:1.02;letter-spacing:-.03em}
-    .hero p{margin:12px 0 0;color:rgba(255,255,255,.88);font-size:15px;line-height:1.6;max-width:60ch}
-    .badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;align-items:center}
+    .hero h1{margin:0;font-size:28px;line-height:1.08;letter-spacing:-.03em}
+    .hero p{margin:8px 0 0;color:rgba(255,255,255,.88);font-size:14px;line-height:1.55;max-width:56ch}
+    .hero-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+    .badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;align-content:flex-start}
     .tag{
       background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);color:#fff;
       padding:10px 12px;border-radius:999px;font-size:12px;font-weight:900;backdrop-filter:blur(10px)
@@ -151,8 +152,20 @@
       .hero-grid,.grid,.form-grid,.summary{grid-template-columns:1fr}
       .badges{justify-content:flex-start}
     }
-    @media (max-width: 480px){
-      .hero h1{font-size:30px}
+      .badges{justify-content:flex-start}
+    }
+    @media (max-width: 600px){
+      .hero{padding:14px 14px 16px;border-radius:22px}
+      .hero h1{font-size:20px}
+      .hero p{font-size:13px;margin-top:6px}
+      .brand img{height:38px !important}
+      .topbar{gap:10px}
+      .top-actions{width:100%}
+      .top-actions .btn{flex:1;min-width:0;padding:10px 12px}
+      .badges{margin-top:8px}
+      .tag{padding:8px 10px;font-size:11px}
+      .wrap{padding-bottom:56px}
+    }
       .wrap{padding-bottom:56px}
     }
   
@@ -213,10 +226,11 @@
     <section class="hero">
       <div class="hero-grid">
         <div>
-          <h1>Get a quick quote for carpets, rugs and upholstery</h1>
+          <div class="hero-kicker">JW Carpet Care Quote Calculator</div>
+          <h1>Welcome to the JW Carpet Care calculator</h1>
           <p>
             Add the rooms or items you want cleaned and your estimate updates instantly.
-            Simple, clear and easy to use.
+            A simple way to get a quick idea on price before booking.
           </p>
         </div>
         <div class="badges">
