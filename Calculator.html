@@ -163,7 +163,13 @@
       .topbar{gap:10px}
       .top-actions{width:100%}
       .top-actions .btn{flex:1;min-width:0;padding:10px 12px}
-      .wrap{padding-bottom:56px}
+      .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+      .sticky-total{min-width:92px}
+      .sticky-total span{font-size:10px}
+      .sticky-total b{font-size:15px}
+      .sticky-actions{gap:6px}
+      .sticky-actions .btn{padding:9px 11px;font-size:12px;box-shadow:none}
+      .wrap{padding-bottom:88px}
     }
       .wrap{padding-bottom:56px}
     }
@@ -174,12 +180,13 @@
       left:0;
       right:0;
       bottom:0;
-      background:linear-gradient(135deg,#0c2243,#0a1930);
+      background:linear-gradient(135deg,#0d2a57,#0a1d3a);
       color:#fff;
-      border-top:1px solid rgba(255,255,255,.15);
-      box-shadow:0 -16px 40px rgba(0,0,0,.35);
-      padding:10px 14px;
+      border-top:1px solid rgba(255,255,255,.12);
+      box-shadow:0 -14px 34px rgba(0,0,0,.28);
+      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
       z-index:999;
+      display:block;
     }
     .sticky-inner{
       max-width:var(--max);
@@ -188,17 +195,17 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      flex-wrap:wrap;
+      flex-wrap:nowrap;
     }
     .sticky-total{
       display:flex;
       flex-direction:column;
       font-weight:900;
+      min-width:110px;
     }
-    .sticky-total span{font-size:11px;opacity:.8}
-    .sticky-total b{font-size:18px;letter-spacing:-.02em}
-
-    .sticky-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .sticky-total span{font-size:11px;opacity:.82;line-height:1.1}
+    .sticky-total b{font-size:18px;letter-spacing:-.02em;line-height:1.1;margin-top:2px}
+    .sticky-actions{display:flex;gap:8px;flex-wrap:nowrap;align-items:center}
 
     @media (max-width:600px){
       body{padding-bottom:70px}
@@ -376,7 +383,7 @@
       <div class="sticky-actions">
         <a class="btn primary" href="#callback">Book</a>
         <a class="btn ghost" href="tel:07838231389">Call</a>
-        <a class="btn green" href="mailto:infojwcarpetcare@gmail.com">Message</a>
+        <a class="btn green" href="mailto:infojwcarpetcare@gmail.com?subject=JW%20Carpet%20Care%20Calculator%20Question">Message</a>
       </div>
     </div>
   </div>
