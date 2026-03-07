@@ -12,7 +12,7 @@
       --muted:#60718a;
       --brand:#1f5fbf;
       --brand2:#163f7d;
-      --brand3:#0e274c;
+      --brand3:#0d2548;
       --green:#14945c;
       --green2:#0f7447;
       --card:#ffffff;
@@ -217,6 +217,37 @@
       display:block;
       font-size:12px;
       opacity:.84;
+    }
+
+    .hero-showcase{
+      position:relative;
+      z-index:1;
+      margin-top:14px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:0 16px 34px rgba(0,0,0,.18);
+    }
+
+    .hero-showcase img{
+      display:block;
+      width:100%;
+      height:220px;
+      object-fit:cover;
+    }
+
+    .hero-showcase .caption{
+      position:absolute;
+      left:12px;
+      bottom:12px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(10,25,48,.72);
+      color:#fff;
+      font-size:12px;
+      font-weight:900;
+      border:1px solid rgba(255,255,255,.14);
+      backdrop-filter:blur(8px);
     }
 
     .grid{
@@ -611,6 +642,8 @@
       .hero-kicker,.hero-total{display:none}
       .hero h1{font-size:20px}
       .hero p{font-size:12.5px;line-height:1.45}
+      .hero-showcase img{height:150px}
+      .hero-showcase .caption{font-size:11px;padding:7px 10px}
       .items{grid-template-columns:1fr;gap:10px}
       .item{padding:11px;border-radius:16px}
       .card-h{padding:13px 14px}
@@ -633,7 +666,7 @@
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
-        <img src="https://github.com/carpetcleaningcompany007-maker/Jw-Carpet-Care/blob/main/Screenshot%202026-03-05%20221453.png?raw=true" alt="JW Carpet Care">
+        <img src="https://raw.githubusercontent.com/carpetcleaningcompany007-maker/Jw-Carpet-Care/main/Screenshot%202026-03-05%20221453.png" alt="JW Carpet Care">
         <div class="brand-copy">
           <div class="brand-title">JW Carpet Care</div>
           <span>Professional carpet and upholstery cleaning across Worcestershire</span>
@@ -658,6 +691,11 @@
             <span>Live total</span>
           </div>
         </div>
+      </div>
+
+      <div class="hero-showcase">
+        <img src="https://raw.githubusercontent.com/carpetcleaningcompany007-maker/Jw-Carpet-Care/main/ChatGPT%20Image%20Feb%2025,%202026,%2012_47_23%20PM.png" alt="JW Carpet Care cleaning results">
+        <div class="caption">Professional results from JW Carpet Care</div>
       </div>
     </section>
 
