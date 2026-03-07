@@ -7,17 +7,21 @@
   <meta name="description" content="JW Carpet Care instant quote calculator for carpets, rugs and upholstery." />
   <style>
     :root{
-      --bg:#f4f7fb;
+      --bg:#eef4fb;
+      --bg2:#f8fbff;
       --ink:#122033;
-      --muted:#5f7087;
+      --muted:#60718a;
       --brand:#1f5fbf;
       --brand2:#163f7d;
+      --brand3:#0e274c;
       --green:#14945c;
+      --green2:#0f7447;
       --card:#ffffff;
       --line:rgba(12,24,40,.10);
-      --shadow:0 16px 40px rgba(13,27,45,.10);
+      --shadow:0 18px 48px rgba(13,27,45,.10);
+      --shadow-soft:0 10px 24px rgba(15,35,65,.07);
       --r:22px;
-      --max:1160px;
+      --max:1180px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     }
 
@@ -27,41 +31,59 @@
       font-family:var(--font);
       color:var(--ink);
       background:
-        radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.10), transparent 60%),
-        linear-gradient(180deg, #0c1b31 0%, #14325f 320px, var(--bg) 321px);
-      padding-bottom:90px;
+        radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
+        radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
+        linear-gradient(180deg, #0d1f39 0%, #15335e 300px, var(--bg) 301px);
+      padding-bottom:92px;
     }
 
     a{text-decoration:none;color:inherit}
-    .wrap{max-width:var(--max);margin:0 auto;padding:16px 14px 24px}
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px 14px 28px}
 
     .topbar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
+      gap:14px;
       flex-wrap:wrap;
       color:#fff;
-      padding:8px 0 14px;
+      padding:6px 0 14px;
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:10px;
+      gap:12px;
+      min-width:0;
     }
 
     .brand img{
-      height:46px;
+      height:48px;
       width:auto;
-      border-radius:6px;
+      border-radius:10px;
+      background:rgba(255,255,255,.10);
+      padding:4px;
+      box-shadow:0 10px 22px rgba(0,0,0,.18);
+    }
+
+    .brand-copy{min-width:0}
+    .brand-title{
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:.92;
     }
 
     .brand span{
       display:block;
       font-size:13px;
-      opacity:.86;
+      opacity:.84;
       margin-top:4px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      max-width:420px;
     }
 
     .top-actions{
@@ -83,91 +105,157 @@
       font-size:13px;
       white-space:nowrap;
       box-shadow:0 12px 28px rgba(0,0,0,.16);
+      transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
     }
+    .btn:hover{transform:translateY(-1px);filter:saturate(1.03)}
 
     .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
-    .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.18)}
-    .btn.green{background:linear-gradient(135deg,#18a86a,#11794c);color:#fff}
+    .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16)}
+    .btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
 
     .hero{
-      background:linear-gradient(135deg,#10305d,#0c2243 65%,#0a1930);
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
       color:#fff;
-      border-radius:20px;
-      padding:12px 14px;
-      box-shadow:0 22px 50px rgba(0,0,0,.18);
+      border-radius:24px;
+      padding:18px 18px 16px;
+      box-shadow:0 24px 60px rgba(0,0,0,.18);
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:auto -80px -100px auto;
+      width:280px;
+      height:280px;
+      background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);
+      pointer-events:none;
+    }
+
+    .hero-top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .hero-copy{max-width:620px}
+
+    .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:10px;
     }
 
     .hero h1{
       margin:0;
-      font-size:22px;
-      line-height:1.08;
+      font-size:28px;
+      line-height:1.04;
       letter-spacing:-.03em;
     }
 
     .hero p{
-      margin:6px 0 0;
-      color:rgba(255,255,255,.88);
-      font-size:13px;
-      line-height:1.5;
-      max-width:52ch;
+      margin:8px 0 0;
+      color:rgba(255,255,255,.86);
+      font-size:13.5px;
+      line-height:1.55;
+      max-width:58ch;
     }
+
+    .hero-total{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:16px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-total b{display:block;font-size:18px}
+    .hero-total span{display:block;font-size:12px;opacity:.84}
 
     .grid{
       display:grid;
       grid-template-columns:1.05fr .95fr;
-      gap:16px;
+      gap:18px;
       align-items:start;
-      margin-top:16px;
+      margin-top:18px;
     }
 
     .card{
-      background:var(--card);
-      border:1px solid var(--line);
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.55);
       border-radius:var(--r);
       box-shadow:var(--shadow);
       overflow:hidden;
     }
 
     .card-h{
-      padding:15px 16px;
+      padding:16px 16px 14px;
       border-bottom:1px solid rgba(12,24,40,.08);
-      background:linear-gradient(135deg, rgba(31,95,191,.07), rgba(20,148,92,.05));
+      background:linear-gradient(135deg, rgba(31,95,191,.08), rgba(20,148,92,.05));
     }
 
-    .card-h h2{margin:0;font-size:18px}
-    .card-h small{display:block;margin-top:4px;color:var(--muted);font-weight:800}
+    .card-h h2{margin:0;font-size:18px;letter-spacing:-.02em}
+    .card-h small{display:block;margin-top:5px;color:var(--muted);font-weight:800}
     .card-b{padding:16px}
 
     .summary{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-bottom:12px;
+      gap:12px;
+      margin-bottom:14px;
     }
 
     .total-box,.info-box{
-      background:linear-gradient(135deg,#fff,#f7faff);
-      border:1px solid rgba(12,24,40,.10);
+      background:linear-gradient(135deg,#fff,#f7fbff);
+      border:1px solid rgba(12,24,40,.08);
       border-radius:18px;
       padding:14px;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .total-box{
+      background:
+        radial-gradient(340px 120px at 0% 0%, rgba(31,95,191,.10), transparent 55%),
+        linear-gradient(135deg,#fff,#f7fbff);
     }
 
     .total-box b{
       display:block;
-      font-size:30px;
-      letter-spacing:-.03em;
+      font-size:32px;
+      letter-spacing:-.04em;
       margin-top:6px;
+      color:var(--brand3);
     }
 
     .total-box span,.info-box span{
       font-size:12px;
       color:var(--muted);
       font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.04em;
     }
 
     .note{
       font-size:12.5px;
-      line-height:1.5;
+      line-height:1.55;
       color:var(--muted);
       font-weight:700;
       margin:0;
@@ -178,16 +266,16 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      margin-top:14px;
-      padding-top:12px;
+      margin-top:16px;
+      padding-top:14px;
       border-top:1px dashed rgba(12,24,40,.12);
       font-weight:950;
     }
 
     .plus{
-      width:28px;
-      height:28px;
-      border-radius:10px;
+      width:30px;
+      height:30px;
+      border-radius:12px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -205,59 +293,55 @@
     }
 
     .item{
+      position:relative;
       background:
-        radial-gradient(320px 160px at 0% 0%, rgba(31,95,191,.10), transparent 60%),
+        radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.11), transparent 60%),
         linear-gradient(135deg,#ffffff,#f8fbff);
       border:1px solid rgba(31,95,191,.14);
       border-radius:18px;
-      padding:12px;
+      padding:13px;
       display:flex;
       justify-content:space-between;
-      gap:10px;
+      gap:12px;
       align-items:flex-start;
-      box-shadow:0 10px 22px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.65) inset;
+      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
       transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
     }
 
     .item:hover{
-      transform:translateY(-1px);
-      border-color:rgba(31,95,191,.22);
-      box-shadow:0 14px 28px rgba(15,35,65,.12), 0 0 0 1px rgba(255,255,255,.8) inset;
+      transform:translateY(-2px);
+      border-color:rgba(31,95,191,.24);
+      box-shadow:0 16px 30px rgba(15,35,65,.12), 0 0 0 1px rgba(255,255,255,.85) inset;
     }
 
     .item h3{margin:0;font-size:14px;line-height:1.2}
     .item p{margin:6px 0 0;font-size:12px;color:var(--muted);font-weight:800}
     .price{margin-top:8px;color:var(--green);font-size:14px;font-weight:950}
 
-    .qty{
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
+    .qty{display:flex;align-items:center;gap:8px}
 
     .qbtn{
-      width:34px;
-      height:34px;
+      width:36px;
+      height:36px;
       border-radius:12px;
-      border:1px solid rgba(12,24,40,.10);
+      border:1px solid rgba(12,24,40,.08);
       background:#fff;
       box-shadow:0 10px 18px rgba(10,18,32,.08);
       font-weight:950;
       cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease;
     }
 
-    .qnum{
-      width:34px;
-      text-align:center;
-      font-weight:950;
-    }
+    .qbtn:hover{transform:translateY(-1px);box-shadow:0 12px 20px rgba(10,18,32,.10)}
+    .qnum{width:34px;text-align:center;font-weight:950;font-size:15px}
 
     details.acc{
       margin-top:12px;
-      border:1px solid rgba(12,24,40,.10);
+      border:1px solid rgba(12,24,40,.08);
       border-radius:18px;
       overflow:hidden;
       background:#fff;
+      box-shadow:var(--shadow-soft);
     }
 
     details.acc>summary{
@@ -275,21 +359,18 @@
     details.acc>summary::-webkit-details-marker{display:none}
     .acc-body{padding:12px 14px 14px;border-top:1px solid rgba(12,24,40,.08)}
 
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
+    .list{display:flex;flex-direction:column;gap:10px}
 
     .line{
       display:flex;
       justify-content:space-between;
       gap:10px;
       align-items:flex-start;
-      padding:11px 12px;
-      border:1px solid rgba(12,24,40,.10);
+      padding:12px 12px;
+      border:1px solid rgba(12,24,40,.08);
       border-radius:16px;
       background:linear-gradient(135deg,#fff,#f7faff);
+      box-shadow:0 8px 18px rgba(15,35,65,.05);
     }
 
     .line b{font-size:13px}
@@ -298,20 +379,17 @@
 
     .mutebox{
       padding:13px 14px;
-      border:1px solid rgba(12,24,40,.10);
+      border:1px solid rgba(12,24,40,.08);
       border-radius:18px;
       background:linear-gradient(135deg,#fff,#f7faff);
       font-size:12.5px;
       line-height:1.55;
       color:var(--muted);
       font-weight:700;
+      box-shadow:var(--shadow-soft);
     }
 
-    .hr{
-      height:1px;
-      background:rgba(12,24,40,.10);
-      margin:12px 0;
-    }
+    .hr{height:1px;background:rgba(12,24,40,.10);margin:12px 0}
 
     .form-grid{
       display:grid;
@@ -320,54 +398,43 @@
       margin-top:10px;
     }
 
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
+    .field{display:flex;flex-direction:column;gap:6px}
 
     label{
       font-size:12px;
       color:var(--muted);
       font-weight:950;
+      letter-spacing:.02em;
     }
 
     input,select,textarea{
       width:100%;
-      padding:11px 12px;
+      padding:12px 13px;
       border-radius:14px;
-      border:1px solid rgba(12,24,40,.12);
+      border:1px solid rgba(12,24,40,.10);
       background:#fff;
       font:inherit;
       font-size:13px;
       outline:none;
+      transition:border-color .12s ease, box-shadow .12s ease;
     }
 
-    textarea{
-      min-height:110px;
-      resize:vertical;
-    }
+    textarea{min-height:110px;resize:vertical}
 
     input:focus,select:focus,textarea:focus{
       border-color:rgba(31,95,191,.55);
       box-shadow:0 0 0 4px rgba(31,95,191,.12);
     }
 
-    .cta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:12px;
-    }
+    .cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
 
     footer{
       text-align:center;
       color:#5c6b80;
       font-size:12px;
       font-weight:700;
-      margin-top:18px;
-      padding-top:6px;
+      margin-top:20px;
+      padding-top:8px;
     }
 
     .sticky-bar{
@@ -375,12 +442,13 @@
       left:0;
       right:0;
       bottom:0;
-      background:linear-gradient(135deg,#0d2a57,#0a1d3a);
+      background:linear-gradient(135deg,#0e2a55,#091a32);
       color:#fff;
-      border-top:1px solid rgba(255,255,255,.12);
+      border-top:1px solid rgba(255,255,255,.10);
       box-shadow:0 -14px 34px rgba(0,0,0,.28);
       padding:10px 12px calc(10px + env(safe-area-inset-bottom));
       z-index:9999;
+      backdrop-filter:blur(12px);
     }
 
     .sticky-inner{
@@ -397,13 +465,15 @@
       display:flex;
       flex-direction:column;
       font-weight:900;
-      min-width:110px;
+      min-width:112px;
     }
 
     .sticky-total span{
       font-size:11px;
-      opacity:.82;
+      opacity:.80;
       line-height:1.1;
+      text-transform:uppercase;
+      letter-spacing:.05em;
     }
 
     .sticky-total b{
@@ -422,17 +492,19 @@
 
     @media (max-width: 980px){
       .grid,.form-grid,.summary{grid-template-columns:1fr}
+      .hero-top{align-items:flex-start}
     }
 
     @media (max-width: 600px){
       body{padding-bottom:86px}
       .wrap{padding:12px 12px 20px}
-      .topbar{padding:2px 0 8px}
+      .topbar{padding:2px 0 10px}
       .top-actions{display:none}
-      .brand span{display:none}
-      .brand img{height:34px}
-      .hero{padding:12px 12px 14px;border-radius:18px}
-      .hero h1{font-size:18px}
+      .brand-title,.brand span{display:none}
+      .brand img{height:36px}
+      .hero{padding:14px 12px;border-radius:18px}
+      .hero-kicker,.hero-total{display:none}
+      .hero h1{font-size:20px}
       .hero p{font-size:12.5px;line-height:1.45}
       .items{grid-template-columns:1fr;gap:10px}
       .item{padding:11px;border-radius:16px}
@@ -444,11 +516,7 @@
       .sticky-total span{font-size:10px}
       .sticky-total b{font-size:15px}
       .sticky-actions{gap:6px}
-      .sticky-actions .btn{
-        padding:9px 10px;
-        font-size:12px;
-        box-shadow:none;
-      }
+      .sticky-actions .btn{padding:9px 10px;font-size:12px;box-shadow:none}
     }
   </style>
 </head>
@@ -457,7 +525,10 @@
     <div class="topbar">
       <div class="brand">
         <img src="https://github.com/carpetcleaningcompany007-maker/Jw-Carpet-Care/blob/main/Screenshot%202026-03-05%20221453.png?raw=true" alt="JW Carpet Care">
-        <span>Professional carpet and upholstery cleaning across Worcestershire</span>
+        <div class="brand-copy">
+          <div class="brand-title">JW Carpet Care</div>
+          <span>Professional carpet and upholstery cleaning across Worcestershire</span>
+        </div>
       </div>
       <div class="top-actions">
         <a class="btn primary" href="#callback">Request a quote</a>
@@ -466,8 +537,19 @@
     </div>
 
     <section class="hero">
-      <h1>Welcome to the JW Carpet Care calculator</h1>
-      <p>Add the rooms or items you want cleaned for a quick estimate.</p>
+      <div class="hero-top">
+        <div class="hero-copy">
+          <div class="hero-kicker">Instant estimate</div>
+          <h1>Welcome to the JW Carpet Care calculator</h1>
+          <p>Add the rooms or items you want cleaned for a quick estimate. Simple to use, fast to update, and easy to send through when you are ready.</p>
+        </div>
+        <div class="hero-total">
+          <div>
+            <b id="heroTotal">£0.00</b>
+            <span>Live total</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div class="grid">
@@ -706,6 +788,10 @@
       const result = calc();
       document.getElementById("total").textContent = fmt(result.total);
       document.getElementById("totalSticky").textContent = fmt(result.total);
+
+      const heroTotal = document.getElementById("heroTotal");
+      if (heroTotal) heroTotal.textContent = fmt(result.total);
+
       document.getElementById("totalHidden").value = fmt(result.total);
 
       const selected = document.getElementById("selectedList");
