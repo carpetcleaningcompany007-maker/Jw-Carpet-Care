@@ -16,10 +16,13 @@
       --green:#14945c;
       --green2:#0f7447;
       --red:#c62828;
+      --gold:#ffcc4d;
+      --gold2:#f2a81d;
       --card:#ffffff;
       --line:rgba(12,24,40,.10);
       --shadow:0 18px 48px rgba(13,27,45,.10);
       --shadow-soft:0 10px 24px rgba(15,35,65,.07);
+      --shadow-strong:0 20px 40px rgba(15,35,65,.14);
       --r:22px;
       --max:1240px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
@@ -63,14 +66,14 @@
 
     input,select{
       width:100%;
-      padding:12px 13px;
+      padding:13px 14px;
       border-radius:14px;
-      border:1px solid rgba(12,24,40,.10);
+      border:2px solid rgba(12,24,40,.10);
       background:#fff;
       font:inherit;
       font-size:14px;
       outline:none;
-      transition:border-color .12s ease, box-shadow .12s ease;
+      transition:border-color .12s ease, box-shadow .12s ease, transform .12s ease;
     }
     input:focus,select:focus{
       border-color:rgba(31,95,191,.55);
@@ -330,6 +333,38 @@
       white-space:nowrap;
     }
 
+    .entry-panel{
+      margin-top:18px;
+      border:2px solid rgba(31,95,191,.18);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow-strong);
+      background:
+        radial-gradient(700px 220px at 0% 0%, rgba(31,95,191,.10), transparent 60%),
+        linear-gradient(135deg,#ffffff,#f4f9ff);
+    }
+
+    .entry-panel-head{
+      padding:18px 18px 16px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff;
+    }
+    .entry-panel-head h3{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.02em;
+    }
+    .entry-panel-head p{
+      margin:6px 0 0;
+      font-size:13px;
+      line-height:1.5;
+      opacity:.92;
+    }
+
+    .entry-panel-body{
+      padding:18px;
+    }
+
     .section-head{
       display:flex;
       align-items:center;
@@ -339,6 +374,11 @@
       padding-top:14px;
       border-top:1px dashed rgba(12,24,40,.12);
       font-weight:950;
+    }
+    .section-head:first-child{
+      margin-top:0;
+      padding-top:0;
+      border-top:0;
     }
     .plus{
       width:30px;
@@ -373,12 +413,13 @@
       margin-bottom:12px;
       padding:7px 10px;
       border-radius:999px;
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      color:#fff;
+      background:linear-gradient(135deg,var(--gold),var(--gold2));
+      color:#3f2b00;
       font-size:11px;
-      font-weight:900;
+      font-weight:1000;
       letter-spacing:.04em;
       text-transform:uppercase;
+      box-shadow:0 8px 18px rgba(242,168,29,.25);
     }
     .room-grid{
       display:grid;
@@ -508,6 +549,9 @@
       .hero p{font-size:12.5px;line-height:1.45}
       .card-h{padding:13px 14px}
       .card-b{padding:14px}
+      .entry-panel-head{padding:15px 14px 14px}
+      .entry-panel-head h3{font-size:19px}
+      .entry-panel-body{padding:14px}
       .room-row{padding:14px}
       .room-row::before{margin-bottom:10px;font-size:10px}
       .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
@@ -575,7 +619,7 @@
         <section class="card">
           <div class="card-h">
             <h2>Build the quote</h2>
-            <small>Add room name, method, and square metres. The correct price band is chosen automatically.</small>
+            <small>Enter the pricing details clearly below. The calculator will work everything out for you.</small>
           </div>
           <div class="card-b">
             <div class="summary">
@@ -619,42 +663,51 @@
               </div>
             </div>
 
-            <div class="section-head">
-              <div><span class="plus">+</span>Area based pricing</div>
-              <div>Room by room entry</div>
-            </div>
-
-            <div id="roomList" class="room-list"></div>
-
-            <div class="room-actions">
-              <button id="addRoomBtn" class="btn primary" type="button">Add area</button>
-              <button id="downloadBtn" class="btn ghost" type="button">Download CSV</button>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Hotel room pricing</div>
-              <div>Optional room count pricing</div>
-            </div>
-
-            <div class="extras-grid">
-              <div class="input-card">
-                <h3>Rotary bonnet hotel rooms</h3>
-                <p>Use this for bonnet priced bedrooms or rooms.</p>
-                <label for="rotaryRooms">Rotary bonnet rooms</label>
-                <input id="rotaryRooms" type="number" min="0" step="1" value="0">
+            <div class="entry-panel">
+              <div class="entry-panel-head">
+                <h3>Enter pricing details here</h3>
+                <p>This is the main data entry area. Add each room or area, choose the cleaning method, and enter the square metres. The calculator will total it all up automatically.</p>
               </div>
 
-              <div class="input-card">
-                <h3>Hot water extraction hotel rooms</h3>
-                <p>Use this for extraction priced bedrooms or rooms.</p>
-                <label for="hweRooms">Hot water extraction rooms</label>
-                <input id="hweRooms" type="number" min="0" step="1" value="0">
-              </div>
-            </div>
+              <div class="entry-panel-body">
+                <div class="section-head">
+                  <div><span class="plus">+</span>Area based pricing</div>
+                  <div>Room by room entry</div>
+                </div>
 
-            <div class="toggle-row">
-              <input id="includeVat" type="checkbox">
-              <label for="includeVat" style="margin:0">Include VAT at 20%</label>
+                <div id="roomList" class="room-list"></div>
+
+                <div class="room-actions">
+                  <button id="addRoomBtn" class="btn primary" type="button">Add area</button>
+                  <button id="downloadBtn" class="btn ghost" type="button">Download CSV</button>
+                </div>
+
+                <div class="section-head">
+                  <div><span class="plus">+</span>Hotel room pricing</div>
+                  <div>Optional room count pricing</div>
+                </div>
+
+                <div class="extras-grid">
+                  <div class="input-card">
+                    <h3>Rotary bonnet hotel rooms</h3>
+                    <p>Use this for bonnet priced bedrooms or rooms.</p>
+                    <label for="rotaryRooms">Rotary bonnet rooms</label>
+                    <input id="rotaryRooms" type="number" min="0" step="1" value="0">
+                  </div>
+
+                  <div class="input-card">
+                    <h3>Hot water extraction hotel rooms</h3>
+                    <p>Use this for extraction priced bedrooms or rooms.</p>
+                    <label for="hweRooms">Hot water extraction rooms</label>
+                    <input id="hweRooms" type="number" min="0" step="1" value="0">
+                  </div>
+                </div>
+
+                <div class="toggle-row">
+                  <input id="includeVat" type="checkbox">
+                  <label for="includeVat" style="margin:0">Include VAT at 20%</label>
+                </div>
+              </div>
             </div>
           </div>
         </section>
