@@ -40,9 +40,17 @@
     .hidden{display:none !important}
 
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      border:0;cursor:pointer;padding:11px 15px;border-radius:999px;
-      font-weight:900;font-size:13px;white-space:nowrap;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      border:0;
+      cursor:pointer;
+      padding:11px 15px;
+      border-radius:999px;
+      font-weight:900;
+      font-size:13px;
+      white-space:nowrap;
       box-shadow:0 12px 28px rgba(0,0,0,.16);
       transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
       text-decoration:none;
@@ -54,8 +62,14 @@
     .btn.red{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
 
     input,select{
-      width:100%;padding:12px 13px;border-radius:14px;border:1px solid rgba(12,24,40,.10);
-      background:#fff;font:inherit;font-size:14px;outline:none;
+      width:100%;
+      padding:12px 13px;
+      border-radius:14px;
+      border:1px solid rgba(12,24,40,.10);
+      background:#fff;
+      font:inherit;
+      font-size:14px;
+      outline:none;
       transition:border-color .12s ease, box-shadow .12s ease;
     }
     input:focus,select:focus{
@@ -63,11 +77,14 @@
       box-shadow:0 0 0 4px rgba(31,95,191,.12);
     }
     label{
-      font-size:12px;color:var(--muted);font-weight:950;letter-spacing:.02em;
-      display:block;margin-bottom:6px;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:950;
+      letter-spacing:.02em;
+      display:block;
+      margin-bottom:6px;
     }
 
-    /* Password screen */
     .gate{
       min-height:100vh;
       display:flex;
@@ -109,69 +126,139 @@
       display:none;
     }
 
-    /* App */
     .wrap{
       max-width:var(--max);
       margin:0 auto;
       padding:18px 14px 90px;
     }
     .topbar{
-      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
-      color:#fff;padding:6px 0 14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      color:#fff;
+      padding:6px 0 14px;
     }
     .brand{
-      display:flex;align-items:center;gap:12px;min-width:0;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
     }
     .brand-badge{
-      width:52px;height:52px;border-radius:14px;
-      display:flex;align-items:center;justify-content:center;
+      width:52px;
+      height:52px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
       background:linear-gradient(135deg,var(--brand),var(--brand2));
-      color:#fff;font-weight:1000;box-shadow:0 10px 22px rgba(0,0,0,.18);
+      color:#fff;
+      font-weight:1000;
+      box-shadow:0 10px 22px rgba(0,0,0,.18);
       flex:0 0 auto;
     }
     .brand-title{
-      font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;opacity:.92;
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      opacity:.92;
     }
     .brand span{
-      display:block;font-size:13px;opacity:.84;margin-top:4px;
+      display:block;
+      font-size:13px;
+      opacity:.84;
+      margin-top:4px;
     }
 
     .hero{
-      position:relative;overflow:hidden;
+      position:relative;
+      overflow:hidden;
       background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
-      color:#fff;border-radius:24px;padding:22px 20px 18px;box-shadow:0 24px 60px rgba(0,0,0,.18);
+      color:#fff;
+      border-radius:24px;
+      padding:22px 20px 18px;
+      box-shadow:0 24px 60px rgba(0,0,0,.18);
     }
     .hero::after{
-      content:"";position:absolute;inset:auto -80px -100px auto;width:280px;height:280px;
-      background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);pointer-events:none;
+      content:"";
+      position:absolute;
+      inset:auto -80px -100px auto;
+      width:280px;
+      height:280px;
+      background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);
+      pointer-events:none;
     }
     .hero-top{
-      position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      flex-wrap:wrap;
     }
     .hero-copy{max-width:760px}
     .hero-kicker{
-      display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;
-      background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12);
-      font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:10px;
     }
-    .hero h1{margin:0;font-size:30px;line-height:1.04;letter-spacing:-.03em}
-    .hero p{margin:8px 0 0;color:rgba(255,255,255,.86);font-size:14px;line-height:1.55;max-width:68ch}
+    .hero h1{
+      margin:0;
+      font-size:30px;
+      line-height:1.04;
+      letter-spacing:-.03em;
+    }
+    .hero p{
+      margin:8px 0 0;
+      color:rgba(255,255,255,.86);
+      font-size:14px;
+      line-height:1.55;
+      max-width:68ch;
+    }
     .hero-total{
-      display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:18px;
-      background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:12px 14px;
+      border-radius:18px;
+      background:rgba(255,255,255,.10);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter:blur(10px);
     }
     .hero-total b{display:block;font-size:22px}
     .hero-total span{display:block;font-size:12px;opacity:.84}
 
     .grid{
-      display:grid;grid-template-columns:1.18fr .82fr;gap:18px;align-items:start;margin-top:18px;
+      display:grid;
+      grid-template-columns:1.18fr .82fr;
+      gap:18px;
+      align-items:start;
+      margin-top:18px;
     }
     .card{
-      background:rgba(255,255,255,.95);backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.55);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;
+      background:rgba(255,255,255,.95);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.55);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      overflow:hidden;
     }
     .card-h{
-      padding:16px 16px 14px;border-bottom:1px solid rgba(12,24,40,.08);
+      padding:16px 16px 14px;
+      border-bottom:1px solid rgba(12,24,40,.08);
       background:linear-gradient(135deg, rgba(31,95,191,.08), rgba(20,148,92,.05));
     }
     .card-h h2{margin:0;font-size:18px;letter-spacing:-.02em}
@@ -179,47 +266,91 @@
     .card-b{padding:16px}
 
     .summary{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-bottom:14px;
     }
     .summary-box{
       background:linear-gradient(135deg,#fff,#f7fbff);
-      border:1px solid rgba(12,24,40,.08);border-radius:18px;padding:14px;box-shadow:var(--shadow-soft);
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:var(--shadow-soft);
     }
     .summary-box span{
-      font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.04em;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.04em;
     }
     .summary-box b{
-      display:block;font-size:28px;letter-spacing:-.04em;margin-top:6px;color:var(--brand3);
+      display:block;
+      font-size:28px;
+      letter-spacing:-.04em;
+      margin-top:6px;
+      color:var(--brand3);
     }
 
     .method-grid{
-      display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:14px;
     }
     .method-card{
-      border:1px solid rgba(12,24,40,.08);border-radius:20px;padding:14px;
-      background:linear-gradient(135deg,#fff,#f7fbff);box-shadow:var(--shadow-soft);
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:20px;
+      padding:14px;
+      background:linear-gradient(135deg,#fff,#f7fbff);
+      box-shadow:var(--shadow-soft);
     }
     .method-card h3{margin:0;font-size:16px}
     .method-card p{margin:6px 0 0;color:var(--muted);font-size:12.5px;font-weight:700;line-height:1.5}
     .band-list{display:grid;gap:8px;margin-top:12px}
     .band{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:10px 12px;border-radius:14px;background:#fff;border:1px solid rgba(12,24,40,.08);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      background:#fff;
+      border:1px solid rgba(12,24,40,.08);
     }
     .band b{font-size:13px}
     .pill-rate{
       background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#fff;border-radius:999px;padding:7px 10px;font-weight:900;font-size:12px;white-space:nowrap;
+      color:#fff;
+      border-radius:999px;
+      padding:7px 10px;
+      font-weight:900;
+      font-size:12px;
+      white-space:nowrap;
     }
 
     .section-head{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      margin-top:16px;padding-top:14px;border-top:1px dashed rgba(12,24,40,.12);font-weight:950;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:16px;
+      padding-top:14px;
+      border-top:1px dashed rgba(12,24,40,.12);
+      font-weight:950;
     }
     .plus{
-      width:30px;height:30px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;
-      color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand2));
-      margin-right:8px;box-shadow:0 10px 22px rgba(31,95,191,.25);
+      width:30px;
+      height:30px;
+      border-radius:12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      margin-right:8px;
+      box-shadow:0 10px 22px rgba(31,95,191,.25);
     }
 
     .room-list{
@@ -228,21 +359,56 @@
       margin-top:12px;
     }
     .room-row{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      padding:14px;
-      background:linear-gradient(135deg,#fff,#f7fbff);
-      box-shadow:var(--shadow-soft);
+      border:2px solid rgba(31,95,191,.18);
+      border-radius:20px;
+      padding:16px;
+      background:
+        radial-gradient(340px 140px at 0% 0%, rgba(31,95,191,.10), transparent 60%),
+        linear-gradient(135deg,#ffffff,#f5f9ff);
+      box-shadow:0 14px 30px rgba(15,35,65,.08);
+    }
+    .room-row::before{
+      content:"Enter room details here";
+      display:inline-block;
+      margin-bottom:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff;
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.04em;
+      text-transform:uppercase;
     }
     .room-grid{
       display:grid;
-      grid-template-columns:1.3fr 1fr .8fr auto;
-      gap:10px;
+      grid-template-columns:1.35fr 1fr .85fr auto;
+      gap:12px;
       align-items:end;
+    }
+    .room-row label{
+      font-size:12px;
+      color:var(--brand3);
+      font-weight:1000;
+      margin-bottom:7px;
+    }
+    .room-row input,
+    .room-row select{
+      border:2px solid rgba(31,95,191,.14);
+      background:#fff;
+      box-shadow:0 6px 16px rgba(15,35,65,.05);
+    }
+    .room-row input:focus,
+    .room-row select:focus{
+      border-color:rgba(31,95,191,.55);
+      box-shadow:0 0 0 4px rgba(31,95,191,.12);
     }
 
     .room-actions{
-      display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
     }
 
     .extras-grid{
@@ -252,37 +418,72 @@
       margin-top:12px;
     }
     .input-card{
-      border:1px solid rgba(12,24,40,.08);border-radius:18px;padding:14px;
-      background:linear-gradient(135deg,#fff,#f7fbff);box-shadow:var(--shadow-soft);
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:18px;
+      padding:14px;
+      background:linear-gradient(135deg,#fff,#f7fbff);
+      box-shadow:var(--shadow-soft);
     }
     .input-card h3{margin:0 0 4px;font-size:15px}
     .input-card p{margin:0 0 12px;color:var(--muted);font-size:12px;font-weight:700}
 
     .toggle-row{
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;
-      padding:12px 14px;border:1px solid rgba(12,24,40,.08);border-radius:16px;background:#fff;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+      padding:12px 14px;
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:16px;
+      background:#fff;
     }
     .toggle-row input{width:18px;height:18px}
 
     .list{display:flex;flex-direction:column;gap:10px}
     .line{
-      display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
-      padding:12px 12px;border:1px solid rgba(12,24,40,.08);border-radius:16px;
-      background:linear-gradient(135deg,#fff,#f7faff);box-shadow:0 8px 18px rgba(15,35,65,.05);
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+      padding:12px 12px;
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:16px;
+      background:linear-gradient(135deg,#fff,#f7faff);
+      box-shadow:0 8px 18px rgba(15,35,65,.05);
     }
     .line b{font-size:13px}
-    .line small{display:block;margin-top:4px;color:var(--muted);font-weight:850;line-height:1.45}
+    .line small{
+      display:block;
+      margin-top:4px;
+      color:var(--muted);
+      font-weight:850;
+      line-height:1.45;
+    }
     .money{font-weight:950;color:var(--green)}
     .hr{height:1px;background:rgba(12,24,40,.10);margin:12px 0}
 
     .sticky-bar{
-      position:fixed;left:0;right:0;bottom:0;
-      background:linear-gradient(135deg,#0e2a55,#091a32);color:#fff;border-top:1px solid rgba(255,255,255,.10);
-      box-shadow:0 -14px 34px rgba(0,0,0,.28);padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-      z-index:9999;backdrop-filter:blur(12px);
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      background:linear-gradient(135deg,#0e2a55,#091a32);
+      color:#fff;
+      border-top:1px solid rgba(255,255,255,.10);
+      box-shadow:0 -14px 34px rgba(0,0,0,.28);
+      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+      z-index:9999;
+      backdrop-filter:blur(12px);
     }
     .sticky-inner{
-      max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:nowrap;
+      max-width:var(--max);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:nowrap;
     }
     .sticky-total{display:flex;flex-direction:column;font-weight:900;min-width:112px}
     .sticky-total span{font-size:11px;opacity:.80;line-height:1.1;text-transform:uppercase;letter-spacing:.05em}
@@ -307,6 +508,8 @@
       .hero p{font-size:12.5px;line-height:1.45}
       .card-h{padding:13px 14px}
       .card-b{padding:14px}
+      .room-row{padding:14px}
+      .room-row::before{margin-bottom:10px;font-size:10px}
       .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
       .sticky-inner{gap:8px}
       .sticky-total{min-width:84px}
@@ -319,7 +522,6 @@
 </head>
 <body>
 
-  <!-- PASSWORD GATE -->
   <div id="gate" class="gate">
     <div class="gate-card">
       <div class="gate-head">
@@ -337,7 +539,6 @@
     </div>
   </div>
 
-  <!-- APP -->
   <div id="app" class="hidden">
     <div class="wrap">
       <div class="topbar">
@@ -359,7 +560,7 @@
           <div class="hero-copy">
             <div class="hero-kicker">Commercial pricing tool</div>
             <h1>Albrighton Hall cleaning calculator</h1>
-            <p>Add areas room by room, choose the method for each one, and the calculator totals everything automatically. You can still add hotel bedroom counts separately as well.</p>
+            <p>Add areas room by room, choose the method for each one, and the calculator totals everything automatically. You can also add hotel bedroom counts separately.</p>
           </div>
           <div class="hero-total">
             <div>
@@ -409,11 +610,11 @@
                 <h3>Hot water extraction pricing</h3>
                 <p>Deeper restorative cleaning with higher labour and moisture load.</p>
                 <div class="band-list">
-                  <div class="band"><div><b>Up to 150 m²</b></div><div class="pill-rate">£4.20 per m²</div></div>
-                  <div class="band"><div><b>151 to 399 m²</b></div><div class="pill-rate">£3.80 per m²</div></div>
-                  <div class="band"><div><b>400 to 799 m²</b></div><div class="pill-rate">£3.20 per m²</div></div>
+                  <div class="band"><div><b>Up to 150 m²</b></div><div class="pill-rate">£3.60 per m²</div></div>
+                  <div class="band"><div><b>151 to 399 m²</b></div><div class="pill-rate">£3.30 per m²</div></div>
+                  <div class="band"><div><b>400 to 799 m²</b></div><div class="pill-rate">£3.00 per m²</div></div>
                   <div class="band"><div><b>800+ m²</b></div><div class="pill-rate">£2.80 per m²</div></div>
-                  <div class="band"><div><b>Hotel rooms</b></div><div class="pill-rate">£40 each</div></div>
+                  <div class="band"><div><b>Hotel rooms</b></div><div class="pill-rate">£35 each</div></div>
                 </div>
               </div>
             </div>
@@ -438,14 +639,14 @@
             <div class="extras-grid">
               <div class="input-card">
                 <h3>Rotary bonnet hotel rooms</h3>
-                <p>Use this for bedroom or room by room bonnet pricing.</p>
+                <p>Use this for bonnet priced bedrooms or rooms.</p>
                 <label for="rotaryRooms">Rotary bonnet rooms</label>
                 <input id="rotaryRooms" type="number" min="0" step="1" value="0">
               </div>
 
               <div class="input-card">
                 <h3>Hot water extraction hotel rooms</h3>
-                <p>Use this for bedroom or room by room extraction pricing.</p>
+                <p>Use this for extraction priced bedrooms or rooms.</p>
                 <label for="hweRooms">Hot water extraction rooms</label>
                 <input id="hweRooms" type="number" min="0" step="1" value="0">
               </div>
@@ -478,19 +679,19 @@
                   <div class="line">
                     <div>
                       <b>Rotary bonnet</b>
-                      <small>Best for lower moisture commercial maintenance cleaning.</small>
+                      <small>Best for lower moisture maintenance cleaning.</small>
                     </div>
                   </div>
                   <div class="line">
                     <div>
                       <b>Hot water extraction</b>
-                      <small>Higher m² rate reflects deeper cleaning, slower pace, and heavier labour.</small>
+                      <small>Priced a little above bonnet for deeper restorative cleaning.</small>
                     </div>
                   </div>
                   <div class="line">
                     <div>
-                      <b>Room by room entry</b>
-                      <small>Add each area separately with its own square metreage and method.</small>
+                      <b>Combi</b>
+                      <small>Use this when an area needs both bonnet and extraction. The calculator adds both rates together.</small>
                     </div>
                   </div>
                 </div>
@@ -526,14 +727,14 @@
     ];
 
     const HWE_BANDS = [
-      { min: 0, max: 150, rate: 4.20, label: "Up to 150 m²" },
-      { min: 151, max: 399, rate: 3.80, label: "151 to 399 m²" },
-      { min: 400, max: 799, rate: 3.20, label: "400 to 799 m²" },
+      { min: 0, max: 150, rate: 3.60, label: "Up to 150 m²" },
+      { min: 151, max: 399, rate: 3.30, label: "151 to 399 m²" },
+      { min: 400, max: 799, rate: 3.00, label: "400 to 799 m²" },
       { min: 800, max: Infinity, rate: 2.80, label: "800+ m²" }
     ];
 
     const ROTARY_ROOM_RATE = 30;
-    const HWE_ROOM_RATE = 40;
+    const HWE_ROOM_RATE = 35;
     const VAT_RATE = 0.20;
 
     let roomRows = [];
@@ -541,9 +742,22 @@
 
     const fmt = n => "£" + (Math.round((Number(n) || 0) * 100) / 100).toFixed(2);
 
+    function escapeHtml(str){
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
     function pickBand(m2, bands){
       if (m2 <= 0) return null;
       return bands.find(b => m2 >= b.min && m2 <= b.max) || bands[bands.length - 1];
+    }
+
+    function getNumber(id){
+      return Math.max(0, Number(document.getElementById(id).value) || 0);
     }
 
     function addRoomRow(data = {}){
@@ -584,13 +798,14 @@
           <div class="room-grid">
             <div>
               <label>Room or area name</label>
-              <input type="text" value="${escapeHtml(row.roomName)}" data-role="room-name" data-id="${row.id}" placeholder="Example: Restaurant, Corridor, Kitchen entrance">
+              <input type="text" value="${escapeHtml(row.roomName)}" data-role="room-name" data-id="${row.id}" placeholder="Example: Corridor, Restaurant, Kitchen entrance">
             </div>
             <div>
               <label>Method</label>
               <select data-role="method" data-id="${row.id}">
                 <option value="rotary" ${row.method === "rotary" ? "selected" : ""}>Rotary bonnet</option>
                 <option value="hwe" ${row.method === "hwe" ? "selected" : ""}>Hot water extraction</option>
+                <option value="combi" ${row.method === "combi" ? "selected" : ""}>Combi bonnet + HWE</option>
               </select>
             </div>
             <div>
@@ -605,19 +820,6 @@
       `).join("");
     }
 
-    function escapeHtml(str){
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
-    function getNumber(id){
-      return Math.max(0, Number(document.getElementById(id).value) || 0);
-    }
-
     function calculate(){
       const includeVat = document.getElementById("includeVat").checked;
       const rotaryRooms = getNumber("rotaryRooms");
@@ -629,15 +831,40 @@
         const sqm = Math.max(0, Number(row.sqm) || 0);
         if (!sqm) return;
 
-        const bands = row.method === "rotary" ? ROTARY_BANDS : HWE_BANDS;
-        const band = pickBand(sqm, bands);
-        const total = sqm * band.rate;
+        if (row.method === "rotary") {
+          const band = pickBand(sqm, ROTARY_BANDS);
+          const total = sqm * band.rate;
 
-        lines.push({
-          title: row.roomName || "Unnamed area",
-          note: `${row.method === "rotary" ? "Rotary bonnet" : "Hot water extraction"} · ${sqm} m² at ${fmt(band.rate)} per m² · ${band.label}`,
-          total
-        });
+          lines.push({
+            title: row.roomName || "Unnamed area",
+            note: `Rotary bonnet · ${sqm} m² at ${fmt(band.rate)} per m² · ${band.label}`,
+            total
+          });
+        }
+
+        if (row.method === "hwe") {
+          const band = pickBand(sqm, HWE_BANDS);
+          const total = sqm * band.rate;
+
+          lines.push({
+            title: row.roomName || "Unnamed area",
+            note: `Hot water extraction · ${sqm} m² at ${fmt(band.rate)} per m² · ${band.label}`,
+            total
+          });
+        }
+
+        if (row.method === "combi") {
+          const rotaryBand = pickBand(sqm, ROTARY_BANDS);
+          const hweBand = pickBand(sqm, HWE_BANDS);
+          const combinedRate = rotaryBand.rate + hweBand.rate;
+          const total = sqm * combinedRate;
+
+          lines.push({
+            title: row.roomName || "Unnamed area",
+            note: `Combi bonnet + HWE · ${sqm} m² · Rotary ${fmt(rotaryBand.rate)} + HWE ${fmt(hweBand.rate)} per m²`,
+            total
+          });
+        }
       });
 
       if (rotaryRooms > 0){
@@ -734,7 +961,6 @@
       URL.revokeObjectURL(url);
     }
 
-    // Password gate
     function unlock(){
       const input = document.getElementById("passwordInput");
       const error = document.getElementById("passwordError");
@@ -753,7 +979,6 @@
       if (e.key === "Enter") unlock();
     });
 
-    // Room list events
     document.getElementById("roomList").addEventListener("input", e => {
       const id = Number(e.target.dataset.id);
       const row = roomRows.find(r => r.id === id);
