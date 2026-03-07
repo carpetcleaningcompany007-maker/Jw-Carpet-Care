@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Albrighton Hall Commercial Cleaning Calculator</title>
+  <meta name="description" content="Commercial carpet cleaning calculator for Albrighton Hall Hotel and Spa.">
+  <style>
+    :root{
+      --bg:#eef4fb;
+      --ink:#122033;
+      --muted:#60718a;
+      --brand:#1f5fbf;
+      --brand2:#163f7d;
+      --brand3:#0d2548;
+      --green:#14945c;
+      --green2:#0f7447;
+      --card:#ffffff;
+      --line:rgba(12,24,40,.10);
+      --shadow:0 18px 48px rgba(13,27,45,.10);
+      --shadow-soft:0 10px 24px rgba(15,35,65,.07);
+      --r:22px;
+      --max:1220px;
+      --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:var(--font);
+      color:var(--ink);
+      background:
+        radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
+        radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
+        linear-gradient(180deg, #0d1f39 0%, #15335e 320px, var(--bg) 321px);
+    }
+
+    .wrap{max-width:var(--max);margin:0 auto;padding:18px 14px 40px}
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+      color:#fff;padding:6px 0 14px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;min-width:0;
+    }
+    .brand-badge{
+      width:52px;height:52px;border-radius:14px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+      color:#fff;font-weight:1000;box-shadow:0 10px 22px rgba(0,0,0,.18);
+      flex:0 0 auto;
+    }
+    .brand-copy{min-width:0}
+    .brand-title{
+      font-size:13px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;opacity:.92;
+    }
+    .brand span{
+      display:block;font-size:13px;opacity:.84;margin-top:4px;
+    }
+
+    .hero{
+      position:relative;overflow:hidden;
+      background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
+      color:#fff;border-radius:24px;padding:22px 20px 18px;box-shadow:0 24px 60px rgba(0,0,0,.18);
+    }
+    .hero::after{
+      content:"";position:absolute;inset:auto -80px -100px auto;width:280px;height:280px;
+      background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);pointer-events:none;
+    }
+    .hero-top{
+      position:relative;z-index:1;display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    }
+    .hero-copy{max-width:760px}
+    .hero-kicker{
+      display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;
+      background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12);
+      font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;
+    }
+    .hero h1{margin:0;font-size:30px;line-height:1.04;letter-spacing:-.03em}
+    .hero p{margin:8px 0 0;color:rgba(255,255,255,.86);font-size:14px;line-height:1.55;max-width:65ch}
+    .hero-total{
+      display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:18px;
+      background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(10px);
+    }
+    .hero-total b{display:block;font-size:22px}
+    .hero-total span{display:block;font-size:12px;opacity:.84}
+
+    .grid{
+      display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start;margin-top:18px;
+    }
+    .card{
+      background:rgba(255,255,255,.95);backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,.55);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;
+    }
+    .card-h{
+      padding:16px 16px 14px;border-bottom:1px solid rgba(12,24,40,.08);
+      background:linear-gradient(135deg, rgba(31,95,191,.08), rgba(20,148,92,.05));
+    }
+    .card-h h2{margin:0;font-size:18px;letter-spacing:-.02em}
+    .card-h small{display:block;margin-top:5px;color:var(--muted);font-weight:800}
+    .card-b{padding:16px}
+
+    .summary{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;
+    }
+    .summary-box{
+      background:linear-gradient(135deg,#fff,#f7fbff);
+      border:1px solid rgba(12,24,40,.08);border-radius:18px;padding:14px;box-shadow:var(--shadow-soft);
+    }
+    .summary-box span{
+      font-size:12px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.04em;
+    }
+    .summary-box b{
+      display:block;font-size:28px;letter-spacing:-.04em;margin-top:6px;color:var(--brand3);
+    }
+
+    .method-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;
+    }
+    .method-card{
+      border:1px solid rgba(12,24,40,.08);border-radius:20px;padding:14px;
+      background:linear-gradient(135deg,#fff,#f7fbff);box-shadow:var(--shadow-soft);
+    }
+    .method-card h3{margin:0;font-size:16px}
+    .method-card p{margin:6px 0 0;color:var(--muted);font-size:12.5px;font-weight:700;line-height:1.5}
+
+    .band-list{display:grid;gap:8px;margin-top:12px}
+    .band{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:10px 12px;border-radius:14px;background:#fff;border:1px solid rgba(12,24,40,.08);
+    }
+    .band b{font-size:13px}
+    .pill-rate{
+      background:linear-gradient(135deg,var(--green),var(--green2));
+      color:#fff;border-radius:999px;padding:7px 10px;font-weight:900;font-size:12px;white-space:nowrap;
+    }
+
+    .section-head{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-top:16px;padding-top:14px;border-top:1px dashed rgba(12,24,40,.12);font-weight:950;
+    }
+    .plus{
+      width:30px;height:30px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;
+      color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand2));
+      margin-right:8px;box-shadow:0 10px 22px rgba(31,95,191,.25);
+    }
+
+    .inputs-grid{
+      display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px;
+    }
+    .input-card{
+      border:1px solid rgba(12,24,40,.08);border-radius:18px;padding:14px;
+      background:linear-gradient(135deg,#fff,#f7fbff);box-shadow:var(--shadow-soft);
+    }
+    .input-card h3{margin:0 0 4px;font-size:15px}
+    .input-card p{margin:0 0 12px;color:var(--muted);font-size:12px;font-weight:700}
+    .field{display:flex;flex-direction:column;gap:6px}
+    label{font-size:12px;color:var(--muted);font-weight:950;letter-spacing:.02em}
+    input,select{
+      width:100%;padding:12px 13px;border-radius:14px;border:1px solid rgba(12,24,40,.10);
+      background:#fff;font:inherit;font-size:14px;outline:none;
+    }
+    input:focus,select:focus{border-color:rgba(31,95,191,.55);box-shadow:0 0 0 4px rgba(31,95,191,.12)}
+
+    .toggle-row{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px;
+      padding:12px 14px;border:1px solid rgba(12,24,40,.08);border-radius:16px;background:#fff;
+    }
+    .toggle-row input{width:18px;height:18px}
+
+    .list{display:flex;flex-direction:column;gap:10px}
+    .line{
+      display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
+      padding:12px 12px;border:1px solid rgba(12,24,40,.08);border-radius:16px;
+      background:linear-gradient(135deg,#fff,#f7faff);box-shadow:0 8px 18px rgba(15,35,65,.05);
+    }
+    .line b{font-size:13px}
+    .line small{display:block;margin-top:4px;color:var(--muted);font-weight:850;line-height:1.45}
+    .money{font-weight:950;color:var(--green)}
+    .hr{height:1px;background:rgba(12,24,40,.10);margin:12px 0}
+
+    .sticky-bar{
+      position:fixed;left:0;right:0;bottom:0;
+      background:linear-gradient(135deg,#0e2a55,#091a32);color:#fff;border-top:1px solid rgba(255,255,255,.10);
+      box-shadow:0 -14px 34px rgba(0,0,0,.28);padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+      z-index:9999;backdrop-filter:blur(12px);
+    }
+    .sticky-inner{
+      max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:nowrap;
+    }
+    .sticky-total{display:flex;flex-direction:column;font-weight:900;min-width:112px}
+    .sticky-total span{font-size:11px;opacity:.80;line-height:1.1;text-transform:uppercase;letter-spacing:.05em}
+    .sticky-total b{font-size:18px;letter-spacing:-.02em;line-height:1.1;margin-top:2px}
+    .sticky-actions{display:flex;gap:8px;flex-wrap:nowrap;align-items:center}
+
+    @media (max-width: 980px){
+      .grid,.summary,.inputs-grid,.method-grid{grid-template-columns:1fr}
+      .hero-top{align-items:flex-start}
+    }
+
+    @media (max-width: 600px){
+      body{padding-bottom:86px}
+      .wrap{padding:12px 12px 20px}
+      .topbar{padding:2px 0 10px}
+      .top-actions{display:none}
+      .brand-title,.brand span{display:none}
+      .brand-badge{width:44px;height:44px}
+      .hero{padding:14px 12px;border-radius:18px}
+      .hero-kicker,.hero-total{display:none}
+      .hero h1{font-size:21px}
+      .hero p{font-size:12.5px;line-height:1.45}
+      .card-h{padding:13px 14px}
+      .card-b{padding:14px}
+      .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
+      .sticky-inner{gap:8px}
+      .sticky-total{min-width:84px}
+      .sticky-total span{font-size:10px}
+      .sticky-total b{font-size:15px}
+      .sticky-actions{gap:6px}
+      .sticky-actions .btn{padding:9px 10px;font-size:12px;box-shadow:none}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-badge">AH</div>
+        <div class="brand-copy">
+          <div class="brand-title">Albrighton Hall Hotel and Spa</div>
+          <span>Commercial carpet cleaning calculator</span>
+        </div>
+      </div>
+      <div class="top-actions">
+        <a class="btn primary" href="#breakdownCard">View breakdown</a>
+        <a class="btn ghost" href="#notesCard">Pricing notes</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-top">
+        <div class="hero-copy">
+          <div class="hero-kicker">Commercial pricing tool</div>
+          <h1>Albrighton Hall cleaning calculator</h1>
+          <p>Mix rotary bonnet, hot water extraction, and hotel room pricing in one place. Ideal for pricing mixed commercial jobs such as corridors, public areas, bedrooms, and heavier soil sections like kitchen walkways.</p>
+        </div>
+        <div class="hero-total">
+          <div>
+            <b id="heroTotal">£0.00</b>
+            <span>Live total</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="card-h">
+          <h2>Build the quote</h2>
+          <small>Enter square metres and room counts. The correct price band is chosen automatically.</small>
+        </div>
+        <div class="card-b">
+          <div class="summary">
+            <div class="summary-box">
+              <span>Net total</span>
+              <b id="netTotal">£0.00</b>
+            </div>
+            <div class="summary-box">
+              <span>VAT</span>
+              <b id="vatTotal">£0.00</b>
+            </div>
+            <div class="summary-box">
+              <span>Total</span>
+              <b id="grandTotal">£0.00</b>
+            </div>
+          </div>
+
+          <div class="method-grid">
+            <div class="method-card">
+              <h3>Rotary bonnet pricing</h3>
+              <p>Maintenance and lower moisture commercial cleaning.</p>
+              <div class="band-list">
+                <div class="band"><div><b>Up to 150 m²</b></div><div class="pill-rate">£3.50 per m²</div></div>
+                <div class="band"><div><b>151 to 499 m²</b></div><div class="pill-rate">£3.00 per m²</div></div>
+                <div class="band"><div><b>500 to 999 m²</b></div><div class="pill-rate">£2.50 per m²</div></div>
+                <div class="band"><div><b>1000+ m²</b></div><div class="pill-rate">£2.00 per m²</div></div>
+                <div class="band"><div><b>Hotel rooms</b></div><div class="pill-rate">£30 per room</div></div>
+              </div>
+            </div>
+
+            <div class="method-card">
+              <h3>Hot water extraction pricing</h3>
+              <p>Deeper restorative cleaning with higher labour and moisture load.</p>
+              <div class="band-list">
+                <div class="band"><div><b>Up to 150 m²</b></div><div class="pill-rate">£4.20 per m²</div></div>
+                <div class="band"><div><b>151 to 399 m²</b></div><div class="pill-rate">£3.80 per m²</div></div>
+                <div class="band"><div><b>400 to 799 m²</b></div><div class="pill-rate">£3.20 per m²</div></div>
+                <div class="band"><div><b>800+ m²</b></div><div class="pill-rate">£2.80 per m²</div></div>
+                <div class="band"><div><b>Hotel rooms</b></div><div class="pill-rate">£40 per room</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <div><span class="plus">+</span>Commercial inputs</div>
+            <div>Mix and match both methods</div>
+          </div>
+
+          <div class="inputs-grid">
+            <div class="input-card">
+              <h3>Rotary bonnet area</h3>
+              <p>Enter total square metres for rotary bonnet cleaning.</p>
+              <div class="field">
+                <label for="rotarySqm">Rotary bonnet square metres</label>
+                <input id="rotarySqm" type="number" min="0" step="1" value="0">
+              </div>
+            </div>
+
+            <div class="input-card">
+              <h3>Hot water extraction area</h3>
+              <p>Enter total square metres for hot water extraction.</p>
+              <div class="field">
+                <label for="hweSqm">Hot water extraction square metres</label>
+                <input id="hweSqm" type="number" min="0" step="1" value="0">
+              </div>
+            </div>
+
+            <div class="input-card">
+              <h3>Rotary bonnet hotel rooms</h3>
+              <p>Use this for bedrooms or other room based pricing.</p>
+              <div class="field">
+                <label for="rotaryRooms">Rotary bonnet rooms</label>
+                <input id="rotaryRooms" type="number" min="0" step="1" value="0">
+              </div>
+            </div>
+
+            <div class="input-card">
+              <h3>Hot water extraction hotel rooms</h3>
+              <p>Use this for room by room extraction pricing.</p>
+              <div class="field">
+                <label for="hweRooms">Hot water extraction rooms</label>
+                <input id="hweRooms" type="number" min="0" step="1" value="0">
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle-row">
+            <input id="includeVat" type="checkbox">
+            <label for="includeVat" style="margin:0">Include VAT at 20%</label>
+          </div>
+        </div>
+      </section>
+
+      <aside class="card" id="breakdownCard">
+        <div class="card-h">
+          <h2>Your breakdown</h2>
+          <small>Shows which price band has been triggered for each method.</small>
+        </div>
+        <div class="card-b">
+          <div class="list" id="breakdownList"></div>
+
+          <div class="hr"></div>
+
+          <div class="card" id="notesCard" style="box-shadow:none;border-radius:18px;border:1px solid rgba(12,24,40,.10)">
+            <div class="card-h">
+              <h2>Pricing notes</h2>
+              <small>Quick reference for this hotel</small>
+            </div>
+            <div class="card-b">
+              <div class="list">
+                <div class="line">
+                  <div>
+                    <b>Rotary bonnet</b>
+                    <small>Best for lower moisture commercial maintenance cleaning.</small>
+                  </div>
+                </div>
+                <div class="line">
+                  <div>
+                    <b>Hot water extraction</b>
+                    <small>Higher m² rate reflects deeper cleaning, slower pace, and heavier labour.</small>
+                  </div>
+                </div>
+                <div class="line">
+                  <div>
+                    <b>Mixed jobs</b>
+                    <small>You can combine rotary bonnet and hot water extraction in the same quote.</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <div class="sticky-bar">
+    <div class="sticky-inner">
+      <div class="sticky-total">
+        <span>Total</span>
+        <b id="stickyTotal">£0.00</b>
+      </div>
+      <div class="sticky-actions">
+        <a class="btn primary" href="#breakdownCard">Breakdown</a>
+        <a class="btn ghost" href="#notesCard">Notes</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const ROTARY_BANDS = [
+      { min: 0, max: 150, rate: 3.50, label: "Up to 150 m²" },
+      { min: 151, max: 499, rate: 3.00, label: "151 to 499 m²" },
+      { min: 500, max: 999, rate: 2.50, label: "500 to 999 m²" },
+      { min: 1000, max: Infinity, rate: 2.00, label: "1000+ m²" }
+    ];
+
+    const HWE_BANDS = [
+      { min: 0, max: 150, rate: 4.20, label: "Up to 150 m²" },
+      { min: 151, max: 399, rate: 3.80, label: "151 to 399 m²" },
+      { min: 400, max: 799, rate: 3.20, label: "400 to 799 m²" },
+      { min: 800, max: Infinity, rate: 2.80, label: "800+ m²" }
+    ];
+
+    const ROTARY_ROOM_RATE = 30;
+    const HWE_ROOM_RATE = 40;
+    const VAT_RATE = 0.20;
+
+    const fmt = n => "£" + (Math.round((Number(n) || 0) * 100) / 100).toFixed(2);
+
+    function getNumber(id){
+      return Math.max(0, Number(document.getElementById(id).value) || 0);
+    }
+
+    function pickBand(m2, bands){
+      if (m2 <= 0) return null;
+      return bands.find(b => m2 >= b.min && m2 <= b.max) || bands[bands.length - 1];
+    }
+
+    function calculate(){
+      const rotarySqm = getNumber("rotarySqm");
+      const hweSqm = getNumber("hweSqm");
+      const rotaryRooms = getNumber("rotaryRooms");
+      const hweRooms = getNumber("hweRooms");
+      const includeVat = document.getElementById("includeVat").checked;
+
+      const rotaryBand = pickBand(rotarySqm, ROTARY_BANDS);
+      const hweBand = pickBand(hweSqm, HWE_BANDS);
+
+      const lines = [];
+
+      if (rotarySqm > 0 && rotaryBand){
+        lines.push({
+          title: "Rotary bonnet area",
+          note: `${rotarySqm} m² at ${fmt(rotaryBand.rate)} per m² · ${rotaryBand.label}`,
+          total: rotarySqm * rotaryBand.rate
+        });
+      }
+
+      if (hweSqm > 0 && hweBand){
+        lines.push({
+          title: "Hot water extraction area",
+          note: `${hweSqm} m² at ${fmt(hweBand.rate)} per m² · ${hweBand.label}`,
+          total: hweSqm * hweBand.rate
+        });
+      }
+
+      if (rotaryRooms > 0){
+        lines.push({
+          title: "Rotary bonnet hotel rooms",
+          note: `${rotaryRooms} rooms at ${fmt(ROTARY_ROOM_RATE)} each`,
+          total: rotaryRooms * ROTARY_ROOM_RATE
+        });
+      }
+
+      if (hweRooms > 0){
+        lines.push({
+          title: "Hot water extraction hotel rooms",
+          note: `${hweRooms} rooms at ${fmt(HWE_ROOM_RATE)} each`,
+          total: hweRooms * HWE_ROOM_RATE
+        });
+      }
+
+      const net = lines.reduce((sum, line) => sum + line.total, 0);
+      const vat = includeVat ? net * VAT_RATE : 0;
+      const total = net + vat;
+
+      return { lines, net, vat, total };
+    }
+
+    function render(){
+      const result = calculate();
+
+      document.getElementById("netTotal").textContent = fmt(result.net);
+      document.getElementById("vatTotal").textContent = fmt(result.vat);
+      document.getElementById("grandTotal").textContent = fmt(result.total);
+      document.getElementById("heroTotal").textContent = fmt(result.total);
+      document.getElementById("stickyTotal").textContent = fmt(result.total);
+
+      const breakdownList = document.getElementById("breakdownList");
+
+      if (!result.lines.length){
+        breakdownList.innerHTML = `<div class="line"><div><b>No items entered yet</b><small>Add square metres or room counts to build the quote.</small></div><div class="money">${fmt(0)}</div></div>`;
+        return;
+      }
+
+      breakdownList.innerHTML =
+        result.lines.map(line => `
+          <div class="line">
+            <div>
+              <b>${line.title}</b>
+              <small>${line.note}</small>
+            </div>
+            <div class="money">${fmt(line.total)}</div>
+          </div>
+        `).join("") +
+        `<div class="hr"></div>
+         <div class="line">
+           <div><b>Net total</b><small>Before VAT</small></div>
+           <div class="money">${fmt(result.net)}</div>
+         </div>
+         <div class="line">
+           <div><b>VAT</b><small>${document.getElementById("includeVat").checked ? "20% added" : "Not included"}</small></div>
+           <div class="money">${fmt(result.vat)}</div>
+         </div>
+         <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
+           <div><b>Total</b><small>Final figure</small></div>
+           <div class="money">${fmt(result.total)}</div>
+         </div>`;
+    }
+
+    ["rotarySqm","hweSqm","rotaryRooms","hweRooms","includeVat"].forEach(id => {
+      document.getElementById(id).addEventListener("input", render);
+      document.getElementById(id).addEventListener("change", render);
+    });
+
+    render();
+  </script>
+</body>
+</html>
