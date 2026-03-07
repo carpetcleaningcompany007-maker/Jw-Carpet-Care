@@ -229,26 +229,12 @@
       box-shadow:0 16px 34px rgba(0,0,0,.18);
     }
 
-.hero-showcase img{
-  display:block;
-  width:100%;
-  height:220px;
-  object-fit:cover;
-  object-position:center 40%;
-}
-
-    .hero-showcase .caption{
-      position:absolute;
-      left:12px;
-      bottom:12px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(10,25,48,.72);
-      color:#fff;
-      font-size:12px;
-      font-weight:900;
-      border:1px solid rgba(255,255,255,.14);
-      backdrop-filter:blur(8px);
+    .hero-showcase img{
+      display:block;
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      object-position:center 40%;
     }
 
     .grid{
@@ -643,11 +629,10 @@
       .hero-kicker,.hero-total{display:none}
       .hero h1{font-size:20px}
       .hero p{font-size:12.5px;line-height:1.45}
-     .hero-showcase img{
-  height:150px;
-  object-position:center;
-}
-      .hero-showcase .caption{font-size:11px;padding:7px 10px}
+      .hero-showcase img{
+        height:150px;
+        object-position:center;
+      }
       .items{grid-template-columns:1fr;gap:10px}
       .item{padding:11px;border-radius:16px}
       .card-h{padding:13px 14px}
@@ -852,6 +837,8 @@
   </div>
 
   <script>
+    const MIN_CHARGE = 80;
+
     const ITEMS = {
       carpets: [
         { id:"staircase", name:"Staircase", desc:"Per flight", price:35 },
@@ -909,17 +896,29 @@
 
     function calc(){
       const lines = [];
-      let total = 0;
+      let subtotal = 0;
 
       for (const it of allItems()) {
         const q = Number(state.qty[it.id] || 0);
         if (!q) continue;
+
         const rowTotal = q * it.price;
-        total += rowTotal;
-        lines.push({ label:it.name, group:it.group, qty:q, unit:it.price, total:rowTotal });
+        subtotal += rowTotal;
+
+        lines.push({
+          label: it.name,
+          group: it.group,
+          qty: q,
+          unit: it.price,
+          total: rowTotal
+        });
       }
 
-      return { lines, total };
+      const hasItems = lines.length > 0;
+      const total = hasItems ? Math.max(subtotal, MIN_CHARGE) : 0;
+      const minApplied = hasItems && subtotal < MIN_CHARGE;
+
+      return { lines, subtotal, total, minApplied };
     }
 
     function count(group){
@@ -958,6 +957,15 @@
             <div class="money">${fmt(x.total)}</div>
           </div>
         `).join("") + `
+        ${result.minApplied ? `
+          <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
+            <div>
+              <b>Minimum charge applied</b>
+              <small>Minimum booking charge is ${fmt(MIN_CHARGE)}</small>
+            </div>
+            <div class="money">${fmt(MIN_CHARGE)}</div>
+          </div>
+        ` : ``}
         <div class="hr"></div>
         <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
           <div><b>Total</b><small>Instant estimate</small></div>
@@ -965,7 +973,12 @@
         </div>`;
       }
 
-      const breakdown = result.lines.map(x => `${x.label} (${x.group}): ${x.qty} × ${fmt(x.unit)} = ${fmt(x.total)}`).join("\n");
+      const breakdown = [
+        ...result.lines.map(x => `${x.label} (${x.group}): ${x.qty} × ${fmt(x.unit)} = ${fmt(x.total)}`),
+        ...(result.minApplied ? [`Minimum charge applied: ${fmt(MIN_CHARGE)}`] : []),
+        `Final total: ${fmt(result.total)}`
+      ].join("\n");
+
       document.getElementById("breakdown").value = breakdown;
     }
 
