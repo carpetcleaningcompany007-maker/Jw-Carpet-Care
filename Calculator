@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JW Carpet Care Instant Quote</title>
+  <meta name="description" content="JW Carpet Care instant quote calculator for carpets, rugs and upholstery." />
+  <style>
+    :root{
+      --bg:#f4f7fb;
+      --ink:#122033;
+      --muted:#5f7087;
+      --brand:#1f5fbf;
+      --brand2:#163f7d;
+      --green:#14945c;
+      --card:#ffffff;
+      --line:rgba(12,24,40,.10);
+      --shadow:0 16px 40px rgba(13,27,45,.10);
+      --r:22px;
+      --max:1160px;
+      --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:var(--font);
+      color:var(--ink);
+      background:
+        radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.10), transparent 60%),
+        linear-gradient(180deg, #0c1b31 0%, #14325f 320px, var(--bg) 321px);
+    }
+    a{text-decoration:none;color:inherit}
+    .wrap{max-width:var(--max);margin:0 auto;padding:16px 14px 80px}
+
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      color:#fff;padding:8px 0 14px;
+    }
+    .brand b{display:block;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+    .brand span{display:block;font-size:13px;opacity:.86;margin-top:4px}
+    .top-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      border:0;cursor:pointer;padding:11px 15px;border-radius:999px;
+      font-weight:900;font-size:13px;white-space:nowrap;
+      box-shadow:0 12px 28px rgba(0,0,0,.16);
+    }
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
+    .btn.ghost{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.18)}
+    .btn.green{background:linear-gradient(135deg,#18a86a,#11794c);color:#fff}
+
+    .hero{
+      background:linear-gradient(135deg,#10305d,#0c2243 65%,#0a1930);
+      color:#fff;border-radius:28px;padding:24px;box-shadow:0 30px 70px rgba(0,0,0,.22);
+    }
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center}
+    .hero h1{margin:0;font-size:40px;line-height:1.02;letter-spacing:-.03em}
+    .hero p{margin:12px 0 0;color:rgba(255,255,255,.88);font-size:15px;line-height:1.6;max-width:60ch}
+    .badges{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    .tag{
+      background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);color:#fff;
+      padding:10px 12px;border-radius:999px;font-size:12px;font-weight:900;backdrop-filter:blur(10px)
+    }
+
+    .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:16px;align-items:start;margin-top:16px}
+    .card{
+      background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;
+    }
+    .card-h{
+      padding:15px 16px;border-bottom:1px solid rgba(12,24,40,.08);
+      background:linear-gradient(135deg, rgba(31,95,191,.07), rgba(20,148,92,.05));
+    }
+    .card-h h2{margin:0;font-size:18px}
+    .card-h small{display:block;margin-top:4px;color:var(--muted);font-weight:800}
+    .card-b{padding:16px}
+
+    .summary{
+      display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;
+    }
+    .total-box,.info-box{
+      background:linear-gradient(135deg,#fff,#f7faff);border:1px solid rgba(12,24,40,.10);border-radius:18px;padding:14px;
+    }
+    .total-box b{display:block;font-size:30px;letter-spacing:-.03em;margin-top:6px}
+    .total-box span,.info-box span{font-size:12px;color:var(--muted);font-weight:900}
+    .note{font-size:12.5px;line-height:1.5;color:var(--muted);font-weight:700;margin:0}
+
+    .section-head{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      margin-top:14px;padding-top:12px;border-top:1px dashed rgba(12,24,40,.12);
+      font-weight:950;
+    }
+    .plus{
+      width:28px;height:28px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
+      color:#fff;background:linear-gradient(135deg,var(--brand),var(--brand2));margin-right:8px;
+      box-shadow:0 10px 22px rgba(31,95,191,.25)
+    }
+    .items{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:12px}
+    .item{
+      background:linear-gradient(135deg,#fff,#f8fbff);border:1px solid rgba(12,24,40,.10);
+      border-radius:18px;padding:12px;display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
+    }
+    .item h3{margin:0;font-size:14px;line-height:1.2}
+    .item p{margin:6px 0 0;font-size:12px;color:var(--muted);font-weight:800}
+    .price{margin-top:8px;color:var(--green);font-size:14px;font-weight:950}
+    .qty{display:flex;align-items:center;gap:8px}
+    .qbtn{
+      width:34px;height:34px;border-radius:12px;border:1px solid rgba(12,24,40,.10);background:#fff;
+      box-shadow:0 10px 18px rgba(10,18,32,.08);font-weight:950;cursor:pointer
+    }
+    .qnum{width:34px;text-align:center;font-weight:950}
+
+    details.acc{
+      margin-top:12px;border:1px solid rgba(12,24,40,.10);border-radius:18px;overflow:hidden;background:#fff
+    }
+    details.acc>summary{
+      list-style:none;cursor:pointer;padding:13px 14px;font-weight:950;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      background:linear-gradient(135deg, rgba(31,95,191,.06), rgba(20,148,92,.04));
+    }
+    details.acc>summary::-webkit-details-marker{display:none}
+    .acc-body{padding:12px 14px 14px;border-top:1px solid rgba(12,24,40,.08)}
+
+    .list{display:flex;flex-direction:column;gap:10px}
+    .line{
+      display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
+      padding:11px 12px;border:1px solid rgba(12,24,40,.10);border-radius:16px;background:linear-gradient(135deg,#fff,#f7faff)
+    }
+    .line b{font-size:13px}
+    .line small{display:block;margin-top:4px;color:var(--muted);font-weight:850}
+    .money{font-weight:950;color:var(--green)}
+    .mutebox{
+      padding:13px 14px;border:1px solid rgba(12,24,40,.10);border-radius:18px;
+      background:linear-gradient(135deg,#fff,#f7faff);font-size:12.5px;line-height:1.55;color:var(--muted);font-weight:700
+    }
+    .hr{height:1px;background:rgba(12,24,40,.10);margin:12px 0}
+
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+    .field{display:flex;flex-direction:column;gap:6px}
+    label{font-size:12px;color:var(--muted);font-weight:950}
+    input,select,textarea{
+      width:100%;padding:11px 12px;border-radius:14px;border:1px solid rgba(12,24,40,.12);background:#fff;font:inherit;font-size:13px;outline:none
+    }
+    textarea{min-height:110px;resize:vertical}
+    input:focus,select:focus,textarea:focus{border-color:rgba(31,95,191,.55);box-shadow:0 0 0 4px rgba(31,95,191,.12)}
+    .cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+
+    footer{text-align:center;color:#5c6b80;font-size:12px;font-weight:700;margin-top:18px;padding-top:6px}
+
+    @media (max-width: 980px){
+      .hero-grid,.grid,.form-grid,.summary{grid-template-columns:1fr}
+      .badges{justify-content:flex-start}
+    }
+    @media (max-width: 480px){
+      .hero h1{font-size:30px}
+      .wrap{padding-bottom:56px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <b>JW Carpet Care</b>
+        <span>Professional carpet and upholstery cleaning across Worcestershire</span>
+      </div>
+      <div class="top-actions">
+        <a class="btn primary" href="#callback">Request a quote</a>
+        <a class="btn ghost" href="tel:07838231389">Call 07838 231389</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <h1>Get a quick quote for carpets, rugs and upholstery</h1>
+          <p>
+            Add the rooms or items you want cleaned and your estimate updates instantly.
+            Simple, clear and easy to use.
+          </p>
+        </div>
+        <div class="badges">
+          <span class="tag">Local family run business</span>
+          <span class="tag">Fully trained and insured</span>
+          <span class="tag">Fast drying powerful cleaning</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="card-h">
+          <h2>Build your quote</h2>
+          <small>Select the items you want cleaned</small>
+        </div>
+        <div class="card-b">
+          <div class="summary">
+            <div class="total-box">
+              <span>Total estimate</span>
+              <b id="total">£0.00</b>
+            </div>
+            <div class="info-box">
+              <span>Helpful note</span>
+              <p class="note" style="margin-top:6px;">
+                Final price may vary for unusually large areas, heavy soiling, difficult access or specialist fibres.
+              </p>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <div><span class="plus">+</span>Carpets</div>
+            <div><b id="carpetCount">0</b> items</div>
+          </div>
+          <div class="items" id="carpets"></div>
+
+          <details class="acc">
+            <summary>
+              <span><span class="plus">+</span>Rugs</span>
+              <span><b id="rugCount">0</b> items</span>
+            </summary>
+            <div class="acc-body">
+              <div class="items" id="rugs"></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary>
+              <span><span class="plus">+</span>Sofas and upholstery</span>
+              <span><b id="upCount">0</b> items</span>
+            </summary>
+            <div class="acc-body">
+              <div class="items" id="upholstery"></div>
+            </div>
+          </details>
+
+          <div class="hr"></div>
+          <div class="mutebox">
+            Tip: add hall, stairs and landing separately if you want a more accurate breakdown.
+          </div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <div class="card-h">
+          <h2>Your selected items</h2>
+          <small>Updated live as you build the quote</small>
+        </div>
+        <div class="card-b">
+          <div class="list" id="selectedList"></div>
+
+          <div class="hr"></div>
+
+          <div class="card" style="box-shadow:none;border-radius:18px;border:1px solid rgba(12,24,40,.10)">
+            <div class="card-h">
+              <h2 id="callback">Request a quote</h2>
+              <small>Leave your details and JW Carpet Care can get back to you</small>
+            </div>
+            <div class="card-b">
+              <form id="quoteForm" onsubmit="return handleSubmit(event)">
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" placeholder="Your name" required>
+                  </div>
+                  <div class="field">
+                    <label for="phone">Phone</label>
+                    <input id="phone" name="phone" type="tel" placeholder="Best number" required>
+                  </div>
+                  <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" placeholder="info@example.com">
+                  </div>
+                  <div class="field">
+                    <label for="postcode">Postcode starts with</label>
+                    <select id="postcode" name="postcode">
+                      <option value="">Select</option>
+                      <option>WR</option>
+                      <option>B</option>
+                      <option>DY</option>
+                      <option>CV</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="field" style="margin-top:10px;">
+                  <label for="notes">Anything we should know</label>
+                  <textarea id="notes" name="notes" placeholder="Stains, parking, pets, access or preferred days"></textarea>
+                </div>
+
+                <input type="hidden" id="breakdown" name="breakdown">
+                <input type="hidden" id="totalHidden" name="total">
+
+                <div class="cta">
+                  <button class="btn green" type="submit">Send quote request</button>
+                  <a class="btn primary" href="tel:07838231389">Call now</a>
+                </div>
+
+                <p class="note" style="margin-top:10px;">
+                  You can also email <a href="mailto:infojwcarpetcare@gmail.com" style="text-decoration:underline;">infojwcarpetcare@gmail.com</a>
+                </p>
+              </form>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+          <div class="mutebox">
+            JW Carpet Care offers carpet cleaning, upholstery cleaning, rug cleaning, stain and odour removal, deodorising and carpet protection.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      © JW Carpet Care. Instant quote is an estimate only.
+      <div style="margin-top:6px;">
+        <a href="https://jwcarpetcare.co.uk" style="text-decoration:underline;">jwcarpetcare.co.uk</a>
+        · <a href="tel:07838231389" style="text-decoration:underline;">07838 231389</a>
+        · <a href="mailto:infojwcarpetcare@gmail.com" style="text-decoration:underline;">infojwcarpetcare@gmail.com</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const ITEMS = {
+      carpets: [
+        { id:"staircase", name:"Staircase", desc:"Per flight", price:35 },
+        { id:"hallway", name:"Hallway", desc:"Downstairs corridor", price:22 },
+        { id:"landing", name:"Landing", desc:"Upstairs landing", price:22 },
+        { id:"living", name:"Living Room", desc:"Main family room", price:79 },
+        { id:"bedroom", name:"Bedroom", desc:"Standard bedroom", price:37 },
+        { id:"dining", name:"Dining Room", desc:"Dining or breakfast room", price:57 },
+        { id:"boxroom", name:"Box Room", desc:"Small bedroom or office", price:27 },
+        { id:"study", name:"Study", desc:"Office or spare room", price:27 },
+        { id:"loungediner", name:"Lounge Diner", desc:"Open plan room", price:99 }
+      ],
+      rugs: [
+        { id:"rug_small", name:"Small Rug", desc:"Small rug clean", price:25 },
+        { id:"rug_medium", name:"Medium Rug", desc:"Medium rug clean", price:35 },
+        { id:"rug_large", name:"Large Rug", desc:"Large rug clean", price:49 }
+      ],
+      upholstery: [
+        { id:"sofa_2", name:"2 Seat Sofa", desc:"Fabric or leather", price:80 },
+        { id:"sofa_3", name:"3 Seat Sofa", desc:"Fabric or leather", price:120 },
+        { id:"seat", name:"Sofa Per Seat", desc:"Useful for corner sofas", price:40 },
+        { id:"armchair", name:"Armchair", desc:"Single chair", price:30 }
+      ]
+    };
+
+    const state = { qty:{} };
+
+    const fmt = n => "£" + (Math.round((Number(n)||0) * 100) / 100).toFixed(2);
+    const allItems = () => [
+      ...ITEMS.carpets.map(x => ({...x, group:"Carpets"})),
+      ...ITEMS.rugs.map(x => ({...x, group:"Rugs"})),
+      ...ITEMS.upholstery.map(x => ({...x, group:"Sofas and Upholstery"}))
+    ];
+
+    function renderGroup(el, items){
+      el.innerHTML = items.map(it => {
+        const q = state.qty[it.id] || 0;
+        return `
+          <article class="item" data-id="${it.id}">
+            <div style="min-width:0">
+              <h3>${it.name}</h3>
+              <p>${it.desc}</p>
+              <div class="price">${fmt(it.price)}</div>
+            </div>
+            <div class="qty">
+              <button class="qbtn" type="button" data-act="dec">−</button>
+              <div class="qnum">${q}</div>
+              <button class="qbtn" type="button" data-act="inc">+</button>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function calc(){
+      const lines = [];
+      let total = 0;
+      for (const it of allItems()) {
+        const q = Number(state.qty[it.id] || 0);
+        if (!q) continue;
+        const rowTotal = q * it.price;
+        total += rowTotal;
+        lines.push({ label:it.name, group:it.group, qty:q, unit:it.price, total:rowTotal });
+      }
+      return { lines, total };
+    }
+
+    function count(group){
+      return group.reduce((sum, it) => sum + (Number(state.qty[it.id]) || 0), 0);
+    }
+
+    function renderSelected(){
+      renderGroup(document.getElementById("carpets"), ITEMS.carpets);
+      renderGroup(document.getElementById("rugs"), ITEMS.rugs);
+      renderGroup(document.getElementById("upholstery"), ITEMS.upholstery);
+
+      document.getElementById("carpetCount").textContent = count(ITEMS.carpets);
+      document.getElementById("rugCount").textContent = count(ITEMS.rugs);
+      document.getElementById("upCount").textContent = count(ITEMS.upholstery);
+
+      const result = calc();
+      document.getElementById("total").textContent = fmt(result.total);
+      document.getElementById("totalHidden").value = fmt(result.total);
+
+      const selected = document.getElementById("selectedList");
+      if (!result.lines.length) {
+        selected.innerHTML = `<div class="mutebox">No items selected yet. Add rooms or furniture to see the estimate.</div>`;
+      } else {
+        selected.innerHTML = result.lines.map(x => `
+          <div class="line">
+            <div>
+              <b>${x.label}</b>
+              <small>${x.group} · ${x.qty} × ${fmt(x.unit)}</small>
+            </div>
+            <div class="money">${fmt(x.total)}</div>
+          </div>
+        `).join("") + `
+        <div class="hr"></div>
+        <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
+          <div><b>Total</b><small>Instant estimate</small></div>
+          <div class="money">${fmt(result.total)}</div>
+        </div>`;
+      }
+
+      const breakdown = result.lines.map(x => `${x.label} (${x.group}): ${x.qty} × ${fmt(x.unit)} = ${fmt(x.total)}`).join("\n");
+      document.getElementById("breakdown").value = breakdown;
+    }
+
+    function attachQtyHandlers(container){
+      container.addEventListener("click", (e) => {
+        const btn = e.target.closest(".qbtn");
+        if (!btn) return;
+        const card = btn.closest(".item");
+        const id = card.getAttribute("data-id");
+        const act = btn.getAttribute("data-act");
+        const cur = Number(state.qty[id] || 0);
+        state.qty[id] = act === "inc" ? cur + 1 : Math.max(0, cur - 1);
+        renderSelected();
+      });
+    }
+
+    attachQtyHandlers(document.getElementById("carpets"));
+    attachQtyHandlers(document.getElementById("rugs"));
+    attachQtyHandlers(document.getElementById("upholstery"));
+
+    renderSelected();
+
+    function handleSubmit(event){
+      event.preventDefault();
+      alert("Quote request captured on the page. Add your form endpoint or email handler to make this send automatically.");
+      return false;
+    }
+    window.handleSubmit = handleSubmit;
+  </script>
+</body>
+</html>
