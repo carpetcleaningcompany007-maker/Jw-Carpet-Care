@@ -1,4 +1,3 @@
-```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -151,7 +150,7 @@
       flex-wrap:wrap;
     }
 
-    .hero-copy{max-width:860px}
+    .hero-copy{max-width:880px}
 
     .hero-kicker{
       display:inline-flex;
@@ -170,7 +169,7 @@
 
     .hero h1{
       margin:0;
-      font-size:28px;
+      font-size:30px;
       line-height:1.04;
       letter-spacing:-.03em;
     }
@@ -180,7 +179,7 @@
       color:rgba(255,255,255,.86);
       font-size:13.5px;
       line-height:1.55;
-      max-width:70ch;
+      max-width:72ch;
     }
 
     .hero-total{
@@ -194,7 +193,7 @@
       backdrop-filter:blur(10px);
     }
 
-    .hero-total b{display:block;font-size:18px}
+    .hero-total b{display:block;font-size:20px}
     .hero-total span{display:block;font-size:12px;opacity:.84}
 
     .hero-showcase{
@@ -261,7 +260,7 @@
       margin-bottom:14px;
     }
 
-    .total-box,.info-box,.room-entry,.protect-card,.gate-box,.meta-box,.preview-box,.price-editor-box{
+    .total-box,.info-box,.room-entry,.protect-card,.gate-box,.meta-box,.preview-box,.price-editor-box,.step-card,.public-quote-box{
       min-width:0;
       background:linear-gradient(135deg,#fff,#f7fbff);
       border:1px solid rgba(12,24,40,.08);
@@ -305,7 +304,7 @@
       font-weight:950;
     }
 
-    .plus{
+    .plus,.step-badge{
       width:30px;
       height:30px;
       border-radius:12px;
@@ -316,64 +315,99 @@
       background:linear-gradient(135deg,var(--brand),var(--brand2));
       margin-right:8px;
       box-shadow:0 10px 22px rgba(31,95,191,.25);
+      flex:0 0 auto;
     }
 
-    .items{
+    .step-head{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .step-head h3{
+      margin:0;
+      font-size:20px;
+      color:var(--brand3);
+      line-height:1.15;
+    }
+
+    .step-head p{
+      margin:4px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:700;
+      line-height:1.55;
+    }
+
+    .step-list{
+      margin:8px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+      line-height:1.7;
+    }
+
+    .res-grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      grid-template-columns:repeat(2,minmax(0,1fr));
       gap:12px;
       margin-top:12px;
     }
 
-    .item{
-      min-width:0;
-      background:
-        radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.11), transparent 60%),
-        linear-gradient(135deg,#ffffff,#f8fbff);
-      border:1px solid rgba(31,95,191,.14);
+    .res-item{
+      border:1px solid rgba(31,95,191,.12);
       border-radius:18px;
       padding:13px;
+      background:linear-gradient(135deg,#ffffff,#f8fbff);
+      box-shadow:0 12px 24px rgba(15,35,65,.06);
+      min-width:0;
+    }
+
+    .res-item-top{
       display:flex;
       justify-content:space-between;
-      gap:12px;
+      gap:8px;
       align-items:flex-start;
-      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
-      transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease;
     }
 
-    .item:hover{
-      transform:translateY(-2px);
-      border-color:rgba(31,95,191,.24);
-      box-shadow:0 16px 30px rgba(15,35,65,.12), 0 0 0 1px rgba(255,255,255,.85) inset;
+    .res-item h4{
+      margin:0;
+      font-size:15px;
+      line-height:1.2;
+      color:var(--brand3);
     }
 
-    .item h3{margin:0;font-size:14px;line-height:1.2}
-    .item p{margin:6px 0 0;font-size:12px;color:var(--muted);font-weight:800}
-    .price{margin-top:8px;color:var(--green);font-size:14px;font-weight:950}
+    .res-item p{
+      margin:5px 0 0;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.45;
+    }
 
-    .qty{
+    .res-price{
+      margin-top:8px;
+      color:var(--green);
+      font-size:14px;
+      font-weight:950;
+    }
+
+    .qty-inline{
       display:flex;
       align-items:center;
       gap:8px;
-      flex:0 0 auto;
+      margin-top:10px;
     }
 
-    .qbtn{
-      width:36px;
-      height:36px;
-      border-radius:12px;
-      border:1px solid rgba(12,24,40,.08);
-      background:#fff;
-      box-shadow:0 10px 18px rgba(10,18,32,.08);
-      font-weight:950;
-      cursor:pointer;
-    }
-
-    .qnum{
-      width:34px;
+    .qty-inline input{
+      width:100%;
+      max-width:94px;
       text-align:center;
       font-weight:950;
-      font-size:15px;
+      font-size:16px;
+      padding:10px 8px;
     }
 
     details.acc{
@@ -400,6 +434,32 @@
     details.acc>summary::-webkit-details-marker{display:none}
     .acc-body{padding:12px 14px 14px;border-top:1px solid rgba(12,24,40,.08)}
     details.commercial-band{margin-top:10px}
+
+    .items{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .item{
+      min-width:0;
+      background:
+        radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.11), transparent 60%),
+        linear-gradient(135deg,#ffffff,#f8fbff);
+      border:1px solid rgba(31,95,191,.14);
+      border-radius:18px;
+      padding:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
+    }
+
+    .item h3{margin:0;font-size:14px;line-height:1.2}
+    .item p{margin:6px 0 0;font-size:12px;color:var(--muted);font-weight:800}
+    .price{margin-top:8px;color:var(--green);font-size:14px;font-weight:950}
 
     .list{
       display:flex;
@@ -455,7 +515,7 @@
       margin:12px 0;
     }
 
-    .form-grid,.doc-grid,.modal-grid,.preview-grid{
+    .form-grid,.doc-grid,.modal-grid,.preview-grid,.public-grid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:10px;
@@ -759,11 +819,14 @@
     @media (min-width: 1500px){
       .hero h1{font-size:34px}
       .hero-showcase img{height:300px}
-      .items{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    }
+
+    @media (max-width: 1100px){
+      .res-grid{grid-template-columns:1fr}
     }
 
     @media (max-width: 980px){
-      .grid,.form-grid,.summary,.doc-grid,.modal-grid,.preview-grid,.price-editor-grid{grid-template-columns:1fr}
+      .grid,.form-grid,.summary,.doc-grid,.modal-grid,.preview-grid,.price-editor-grid,.public-grid{grid-template-columns:1fr}
       .hero-top{align-items:flex-start}
     }
 
@@ -785,8 +848,7 @@
       .hero h1{font-size:20px}
       .hero p{font-size:12.5px;line-height:1.45}
       .hero-showcase img{height:150px;object-position:center}
-      .items{grid-template-columns:1fr;gap:10px}
-      .item{padding:11px;border-radius:16px}
+      .res-grid,.items{grid-template-columns:1fr;gap:10px}
       .card-h{padding:13px 14px}
       .card-b{padding:14px}
       .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
@@ -823,7 +885,7 @@
         <div class="hero-copy">
           <div class="hero-kicker">Instant estimate</div>
           <h1>Welcome to the JW Carpet Care calculator</h1>
-          <p>Add domestic rooms and items as normal, or open the commercial section to build area based pricing for larger work.</p>
+          <p>Step 1 add your residential rooms or commercial areas. Step 2 check the quote online. Step 3 enter your details and send, or just call us.</p>
         </div>
         <div class="hero-total">
           <div>
@@ -842,7 +904,7 @@
       <section class="card">
         <div class="card-h">
           <h2>Build your quote</h2>
-          <small>Select domestic items or add commercial areas</small>
+          <small>Clear steps for residential first, with commercial optional underneath</small>
         </div>
         <div class="card-b">
           <div class="summary">
@@ -858,40 +920,36 @@
             </div>
           </div>
 
-          <div class="section-head">
-            <div><span class="plus">+</span>Carpets</div>
-            <div><b id="carpetCount">0</b> items</div>
+          <div class="step-card">
+            <div class="step-head">
+              <div class="step-badge">1</div>
+              <div>
+                <h3>Enter your residential rooms</h3>
+                <p>Use the boxes below and put in how many of each room or item you want cleaned.</p>
+              </div>
+            </div>
+            <ul class="step-list">
+              <li>Enter the number needed for each room or item</li>
+              <li>Leave anything you do not want as 0</li>
+              <li>Your total updates automatically</li>
+            </ul>
+
+            <div class="res-grid" id="residentialFormGrid"></div>
           </div>
-          <div class="items" id="carpets"></div>
+
+          <div class="section-head">
+            <div><span class="plus">2</span>Commercial work optional</div>
+            <div><b id="commercialAreaCount">0</b> areas</div>
+          </div>
 
           <details class="acc">
             <summary>
-              <span><span class="plus">+</span>Rugs</span>
-              <span><b id="rugCount">0</b> items</span>
+              <span>Open commercial area pricing and area entry</span>
+              <span>Optional</span>
             </summary>
             <div class="acc-body">
-              <div class="items" id="rugs"></div>
-            </div>
-          </details>
-
-          <details class="acc">
-            <summary>
-              <span><span class="plus">+</span>Sofas and upholstery</span>
-              <span><b id="upCount">0</b> items</span>
-            </summary>
-            <div class="acc-body">
-              <div class="items" id="upholstery"></div>
-            </div>
-          </details>
-
-          <details class="acc" open>
-            <summary>
-              <span><span class="plus">+</span>Commercial work</span>
-              <span><b id="commercialAreaCount">0</b> areas</span>
-            </summary>
-            <div class="acc-body">
-              <div class="section-head" style="margin-top:0;padding-top:0;border-top:0;">
-                <div>Commercial pricing bands</div>
+              <div class="mutebox">
+                Use this section only if you want commercial pricing by square metres or hotel room rates.
               </div>
 
               <details class="acc commercial-band">
@@ -935,9 +993,12 @@
               </details>
 
               <div class="room-entry" style="margin-top:14px;">
-                <div class="area-cta">
-                  <h3>Add a commercial area</h3>
-                  <p>Use the add area button to create commercial areas with area name, cleaning method and square metres.</p>
+                <div class="step-head" style="margin-bottom:8px;">
+                  <div class="step-badge">2</div>
+                  <div>
+                    <h3>Add commercial areas</h3>
+                    <p>Add an area, choose the method, enter square metres, then save it into the quote.</p>
+                  </div>
                 </div>
 
                 <div class="cta">
@@ -992,7 +1053,7 @@
 
           <div class="hr"></div>
           <div class="mutebox">
-            Domestic and commercial items can be combined into the same quote.
+            Residential and commercial items can be combined into the same quote.
           </div>
         </div>
       </section>
@@ -1007,12 +1068,33 @@
 
           <div class="hr"></div>
 
+          <div class="public-quote-box">
+            <div class="step-head" style="margin-bottom:8px;">
+              <div class="step-badge">2</div>
+              <div>
+                <h3>Check your quote online</h3>
+                <p>You can preview the customer quote or open the online PDF style quote without using the password section.</p>
+              </div>
+            </div>
+
+            <div class="public-grid">
+              <button class="btn primary" type="button" id="previewQuoteBtnPublic">Preview quote</button>
+              <button class="btn green" type="button" id="pdfQuoteBtnPublic">View online PDF quote</button>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
           <div class="card" style="box-shadow:none;border-radius:18px;border:1px solid rgba(12,24,40,.10)">
             <div class="card-h">
-              <h2 id="callback">Request a quote</h2>
-              <small>Leave your details and JW Carpet Care can get back to you</small>
+              <h2 id="callback">Step 3. Enter your details</h2>
+              <small>Send your request or call us now</small>
             </div>
             <div class="card-b">
+              <div class="mutebox" style="margin-bottom:10px;">
+                Step 1 build the quote. Step 2 check it online if you want. Step 3 enter your details and press send, or call us.
+              </div>
+
               <form id="quoteForm" onsubmit="return handleSubmit(event)">
                 <div class="form-grid">
                   <div class="field">
@@ -1050,7 +1132,7 @@
 
                 <div class="cta">
                   <button class="btn green" type="submit">Send quote request</button>
-                  <a class="btn primary" href="tel:07838231389">Call now</a>
+                  <a class="btn primary" href="tel:07838231389">Call us now</a>
                 </div>
 
                 <p class="note" style="margin-top:10px;">
@@ -1064,8 +1146,8 @@
 
           <div class="card" style="box-shadow:none;border-radius:18px;border:1px solid rgba(12,24,40,.10)">
             <div class="card-h">
-              <h2>Quote, invoice and price tools</h2>
-              <small>Unlock to create documents and edit fixed prices</small>
+              <h2>Office use only</h2>
+              <small>Password section for invoice tools and changing prices</small>
             </div>
             <div class="card-b">
               <div id="docGate" class="gate-box">
@@ -1175,8 +1257,8 @@
                 </div>
 
                 <div class="cta">
-                  <button class="btn primary" type="button" id="previewQuoteBtn">Preview quote</button>
-                  <button class="btn green" type="button" id="pdfQuoteBtn">Open quote in page</button>
+                  <button class="btn primary" type="button" id="previewQuoteBtnPrivate">Preview quote</button>
+                  <button class="btn green" type="button" id="pdfQuoteBtnPrivate">Open quote in page</button>
                   <button class="btn green" type="button" id="excelQuoteBtn">Download Excel quote</button>
                 </div>
 
@@ -1188,7 +1270,7 @@
                 <div class="hr"></div>
 
                 <div class="price-editor-box">
-                  <h3>Edit domestic fixed prices</h3>
+                  <h3>Edit residential fixed prices</h3>
                   <div class="price-editor-grid" id="domesticPriceEditor"></div>
                 </div>
 
@@ -1263,9 +1345,9 @@
       </div>
 
       <div class="sticky-actions">
-        <a class="btn primary" href="#callback">Book</a>
+        <a class="btn primary" href="#callback">Send</a>
+        <button class="btn green" type="button" id="stickyPdfBtn">View quote</button>
         <a class="btn ghost" href="tel:07838231389">Call</a>
-        <a class="btn green" href="mailto:infojwcarpetcare@gmail.com?subject=JW%20Carpet%20Care%20Calculator%20Question">Message</a>
       </div>
     </div>
   </div>
@@ -1376,24 +1458,23 @@
     let roomRows = [];
     let roomCounter = 0;
     let editingRoomId = null;
-    let currentDocumentHtml = "";
 
     const pricing = {
       domestic: [
-        { id:"living", name:"Living Room", desc:"Main family room", price:79 },
-        { id:"bedroom", name:"Bedroom", desc:"Standard bedroom", price:37 },
-        { id:"dining", name:"Dining Room", desc:"Dining or breakfast room", price:57 },
-        { id:"boxroom", name:"Box Room", desc:"Small bedroom or office", price:27 },
-        { id:"study", name:"Study", desc:"Office or spare room", price:27 },
-        { id:"loungediner", name:"Lounge Diner", desc:"Open plan room", price:99 },
-        { id:"stairslanding", name:"Stairs and Landing", desc:"Combined stairs and landing", price:75 },
-        { id:"rug_small", name:"Small Rug", desc:"Small rug clean", price:25 },
-        { id:"rug_medium", name:"Medium Rug", desc:"Medium rug clean", price:35 },
-        { id:"rug_large", name:"Large Rug", desc:"Large rug clean", price:49 },
-        { id:"sofa_2", name:"2 Seat Sofa", desc:"Fabric or leather", price:80 },
-        { id:"sofa_3", name:"3 Seat Sofa", desc:"Fabric or leather", price:120 },
-        { id:"seat", name:"Sofa Per Seat", desc:"Useful for corner sofas", price:40 },
-        { id:"armchair", name:"Armchair", desc:"Single chair", price:30 }
+        { id:"living", name:"Living Room", desc:"Main family room", price:79, group:"Residential" },
+        { id:"bedroom", name:"Bedroom", desc:"Standard bedroom", price:37, group:"Residential" },
+        { id:"dining", name:"Dining Room", desc:"Dining or breakfast room", price:57, group:"Residential" },
+        { id:"boxroom", name:"Box Room", desc:"Small bedroom or office", price:27, group:"Residential" },
+        { id:"study", name:"Study", desc:"Office or spare room", price:27, group:"Residential" },
+        { id:"loungediner", name:"Lounge Diner", desc:"Open plan room", price:99, group:"Residential" },
+        { id:"stairslanding", name:"Stairs and Landing", desc:"Combined stairs and landing", price:75, group:"Residential" },
+        { id:"rug_small", name:"Small Rug", desc:"Small rug clean", price:25, group:"Rugs" },
+        { id:"rug_medium", name:"Medium Rug", desc:"Medium rug clean", price:35, group:"Rugs" },
+        { id:"rug_large", name:"Large Rug", desc:"Large rug clean", price:49, group:"Rugs" },
+        { id:"sofa_2", name:"2 Seat Sofa", desc:"Fabric or leather", price:80, group:"Upholstery" },
+        { id:"sofa_3", name:"3 Seat Sofa", desc:"Fabric or leather", price:120, group:"Upholstery" },
+        { id:"seat", name:"Sofa Per Seat", desc:"Useful for corner sofas", price:40, group:"Upholstery" },
+        { id:"armchair", name:"Armchair", desc:"Single chair", price:30, group:"Upholstery" }
       ],
       hotelRooms: {
         rotary: 25,
@@ -1446,44 +1527,38 @@
       return escapeHtml(str).replace(/\n/g, "<br>");
     }
 
-    function getDomesticGroups(){
-      return {
-        carpets: pricing.domestic.filter(x => ["living","bedroom","dining","boxroom","study","loungediner","stairslanding"].includes(x.id)),
-        rugs: pricing.domestic.filter(x => x.id.startsWith("rug_")),
-        upholstery: pricing.domestic.filter(x => ["sofa_2","sofa_3","seat","armchair"].includes(x.id))
-      };
-    }
-
-    function renderGroup(el, items){
-      el.innerHTML = items.map(it => {
-        const q = state.qty[it.id] || 0;
-        return `
-          <article class="item" data-id="${it.id}">
+    function renderResidentialForm(){
+      const el = document.getElementById("residentialFormGrid");
+      el.innerHTML = pricing.domestic.map(item => `
+        <div class="res-item">
+          <div class="res-item-top">
             <div style="min-width:0">
-              <h3>${escapeHtml(it.name)}</h3>
-              <p>${escapeHtml(it.desc)}</p>
-              <div class="price">${fmt(it.price)}</div>
+              <h4>${escapeHtml(item.name)}</h4>
+              <p>${escapeHtml(item.desc)}</p>
             </div>
-            <div class="qty">
-              <button class="qbtn" type="button" data-act="dec">−</button>
-              <div class="qnum">${q}</div>
-              <button class="qbtn" type="button" data-act="inc">+</button>
-            </div>
-          </article>
-        `;
-      }).join("");
+          </div>
+          <div class="res-price">${fmt(item.price)} each</div>
+          <div class="qty-inline">
+            <label for="qty_${escapeHtml(item.id)}" style="min-width:72px;">Quantity</label>
+            <input
+              id="qty_${escapeHtml(item.id)}"
+              type="number"
+              min="0"
+              step="1"
+              value="${Number(state.qty[item.id] || 0)}"
+              data-domestic-id="${escapeHtml(item.id)}"
+            >
+          </div>
+        </div>
+      `).join("");
     }
 
-    function attachQtyHandlers(container){
-      container.addEventListener("click", (e) => {
-        const btn = e.target.closest(".qbtn");
-        if (!btn) return;
-        const card = btn.closest(".item");
-        if (!card) return;
-        const id = card.getAttribute("data-id");
-        const act = btn.getAttribute("data-act");
-        const cur = Number(state.qty[id] || 0);
-        state.qty[id] = act === "inc" ? cur + 1 : Math.max(0, cur - 1);
+    function attachResidentialHandlers(){
+      document.getElementById("residentialFormGrid").addEventListener("input", (e) => {
+        const input = e.target.closest("[data-domestic-id]");
+        if (!input) return;
+        const id = input.getAttribute("data-domestic-id");
+        state.qty[id] = Math.max(0, Number(input.value) || 0);
         renderSelected();
       });
     }
@@ -1537,6 +1612,7 @@
       pricing.hweBands.forEach((b, i) => b.rate = Math.max(0, Number(document.getElementById(`hweRate_${i}`).value) || 0));
       pricing.hardfloorBands.forEach((b, i) => b.rate = Math.max(0, Number(document.getElementById(`hardfloorRate_${i}`).value) || 0));
 
+      renderResidentialForm();
       renderBandCards();
       renderSelected();
       alert("Prices updated.");
@@ -1777,9 +1853,8 @@
     function calculate(){
       let subtotal = 0;
       const lines = [];
-      const groups = getDomesticGroups();
 
-      Object.values(groups).flat().forEach(it => {
+      pricing.domestic.forEach(it => {
         const q = Number(state.qty[it.id] || 0);
         if (!q) return;
         const rowTotal = q * it.price;
@@ -1793,7 +1868,7 @@
           rate: it.price,
           total: rowTotal,
           qtyRooms: q,
-          group: it.id.startsWith("rug_") ? "Rugs" : ["sofa_2","sofa_3","seat","armchair"].includes(it.id) ? "Sofas and Upholstery" : "Carpets"
+          group: it.group
         });
       });
 
@@ -1881,16 +1956,8 @@
     }
 
     function renderSelected(){
-      const groups = getDomesticGroups();
-      renderGroup(document.getElementById("carpets"), groups.carpets);
-      renderGroup(document.getElementById("rugs"), groups.rugs);
-      renderGroup(document.getElementById("upholstery"), groups.upholstery);
+      renderResidentialForm();
       renderBandCards();
-
-      document.getElementById("carpetCount").textContent = groups.carpets.reduce((sum, it) => sum + (Number(state.qty[it.id]) || 0), 0);
-      document.getElementById("rugCount").textContent = groups.rugs.reduce((sum, it) => sum + (Number(state.qty[it.id]) || 0), 0);
-      document.getElementById("upCount").textContent = groups.upholstery.reduce((sum, it) => sum + (Number(state.qty[it.id]) || 0), 0);
-
       renderRoomRows();
 
       const result = calculate();
@@ -1902,7 +1969,7 @@
       const selected = document.getElementById("selectedList");
 
       if (!result.lines.length) {
-        selected.innerHTML = `<div class="mutebox">No items selected yet. Add rooms, furniture or commercial areas to see the estimate.</div>`;
+        selected.innerHTML = `<div class="mutebox">No items selected yet. Enter your rooms or add commercial areas to see the estimate.</div>`;
       } else {
         let html = result.lines.map(line => {
           const subText = line.isManualExtra
@@ -2005,16 +2072,16 @@
       const data = getDocData();
       const result = calculate();
 
-      const hasDomesticCarpets = result.lines.some(x => x.group === "Carpets");
+      const hasResidential = result.lines.some(x => x.group === "Residential");
       const hasRugs = result.lines.some(x => x.group === "Rugs");
-      const hasUpholstery = result.lines.some(x => x.group === "Sofas and Upholstery");
+      const hasUpholstery = result.lines.some(x => x.group === "Upholstery");
       const hasCommercial = result.lines.some(x => x.group === "Commercial Work");
 
       const usedMethods = new Set();
       const parts = [];
 
-      if (hasDomesticCarpets){
-        parts.push("Carpet cleaning has been included based on the selected rooms and areas.");
+      if (hasResidential){
+        parts.push("Residential carpet cleaning has been included based on the selected rooms and areas.");
       }
       if (hasRugs){
         parts.push("Rug cleaning has been included for the selected rug items.");
@@ -2299,17 +2366,14 @@
         alert(`Please add at least one item before opening the ${mode}.`);
         return;
       }
-      currentDocumentHtml = buildDocumentHtml(mode);
       document.getElementById("documentModalTitle").textContent = mode === "invoice" ? "Invoice preview" : "Quote preview";
-      const frame = document.getElementById("documentFrame");
-      frame.srcdoc = currentDocumentHtml;
+      document.getElementById("documentFrame").srcdoc = buildDocumentHtml(mode);
       document.getElementById("documentModal").classList.add("show");
     }
 
     function closeDocumentModal(){
       document.getElementById("documentModal").classList.remove("show");
       document.getElementById("documentFrame").srcdoc = "";
-      currentDocumentHtml = "";
     }
 
     function printCurrentDocument(){
@@ -2490,11 +2554,16 @@
 
     document.getElementById("applyPricingBtn").addEventListener("click", applyPriceChanges);
 
-    document.getElementById("previewQuoteBtn").addEventListener("click", openQuotePreview);
-    document.getElementById("pdfQuoteBtn").addEventListener("click", () => openDocumentInPage("quote"));
+    document.getElementById("previewQuoteBtnPublic").addEventListener("click", openQuotePreview);
+    document.getElementById("pdfQuoteBtnPublic").addEventListener("click", () => openDocumentInPage("quote"));
+    document.getElementById("stickyPdfBtn").addEventListener("click", () => openDocumentInPage("quote"));
+
+    document.getElementById("previewQuoteBtnPrivate").addEventListener("click", openQuotePreview);
+    document.getElementById("pdfQuoteBtnPrivate").addEventListener("click", () => openDocumentInPage("quote"));
     document.getElementById("excelQuoteBtn").addEventListener("click", downloadExcelQuote);
     document.getElementById("pdfInvoiceBtn").addEventListener("click", () => openDocumentInPage("invoice"));
     document.getElementById("excelInvoiceBtn").addEventListener("click", downloadExcelInvoice);
+
     document.getElementById("previewOpenPdfBtn").addEventListener("click", () => openDocumentInPage("quote"));
     document.getElementById("previewOpenExcelBtn").addEventListener("click", downloadExcelQuote);
     document.getElementById("closePreviewBtn").addEventListener("click", closeQuotePreview);
@@ -2556,10 +2625,8 @@
       }
     });
 
-    attachQtyHandlers(document.getElementById("carpets"));
-    attachQtyHandlers(document.getElementById("rugs"));
-    attachQtyHandlers(document.getElementById("upholstery"));
-
+    renderResidentialForm();
+    attachResidentialHandlers();
     renderBandCards();
     renderRoomRows();
     renderSelected();
@@ -2567,6 +2634,3 @@
   </script>
 </body>
 </html>
-```
-
-I’ve made it wider on desktop by increasing the max width and spreading the two main columns out more.
