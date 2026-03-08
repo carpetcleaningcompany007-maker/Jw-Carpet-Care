@@ -1,3 +1,15 @@
+Yes. That unnamed area is happening because the page is creating a blank starter row automatically.
+
+I’ve fixed it so:
+
+1. It does not add a blank unnamed area by default
+2. You cannot save an area unless the required fields are filled in
+3. It will stop people adding 0 m² entries
+4. The download is now a proper quote style HTML file that opens like a real quote sheet you can print or save as PDF, instead of just a CSV
+
+Paste this in as the full file:
+
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -64,7 +76,7 @@
       line-height:1;
       white-space:nowrap;
       box-shadow:0 12px 28px rgba(0,0,0,.16);
-      transition:transform .12s ease, filter .12s ease;
+      transition:transform .12s ease, filter .12s ease, opacity .12s ease;
     }
     .btn:hover{transform:translateY(-1px);filter:saturate(1.03)}
     .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
@@ -72,8 +84,9 @@
     .btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
     .btn.red{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
     .btn.small{padding:12px 16px;font-size:15px;box-shadow:none}
+    .btn:disabled{opacity:.55;cursor:not-allowed;transform:none;filter:none}
 
-    input,select{
+    input,select,textarea{
       width:100%;
       padding:18px 18px;
       border-radius:18px;
@@ -85,9 +98,14 @@
       outline:none;
       transition:border-color .12s ease, box-shadow .12s ease;
     }
-    input:focus,select:focus{
+    textarea{min-height:120px;resize:vertical}
+    input:focus,select:focus,textarea:focus{
       border-color:rgba(31,95,191,.55);
       box-shadow:0 0 0 4px rgba(31,95,191,.12);
+    }
+    .input-error{
+      border-color:rgba(204,56,56,.7) !important;
+      box-shadow:0 0 0 4px rgba(204,56,56,.12) !important;
     }
 
     .field{display:flex;flex-direction:column;gap:10px}
@@ -96,6 +114,13 @@
       color:var(--brand3);
       font-weight:900;
       letter-spacing:.01em;
+    }
+    .help-error{
+      color:var(--red);
+      font-size:15px;
+      font-weight:900;
+      display:none;
+      margin-top:2px;
     }
 
     .gate{
@@ -800,7 +825,7 @@
         font-size:17px;
         padding:14px 18px;
       }
-      input,select{
+      input,select,textarea{
         font-size:18px;
         min-height:58px;
         padding:16px;
@@ -852,7 +877,7 @@
           <div class="hero-copy">
             <div class="hero-kicker">Private estimate</div>
             <h1>Welcome to the hotel calculator</h1>
-            <p>Everything below has been made larger and easier to read. Add areas through the pop up form, choose the cleaning method, enter the square metres, and the calculator works out the price band automatically.</p>
+            <p>Add areas through the pop up form, choose the cleaning method, enter the square metres, and the calculator works out the price band automatically.</p>
           </div>
           <div class="hero-total">
             <div>
@@ -879,9 +904,9 @@
               <b id="total">£0.00</b>
             </div>
             <div class="info-box">
-              <span>Helpful note</span>
+              <span>Quote file</span>
               <p class="note" style="margin-top:10px;">
-                Downloaded CSV includes area name, method, square metres, band, rate, line total, subtotal, VAT and final total.
+                Download creates a printable quote sheet you can open in the browser and save as PDF.
               </p>
             </div>
           </div>
@@ -974,7 +999,7 @@
           <div class="room-entry">
             <div class="area-cta">
               <h3>Add your area here</h3>
-              <p>Press the Add area button to open the large entry form. That is where you enter the area type, cleaning method, and square metres.</p>
+              <p>Press the Add area button to open the large entry form. The area will only save if the required fields have been filled in properly.</p>
               <button class="btn primary" type="button" id="addRoomCta">Add area now</button>
             </div>
 
@@ -983,7 +1008,7 @@
             <div class="cta">
               <button class="btn primary" type="button" id="addRoomBottom">Add area</button>
               <button class="btn red" type="button" id="resetBtn">Reset all</button>
-              <button class="btn green" type="button" id="downloadBtn">Download CSV</button>
+              <button class="btn green" type="button" id="downloadBtn">Download quote sheet</button>
             </div>
           </div>
 
@@ -1039,6 +1064,37 @@
               <input id="extrasPrice" type="number" min="0" step="0.01" value="0">
             </div>
           </div>
+
+          <div class="section-head">
+            <div>Quote details</div>
+          </div>
+
+          <div class="room-entry">
+            <div class="field">
+              <label for="quoteClientName">Client name</label>
+              <input id="quoteClientName" type="text" placeholder="Enter client name">
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+              <label for="quoteSiteName">Site or hotel name</label>
+              <input id="quoteSiteName" type="text" placeholder="Enter site name">
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+              <label for="quoteAddress">Site address</label>
+              <textarea id="quoteAddress" placeholder="Enter address"></textarea>
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+              <label for="quoteRef">Quote reference</label>
+              <input id="quoteRef" type="text" placeholder="Example: AH 001">
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+              <label for="quoteNotes">Notes</label>
+              <textarea id="quoteNotes" placeholder="Optional notes, exclusions, or remarks"></textarea>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1082,33 +1138,38 @@
           <div class="field">
             <label for="modalAreaType">Area type</label>
             <select id="modalAreaType"></select>
+            <div class="help-error" id="areaTypeError">Please choose an area type.</div>
           </div>
 
           <div class="field">
             <label for="modalRoomName">Custom area name</label>
             <input id="modalRoomName" type="text" placeholder="Only use if Custom is selected">
+            <div class="help-error" id="roomNameError">Please enter a custom area name.</div>
           </div>
 
           <div class="field">
             <label for="modalMethod">Cleaning method</label>
             <select id="modalMethod">
+              <option value="">Select method</option>
               <option value="rotary">Rotary bonnet</option>
               <option value="hybrid">Hybrid Deep Clean</option>
               <option value="hwe">Hot water extraction</option>
               <option value="hardfloor">Hard floor cleaning</option>
             </select>
+            <div class="help-error" id="methodError">Please choose a cleaning method.</div>
           </div>
 
           <div class="field">
             <label for="modalSqm">Square metres</label>
-            <input id="modalSqm" type="number" min="0" step="0.1" value="0">
+            <input id="modalSqm" type="number" min="0" step="0.1" value="">
+            <div class="help-error" id="sqmError">Please enter square metres greater than 0.</div>
           </div>
         </div>
 
         <div class="modal-summary">
           <div class="meta-box">
             <span>Price band</span>
-            <b id="modalBand">Waiting for square metres</b>
+            <b id="modalBand">Waiting for details</b>
           </div>
           <div class="meta-box">
             <span>Rate</span>
@@ -1226,7 +1287,7 @@
       const bands = getBands(row.method);
       const band = pickBand(sqm, bands);
       const unit = band ? band.rate : 0;
-      const bandLabel = band ? band.label : "Waiting for square metres";
+      const bandLabel = band ? band.label : "Waiting for details";
       const total = sqm > 0 ? sqm * unit : 0;
       return { sqm, band, unit, bandLabel, total };
     }
@@ -1264,7 +1325,7 @@
           <div class="line">
             <div>
               <b>${escapeHtml(getDisplayAreaName(row))}</b>
-              <small>${escapeHtml(getMethodLabel(row.method))} · ${row.sqm || 0} m² · ${totals.bandLabel}</small>
+              <small>${escapeHtml(getMethodLabel(row.method))} · ${row.sqm} m² · ${totals.bandLabel}</small>
             </div>
             <div class="money">${fmt(totals.total)}</div>
           </div>
@@ -1275,6 +1336,11 @@
 
     function renderRoomRows(){
       const wrap = document.getElementById("roomList");
+      if (!roomRows.length){
+        wrap.innerHTML = `<div class="mutebox">No areas added yet. Click Add area to start building the quote.</div>`;
+        return;
+      }
+
       wrap.innerHTML = "";
       roomRows.forEach((row, index) => {
         wrap.appendChild(createRoomRowElement(row, index));
@@ -1287,24 +1353,15 @@
         id: roomCounter,
         areaType: data.areaType || "",
         roomName: data.roomName || "",
-        method: data.method || "rotary",
+        method: data.method || "",
         sqm: Number(data.sqm || 0)
       });
       renderRoomRows();
       renderSelected();
     }
 
-    function ensureAtLeastOneRow(){
-      if (!roomRows.length) addRoomRow();
-    }
-
     function removeRoomRow(id){
       roomRows = roomRows.filter(r => r.id !== id);
-      if (!roomRows.length){
-        roomCounter = 0;
-        addRoomRow();
-        return;
-      }
       renderRoomRows();
       renderSelected();
     }
@@ -1312,6 +1369,8 @@
     function resetAll(){
       roomRows = [];
       roomCounter = 0;
+      editingRoomId = null;
+
       document.getElementById("hotelRoomMethod").value = "rotary";
       document.getElementById("hotelRoomQty").value = 0;
       document.getElementById("includeVat").checked = false;
@@ -1319,7 +1378,15 @@
       document.getElementById("furnitureMovePrice").value = 0;
       document.getElementById("extrasDesc").value = "";
       document.getElementById("extrasPrice").value = 0;
-      addRoomRow();
+
+      document.getElementById("quoteClientName").value = "";
+      document.getElementById("quoteSiteName").value = "";
+      document.getElementById("quoteAddress").value = "";
+      document.getElementById("quoteRef").value = "";
+      document.getElementById("quoteNotes").value = "";
+
+      renderRoomRows();
+      renderSelected();
       closeAllAccordions();
     }
 
@@ -1329,7 +1396,7 @@
 
       roomRows.forEach(row => {
         const sqm = Math.max(0, Number(row.sqm) || 0);
-        if (!sqm) return;
+        if (!sqm || !row.method) return;
 
         const methodLabel = getMethodLabel(row.method);
         const bands = getBands(row.method);
@@ -1427,7 +1494,7 @@
       const selected = document.getElementById("selectedList");
 
       if (!result.lines.length){
-        selected.innerHTML = `<div class="mutebox">No priced items yet. Start by clicking Add area.</div>`;
+        selected.innerHTML = `<div class="mutebox">No priced items yet. Add at least one complete area or hotel room entry.</div>`;
         return;
       }
 
@@ -1476,48 +1543,6 @@
       selected.innerHTML = html;
     }
 
-    function downloadCsv(){
-      const result = calculate();
-
-      const rows = [];
-      rows.push(["Hotel Commercial Quote"]);
-      rows.push(["Generated", new Date().toLocaleString()]);
-      rows.push([]);
-      rows.push(["Room / Area","Method","Square Metres","Band","Rate","Line Total"]);
-
-      result.lines.forEach(line => {
-        rows.push([
-          line.roomName,
-          line.method,
-          line.isManualExtra ? "" : (line.qtyRooms ? `${line.qtyRooms} rooms` : line.sqm),
-          line.band,
-          fmt(line.rate),
-          fmt(line.total)
-        ]);
-      });
-
-      rows.push([]);
-      rows.push(["","","","Subtotal","",fmt(result.subtotal)]);
-      if (result.includeVat){
-        rows.push(["","","","VAT 20%","",fmt(result.vat)]);
-      }
-      rows.push(["","","","Final Total","",fmt(result.total)]);
-
-      const csv = rows.map(row =>
-        row.map(cell => `"${String(cell ?? "").replace(/"/g, '""')}"`).join(",")
-      ).join("\n");
-
-      const blob = new Blob(["\uFEFF" + csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "hotel_quote.csv";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
-
     function unlock(){
       const input = document.getElementById("passwordInput");
       const error = document.getElementById("passwordError");
@@ -1535,13 +1560,42 @@
       document.getElementById("modalAreaType").innerHTML = buildAreaOptions(selected || "");
     }
 
+    function clearModalErrors(){
+      ["modalAreaType","modalRoomName","modalMethod","modalSqm"].forEach(id => {
+        document.getElementById(id).classList.remove("input-error");
+      });
+      ["areaTypeError","roomNameError","methodError","sqmError"].forEach(id => {
+        document.getElementById(id).style.display = "none";
+      });
+    }
+
+    function updateCustomNameRequirement(){
+      const areaType = document.getElementById("modalAreaType").value;
+      const roomNameInput = document.getElementById("modalRoomName");
+      roomNameInput.disabled = areaType !== "Custom";
+      if (areaType !== "Custom"){
+        roomNameInput.value = "";
+      }
+    }
+
     function updateModalPreview(){
+      const areaType = document.getElementById("modalAreaType").value;
       const method = document.getElementById("modalMethod").value;
       const sqm = Math.max(0, Number(document.getElementById("modalSqm").value) || 0);
+
+      updateCustomNameRequirement();
+
+      if (!areaType || !method || sqm <= 0){
+        document.getElementById("modalBand").textContent = "Waiting for details";
+        document.getElementById("modalRate").textContent = "—";
+        document.getElementById("modalLineTotal").textContent = "£0.00";
+        return;
+      }
+
       const bands = getBands(method);
       const band = pickBand(sqm, bands);
 
-      document.getElementById("modalBand").textContent = band ? band.label : "Waiting for square metres";
+      document.getElementById("modalBand").textContent = band ? band.label : "Waiting for details";
       document.getElementById("modalRate").textContent = band ? `${fmt(band.rate)} per m²` : "—";
       document.getElementById("modalLineTotal").textContent = band ? fmt(sqm * band.rate) : "£0.00";
     }
@@ -1551,8 +1605,9 @@
       document.getElementById("modalTitle").textContent = "Add area";
       populateModalAreaOptions("");
       document.getElementById("modalRoomName").value = "";
-      document.getElementById("modalMethod").value = "rotary";
-      document.getElementById("modalSqm").value = 0;
+      document.getElementById("modalMethod").value = "";
+      document.getElementById("modalSqm").value = "";
+      clearModalErrors();
       updateModalPreview();
       document.getElementById("roomModal").classList.add("show");
     }
@@ -1564,8 +1619,9 @@
       document.getElementById("modalTitle").textContent = "Edit area";
       populateModalAreaOptions(row.areaType || "");
       document.getElementById("modalRoomName").value = row.roomName || "";
-      document.getElementById("modalMethod").value = row.method || "rotary";
-      document.getElementById("modalSqm").value = row.sqm || 0;
+      document.getElementById("modalMethod").value = row.method || "";
+      document.getElementById("modalSqm").value = row.sqm || "";
+      clearModalErrors();
       updateModalPreview();
       document.getElementById("roomModal").classList.add("show");
     }
@@ -1573,9 +1629,49 @@
     function closeModal(){
       document.getElementById("roomModal").classList.remove("show");
       editingRoomId = null;
+      clearModalErrors();
+    }
+
+    function validateModal(){
+      clearModalErrors();
+
+      const areaType = document.getElementById("modalAreaType").value.trim();
+      const roomName = document.getElementById("modalRoomName").value.trim();
+      const method = document.getElementById("modalMethod").value.trim();
+      const sqm = Number(document.getElementById("modalSqm").value);
+
+      let ok = true;
+
+      if (!areaType){
+        document.getElementById("modalAreaType").classList.add("input-error");
+        document.getElementById("areaTypeError").style.display = "block";
+        ok = false;
+      }
+
+      if (areaType === "Custom" && !roomName){
+        document.getElementById("modalRoomName").classList.add("input-error");
+        document.getElementById("roomNameError").style.display = "block";
+        ok = false;
+      }
+
+      if (!method){
+        document.getElementById("modalMethod").classList.add("input-error");
+        document.getElementById("methodError").style.display = "block";
+        ok = false;
+      }
+
+      if (!(sqm > 0)){
+        document.getElementById("modalSqm").classList.add("input-error");
+        document.getElementById("sqmError").style.display = "block";
+        ok = false;
+      }
+
+      return ok;
     }
 
     function saveModal(){
+      if (!validateModal()) return;
+
       const areaType = document.getElementById("modalAreaType").value;
       const roomName = document.getElementById("modalRoomName").value.trim();
       const method = document.getElementById("modalMethod").value;
@@ -1622,6 +1718,287 @@
       ["rotary","hybrid","hwe","hardfloor"].forEach(name => setAccordionState(name, false));
     }
 
+    function buildQuoteHtml(){
+      const result = calculate();
+      const clientName = document.getElementById("quoteClientName").value.trim() || "Client name not entered";
+      const siteName = document.getElementById("quoteSiteName").value.trim() || "Site name not entered";
+      const address = document.getElementById("quoteAddress").value.trim() || "Address not entered";
+      const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
+      const notes = document.getElementById("quoteNotes").value.trim();
+      const dateStr = new Date().toLocaleDateString();
+
+      const lineRows = result.lines.map(line => {
+        let qty = "";
+        let rate = fmt(line.rate);
+
+        if (line.isManualExtra){
+          qty = "Extra";
+        } else if (line.qtyRooms){
+          qty = `${line.qtyRooms} rooms`;
+        } else {
+          qty = `${line.sqm} m²`;
+        }
+
+        return `
+          <tr>
+            <td>${escapeHtml(line.roomName)}</td>
+            <td>${escapeHtml(line.method)}</td>
+            <td>${escapeHtml(qty)}</td>
+            <td>${escapeHtml(line.band)}</td>
+            <td>${rate}</td>
+            <td>${fmt(line.total)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      const vatRow = result.includeVat ? `
+        <tr>
+          <td colspan="5" class="totallabel">VAT</td>
+          <td class="totalvalue">${fmt(result.vat)}</td>
+        </tr>
+      ` : "";
+
+      const notesBlock = notes ? `
+        <div class="notes">
+          <h3>Notes</h3>
+          <p>${escapeHtml(notes).replace(/\n/g, "<br>")}</p>
+        </div>
+      ` : "";
+
+      return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quote Sheet</title>
+<style>
+  body{
+    font-family: Arial, Helvetica, sans-serif;
+    color:#142338;
+    margin:0;
+    background:#f4f7fb;
+    padding:30px;
+  }
+  .sheet{
+    max-width:1100px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:18px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+    overflow:hidden;
+    border:1px solid #d9e3f0;
+  }
+  .head{
+    background:linear-gradient(135deg,#10305d,#0d2548);
+    color:#fff;
+    padding:30px;
+  }
+  .head h1{
+    margin:0;
+    font-size:34px;
+    line-height:1.1;
+  }
+  .head p{
+    margin:8px 0 0;
+    font-size:18px;
+    opacity:.92;
+  }
+  .body{
+    padding:30px;
+  }
+  .meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-bottom:24px;
+  }
+  .box{
+    border:1px solid #d9e3f0;
+    border-radius:14px;
+    padding:18px;
+    background:#f9fbff;
+  }
+  .box h3{
+    margin:0 0 10px;
+    font-size:15px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#5b6d86;
+  }
+  .box p{
+    margin:0;
+    font-size:20px;
+    line-height:1.6;
+    font-weight:700;
+  }
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:10px;
+  }
+  th,td{
+    padding:14px 12px;
+    border-bottom:1px solid #dde6f2;
+    text-align:left;
+    font-size:16px;
+    vertical-align:top;
+  }
+  th{
+    background:#f1f6fd;
+    color:#0d2548;
+    font-size:15px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+  .totals{
+    margin-top:20px;
+  }
+  .totals table td{
+    border-bottom:1px solid #dde6f2;
+  }
+  .totallabel{
+    text-align:right;
+    font-weight:800;
+    color:#334863;
+  }
+  .totalvalue{
+    font-weight:900;
+    font-size:20px;
+    color:#17955e;
+    white-space:nowrap;
+  }
+  .notes{
+    margin-top:26px;
+    border:1px solid #d9e3f0;
+    border-radius:14px;
+    padding:18px;
+    background:#f9fbff;
+  }
+  .notes h3{
+    margin:0 0 8px;
+    color:#0d2548;
+    font-size:20px;
+  }
+  .notes p{
+    margin:0;
+    font-size:17px;
+    line-height:1.7;
+  }
+  .printbar{
+    max-width:1100px;
+    margin:0 auto 16px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .printbtn{
+    border:0;
+    cursor:pointer;
+    padding:14px 20px;
+    border-radius:999px;
+    font-size:16px;
+    font-weight:900;
+    color:#fff;
+    background:linear-gradient(135deg,#1f5fbf,#163f7d);
+  }
+  .printbtn.secondary{
+    background:linear-gradient(135deg,#17955e,#0f7549);
+  }
+  @media print{
+    body{background:#fff;padding:0}
+    .printbar{display:none}
+    .sheet{box-shadow:none;border:none;border-radius:0}
+  }
+</style>
+</head>
+<body>
+  <div class="printbar">
+    <button class="printbtn" onclick="window.print()">Print quote</button>
+    <button class="printbtn secondary" onclick="window.close()">Close</button>
+  </div>
+
+  <div class="sheet">
+    <div class="head">
+      <h1>The Carpet Cleaning Company</h1>
+      <p>Hotel cleaning quote sheet</p>
+    </div>
+
+    <div class="body">
+      <div class="meta">
+        <div class="box">
+          <h3>Client</h3>
+          <p>${escapeHtml(clientName)}</p>
+        </div>
+        <div class="box">
+          <h3>Quote details</h3>
+          <p>Date: ${escapeHtml(dateStr)}<br>Reference: ${escapeHtml(quoteRef)}</p>
+        </div>
+        <div class="box">
+          <h3>Site or hotel name</h3>
+          <p>${escapeHtml(siteName)}</p>
+        </div>
+        <div class="box">
+          <h3>Site address</h3>
+          <p>${escapeHtml(address).replace(/\n/g, "<br>")}</p>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Method</th>
+            <th>Qty</th>
+            <th>Band</th>
+            <th>Rate</th>
+            <th>Line total</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${lineRows || `<tr><td colspan="6">No priced items added.</td></tr>`}
+        </tbody>
+      </table>
+
+      <div class="totals">
+        <table>
+          <tr>
+            <td colspan="5" class="totallabel">Subtotal</td>
+            <td class="totalvalue">${fmt(result.subtotal)}</td>
+          </tr>
+          ${vatRow}
+          <tr>
+            <td colspan="5" class="totallabel">Total</td>
+            <td class="totalvalue">${fmt(result.total)}</td>
+          </tr>
+        </table>
+      </div>
+
+      ${notesBlock}
+    </div>
+  </div>
+</body>
+</html>`;
+    }
+
+    function downloadQuoteSheet(){
+      const result = calculate();
+
+      if (!result.lines.length){
+        alert("Please add at least one complete priced item before downloading the quote sheet.");
+        return;
+      }
+
+      const html = buildQuoteHtml();
+      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "hotel_quote_sheet.html";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
     document.getElementById("unlockBtn").addEventListener("click", unlock);
     document.getElementById("passwordInput").addEventListener("keydown", e => {
       if (e.key === "Enter") unlock();
@@ -1633,7 +2010,7 @@
     document.getElementById("resetBtn").addEventListener("click", resetAll);
     document.getElementById("resetTop").addEventListener("click", resetAll);
     document.getElementById("resetSticky").addEventListener("click", resetAll);
-    document.getElementById("downloadBtn").addEventListener("click", downloadCsv);
+    document.getElementById("downloadBtn").addEventListener("click", downloadQuoteSheet);
 
     document.getElementById("saveModalBtn").addEventListener("click", saveModal);
     document.getElementById("cancelModalBtn").addEventListener("click", closeModal);
@@ -1670,16 +2047,25 @@
       "furnitureMoveDesc",
       "furnitureMovePrice",
       "extrasDesc",
-      "extrasPrice"
+      "extrasPrice",
+      "quoteClientName",
+      "quoteSiteName",
+      "quoteAddress",
+      "quoteRef",
+      "quoteNotes"
     ].forEach(id => {
       document.getElementById(id).addEventListener("input", renderSelected);
       document.getElementById(id).addEventListener("change", renderSelected);
     });
 
-    ensureAtLeastOneRow();
-    closeAllAccordions();
     renderRoomRows();
+    closeAllAccordions();
     renderSelected();
   </script>
 </body>
 </html>
+```
+
+This fixes the unnamed area problem and makes the quote download much better.
+
+Next thing I’d do is make that quote sheet download directly as a proper PDF instead of HTML.
