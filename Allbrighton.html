@@ -1,15 +1,3 @@
-Yes. That unnamed area is happening because the page is creating a blank starter row automatically.
-
-I’ve fixed it so:
-
-1. It does not add a blank unnamed area by default
-2. You cannot save an area unless the required fields are filled in
-3. It will stop people adding 0 m² entries
-4. The download is now a proper quote style HTML file that opens like a real quote sheet you can print or save as PDF, instead of just a CSV
-
-Paste this in as the full file:
-
-```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -765,6 +753,53 @@ Paste this in as the full file:
       line-height:1.35;
     }
 
+    .preview-box{
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:20px;
+      padding:20px;
+      background:linear-gradient(135deg,#ffffff,#f8fbff);
+      box-shadow:var(--shadow-soft);
+      margin-top:18px;
+    }
+    .preview-box h4{
+      margin:0 0 10px;
+      font-size:28px;
+      line-height:1.1;
+      color:var(--brand3);
+    }
+    .preview-box p{
+      margin:0;
+      font-size:18px;
+      line-height:1.7;
+      color:var(--muted);
+      font-weight:700;
+    }
+    .preview-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      margin-top:18px;
+    }
+    .preview-list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:14px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(31,95,191,.08);
+      color:var(--brand3);
+      font-size:14px;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
     @media (max-width: 1280px){
       .items{grid-template-columns:repeat(2,minmax(0,1fr))}
       .item h3{font-size:23px}
@@ -772,7 +807,7 @@ Paste this in as the full file:
     }
 
     @media (max-width: 900px){
-      .summary,.modal-grid,.modal-summary{grid-template-columns:1fr}
+      .summary,.modal-grid,.modal-summary,.preview-grid{grid-template-columns:1fr}
       .hero-top{align-items:flex-start}
       .hero h1{font-size:38px}
       .hero p{font-size:19px}
@@ -801,7 +836,7 @@ Paste this in as the full file:
       .items{grid-template-columns:1fr}
       .item{min-height:auto;padding:16px;border-radius:18px}
       .item h3{font-size:22px}
-      .item p,.note,.mutebox,.line small{font-size:17px}
+      .item p,.note,.mutebox,.line small,.preview-box p{font-size:17px}
       .total-box b{font-size:40px}
       .line b{font-size:21px}
       .money{font-size:22px}
@@ -821,6 +856,7 @@ Paste this in as the full file:
       .modal-body{padding:16px}
       .meta-box{min-height:auto}
       .meta-box b{font-size:26px}
+      .preview-box h4{font-size:24px}
       .btn{
         font-size:17px;
         padding:14px 18px;
@@ -904,9 +940,9 @@ Paste this in as the full file:
               <b id="total">£0.00</b>
             </div>
             <div class="info-box">
-              <span>Quote file</span>
+              <span>Quote files</span>
               <p class="note" style="margin-top:10px;">
-                Download creates a printable quote sheet you can open in the browser and save as PDF.
+                Preview on screen, open a polished PDF version, or download an Excel quote sheet.
               </p>
             </div>
           </div>
@@ -1008,7 +1044,9 @@ Paste this in as the full file:
             <div class="cta">
               <button class="btn primary" type="button" id="addRoomBottom">Add area</button>
               <button class="btn red" type="button" id="resetBtn">Reset all</button>
-              <button class="btn green" type="button" id="downloadBtn">Download quote sheet</button>
+              <button class="btn green" type="button" id="previewBtn">Preview customer quote</button>
+              <button class="btn green" type="button" id="downloadPdfBtn">Open PDF quote</button>
+              <button class="btn green" type="button" id="downloadExcelBtn">Download Excel quote</button>
             </div>
           </div>
 
@@ -1189,6 +1227,23 @@ Paste this in as the full file:
     </div>
   </div>
 
+  <div id="quotePreviewModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3>Customer quote preview</h3>
+        <p>This is the polished customer facing summary of the work included.</p>
+      </div>
+      <div class="modal-body">
+        <div id="quotePreviewContent"></div>
+        <div class="cta">
+          <button class="btn primary" type="button" id="printFromPreviewBtn">Open PDF quote</button>
+          <button class="btn green" type="button" id="excelFromPreviewBtn">Download Excel quote</button>
+          <button class="btn red" type="button" id="closePreviewBtn">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const PASSWORD = "albrighton123";
     const VAT_RATE = 0.20;
@@ -1261,6 +1316,10 @@ Paste this in as the full file:
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#39;");
+    }
+
+    function nl2br(str){
+      return escapeHtml(str).replace(/\n/g, "<br>");
     }
 
     function getBands(method){
@@ -1409,6 +1468,7 @@ Paste this in as the full file:
         lines.push({
           roomName: getDisplayAreaName(row),
           method: methodLabel,
+          methodKey: row.method,
           sqm,
           band: band.label,
           rate: band.rate,
@@ -1422,13 +1482,16 @@ Paste this in as the full file:
       if (hotelRoomQty > 0){
         let unit = ROTARY_ROOM_RATE;
         let methodLabel = "Rotary bonnet hotel room";
+        let methodKey = "rotary";
 
         if (hotelRoomMethod === "hybrid"){
           unit = HYBRID_ROOM_RATE;
           methodLabel = "Hybrid Deep Clean hotel room";
+          methodKey = "hybrid";
         } else if (hotelRoomMethod === "hwe"){
           unit = HWE_ROOM_RATE;
           methodLabel = "Hot water extraction hotel room";
+          methodKey = "hwe";
         }
 
         const lineTotal = hotelRoomQty * unit;
@@ -1437,6 +1500,7 @@ Paste this in as the full file:
         lines.push({
           roomName: "Hotel rooms",
           method: methodLabel,
+          methodKey,
           sqm: "",
           band: "Room rate",
           rate: unit,
@@ -1453,6 +1517,7 @@ Paste this in as the full file:
         lines.push({
           roomName: furnitureMoveDesc,
           method: "Manual extra",
+          methodKey: "extra",
           sqm: "",
           band: "Furniture moving",
           rate: furnitureMovePrice,
@@ -1469,6 +1534,7 @@ Paste this in as the full file:
         lines.push({
           roomName: extrasDesc,
           method: "Manual extra",
+          methodKey: "extra",
           sqm: "",
           band: "Chemicals / other",
           rate: extrasPrice,
@@ -1718,7 +1784,145 @@ Paste this in as the full file:
       ["rotary","hybrid","hwe","hardfloor"].forEach(name => setAccordionState(name, false));
     }
 
-    function buildQuoteHtml(){
+    function getMethodSalesCopy(methodKey){
+      if (methodKey === "rotary"){
+        return {
+          title: "Carpet clean with rotary bonnet cleaning",
+          text: "This is a very effective low moisture carpet cleaning method designed to improve appearance quickly, lift surface soiling, brighten the pile, and leave the carpets looking fresher and more presentable. Drying times are typically faster than a full restorative extraction clean. We have also added protection free of charge to help the carpets stay looking cleaner for longer."
+        };
+      }
+
+      if (methodKey === "hybrid"){
+        return {
+          title: "Hybrid Deep Clean",
+          text: "This is one of the best methods for heavily used commercial carpets because it combines rotary bonnet cleaning with targeted hot water extraction where needed. It gives a deeper clean, better appearance improvement, and stronger soil removal while still keeping the process efficient for larger hotel areas. We have also added protection free of charge to help maintain the finish after cleaning."
+        };
+      }
+
+      if (methodKey === "hwe"){
+        return {
+          title: "Carpet clean with hot water extraction",
+          text: "This is the deepest restorative carpet cleaning method and is ideal where a more thorough flush through clean is required. Hot water extraction helps remove embedded soil, freshen the carpet pile, and leave the fibres feeling properly cleaned. We have also added protection free of charge to help the carpets stay cleaner for longer after the clean."
+        };
+      }
+
+      if (methodKey === "hardfloor"){
+        return {
+          title: "Hard floor deep clean",
+          text: "This service is designed to improve the appearance of hard floor areas by removing built up soil, dullness, and general traffic contamination. It is ideal for back of house areas, corridors, kitchen access routes, washrooms, and other commercial floor surfaces that need a more professional presentation."
+        };
+      }
+
+      return {
+        title: "Professional cleaning service",
+        text: "This quote includes professional cleaning work tailored to the areas selected."
+      };
+    }
+
+    function buildMethodSummary(result){
+      const seen = new Set();
+      const blocks = [];
+
+      result.lines.forEach(line => {
+        if (line.isManualExtra) return;
+        if (!line.methodKey || seen.has(line.methodKey)) return;
+        seen.add(line.methodKey);
+        const copy = getMethodSalesCopy(line.methodKey);
+
+        blocks.push(`
+          <div class="preview-box">
+            <div class="pill">${escapeHtml(copy.title)}</div>
+            <p style="margin-top:12px;">${escapeHtml(copy.text)}</p>
+          </div>
+        `);
+      });
+
+      return blocks.join("");
+    }
+
+    function buildCustomerSummaryHtml(){
+      const result = calculate();
+      const clientName = document.getElementById("quoteClientName").value.trim() || "Your customer";
+      const siteName = document.getElementById("quoteSiteName").value.trim() || "Selected site";
+      const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
+      const notes = document.getElementById("quoteNotes").value.trim();
+
+      if (!result.lines.length){
+        return `
+          <div class="mutebox">Add at least one complete priced item before opening the customer quote preview.</div>
+        `;
+      }
+
+      const lineHtml = result.lines.map(line => {
+        let subText = line.isManualExtra
+          ? `${line.method} · ${line.band}`
+          : line.qtyRooms
+            ? `${line.method} · ${line.qtyRooms} rooms`
+            : `${line.method} · ${line.sqm} m²`;
+
+        return `
+          <div class="line">
+            <div>
+              <b>${escapeHtml(line.roomName)}</b>
+              <small>${escapeHtml(subText)}</small>
+            </div>
+            <div class="money">${fmt(line.total)}</div>
+          </div>
+        `;
+      }).join("");
+
+      const notesBlock = notes ? `
+        <div class="preview-box">
+          <h4>Additional notes</h4>
+          <p>${nl2br(notes)}</p>
+        </div>
+      ` : "";
+
+      return `
+        <div class="preview-box">
+          <h4>Quote overview</h4>
+          <p>This quote has been prepared for ${escapeHtml(clientName)} for work at ${escapeHtml(siteName)}. The pricing below includes the selected cleaning methods, any room based items, and any extras that have been added. Quote reference: ${escapeHtml(quoteRef)}.</p>
+        </div>
+
+        <div class="preview-grid">
+          <div class="preview-box">
+            <h4>What you have chosen</h4>
+            <div class="preview-list">${lineHtml}</div>
+          </div>
+
+          <div class="preview-box">
+            <h4>Total quote</h4>
+            <p>Subtotal: ${fmt(result.subtotal)}<br>${result.includeVat ? `VAT: ${fmt(result.vat)}<br>` : ""}<strong style="color:#17955e;font-size:32px;line-height:1.4;">Total: ${fmt(result.total)}</strong></p>
+          </div>
+        </div>
+
+        ${buildMethodSummary(result)}
+
+        <div class="preview-box">
+          <h4>Why this quote stands out</h4>
+          <p>We have selected the most appropriate cleaning methods for the areas included in this quote to give the best balance of appearance improvement, soil removal, practicality, and finish. Where carpet cleaning has been included, we have added protection free of charge to help the carpets stay looking cleaner for longer after the work has been completed.</p>
+        </div>
+
+        ${notesBlock}
+      `;
+    }
+
+    function openQuotePreview(){
+      const result = calculate();
+      if (!result.lines.length){
+        alert("Please add at least one complete priced item before opening the quote preview.");
+        return;
+      }
+
+      document.getElementById("quotePreviewContent").innerHTML = buildCustomerSummaryHtml();
+      document.getElementById("quotePreviewModal").classList.add("show");
+    }
+
+    function closeQuotePreview(){
+      document.getElementById("quotePreviewModal").classList.remove("show");
+    }
+
+    function buildQuoteDocumentHtml(){
       const result = calculate();
       const clientName = document.getElementById("quoteClientName").value.trim() || "Client name not entered";
       const siteName = document.getElementById("quoteSiteName").value.trim() || "Site name not entered";
@@ -1761,9 +1965,11 @@ Paste this in as the full file:
       const notesBlock = notes ? `
         <div class="notes">
           <h3>Notes</h3>
-          <p>${escapeHtml(notes).replace(/\n/g, "<br>")}</p>
+          <p>${nl2br(notes)}</p>
         </div>
       ` : "";
+
+      const methodSummary = buildMethodSummary(result);
 
       return `<!doctype html>
 <html lang="en">
@@ -1866,19 +2072,19 @@ Paste this in as the full file:
     color:#17955e;
     white-space:nowrap;
   }
-  .notes{
+  .notes, .methodbox{
     margin-top:26px;
     border:1px solid #d9e3f0;
     border-radius:14px;
     padding:18px;
     background:#f9fbff;
   }
-  .notes h3{
+  .notes h3, .methodbox h3{
     margin:0 0 8px;
     color:#0d2548;
     font-size:20px;
   }
-  .notes p{
+  .notes p, .methodbox p{
     margin:0;
     font-size:17px;
     line-height:1.7;
@@ -1912,7 +2118,7 @@ Paste this in as the full file:
 </head>
 <body>
   <div class="printbar">
-    <button class="printbtn" onclick="window.print()">Print quote</button>
+    <button class="printbtn" onclick="window.print()">Save or print PDF</button>
     <button class="printbtn secondary" onclick="window.close()">Close</button>
   </div>
 
@@ -1938,7 +2144,7 @@ Paste this in as the full file:
         </div>
         <div class="box">
           <h3>Site address</h3>
-          <p>${escapeHtml(address).replace(/\n/g, "<br>")}</p>
+          <p>${nl2br(address)}</p>
         </div>
       </div>
 
@@ -1972,6 +2178,13 @@ Paste this in as the full file:
         </table>
       </div>
 
+      <div class="methodbox">
+        <h3>What is included</h3>
+        <p>We have selected the most suitable cleaning methods for the areas in this quote to give a strong balance of appearance improvement, professional presentation, and practical drying times. Where carpet cleaning has been included, we have added protection free of charge to help the carpets stay cleaner for longer after the clean.</p>
+      </div>
+
+      ${methodSummary.replace(/class="preview-box"/g, 'class="methodbox"').replace(/<h4>/g, '<h3>').replace(/<\/h4>/g, '</h3>')}
+
       ${notesBlock}
     </div>
   </div>
@@ -1979,24 +2192,137 @@ Paste this in as the full file:
 </html>`;
     }
 
-    function downloadQuoteSheet(){
+    function openPdfQuote(){
       const result = calculate();
-
       if (!result.lines.length){
-        alert("Please add at least one complete priced item before downloading the quote sheet.");
+        alert("Please add at least one complete priced item before opening the PDF quote.");
         return;
       }
 
-      const html = buildQuoteHtml();
-      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      const html = buildQuoteDocumentHtml();
+      const win = window.open("", "_blank");
+      if (!win){
+        alert("Popup blocked. Please allow popups for this page.");
+        return;
+      }
+      win.document.open();
+      win.document.write(html);
+      win.document.close();
+    }
+
+    function downloadExcelQuote(){
+      const result = calculate();
+      if (!result.lines.length){
+        alert("Please add at least one complete priced item before downloading the Excel quote.");
+        return;
+      }
+
+      const clientName = document.getElementById("quoteClientName").value.trim() || "Client name not entered";
+      const siteName = document.getElementById("quoteSiteName").value.trim() || "Site name not entered";
+      const address = document.getElementById("quoteAddress").value.trim() || "Address not entered";
+      const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
+      const notes = document.getElementById("quoteNotes").value.trim();
+      const dateStr = new Date().toLocaleDateString();
+
+      const rows = result.lines.map(line => {
+        let qty = "";
+        if (line.isManualExtra){
+          qty = "Extra";
+        } else if (line.qtyRooms){
+          qty = `${line.qtyRooms} rooms`;
+        } else {
+          qty = `${line.sqm} m²`;
+        }
+
+        return `
+          <tr>
+            <td>${escapeHtml(line.roomName)}</td>
+            <td>${escapeHtml(line.method)}</td>
+            <td>${escapeHtml(qty)}</td>
+            <td>${escapeHtml(line.band)}</td>
+            <td>${fmt(line.rate)}</td>
+            <td>${fmt(line.total)}</td>
+          </tr>
+        `;
+      }).join("");
+
+      const vatRow = result.includeVat ? `
+        <tr>
+          <td colspan="5" style="text-align:right;font-weight:bold;">VAT</td>
+          <td style="font-weight:bold;">${fmt(result.vat)}</td>
+        </tr>
+      ` : "";
+
+      const excelHtml = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:x="urn:schemas-microsoft-com:office:excel"
+              xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+          <meta charset="UTF-8">
+          <xml>
+            <x:ExcelWorkbook>
+              <x:ExcelWorksheets>
+                <x:ExcelWorksheet>
+                  <x:Name>Quote</x:Name>
+                  <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
+                </x:ExcelWorksheet>
+              </x:ExcelWorksheets>
+            </x:ExcelWorkbook>
+          </xml>
+        </head>
+        <body>
+          <table border="1">
+            <tr><td colspan="6"><strong>The Carpet Cleaning Company</strong></td></tr>
+            <tr><td colspan="6">Hotel cleaning quote sheet</td></tr>
+            <tr><td colspan="6"></td></tr>
+            <tr><td><strong>Client</strong></td><td colspan="2">${escapeHtml(clientName)}</td><td><strong>Date</strong></td><td colspan="2">${escapeHtml(dateStr)}</td></tr>
+            <tr><td><strong>Site</strong></td><td colspan="2">${escapeHtml(siteName)}</td><td><strong>Reference</strong></td><td colspan="2">${escapeHtml(quoteRef)}</td></tr>
+            <tr><td><strong>Address</strong></td><td colspan="5">${nl2br(address)}</td></tr>
+            <tr><td colspan="6"></td></tr>
+            <tr>
+              <td><strong>Area</strong></td>
+              <td><strong>Method</strong></td>
+              <td><strong>Qty</strong></td>
+              <td><strong>Band</strong></td>
+              <td><strong>Rate</strong></td>
+              <td><strong>Line total</strong></td>
+            </tr>
+            ${rows}
+            <tr><td colspan="6"></td></tr>
+            <tr>
+              <td colspan="5" style="text-align:right;font-weight:bold;">Subtotal</td>
+              <td style="font-weight:bold;">${fmt(result.subtotal)}</td>
+            </tr>
+            ${vatRow}
+            <tr>
+              <td colspan="5" style="text-align:right;font-weight:bold;">Total</td>
+              <td style="font-weight:bold;">${fmt(result.total)}</td>
+            </tr>
+            <tr><td colspan="6"></td></tr>
+            <tr><td colspan="6"><strong>Included summary</strong></td></tr>
+            <tr><td colspan="6">We have selected the most suitable cleaning methods for the areas in this quote to give a strong balance of appearance improvement, presentation, and practical drying times. Where carpet cleaning has been included, protection has been added free of charge.</td></tr>
+            ${notes ? `<tr><td colspan="6"></td></tr><tr><td colspan="6"><strong>Notes</strong></td></tr><tr><td colspan="6">${nl2br(notes)}</td></tr>` : ""}
+          </table>
+        </body>
+        </html>
+      `;
+
+      const blob = new Blob([excelHtml], { type: "application/vnd.ms-excel;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "hotel_quote_sheet.html";
+      a.download = "hotel_quote.xls";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    }
+
+    function openQuotePreviewAndMaybePrint(printAfter = false){
+      openQuotePreview();
+      if (printAfter){
+        setTimeout(() => openPdfQuote(), 120);
+      }
     }
 
     document.getElementById("unlockBtn").addEventListener("click", unlock);
@@ -2010,12 +2336,22 @@ Paste this in as the full file:
     document.getElementById("resetBtn").addEventListener("click", resetAll);
     document.getElementById("resetTop").addEventListener("click", resetAll);
     document.getElementById("resetSticky").addEventListener("click", resetAll);
-    document.getElementById("downloadBtn").addEventListener("click", downloadQuoteSheet);
+
+    document.getElementById("previewBtn").addEventListener("click", openQuotePreview);
+    document.getElementById("downloadPdfBtn").addEventListener("click", openPdfQuote);
+    document.getElementById("downloadExcelBtn").addEventListener("click", downloadExcelQuote);
 
     document.getElementById("saveModalBtn").addEventListener("click", saveModal);
     document.getElementById("cancelModalBtn").addEventListener("click", closeModal);
     document.getElementById("roomModal").addEventListener("click", e => {
       if (e.target.id === "roomModal") closeModal();
+    });
+
+    document.getElementById("closePreviewBtn").addEventListener("click", closeQuotePreview);
+    document.getElementById("printFromPreviewBtn").addEventListener("click", openPdfQuote);
+    document.getElementById("excelFromPreviewBtn").addEventListener("click", downloadExcelQuote);
+    document.getElementById("quotePreviewModal").addEventListener("click", e => {
+      if (e.target.id === "quotePreviewModal") closeQuotePreview();
     });
 
     ["modalAreaType","modalRoomName","modalMethod","modalSqm"].forEach(id => {
@@ -2064,8 +2400,3 @@ Paste this in as the full file:
   </script>
 </body>
 </html>
-```
-
-This fixes the unnamed area problem and makes the quote download much better.
-
-Next thing I’d do is make that quote sheet download directly as a proper PDF instead of HTML.
