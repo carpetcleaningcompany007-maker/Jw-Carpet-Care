@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JW Carpet Care Instant Quote</title>
-  <meta name="description" content="JW Carpet Care instant quote calculator for carpets, rugs and upholstery." />
+  <meta name="description" content="JW Carpet Care instant quote calculator for carpets, rugs, upholstery and commercial work." />
   <style>
     :root{
       --bg:#eef4fb;
@@ -21,7 +21,7 @@
       --shadow:0 18px 48px rgba(13,27,45,.10);
       --shadow-soft:0 10px 24px rgba(15,35,65,.07);
       --r:22px;
-      --max:1240px;
+      --max:1260px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     }
 
@@ -38,6 +38,7 @@
     }
 
     a{text-decoration:none;color:inherit}
+    .hidden{display:none !important}
 
     .wrap{
       max-width:var(--max);
@@ -563,6 +564,17 @@
       margin-top:10px;
     }
 
+    .tickgrid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      margin-top:10px;
+      padding:12px;
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:16px;
+      background:linear-gradient(135deg,#fff,#f7faff);
+    }
+
     .tickrow{
       display:flex;
       align-items:center;
@@ -578,6 +590,30 @@
       min-height:auto;
       padding:0;
       flex:0 0 auto;
+    }
+
+    .protect-card{
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:18px;
+      background:linear-gradient(135deg,#fff,#f7faff);
+      box-shadow:var(--shadow-soft);
+      padding:14px;
+    }
+
+    .gate-box{
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:18px;
+      background:linear-gradient(135deg,#fff,#f7faff);
+      box-shadow:var(--shadow-soft);
+      padding:14px;
+    }
+
+    .gate-error{
+      display:none;
+      color:var(--red);
+      font-size:12px;
+      font-weight:900;
+      margin-top:8px;
     }
 
     footer{
@@ -829,6 +865,16 @@
             </div>
           </details>
 
+          <details class="acc">
+            <summary>
+              <span><span class="plus">+</span>Commercial work</span>
+              <span><b id="comCount">0</b> items</span>
+            </summary>
+            <div class="acc-body">
+              <div class="items" id="commercial"></div>
+            </div>
+          </details>
+
           <div class="hr"></div>
           <div class="mutebox">
             Tip: add hall, stairs and landing separately if you want a more accurate breakdown.
@@ -904,81 +950,128 @@
           <div class="card" style="box-shadow:none;border-radius:18px;border:1px solid rgba(12,24,40,.10)">
             <div class="card-h">
               <h2>Quote and invoice tools</h2>
-              <small>Use the calculator as normal, then turn it into a quote or invoice</small>
+              <small>Unlock to create customer quotes and invoices</small>
             </div>
             <div class="card-b">
-              <div class="doc-grid">
+              <div id="docGate" class="gate-box">
                 <div class="field">
-                  <label for="clientNameDoc">Client name</label>
-                  <input id="clientNameDoc" type="text" placeholder="Client name">
+                  <label for="docPassword">Password</label>
+                  <input id="docPassword" type="password" placeholder="Enter password to unlock tools">
                 </div>
-                <div class="field">
-                  <label for="siteNameDoc">Site or property</label>
-                  <input id="siteNameDoc" type="text" placeholder="Property or site name">
+                <div class="cta">
+                  <button class="btn primary" type="button" id="unlockDocsBtn">Unlock quote and invoice tools</button>
                 </div>
-                <div class="field">
-                  <label for="quoteRef">Quote reference</label>
-                  <input id="quoteRef" type="text" placeholder="Example: Q 001">
-                </div>
-                <div class="field">
-                  <label for="invoiceRef">Invoice number</label>
-                  <input id="invoiceRef" type="text" placeholder="Example: INV 001">
-                </div>
-                <div class="field" style="grid-column:1 / -1;">
-                  <label for="addressDoc">Address</label>
-                  <textarea id="addressDoc" placeholder="Client or job address"></textarea>
-                </div>
-                <div class="field">
-                  <label for="invoiceDueDate">Invoice due date</label>
-                  <input id="invoiceDueDate" type="date">
-                </div>
-                <div class="field">
-                  <label for="descriptionDoc">Main description</label>
-                  <input id="descriptionDoc" type="text" placeholder="Professional carpet and upholstery cleaning service">
-                </div>
+                <div class="gate-error" id="docGateError">Password is incorrect.</div>
               </div>
 
-              <div class="field" style="margin-top:10px;">
-                <label for="quoteIntro">Quote intro</label>
-                <textarea id="quoteIntro">This quote has been prepared based on the items selected in the calculator and is intended as a clear breakdown of the cleaning services requested.</textarea>
-              </div>
+              <div id="docTools" class="hidden">
+                <div class="doc-grid">
+                  <div class="field">
+                    <label for="clientNameDoc">Client name</label>
+                    <input id="clientNameDoc" type="text" placeholder="Client name">
+                  </div>
+                  <div class="field">
+                    <label for="siteNameDoc">Site or property</label>
+                    <input id="siteNameDoc" type="text" placeholder="Property or site name">
+                  </div>
+                  <div class="field">
+                    <label for="quoteRef">Quote reference</label>
+                    <input id="quoteRef" type="text" placeholder="Example: Q 001">
+                  </div>
+                  <div class="field">
+                    <label for="invoiceRef">Invoice number</label>
+                    <input id="invoiceRef" type="text" placeholder="Example: INV 001">
+                  </div>
+                  <div class="field" style="grid-column:1 / -1;">
+                    <label for="addressDoc">Address</label>
+                    <textarea id="addressDoc" placeholder="Client or job address"></textarea>
+                  </div>
+                  <div class="field">
+                    <label for="invoiceDueDate">Invoice due date</label>
+                    <input id="invoiceDueDate" type="date">
+                  </div>
+                  <div class="field">
+                    <label for="descriptionDoc">Main description</label>
+                    <input id="descriptionDoc" type="text" placeholder="Professional carpet and upholstery cleaning service">
+                  </div>
+                </div>
 
-              <div class="field" style="margin-top:10px;">
-                <label for="quoteWorkText">Quote work text</label>
-                <textarea id="quoteWorkText">All work will be carried out using professional carpet and upholstery cleaning equipment, together with solutions appropriate to the fibre type and level of soiling.</textarea>
-              </div>
+                <div class="field" style="margin-top:10px;">
+                  <label for="quoteIntro">Quote intro</label>
+                  <textarea id="quoteIntro">This quote has been prepared based on the items selected in the calculator and is intended as a clear breakdown of the cleaning services requested.</textarea>
+                </div>
 
-              <div class="field" style="margin-top:10px;">
-                <label for="invoiceWorkText">Invoice work text</label>
-                <textarea id="invoiceWorkText">All work has been carried out using professional carpet and upholstery cleaning equipment, together with solutions appropriate to the fibre type and level of soiling.</textarea>
-              </div>
+                <div class="field" style="margin-top:10px;">
+                  <label for="quoteWorkText">Quote work text</label>
+                  <textarea id="quoteWorkText">All work will be carried out using professional carpet and upholstery cleaning equipment, together with solutions appropriate to the fibre type and level of soiling.</textarea>
+                </div>
 
-              <div class="field" style="margin-top:10px;">
-                <label for="commercialSectionText">Commercial section wording</label>
-                <textarea id="commercialSectionText">This service has been priced to reflect the selected rooms or items, with care taken to match the cleaning method to the item type and practical requirements of the job.</textarea>
-              </div>
+                <div class="field" style="margin-top:10px;">
+                  <label for="invoiceWorkText">Invoice work text</label>
+                  <textarea id="invoiceWorkText">All work has been carried out using professional carpet and upholstery cleaning equipment, together with solutions appropriate to the fibre type and level of soiling.</textarea>
+                </div>
 
-              <div class="tickrow" style="margin-top:10px;">
-                <input type="checkbox" id="includeFreeProtection">
-                <label for="includeFreeProtection" style="margin:0;color:var(--muted);font-size:12px;font-weight:900;">Include complimentary protection wording</label>
-              </div>
+                <div class="field" style="margin-top:10px;">
+                  <label for="commercialSectionText">Commercial section wording</label>
+                  <textarea id="commercialSectionText">This service has been priced to reflect the selected items and the practical requirements of the job.</textarea>
+                </div>
 
-              <div class="cta">
-                <button class="btn primary" type="button" id="previewQuoteBtn">Preview quote</button>
-                <button class="btn green" type="button" id="pdfQuoteBtn">Open PDF quote</button>
-                <button class="btn green" type="button" id="excelQuoteBtn">Download Excel quote</button>
-              </div>
+                <div class="field" style="margin-top:10px;">
+                  <label for="quoteNotesDoc">Quote and invoice notes</label>
+                  <textarea id="quoteNotesDoc">Payment is due in line with agreed terms unless otherwise stated.</textarea>
+                </div>
 
-              <div class="cta">
-                <button class="btn primary" type="button" id="pdfInvoiceBtn">Open PDF invoice</button>
-                <button class="btn primary" type="button" id="excelInvoiceBtn">Download Excel invoice</button>
+                <div class="tickgrid">
+                  <div class="tickrow">
+                    <input type="checkbox" id="includeDescription" checked>
+                    <label for="includeDescription" style="margin:0;">Include main description</label>
+                  </div>
+                  <div class="tickrow">
+                    <input type="checkbox" id="includeQuoteIntro" checked>
+                    <label for="includeQuoteIntro" style="margin:0;">Include quote intro on quote only</label>
+                  </div>
+                  <div class="tickrow">
+                    <input type="checkbox" id="includeCommercialSection">
+                    <label for="includeCommercialSection" style="margin:0;">Include commercial section on quote only</label>
+                  </div>
+                  <div class="tickrow">
+                    <input type="checkbox" id="includeWorkText" checked>
+                    <label for="includeWorkText" style="margin:0;">Include work text</label>
+                  </div>
+                  <div class="tickrow">
+                    <input type="checkbox" id="includeWhatsIncluded" checked>
+                    <label for="includeWhatsIncluded" style="margin:0;">Include what is included section on quote only</label>
+                  </div>
+                  <div class="tickrow">
+                    <input type="checkbox" id="includeNotesSection">
+                    <label for="includeNotesSection" style="margin:0;">Include notes section</label>
+                  </div>
+                </div>
+
+                <div class="protect-card" style="margin-top:10px;">
+                  <div class="tickrow">
+                    <input type="checkbox" id="includeFreeProtection">
+                    <label for="includeFreeProtection" style="margin:0;">Add complimentary protection wording when carpet items are selected</label>
+                  </div>
+                </div>
+
+                <div class="cta">
+                  <button class="btn primary" type="button" id="previewQuoteBtn">Preview quote</button>
+                  <button class="btn green" type="button" id="pdfQuoteBtn">Open PDF quote</button>
+                  <button class="btn green" type="button" id="excelQuoteBtn">Download Excel quote</button>
+                </div>
+
+                <div class="cta">
+                  <button class="btn primary" type="button" id="pdfInvoiceBtn">Open PDF invoice</button>
+                  <button class="btn primary" type="button" id="excelInvoiceBtn">Download Excel invoice</button>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="hr"></div>
           <div class="mutebox">
-            JW Carpet Care offers carpet cleaning, upholstery cleaning, rug cleaning, stain and odour removal, deodorising and carpet protection.
+            JW Carpet Care offers carpet cleaning, upholstery cleaning, rug cleaning, stain and odour removal, deodorising, carpet protection and commercial cleaning work.
           </div>
         </div>
       </aside>
@@ -1028,6 +1121,7 @@
 
   <script>
     const MIN_CHARGE = 80;
+    const DOC_PASSWORD = "jwdocs";
 
     const ITEMS = {
       carpets: [
@@ -1051,6 +1145,16 @@
         { id:"sofa_3", name:"3 Seat Sofa", desc:"Fabric or leather", price:120 },
         { id:"seat", name:"Sofa Per Seat", desc:"Useful for corner sofas", price:40 },
         { id:"armchair", name:"Armchair", desc:"Single chair", price:30 }
+      ],
+      commercial: [
+        { id:"com_office_small", name:"Small Office Carpet Area", desc:"Light commercial carpet clean", price:120 },
+        { id:"com_office_medium", name:"Medium Office Carpet Area", desc:"Mid size commercial area", price:220 },
+        { id:"com_office_large", name:"Large Office Carpet Area", desc:"Larger commercial carpet clean", price:380 },
+        { id:"com_restaurant", name:"Restaurant or Pub Carpet Area", desc:"Commercial traffic area clean", price:260 },
+        { id:"com_communal", name:"Communal Area", desc:"Shared access carpet clean", price:140 },
+        { id:"com_hwe_area", name:"Commercial Deep Clean Area", desc:"Hot water extraction commercial area", price:320 },
+        { id:"com_upholstery_set", name:"Commercial Upholstery Set", desc:"Reception or waiting area seating", price:180 },
+        { id:"com_rug_large", name:"Large Commercial Rug", desc:"Reception or feature rug", price:95 }
       ]
     };
 
@@ -1061,7 +1165,8 @@
     const allItems = () => [
       ...ITEMS.carpets.map(x => ({...x, group:"Carpets"})),
       ...ITEMS.rugs.map(x => ({...x, group:"Rugs"})),
-      ...ITEMS.upholstery.map(x => ({...x, group:"Sofas and Upholstery"}))
+      ...ITEMS.upholstery.map(x => ({...x, group:"Sofas and Upholstery"})),
+      ...ITEMS.commercial.map(x => ({...x, group:"Commercial Work"}))
     ];
 
     function escapeHtml(str){
@@ -1132,10 +1237,12 @@
       renderGroup(document.getElementById("carpets"), ITEMS.carpets);
       renderGroup(document.getElementById("rugs"), ITEMS.rugs);
       renderGroup(document.getElementById("upholstery"), ITEMS.upholstery);
+      renderGroup(document.getElementById("commercial"), ITEMS.commercial);
 
       document.getElementById("carpetCount").textContent = count(ITEMS.carpets);
       document.getElementById("rugCount").textContent = count(ITEMS.rugs);
       document.getElementById("upCount").textContent = count(ITEMS.upholstery);
+      document.getElementById("comCount").textContent = count(ITEMS.commercial);
 
       const result = calc();
       document.getElementById("total").textContent = fmt(result.total);
@@ -1149,7 +1256,7 @@
       const selected = document.getElementById("selectedList");
 
       if (!result.lines.length) {
-        selected.innerHTML = `<div class="mutebox">No items selected yet. Add rooms or furniture to see the estimate.</div>`;
+        selected.innerHTML = `<div class="mutebox">No items selected yet. Add rooms, furniture or commercial items to see the estimate.</div>`;
       } else {
         selected.innerHTML = result.lines.map(x => `
           <div class="line">
@@ -1204,9 +1311,27 @@
     attachQtyHandlers(document.getElementById("carpets"));
     attachQtyHandlers(document.getElementById("rugs"));
     attachQtyHandlers(document.getElementById("upholstery"));
+    attachQtyHandlers(document.getElementById("commercial"));
+
+    function unlockDocTools(){
+      const pw = document.getElementById("docPassword").value;
+      const error = document.getElementById("docGateError");
+      if (pw === DOC_PASSWORD){
+        document.getElementById("docGate").classList.add("hidden");
+        document.getElementById("docTools").classList.remove("hidden");
+        error.style.display = "none";
+      } else {
+        error.style.display = "block";
+      }
+    }
 
     function getClientName(){
       return document.getElementById("clientNameDoc").value.trim() || document.getElementById("name").value.trim() || "Client";
+    }
+
+    function getBool(id){
+      const el = document.getElementById(id);
+      return !!(el && el.checked);
     }
 
     function getDocData(){
@@ -1221,33 +1346,47 @@
         quoteIntro: document.getElementById("quoteIntro").value.trim() || "This quote has been prepared based on the items selected in the calculator and is intended as a clear breakdown of the cleaning services requested.",
         quoteWorkText: document.getElementById("quoteWorkText").value.trim() || "All work will be carried out using professional carpet and upholstery cleaning equipment, together with solutions appropriate to the fibre type and level of soiling.",
         invoiceWorkText: document.getElementById("invoiceWorkText").value.trim() || "All work has been carried out using professional carpet and upholstery cleaning equipment, together with solutions appropriate to the fibre type and level of soiling.",
-        commercialSectionText: document.getElementById("commercialSectionText").value.trim() || "This service has been priced to reflect the selected rooms or items, with care taken to match the cleaning method to the item type and practical requirements of the job.",
-        notes: document.getElementById("notes").value.trim() || "",
-        includeFreeProtection: document.getElementById("includeFreeProtection").checked
+        commercialSectionText: document.getElementById("commercialSectionText").value.trim() || "This service has been priced to reflect the selected items and the practical requirements of the job.",
+        notes: document.getElementById("quoteNotesDoc").value.trim() || "",
+        includeFreeProtection: getBool("includeFreeProtection"),
+        includeDescription: getBool("includeDescription"),
+        includeQuoteIntro: getBool("includeQuoteIntro"),
+        includeCommercialSection: getBool("includeCommercialSection"),
+        includeWorkText: getBool("includeWorkText"),
+        includeWhatsIncluded: getBool("includeWhatsIncluded"),
+        includeNotesSection: getBool("includeNotesSection")
       };
     }
 
-    function buildCustomerMethodText(){
+    function buildWhatsIncludedHtml(){
       const data = getDocData();
       const result = calc();
 
-      const groups = new Set(result.lines.map(x => x.group));
+      const hasCarpets = result.lines.some(x => x.group === "Carpets");
+      const hasRugs = result.lines.some(x => x.group === "Rugs");
+      const hasUpholstery = result.lines.some(x => x.group === "Sofas and Upholstery");
+      const hasCommercial = result.lines.some(x => x.group === "Commercial Work");
+
       const parts = [];
 
-      if (groups.has("Carpets")){
-        parts.push("Carpet cleaning has been included based on the selected rooms and areas. The service is designed to improve appearance, freshen the fibres and remove general soiling.");
+      if (hasCarpets){
+        parts.push("Carpet cleaning has been included based on the selected rooms and areas. The service is intended to improve appearance, refresh the fibres and remove general soiling.");
       }
-      if (groups.has("Rugs")){
+      if (hasRugs){
         parts.push("Rug cleaning has been included for the selected rug items, with the cleaning approach matched to the type and size selected in the calculator.");
       }
-      if (groups.has("Sofas and Upholstery")){
+      if (hasUpholstery){
         parts.push("Upholstery cleaning has been included for the selected seating items to improve appearance and refresh the fabric.");
       }
-      if (data.includeFreeProtection && groups.has("Carpets")){
+      if (hasCommercial){
+        parts.push("Commercial cleaning work has been included based on the selected commercial items in the calculator.");
+      }
+      if (data.includeFreeProtection && hasCarpets){
         parts.push("Complimentary carpet protection has been included at no additional charge.");
       }
+
       if (!parts.length){
-        parts.push("Professional cleaning services have been selected based on the calculator items included in this document.");
+        parts.push("Professional cleaning services have been selected based on the items included in this document.");
       }
 
       return parts.map(p => `<p style="margin:0 0 10px;">${escapeHtml(p)}</p>`).join("");
@@ -1272,16 +1411,18 @@
       `).join("");
 
       return `
+        ${data.includeQuoteIntro ? `
         <div class="preview-box">
           <h4>Quote overview</h4>
           <p>${escapeHtml(data.quoteIntro)}</p>
           <p style="margin-top:10px;">Prepared for ${escapeHtml(data.clientName)} for ${escapeHtml(data.siteName)}.</p>
-        </div>
+        </div>` : ""}
 
+        ${data.includeDescription ? `
         <div class="preview-box">
           <h4>Main description</h4>
           <p>${escapeHtml(data.description)}</p>
-        </div>
+        </div>` : ""}
 
         <div class="preview-box">
           <h4>Included in this quote</h4>
@@ -1293,20 +1434,29 @@
           <p>Subtotal: ${fmt(result.subtotal)}${result.minApplied ? `<br>Minimum charge applied: ${fmt(MIN_CHARGE)}` : ""}<br><strong style="color:#14945c;font-size:28px;line-height:1.5;">Total: ${fmt(result.total)}</strong></p>
         </div>
 
+        ${data.includeCommercialSection && result.lines.some(x => x.group === "Commercial Work") ? `
         <div class="preview-box">
           <h4>Commercial section</h4>
           <p>${escapeHtml(data.commercialSectionText)}</p>
-        </div>
+        </div>` : ""}
 
+        ${data.includeWorkText ? `
         <div class="preview-box">
           <h4>Work description</h4>
           <p>${escapeHtml(data.quoteWorkText)}</p>
-        </div>
+        </div>` : ""}
 
+        ${data.includeWhatsIncluded ? `
         <div class="preview-box">
           <h4>What is included</h4>
-          <p>${buildCustomerMethodText().replace(/<[^>]+>/g, "")}</p>
-        </div>
+          <p>${buildWhatsIncludedHtml().replace(/<[^>]+>/g, "")}</p>
+        </div>` : ""}
+
+        ${data.includeNotesSection ? `
+        <div class="preview-box">
+          <h4>Notes</h4>
+          <p>${nl2br(data.notes)}</p>
+        </div>` : ""}
       `;
     }
 
@@ -1322,6 +1472,7 @@
     function buildCommercialDocumentHtml(mode = "quote"){
       const result = calc();
       const data = getDocData();
+      const hasCommercial = result.lines.some(x => x.group === "Commercial Work");
       const date = new Date();
       const dateStr = date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
       const dueStr = data.invoiceDueDate
@@ -1418,9 +1569,9 @@
 
     <div class="spacer"></div>
 
-    ${mode === "quote" ? `<div style="margin-bottom:18px;font-size:15px;line-height:1.7;color:#333;">${escapeHtml(data.quoteIntro)}</div>` : ""}
+    ${mode === "quote" && data.includeQuoteIntro ? `<div style="margin-bottom:18px;font-size:15px;line-height:1.7;color:#333;">${escapeHtml(data.quoteIntro)}</div>` : ""}
 
-    <div style="margin-bottom:16px;font-size:15px;line-height:1.7;color:#333;"><strong>Description:</strong> ${escapeHtml(data.description)}</div>
+    ${data.includeDescription ? `<div style="margin-bottom:16px;font-size:15px;line-height:1.7;color:#333;"><strong>Description:</strong> ${escapeHtml(data.description)}</div>` : ""}
 
     <table>
       <thead>
@@ -1452,27 +1603,29 @@
       </tr>
     </table>
 
+    ${mode === "quote" && data.includeCommercialSection && hasCommercial ? `
     <div class="section">
-      <h3>${mode === "invoice" ? "Job note" : "Commercial section"}</h3>
-      <div>${escapeHtml(mode === "invoice" ? data.invoiceWorkText : data.commercialSectionText)}</div>
-    </div>
+      <h3>Commercial section</h3>
+      <div>${escapeHtml(data.commercialSectionText)}</div>
+    </div>` : ""}
 
-    ${mode === "quote" ? `
+    ${data.includeWorkText ? `
     <div class="section">
-      <h3>Work description</h3>
-      <div>${escapeHtml(data.quoteWorkText)}</div>
-    </div>
+      <h3>${mode === "invoice" ? "Job note" : "Work description"}</h3>
+      <div>${escapeHtml(mode === "invoice" ? data.invoiceWorkText : data.quoteWorkText)}</div>
+    </div>` : ""}
 
+    ${mode === "quote" && data.includeWhatsIncluded ? `
     <div class="section">
       <h3>What is included</h3>
-      <div>${buildCustomerMethodText()}</div>
-    </div>` : ``}
+      <div>${buildWhatsIncludedHtml()}</div>
+    </div>` : ""}
 
-    ${data.notes ? `
+    ${data.includeNotesSection ? `
     <div class="section">
       <h3>Notes</h3>
       <div>${nl2br(data.notes)}</div>
-    </div>` : ``}
+    </div>` : ""}
   </div>
 </body>
 </html>`;
@@ -1513,6 +1666,7 @@
     function downloadExcelQuote(){
       const result = calc();
       const data = getDocData();
+      const hasCommercial = result.lines.some(x => x.group === "Commercial Work");
       if (!result.lines.length){
         alert("Please add at least one item before downloading the Excel quote.");
         return;
@@ -1552,21 +1706,18 @@
               <td class="noborder"><div class="bold">Quote Date</div><div>${escapeHtml(dateStr)}</div><br><div class="bold">Quote Number</div><div>${escapeHtml(data.quoteRef)}</div></td>
               <td class="noborder" colspan="2"><div>JW Carpet Care</div><div>Worcestershire</div><div>07838 231389</div><div>infojwcarpetcare@gmail.com</div><div>jwcarpetcare.co.uk</div></td>
             </tr>
-            <tr><td colspan="5">${escapeHtml(data.quoteIntro)}</td></tr>
-            <tr><td colspan="5"><strong>Description:</strong> ${escapeHtml(data.description)}</td></tr>
+            ${data.includeQuoteIntro ? `<tr><td colspan="5">${escapeHtml(data.quoteIntro)}</td></tr>` : ``}
+            ${data.includeDescription ? `<tr><td colspan="5"><strong>Description:</strong> ${escapeHtml(data.description)}</td></tr>` : ``}
             <tr><td class="noborder" colspan="5" style="height:24px;"></td></tr>
             <tr><th>Item</th><th>Group</th><th>Quantity</th><th>Unit Price</th><th>Total</th></tr>
             ${rows}
             <tr><td colspan="4" class="right bold">Subtotal</td><td class="right">${Number(result.subtotal).toFixed(2)}</td></tr>
             ${result.minApplied ? `<tr><td colspan="4" class="right bold">Minimum Charge</td><td class="right">${Number(MIN_CHARGE).toFixed(2)}</td></tr>` : ``}
             <tr><td colspan="4" class="right bold">TOTAL GBP</td><td class="right bold">${Number(result.total).toFixed(2)}</td></tr>
-            <tr><td colspan="5"><strong>Commercial section</strong></td></tr>
-            <tr><td colspan="5">${escapeHtml(data.commercialSectionText)}</td></tr>
-            <tr><td colspan="5"><strong>Work description</strong></td></tr>
-            <tr><td colspan="5">${escapeHtml(data.quoteWorkText)}</td></tr>
-            <tr><td colspan="5"><strong>What is included</strong></td></tr>
-            <tr><td colspan="5">${buildCustomerMethodText()}</td></tr>
-            ${data.notes ? `<tr><td colspan="5"><strong>Notes</strong></td></tr><tr><td colspan="5">${nl2br(data.notes)}</td></tr>` : ``}
+            ${data.includeCommercialSection && hasCommercial ? `<tr><td colspan="5"><strong>Commercial section</strong></td></tr><tr><td colspan="5">${escapeHtml(data.commercialSectionText)}</td></tr>` : ``}
+            ${data.includeWorkText ? `<tr><td colspan="5"><strong>Work description</strong></td></tr><tr><td colspan="5">${escapeHtml(data.quoteWorkText)}</td></tr>` : ``}
+            ${data.includeWhatsIncluded ? `<tr><td colspan="5"><strong>What is included</strong></td></tr><tr><td colspan="5">${buildWhatsIncludedHtml()}</td></tr>` : ``}
+            ${data.includeNotesSection ? `<tr><td colspan="5"><strong>Notes</strong></td></tr><tr><td colspan="5">${nl2br(data.notes)}</td></tr>` : ``}
           </table>
         </body>
         </html>
@@ -1628,16 +1779,15 @@
               <td class="noborder"><div class="bold">Invoice Date</div><div>${escapeHtml(dateStr)}</div><br><div class="bold">Invoice Number</div><div>${escapeHtml(data.invoiceRef)}</div><br><div class="bold">Due Date</div><div>${escapeHtml(dueStr)}</div></td>
               <td class="noborder" colspan="2"><div>JW Carpet Care</div><div>Worcestershire</div><div>07838 231389</div><div>infojwcarpetcare@gmail.com</div><div>jwcarpetcare.co.uk</div></td>
             </tr>
-            <tr><td colspan="5"><strong>Description:</strong> ${escapeHtml(data.description)}</td></tr>
+            ${data.includeDescription ? `<tr><td colspan="5"><strong>Description:</strong> ${escapeHtml(data.description)}</td></tr>` : ``}
             <tr><td class="noborder" colspan="5" style="height:24px;"></td></tr>
             <tr><th>Item</th><th>Group</th><th>Quantity</th><th>Unit Price</th><th>Total</th></tr>
             ${rows}
             <tr><td colspan="4" class="right bold">Subtotal</td><td class="right">${Number(result.subtotal).toFixed(2)}</td></tr>
             ${result.minApplied ? `<tr><td colspan="4" class="right bold">Minimum Charge</td><td class="right">${Number(MIN_CHARGE).toFixed(2)}</td></tr>` : ``}
             <tr><td colspan="4" class="right bold">TOTAL GBP</td><td class="right bold">${Number(result.total).toFixed(2)}</td></tr>
-            <tr><td colspan="5"><strong>Job note</strong></td></tr>
-            <tr><td colspan="5">${escapeHtml(data.invoiceWorkText)}</td></tr>
-            ${data.notes ? `<tr><td colspan="5"><strong>Notes</strong></td></tr><tr><td colspan="5">${nl2br(data.notes)}</td></tr>` : ``}
+            ${data.includeWorkText ? `<tr><td colspan="5"><strong>Job note</strong></td></tr><tr><td colspan="5">${escapeHtml(data.invoiceWorkText)}</td></tr>` : ``}
+            ${data.includeNotesSection ? `<tr><td colspan="5"><strong>Notes</strong></td></tr><tr><td colspan="5">${nl2br(data.notes)}</td></tr>` : ``}
           </table>
         </body>
         </html>
@@ -1659,6 +1809,11 @@
       alert("Quote request captured on the page. Add your form endpoint or email handler to make this send automatically.");
       return false;
     }
+
+    document.getElementById("unlockDocsBtn").addEventListener("click", unlockDocTools);
+    document.getElementById("docPassword").addEventListener("keydown", e => {
+      if (e.key === "Enter") unlockDocTools();
+    });
 
     document.getElementById("previewQuoteBtn").addEventListener("click", openQuotePreview);
     document.getElementById("pdfQuoteBtn").addEventListener("click", openPdfQuote);
