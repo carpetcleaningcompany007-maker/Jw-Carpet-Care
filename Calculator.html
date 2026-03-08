@@ -20,7 +20,7 @@
       --shadow:0 18px 48px rgba(13,27,45,.10);
       --shadow-soft:0 10px 24px rgba(15,35,65,.07);
       --r:22px;
-      --max:1650px;
+      --max:1180px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     }
 
@@ -32,7 +32,7 @@
       background:
         radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
         radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
-        linear-gradient(180deg, #0d1f39 0%, #15335e 300px, var(--bg) 301px);
+        linear-gradient(180deg, #0d1f39 0%, #15335e 260px, var(--bg) 261px);
       padding-bottom:104px;
     }
 
@@ -42,7 +42,7 @@
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:18px 18px 28px;
+      padding:18px 16px 28px;
     }
 
     .topbar{
@@ -104,10 +104,10 @@
       gap:8px;
       border:0;
       cursor:pointer;
-      padding:11px 15px;
+      padding:13px 18px;
       border-radius:999px;
       font-weight:900;
-      font-size:13px;
+      font-size:14px;
       white-space:nowrap;
       box-shadow:0 12px 28px rgba(0,0,0,.16);
       transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
@@ -118,6 +118,7 @@
     .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16)}
     .btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
     .btn.red{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
+    .btn.white{background:#fff;color:var(--brand3)}
     .btn.small{padding:10px 12px;font-size:12px;box-shadow:none}
 
     .hero{
@@ -150,7 +151,7 @@
       flex-wrap:wrap;
     }
 
-    .hero-copy{max-width:880px}
+    .hero-copy{max-width:760px}
 
     .hero-kicker{
       display:inline-flex;
@@ -177,23 +178,23 @@
     .hero p{
       margin:8px 0 0;
       color:rgba(255,255,255,.86);
-      font-size:13.5px;
-      line-height:1.55;
-      max-width:72ch;
+      font-size:14px;
+      line-height:1.6;
+      max-width:68ch;
     }
 
     .hero-total{
       display:flex;
       align-items:center;
       gap:10px;
-      padding:10px 12px;
+      padding:12px 14px;
       border-radius:16px;
       background:rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.12);
       backdrop-filter:blur(10px);
     }
 
-    .hero-total b{display:block;font-size:20px}
+    .hero-total b{display:block;font-size:22px}
     .hero-total span{display:block;font-size:12px;opacity:.84}
 
     .hero-showcase{
@@ -209,58 +210,197 @@
     .hero-showcase img{
       display:block;
       width:100%;
-      height:260px;
+      height:250px;
       object-fit:cover;
       object-position:center 40%;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:minmax(0,1.35fr) minmax(430px,.85fr);
-      gap:28px;
-      align-items:start;
+    .wizard-shell{
       margin-top:18px;
     }
 
-    .card{
+    .progress{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin-bottom:18px;
+    }
+
+    .progress-step{
+      background:rgba(255,255,255,.78);
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:var(--shadow-soft);
+      display:flex;
+      gap:12px;
+      align-items:center;
+      min-width:0;
+    }
+
+    .progress-num{
+      width:38px;
+      height:38px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:1000;
+      color:#fff;
+      background:linear-gradient(135deg,#9db4d7,#7892b8);
+      flex:0 0 auto;
+    }
+
+    .progress-step.active .progress-num,
+    .progress-step.done .progress-num{
+      background:linear-gradient(135deg,var(--brand),var(--brand2));
+    }
+
+    .progress-step.done{
+      border-color:rgba(31,95,191,.18);
+    }
+
+    .progress-step.active{
+      border-color:rgba(31,95,191,.28);
+      box-shadow:0 18px 32px rgba(15,35,65,.10);
+      background:linear-gradient(135deg,#fff,#f6fbff);
+    }
+
+    .progress-step b{
+      display:block;
+      font-size:15px;
+      color:var(--brand3);
+      line-height:1.15;
+    }
+
+    .progress-step span{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:800;
+      margin-top:4px;
+      line-height:1.4;
+    }
+
+    .screen{
       min-width:0;
       background:rgba(255,255,255,.94);
       backdrop-filter:blur(10px);
       border:1px solid rgba(255,255,255,.55);
-      border-radius:var(--r);
+      border-radius:24px;
       box-shadow:var(--shadow);
       overflow:hidden;
     }
 
-    .card-h{
-      padding:16px 16px 14px;
+    .screen-h{
+      padding:18px 18px 16px;
       border-bottom:1px solid rgba(12,24,40,.08);
       background:linear-gradient(135deg, rgba(31,95,191,.08), rgba(20,148,92,.05));
     }
 
-    .card-h h2{
+    .screen-h h2{
       margin:0;
-      font-size:18px;
+      font-size:24px;
       letter-spacing:-.02em;
+      color:var(--brand3);
     }
 
-    .card-h small{
-      display:block;
-      margin-top:5px;
+    .screen-h p{
+      margin:6px 0 0;
       color:var(--muted);
       font-weight:800;
+      font-size:14px;
+      line-height:1.55;
     }
 
-    .card-b{padding:16px;min-width:0}
+    .screen-b{
+      padding:18px;
+    }
 
-    .summary{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
+    .step-note{
+      padding:16px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#f7fbff,#ffffff);
+      border:2px solid rgba(31,95,191,.16);
+      box-shadow:var(--shadow-soft);
       margin-bottom:14px;
     }
 
-    .total-box,.info-box,.room-entry,.protect-card,.gate-box,.meta-box,.preview-box,.price-editor-box,.step-card,.public-quote-box{
+    .step-note b{
+      display:block;
+      font-size:18px;
+      color:var(--brand3);
+      margin-bottom:6px;
+    }
+
+    .step-note p{
+      margin:0;
+      font-size:14px;
+      line-height:1.65;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+    .res-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .res-item{
+      border:1px solid rgba(31,95,191,.12);
+      border-radius:20px;
+      padding:16px;
+      background:linear-gradient(135deg,#ffffff,#f8fbff);
+      box-shadow:0 12px 24px rgba(15,35,65,.06);
+      min-width:0;
+    }
+
+    .res-item h4{
+      margin:0;
+      font-size:17px;
+      line-height:1.2;
+      color:var(--brand3);
+    }
+
+    .res-item p{
+      margin:6px 0 0;
+      font-size:13px;
+      color:var(--muted);
+      font-weight:800;
+      line-height:1.45;
+    }
+
+    .res-price{
+      margin-top:10px;
+      color:var(--green);
+      font-size:16px;
+      font-weight:950;
+    }
+
+    .qty-inline{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .qty-inline label{
+      min-width:72px;
+      font-size:13px;
+    }
+
+    .qty-inline input{
+      width:100%;
+      max-width:110px;
+      text-align:center;
+      font-weight:950;
+      font-size:18px;
+      padding:12px 10px;
+    }
+
+    .summary-card,.public-quote-box,.gate-box,.price-editor-box,.meta-box,.preview-box{
       min-width:0;
       background:linear-gradient(135deg,#fff,#f7fbff);
       border:1px solid rgba(12,24,40,.08);
@@ -269,15 +409,23 @@
       box-shadow:var(--shadow-soft);
     }
 
-    .total-box b{
+    .summary-total{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .summary-value b{
       display:block;
-      font-size:32px;
+      font-size:34px;
       letter-spacing:-.04em;
       margin-top:6px;
       color:var(--brand3);
     }
 
-    .total-box span,.info-box span,.meta-box span{
+    .summary-value span,
+    .meta-box span{
       font-size:12px;
       color:var(--muted);
       font-weight:900;
@@ -285,129 +433,136 @@
       letter-spacing:.04em;
     }
 
-    .note{
-      font-size:12.5px;
-      line-height:1.55;
-      color:var(--muted);
-      font-weight:700;
-      margin:0;
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-width:0;
     }
 
-    .section-head{
+    .line{
       display:flex;
-      align-items:center;
       justify-content:space-between;
       gap:10px;
-      margin-top:16px;
-      padding-top:14px;
-      border-top:1px dashed rgba(12,24,40,.12);
-      font-weight:950;
-    }
-
-    .plus,.step-badge{
-      width:30px;
-      height:30px;
-      border-radius:12px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      margin-right:8px;
-      box-shadow:0 10px 22px rgba(31,95,191,.25);
-      flex:0 0 auto;
-    }
-
-    .step-head{
-      display:flex;
       align-items:flex-start;
-      gap:10px;
-      margin-bottom:10px;
+      padding:14px 14px;
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:16px;
+      background:linear-gradient(135deg,#fff,#f7faff);
+      box-shadow:0 8px 18px rgba(15,35,65,.05);
+      min-width:0;
     }
 
-    .step-head h3{
-      margin:0;
-      font-size:20px;
-      color:var(--brand3);
-      line-height:1.15;
-    }
-
-    .step-head p{
-      margin:4px 0 0;
+    .line > div:first-child{min-width:0}
+    .line b{font-size:14px;overflow-wrap:anywhere}
+    .line small{
+      display:block;
+      margin-top:4px;
+      color:var(--muted);
+      font-weight:850;
+      overflow-wrap:anywhere;
       font-size:13px;
+      line-height:1.5;
+    }
+
+    .money{
+      font-weight:950;
+      color:var(--green);
+      flex:0 0 auto;
+      font-size:15px;
+    }
+
+    .mutebox{
+      padding:13px 14px;
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:18px;
+      background:linear-gradient(135deg,#fff,#f7faff);
+      font-size:13px;
+      line-height:1.6;
       color:var(--muted);
       font-weight:700;
-      line-height:1.55;
+      box-shadow:var(--shadow-soft);
     }
 
-    .step-list{
-      margin:8px 0 0;
-      padding-left:18px;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:800;
-      line-height:1.7;
+    .hr{
+      height:1px;
+      background:rgba(12,24,40,.10);
+      margin:14px 0;
     }
 
-    .res-grid{
+    .cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top:14px;
+    }
+
+    .screen-nav{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:18px;
+      padding-top:16px;
+      border-top:1px dashed rgba(12,24,40,.12);
+    }
+
+    .form-grid,.doc-grid,.modal-grid,.preview-grid{
       display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
+      grid-template-columns:1fr 1fr;
       gap:12px;
       margin-top:12px;
     }
 
-    .res-item{
-      border:1px solid rgba(31,95,191,.12);
-      border-radius:18px;
-      padding:13px;
-      background:linear-gradient(135deg,#ffffff,#f8fbff);
-      box-shadow:0 12px 24px rgba(15,35,65,.06);
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
       min-width:0;
     }
 
-    .res-item-top{
-      display:flex;
-      justify-content:space-between;
-      gap:8px;
-      align-items:flex-start;
-    }
-
-    .res-item h4{
-      margin:0;
-      font-size:15px;
-      line-height:1.2;
-      color:var(--brand3);
-    }
-
-    .res-item p{
-      margin:5px 0 0;
-      font-size:12px;
+    label{
+      font-size:13px;
       color:var(--muted);
-      font-weight:800;
-      line-height:1.45;
-    }
-
-    .res-price{
-      margin-top:8px;
-      color:var(--green);
-      font-size:14px;
       font-weight:950;
+      letter-spacing:.02em;
     }
 
-    .qty-inline{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      margin-top:10px;
-    }
-
-    .qty-inline input{
+    input,select,textarea{
       width:100%;
-      max-width:94px;
-      text-align:center;
-      font-weight:950;
-      font-size:16px;
-      padding:10px 8px;
+      max-width:100%;
+      padding:13px 14px;
+      border-radius:14px;
+      border:1px solid rgba(12,24,40,.10);
+      background:#fff;
+      font:inherit;
+      font-size:14px;
+      outline:none;
+      transition:border-color .12s ease, box-shadow .12s ease;
+      min-width:0;
+    }
+
+    textarea{
+      min-height:120px;
+      resize:vertical;
+    }
+
+    input:focus,select:focus,textarea:focus{
+      border-color:rgba(31,95,191,.55);
+      box-shadow:0 0 0 4px rgba(31,95,191,.12);
+    }
+
+    .input-error{
+      border-color:rgba(204,56,56,.7) !important;
+      box-shadow:0 0 0 4px rgba(204,56,56,.12) !important;
+    }
+
+    .help-error{
+      color:var(--red);
+      font-size:12px;
+      font-weight:900;
+      display:none;
     }
 
     details.acc{
@@ -437,7 +592,7 @@
 
     .items{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
       gap:12px;
       margin-top:12px;
     }
@@ -461,123 +616,35 @@
     .item p{margin:6px 0 0;font-size:12px;color:var(--muted);font-weight:800}
     .price{margin-top:8px;color:var(--green);font-size:14px;font-weight:950}
 
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      min-width:0;
+    .room-list{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+    .room-row{
+      border:1px solid rgba(31,95,191,.14);
+      border-radius:18px;
+      padding:14px;
+      background:linear-gradient(135deg,#ffffff,#f8fbff);
+      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
     }
 
-    .line{
+    .room-top{
       display:flex;
+      align-items:center;
       justify-content:space-between;
       gap:10px;
-      align-items:flex-start;
-      padding:12px 12px;
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:16px;
-      background:linear-gradient(135deg,#fff,#f7faff);
-      box-shadow:0 8px 18px rgba(15,35,65,.05);
-      min-width:0;
+      margin-bottom:10px;
     }
 
-    .line > div:first-child{min-width:0}
-    .line b{font-size:13px;overflow-wrap:anywhere}
-    .line small{
-      display:block;
-      margin-top:4px;
-      color:var(--muted);
-      font-weight:850;
-      overflow-wrap:anywhere;
-    }
-
-    .money{
-      font-weight:950;
-      color:var(--green);
-      flex:0 0 auto;
-    }
-
-    .mutebox{
-      padding:13px 14px;
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      background:linear-gradient(135deg,#fff,#f7faff);
-      font-size:12.5px;
-      line-height:1.55;
-      color:var(--muted);
-      font-weight:700;
-      box-shadow:var(--shadow-soft);
-    }
-
-    .hr{
-      height:1px;
-      background:rgba(12,24,40,.10);
-      margin:12px 0;
-    }
-
-    .form-grid,.doc-grid,.modal-grid,.preview-grid,.public-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:10px;
-    }
-
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-width:0;
-    }
-
-    label{
-      font-size:12px;
-      color:var(--muted);
-      font-weight:950;
-      letter-spacing:.02em;
-    }
-
-    input,select,textarea{
-      width:100%;
-      max-width:100%;
-      padding:12px 13px;
-      border-radius:14px;
-      border:1px solid rgba(12,24,40,.10);
-      background:#fff;
-      font:inherit;
-      font-size:13px;
-      outline:none;
-      transition:border-color .12s ease, box-shadow .12s ease;
-      min-width:0;
-    }
-
-    textarea{
-      min-height:110px;
-      resize:vertical;
-    }
-
-    input:focus,select:focus,textarea:focus{
-      border-color:rgba(31,95,191,.55);
-      box-shadow:0 0 0 4px rgba(31,95,191,.12);
-    }
-
-    .input-error{
-      border-color:rgba(204,56,56,.7) !important;
-      box-shadow:0 0 0 4px rgba(204,56,56,.12) !important;
-    }
-
-    .help-error{
-      color:var(--red);
-      font-size:12px;
-      font-weight:900;
-      display:none;
-    }
-
-    .cta{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
+    .room-badge{
+      display:inline-flex;
       align-items:center;
-      margin-top:12px;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(31,95,191,.08);
+      color:var(--brand3);
+      font-size:12px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.06em;
     }
 
     .tickgrid{
@@ -617,49 +684,6 @@
       margin-top:8px;
     }
 
-    .area-cta{
-      margin-top:6px;
-      padding:16px;
-      border-radius:18px;
-      background:linear-gradient(135deg,#f7fbff,#ffffff);
-      border:2px solid rgba(31,95,191,.16);
-      box-shadow:var(--shadow-soft);
-    }
-
-    .area-cta h3{margin:0 0 8px;font-size:20px;color:var(--brand3)}
-    .area-cta p{margin:0;font-size:13px;line-height:1.6;color:var(--muted);font-weight:700}
-
-    .room-list{display:flex;flex-direction:column;gap:12px;margin-top:14px}
-    .room-row{
-      border:1px solid rgba(31,95,191,.14);
-      border-radius:18px;
-      padding:14px;
-      background:linear-gradient(135deg,#ffffff,#f8fbff);
-      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
-    }
-
-    .room-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-    }
-
-    .room-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      background:rgba(31,95,191,.08);
-      color:var(--brand3);
-      font-size:12px;
-      font-weight:1000;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-
     .price-editor-box h3{
       margin:0 0 8px;
       font-size:15px;
@@ -671,60 +695,6 @@
       grid-template-columns:repeat(2,minmax(0,1fr));
       gap:10px;
       margin-top:10px;
-    }
-
-    .sticky-bar{
-      position:fixed;
-      left:0;
-      right:0;
-      bottom:0;
-      background:linear-gradient(135deg,#0e2a55,#091a32);
-      color:#fff;
-      border-top:1px solid rgba(255,255,255,.10);
-      box-shadow:0 -14px 34px rgba(0,0,0,.28);
-      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-      z-index:9999;
-      backdrop-filter:blur(12px);
-    }
-
-    .sticky-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      flex-wrap:nowrap;
-    }
-
-    .sticky-total{
-      display:flex;
-      flex-direction:column;
-      font-weight:900;
-      min-width:112px;
-    }
-
-    .sticky-total span{
-      font-size:11px;
-      opacity:.80;
-      line-height:1.1;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-
-    .sticky-total b{
-      font-size:18px;
-      letter-spacing:-.02em;
-      line-height:1.1;
-      margin-top:2px;
-    }
-
-    .sticky-actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:nowrap;
-      align-items:center;
-      min-width:0;
     }
 
     .modal{
@@ -807,6 +777,60 @@
       background:#fff;
     }
 
+    .sticky-bar{
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
+      background:linear-gradient(135deg,#0e2a55,#091a32);
+      color:#fff;
+      border-top:1px solid rgba(255,255,255,.10);
+      box-shadow:0 -14px 34px rgba(0,0,0,.28);
+      padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+      z-index:9999;
+      backdrop-filter:blur(12px);
+    }
+
+    .sticky-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:nowrap;
+    }
+
+    .sticky-total{
+      display:flex;
+      flex-direction:column;
+      font-weight:900;
+      min-width:112px;
+    }
+
+    .sticky-total span{
+      font-size:11px;
+      opacity:.80;
+      line-height:1.1;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
+    .sticky-total b{
+      font-size:18px;
+      letter-spacing:-.02em;
+      line-height:1.1;
+      margin-top:2px;
+    }
+
+    .sticky-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:nowrap;
+      align-items:center;
+      min-width:0;
+    }
+
     footer{
       text-align:center;
       color:#5c6b80;
@@ -816,23 +840,29 @@
       padding-top:8px;
     }
 
-    @media (min-width: 1500px){
-      .hero h1{font-size:34px}
-      .hero-showcase img{height:300px}
-    }
-
-    @media (max-width: 1100px){
-      .res-grid{grid-template-columns:1fr}
-    }
-
     @media (max-width: 980px){
-      .grid,.form-grid,.summary,.doc-grid,.modal-grid,.preview-grid,.price-editor-grid,.public-grid{grid-template-columns:1fr}
-      .hero-top{align-items:flex-start}
+      .progress,
+      .res-grid,
+      .form-grid,
+      .doc-grid,
+      .modal-grid,
+      .preview-grid,
+      .price-editor-grid,
+      .summary-total{
+        grid-template-columns:1fr;
+      }
     }
 
     @media (max-width: 700px){
-      .cta{flex-direction:column;align-items:stretch}
-      .cta .btn{width:100%}
+      .cta,
+      .screen-nav{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .cta .btn,
+      .screen-nav .btn{
+        width:100%;
+      }
       .doc-viewer-shell{height:72vh}
     }
 
@@ -845,12 +875,10 @@
       .brand img{height:36px}
       .hero{padding:14px 12px;border-radius:18px}
       .hero-kicker,.hero-total{display:none}
-      .hero h1{font-size:20px}
-      .hero p{font-size:12.5px;line-height:1.45}
+      .hero h1{font-size:22px}
+      .hero p{font-size:13px;line-height:1.5}
       .hero-showcase img{height:150px;object-position:center}
-      .res-grid,.items{grid-template-columns:1fr;gap:10px}
-      .card-h{padding:13px 14px}
-      .card-b{padding:14px}
+      .screen-h h2{font-size:22px}
       .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
       .sticky-inner{gap:8px;align-items:flex-start}
       .sticky-total{min-width:84px}
@@ -875,7 +903,7 @@
         </div>
       </div>
       <div class="top-actions">
-        <a class="btn primary" href="#callback">Request a quote</a>
+        <a class="btn primary" href="#wizardStart">Start quote</a>
         <a class="btn ghost" href="tel:07838231389">Call 07838 231389</a>
       </div>
     </div>
@@ -883,9 +911,9 @@
     <section class="hero">
       <div class="hero-top">
         <div class="hero-copy">
-          <div class="hero-kicker">Instant estimate</div>
-          <h1>Welcome to the JW Carpet Care calculator</h1>
-          <p>Step 1 add your residential rooms or commercial areas. Step 2 check the quote online. Step 3 enter your details and send, or just call us.</p>
+          <div class="hero-kicker">3 step instant quote</div>
+          <h1>Fast and easy quote form</h1>
+          <p>Step 1 choose your rooms and items. Step 2 review your quote on screen. Step 3 enter your details and send, or call us.</p>
         </div>
         <div class="hero-total">
           <div>
@@ -900,56 +928,52 @@
       </div>
     </section>
 
-    <div class="grid">
-      <section class="card">
-        <div class="card-h">
-          <h2>Build your quote</h2>
-          <small>Clear steps for residential first, with commercial optional underneath</small>
+    <div class="wizard-shell" id="wizardStart">
+      <div class="progress">
+        <div class="progress-step active" id="progress1">
+          <div class="progress-num">1</div>
+          <div>
+            <b>Choose rooms</b>
+            <span>Enter how many rooms or items you want cleaned</span>
+          </div>
         </div>
-        <div class="card-b">
-          <div class="summary">
-            <div class="total-box">
-              <span>Total estimate</span>
-              <b id="total">£0.00</b>
-            </div>
-            <div class="info-box">
-              <span>Helpful note</span>
-              <p class="note" style="margin-top:6px;">
-                Final price may vary for unusually large areas, heavy soiling, difficult access or specialist fibres.
-              </p>
-            </div>
+        <div class="progress-step" id="progress2">
+          <div class="progress-num">2</div>
+          <div>
+            <b>Review quote</b>
+            <span>Check the price and view the online quote</span>
+          </div>
+        </div>
+        <div class="progress-step" id="progress3">
+          <div class="progress-num">3</div>
+          <div>
+            <b>Send details</b>
+            <span>Send your request or call us now</span>
+          </div>
+        </div>
+      </div>
+
+      <section class="screen" id="screen1">
+        <div class="screen-h">
+          <h2>Step 1. Choose your rooms and items</h2>
+          <p>Just enter the number you need for each room or item. Leave anything you do not want as 0.</p>
+        </div>
+        <div class="screen-b">
+          <div class="step-note">
+            <b>What to do</b>
+            <p>Go through the list below and enter how many living rooms, bedrooms, rugs or sofas you want cleaned. Your price updates automatically as you type.</p>
           </div>
 
-          <div class="step-card">
-            <div class="step-head">
-              <div class="step-badge">1</div>
-              <div>
-                <h3>Enter your residential rooms</h3>
-                <p>Use the boxes below and put in how many of each room or item you want cleaned.</p>
-              </div>
-            </div>
-            <ul class="step-list">
-              <li>Enter the number needed for each room or item</li>
-              <li>Leave anything you do not want as 0</li>
-              <li>Your total updates automatically</li>
-            </ul>
+          <div class="res-grid" id="residentialFormGrid"></div>
 
-            <div class="res-grid" id="residentialFormGrid"></div>
-          </div>
-
-          <div class="section-head">
-            <div><span class="plus">2</span>Commercial work optional</div>
-            <div><b id="commercialAreaCount">0</b> areas</div>
-          </div>
-
-          <details class="acc">
+          <details class="acc" style="margin-top:16px;">
             <summary>
-              <span>Open commercial area pricing and area entry</span>
-              <span>Optional</span>
+              <span>Commercial work optional</span>
+              <span>Open if needed</span>
             </summary>
             <div class="acc-body">
               <div class="mutebox">
-                Use this section only if you want commercial pricing by square metres or hotel room rates.
+                This part is only for commercial areas, hotel rooms, or area based pricing.
               </div>
 
               <details class="acc commercial-band">
@@ -992,13 +1016,10 @@
                 </div>
               </details>
 
-              <div class="room-entry" style="margin-top:14px;">
-                <div class="step-head" style="margin-bottom:8px;">
-                  <div class="step-badge">2</div>
-                  <div>
-                    <h3>Add commercial areas</h3>
-                    <p>Add an area, choose the method, enter square metres, then save it into the quote.</p>
-                  </div>
+              <div class="summary-card" style="margin-top:14px;">
+                <div class="step-note" style="margin-bottom:10px;">
+                  <b>Add a commercial area</b>
+                  <p>Use the button below to add a commercial area with area name, cleaning method and square metres.</p>
                 </div>
 
                 <div class="cta">
@@ -1051,105 +1072,137 @@
             </div>
           </details>
 
-          <div class="hr"></div>
-          <div class="mutebox">
-            Residential and commercial items can be combined into the same quote.
+          <div class="screen-nav">
+            <div class="mutebox" style="flex:1;">
+              Live total: <strong id="screen1Total">£0.00</strong>
+            </div>
+            <button class="btn green" type="button" id="toStep2Btn">Go to step 2</button>
           </div>
         </div>
       </section>
 
-      <aside class="card">
-        <div class="card-h">
-          <h2>Your selected items</h2>
-          <small>Updated live as you build the quote</small>
+      <section class="screen hidden" id="screen2">
+        <div class="screen-h">
+          <h2>Step 2. Review your quote</h2>
+          <p>Check your selected items, your total, and view the online quote before sending your details.</p>
         </div>
-        <div class="card-b">
+        <div class="screen-b">
+          <div class="step-note">
+            <b>What to do</b>
+            <p>Check everything looks right. If you want to change anything, go back to step 1. If it looks good, move on to step 3.</p>
+          </div>
+
+          <div class="summary-total">
+            <div class="summary-card summary-value">
+              <span>Total estimate</span>
+              <b id="total">£0.00</b>
+            </div>
+            <div class="summary-card">
+              <span style="display:block;margin-bottom:6px;">Helpful note</span>
+              <p class="mutebox" style="margin:0;box-shadow:none;background:transparent;border:0;padding:0;">
+                Final price may vary for unusually large areas, heavy soiling, difficult access or specialist fibres.
+              </p>
+            </div>
+          </div>
+
           <div class="list" id="selectedList"></div>
 
           <div class="hr"></div>
 
           <div class="public-quote-box">
-            <div class="step-head" style="margin-bottom:8px;">
-              <div class="step-badge">2</div>
-              <div>
-                <h3>Check your quote online</h3>
-                <p>You can preview the customer quote or open the online PDF style quote without using the password section.</p>
-              </div>
+            <div class="step-note" style="margin-bottom:10px;">
+              <b>View your online quote</b>
+              <p>You can preview the customer quote or open the online PDF style quote here, without using the password section.</p>
             </div>
 
-            <div class="public-grid">
+            <div class="cta">
               <button class="btn primary" type="button" id="previewQuoteBtnPublic">Preview quote</button>
               <button class="btn green" type="button" id="pdfQuoteBtnPublic">View online PDF quote</button>
             </div>
           </div>
 
-          <div class="hr"></div>
+          <div class="screen-nav">
+            <button class="btn white" type="button" id="backToStep1Btn">Back to step 1</button>
+            <button class="btn green" type="button" id="toStep3Btn">Go to step 3</button>
+          </div>
+        </div>
+      </section>
 
-          <div class="card" style="box-shadow:none;border-radius:18px;border:1px solid rgba(12,24,40,.10)">
-            <div class="card-h">
-              <h2 id="callback">Step 3. Enter your details</h2>
-              <small>Send your request or call us now</small>
-            </div>
-            <div class="card-b">
-              <div class="mutebox" style="margin-bottom:10px;">
-                Step 1 build the quote. Step 2 check it online if you want. Step 3 enter your details and press send, or call us.
+      <section class="screen hidden" id="screen3">
+        <div class="screen-h">
+          <h2>Step 3. Enter your details</h2>
+          <p>Send your request to JW Carpet Care, or call now if you prefer.</p>
+        </div>
+        <div class="screen-b">
+          <div class="step-note">
+            <b>What to do</b>
+            <p>Enter your contact details below, then press send quote request. If you would rather speak to us now, just press call us now.</p>
+          </div>
+
+          <form id="quoteForm" onsubmit="return handleSubmit(event)">
+            <div class="form-grid">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Your name" required>
               </div>
-
-              <form id="quoteForm" onsubmit="return handleSubmit(event)">
-                <div class="form-grid">
-                  <div class="field">
-                    <label for="name">Name</label>
-                    <input id="name" name="name" type="text" placeholder="Your name" required>
-                  </div>
-                  <div class="field">
-                    <label for="phone">Phone</label>
-                    <input id="phone" name="phone" type="tel" placeholder="Best number" required>
-                  </div>
-                  <div class="field">
-                    <label for="email">Email</label>
-                    <input id="email" name="email" type="email" placeholder="info@example.com">
-                  </div>
-                  <div class="field">
-                    <label for="postcode">Postcode starts with</label>
-                    <select id="postcode" name="postcode">
-                      <option value="">Select</option>
-                      <option>WR</option>
-                      <option>B</option>
-                      <option>DY</option>
-                      <option>CV</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="field" style="margin-top:10px;">
-                  <label for="notes">Anything we should know</label>
-                  <textarea id="notes" name="notes" placeholder="Stains, parking, pets, access or preferred days"></textarea>
-                </div>
-
-                <input type="hidden" id="breakdown" name="breakdown">
-                <input type="hidden" id="totalHidden" name="total">
-
-                <div class="cta">
-                  <button class="btn green" type="submit">Send quote request</button>
-                  <a class="btn primary" href="tel:07838231389">Call us now</a>
-                </div>
-
-                <p class="note" style="margin-top:10px;">
-                  You can also email <a href="mailto:infojwcarpetcare@gmail.com" style="text-decoration:underline;">infojwcarpetcare@gmail.com</a>
-                </p>
-              </form>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" placeholder="Best number" required>
+              </div>
+              <div class="field">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="info@example.com">
+              </div>
+              <div class="field">
+                <label for="postcode">Postcode starts with</label>
+                <select id="postcode" name="postcode">
+                  <option value="">Select</option>
+                  <option>WR</option>
+                  <option>B</option>
+                  <option>DY</option>
+                  <option>CV</option>
+                  <option>Other</option>
+                </select>
+              </div>
             </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label for="notes">Anything we should know</label>
+              <textarea id="notes" name="notes" placeholder="Stains, parking, pets, access or preferred days"></textarea>
+            </div>
+
+            <input type="hidden" id="breakdown" name="breakdown">
+            <input type="hidden" id="totalHidden" name="total">
+
+            <div class="summary-card" style="margin-top:14px;">
+              <span style="display:block;margin-bottom:8px;">Your current estimate</span>
+              <div style="font-size:34px;font-weight:1000;color:var(--brand3);" id="step3Total">£0.00</div>
+            </div>
+
+            <div class="cta">
+              <button class="btn green" type="submit">Send quote request</button>
+              <a class="btn primary" href="tel:07838231389">Call us now</a>
+              <button class="btn white" type="button" id="step3ViewQuoteBtn">View quote again</button>
+            </div>
+
+            <p style="margin:12px 0 0;font-size:13px;line-height:1.6;color:var(--muted);font-weight:700;">
+              You can also email
+              <a href="mailto:infojwcarpetcare@gmail.com" style="text-decoration:underline;">infojwcarpetcare@gmail.com</a>
+            </p>
+          </form>
+
+          <div class="screen-nav">
+            <button class="btn white" type="button" id="backToStep2Btn">Back to step 2</button>
           </div>
 
           <div class="hr"></div>
 
-          <div class="card" style="box-shadow:none;border-radius:18px;border:1px solid rgba(12,24,40,.10)">
-            <div class="card-h">
-              <h2>Office use only</h2>
-              <small>Password section for invoice tools and changing prices</small>
-            </div>
-            <div class="card-b">
+          <details class="acc">
+            <summary>
+              <span>Office use only</span>
+              <span>Password protected</span>
+            </summary>
+            <div class="acc-body">
               <div id="docGate" class="gate-box">
                 <div class="field">
                   <label for="docPassword">Password</label>
@@ -1249,7 +1302,7 @@
                   </div>
                 </div>
 
-                <div class="protect-card" style="margin-top:10px;">
+                <div class="summary-card" style="margin-top:10px;">
                   <div class="tickrow">
                     <input type="checkbox" id="includeFreeProtection">
                     <label for="includeFreeProtection">Add complimentary protection wording when carpet items are selected</label>
@@ -1317,14 +1370,9 @@
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="hr"></div>
-          <div class="mutebox">
-            JW Carpet Care offers carpet cleaning, upholstery cleaning, rug cleaning, stain and odour removal, deodorising, carpet protection and commercial cleaning work.
-          </div>
+          </details>
         </div>
-      </aside>
+      </section>
     </div>
 
     <footer>
@@ -1345,7 +1393,7 @@
       </div>
 
       <div class="sticky-actions">
-        <a class="btn primary" href="#callback">Send</a>
+        <button class="btn primary" type="button" id="stickyStepBtn">Next step</button>
         <button class="btn green" type="button" id="stickyPdfBtn">View quote</button>
         <a class="btn ghost" href="tel:07838231389">Call</a>
       </div>
@@ -1458,6 +1506,7 @@
     let roomRows = [];
     let roomCounter = 0;
     let editingRoomId = null;
+    let currentStep = 1;
 
     const pricing = {
       domestic: [
@@ -1527,19 +1576,52 @@
       return escapeHtml(str).replace(/\n/g, "<br>");
     }
 
+    function hasAnySelection(){
+      return calculate().lines.length > 0;
+    }
+
+    function showStep(step){
+      currentStep = step;
+      document.getElementById("screen1").classList.toggle("hidden", step !== 1);
+      document.getElementById("screen2").classList.toggle("hidden", step !== 2);
+      document.getElementById("screen3").classList.toggle("hidden", step !== 3);
+
+      updateProgress(step);
+      updateStickyButton();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function updateProgress(step){
+      [1,2,3].forEach(n => {
+        const el = document.getElementById(`progress${n}`);
+        el.classList.remove("active","done");
+        if (n < step) el.classList.add("done");
+        if (n === step) el.classList.add("active");
+      });
+    }
+
+    function updateStickyButton(){
+      const btn = document.getElementById("stickyStepBtn");
+      if (currentStep === 1){
+        btn.textContent = "Next step";
+      } else if (currentStep === 2){
+        btn.textContent = "Next step";
+      } else {
+        btn.textContent = "Back to step 1";
+      }
+    }
+
     function renderResidentialForm(){
       const el = document.getElementById("residentialFormGrid");
       el.innerHTML = pricing.domestic.map(item => `
         <div class="res-item">
-          <div class="res-item-top">
-            <div style="min-width:0">
-              <h4>${escapeHtml(item.name)}</h4>
-              <p>${escapeHtml(item.desc)}</p>
-            </div>
+          <div style="min-width:0">
+            <h4>${escapeHtml(item.name)}</h4>
+            <p>${escapeHtml(item.desc)}</p>
           </div>
           <div class="res-price">${fmt(item.price)} each</div>
           <div class="qty-inline">
-            <label for="qty_${escapeHtml(item.id)}" style="min-width:72px;">Quantity</label>
+            <label for="qty_${escapeHtml(item.id)}">Quantity</label>
             <input
               id="qty_${escapeHtml(item.id)}"
               type="number"
@@ -1681,7 +1763,6 @@
 
     function renderRoomRows(){
       const wrap = document.getElementById("roomList");
-      document.getElementById("commercialAreaCount").textContent = roomRows.length;
       if (!roomRows.length){
         wrap.innerHTML = `<div class="mutebox">No commercial areas added yet. Click Add area to start building the commercial quote.</div>`;
         return;
@@ -1964,6 +2045,8 @@
       document.getElementById("total").textContent = fmt(result.total);
       document.getElementById("totalSticky").textContent = fmt(result.total);
       document.getElementById("heroTotal").textContent = fmt(result.total);
+      document.getElementById("screen1Total").textContent = fmt(result.total);
+      document.getElementById("step3Total").textContent = fmt(result.total);
       document.getElementById("totalHidden").value = fmt(result.total);
 
       const selected = document.getElementById("selectedList");
@@ -2557,6 +2640,7 @@
     document.getElementById("previewQuoteBtnPublic").addEventListener("click", openQuotePreview);
     document.getElementById("pdfQuoteBtnPublic").addEventListener("click", () => openDocumentInPage("quote"));
     document.getElementById("stickyPdfBtn").addEventListener("click", () => openDocumentInPage("quote"));
+    document.getElementById("step3ViewQuoteBtn").addEventListener("click", () => openDocumentInPage("quote"));
 
     document.getElementById("previewQuoteBtnPrivate").addEventListener("click", openQuotePreview);
     document.getElementById("pdfQuoteBtnPrivate").addEventListener("click", () => openDocumentInPage("quote"));
@@ -2625,11 +2709,49 @@
       }
     });
 
+    document.getElementById("toStep2Btn").addEventListener("click", () => {
+      if (!hasAnySelection()){
+        alert("Please enter at least one room or item before going to step 2.");
+        return;
+      }
+      showStep(2);
+    });
+
+    document.getElementById("toStep3Btn").addEventListener("click", () => {
+      if (!hasAnySelection()){
+        alert("Please enter at least one room or item before going to step 3.");
+        return;
+      }
+      showStep(3);
+    });
+
+    document.getElementById("backToStep1Btn").addEventListener("click", () => showStep(1));
+    document.getElementById("backToStep2Btn").addEventListener("click", () => showStep(2));
+
+    document.getElementById("stickyStepBtn").addEventListener("click", () => {
+      if (currentStep === 1){
+        if (!hasAnySelection()){
+          alert("Please enter at least one room or item before going to the next step.");
+          return;
+        }
+        showStep(2);
+      } else if (currentStep === 2){
+        if (!hasAnySelection()){
+          alert("Please enter at least one room or item before going to the next step.");
+          return;
+        }
+        showStep(3);
+      } else {
+        showStep(1);
+      }
+    });
+
     renderResidentialForm();
     attachResidentialHandlers();
     renderBandCards();
     renderRoomRows();
     renderSelected();
+    showStep(1);
     window.handleSubmit = handleSubmit;
   </script>
 </body>
