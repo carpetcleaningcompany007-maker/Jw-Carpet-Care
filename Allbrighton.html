@@ -21,7 +21,7 @@
       --shadow:0 18px 48px rgba(13,27,45,.10);
       --shadow-soft:0 10px 24px rgba(15,35,65,.07);
       --r:22px;
-      --max:1480px;
+      --max:1500px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     }
 
@@ -544,7 +544,7 @@
 
     .room-grid{
       display:grid;
-      grid-template-columns:1.4fr 1fr .9fr;
+      grid-template-columns:1.15fr 1.15fr 1fr .9fr;
       gap:10px;
       align-items:end;
     }
@@ -702,10 +702,9 @@
       padding-top:8px;
     }
 
-    @media (max-width: 980px){
+    @media (max-width: 1080px){
       .grid,.summary,.room-grid,.room-meta{grid-template-columns:1fr}
       .hero-top{align-items:flex-start}
-      .wrap{padding:14px 12px 24px}
     }
 
     @media (max-width: 600px){
@@ -768,7 +767,7 @@
           <div class="brand-badge">AH</div>
           <div class="brand-copy">
             <div class="brand-title">Albrighton Hall Hotel and Spa</div>
-            <span>Commercial carpet cleaning calculator</span>
+            <span>Commercial carpet and hard floor cleaning calculator</span>
           </div>
         </div>
         <div class="top-actions">
@@ -781,7 +780,7 @@
           <div class="hero-copy">
             <div class="hero-kicker">Private estimate</div>
             <h1>Welcome to the Albrighton Hall calculator</h1>
-            <p>Enter each room or area, choose the method, type the square metres, and the calculator will work out the right rate band automatically. Hybrid Deep Clean covers rotary bonnet cleaning with targeted hot water extraction on heavier traffic areas.</p>
+            <p>Enter each room or area, choose the cleaning method, type the square metres, and the calculator will work out the correct rate band automatically. Hybrid Deep Clean covers rotary bonnet cleaning with targeted hot water extraction on heavier traffic areas. Hard floor cleaning is also included for kitchens, toilets and similar areas.</p>
           </div>
           <div class="hero-total">
             <div>
@@ -800,7 +799,7 @@
         <section class="card">
           <div class="card-h">
             <h2>Build your quote</h2>
-            <small>Proper room cards, live totals, Hybrid Deep Clean, and a cleaner export.</small>
+            <small>Room cards, live totals, Hybrid Deep Clean, hard floors, and clean CSV export.</small>
           </div>
           <div class="card-b">
             <div class="summary">
@@ -811,7 +810,7 @@
               <div class="info-box">
                 <span>Helpful note</span>
                 <p class="note" style="margin-top:6px;">
-                  Downloaded CSV includes room name, method, square metres, band, rate, line total, subtotal, VAT and final total.
+                  Downloaded CSV includes area name, method, square metres, band, rate, line total, subtotal, VAT and final total.
                 </p>
               </div>
             </div>
@@ -820,17 +819,17 @@
               <div><span class="plus">+</span>Rotary bonnet pricing</div>
             </div>
             <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller commercial area</p><div class="price">£2.50 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size area</p><div class="price">£2.20 per m²</div></div></article>
-              <article class="item"><div><h3>400 to 999 m²</h3><p>Larger commercial area</p><div class="price">£2.00 per m²</div></div></article>
-              <article class="item"><div><h3>1000+ m²</h3><p>Large volume pricing</p><div class="price">£1.80 per m²</div></div></article>
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller carpeted commercial area</p><div class="price">£2.50 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size carpeted area</p><div class="price">£2.20 per m²</div></div></article>
+              <article class="item"><div><h3>400 to 999 m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.00 per m²</div></div></article>
+              <article class="item"><div><h3>1000+ m²</h3><p>Large volume carpet pricing</p><div class="price">£1.80 per m²</div></div></article>
             </div>
 
             <div class="section-head">
               <div><span class="plus">+</span>Hybrid Deep Clean pricing</div>
             </div>
             <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet with targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet plus targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
               <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
               <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
             </div>
@@ -839,22 +838,31 @@
               <div><span class="plus">+</span>Hot water extraction pricing</div>
             </div>
             <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative clean</p><div class="price">£3.40 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size area</p><div class="price">£3.10 per m²</div></div></article>
-              <article class="item"><div><h3>301+ m²</h3><p>Larger commercial area</p><div class="price">£2.80 per m²</div></div></article>
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative carpet clean</p><div class="price">£3.40 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size carpet area</p><div class="price">£3.10 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.80 per m²</div></div></article>
+            </div>
+
+            <div class="section-head">
+              <div><span class="plus">+</span>Hard floor cleaning pricing</div>
+            </div>
+            <div class="items">
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Kitchens, toilets and other hard floors</p><div class="price">£2.80 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hard floor area</p><div class="price">£2.50 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger hard floor area</p><div class="price">£2.20 per m²</div></div></article>
             </div>
 
             <div class="section-head">
               <div><span class="plus">+</span>Room and area entry</div>
-              <div><button class="btn primary" type="button" id="addRoomTop">Add room</button></div>
+              <div><button class="btn primary" type="button" id="addRoomTop">Add area</button></div>
             </div>
 
             <div class="room-entry">
-              <div class="mutebox">Each room appears as a proper quote card below. Start with one row already open.</div>
+              <div class="mutebox">Each area appears as a proper quote card below. Start with one row already open.</div>
               <div id="roomList" class="room-list"></div>
 
               <div class="cta">
-                <button class="btn primary" type="button" id="addRoomBottom">Add room</button>
+                <button class="btn primary" type="button" id="addRoomBottom">Add area</button>
                 <button class="btn red" type="button" id="resetBtn">Reset all</button>
                 <button class="btn green" type="button" id="downloadBtn">Download CSV</button>
               </div>
@@ -925,7 +933,7 @@
 
             <div class="hr"></div>
             <div class="mutebox">
-              This version is wider on desktop and includes Hybrid Deep Clean as the middle option between straight bonnet cleaning and full hot water extraction.
+              This version is wider on desktop and includes carpets, hard floors, Hybrid Deep Clean, hotel room pricing and manual extras.
             </div>
           </div>
         </aside>
@@ -976,6 +984,39 @@
       { min: 301, max: Infinity, rate: 2.80, label: "301+ m²" }
     ];
 
+    const HARD_FLOOR_BANDS = [
+      { min: 0, max: 150, rate: 2.80, label: "Up to 150 m²" },
+      { min: 151, max: 300, rate: 2.50, label: "151 to 300 m²" },
+      { min: 301, max: Infinity, rate: 2.20, label: "301+ m²" }
+    ];
+
+    const AREA_OPTIONS = [
+      "Function room",
+      "Hallway",
+      "Restaurant",
+      "Bar",
+      "Reception",
+      "Bedroom corridor",
+      "Stairs and landing",
+      "Meeting room",
+      "Lounge",
+      "Spa area",
+      "Gym",
+      "Office",
+      "Conference room",
+      "Dining area",
+      "Ballroom",
+      "Entrance lobby",
+      "Toilet area",
+      "Staff room",
+      "Kitchen",
+      "Kitchen access area",
+      "Banqueting room",
+      "Hard floor corridor",
+      "Hard floor washroom",
+      "Custom"
+    ];
+
     let roomRows = [];
     let roomCounter = 0;
 
@@ -993,12 +1034,14 @@
     function getBands(method){
       if (method === "rotary") return ROTARY_BANDS;
       if (method === "hybrid") return HYBRID_BANDS;
+      if (method === "hardfloor") return HARD_FLOOR_BANDS;
       return HWE_BANDS;
     }
 
     function getMethodLabel(method){
       if (method === "rotary") return "Rotary bonnet";
       if (method === "hybrid") return "Hybrid Deep Clean";
+      if (method === "hardfloor") return "Hard floor cleaning";
       return "Hot water extraction";
     }
 
@@ -1017,6 +1060,14 @@
       return { sqm, band, unit, bandLabel, total };
     }
 
+    function buildAreaOptions(selected){
+      let html = `<option value="">Select area</option>`;
+      AREA_OPTIONS.forEach(option => {
+        html += `<option value="${escapeHtml(option)}" ${selected === option ? "selected" : ""}>${escapeHtml(option)}</option>`;
+      });
+      return html;
+    }
+
     function createRoomRowElement(row, index){
       const totals = getRowTotals(row);
       const wrapper = document.createElement("div");
@@ -1025,14 +1076,21 @@
 
       wrapper.innerHTML = `
         <div class="room-top">
-          <div class="room-badge">Room ${index + 1}</div>
+          <div class="room-badge">Area ${index + 1}</div>
           <button class="btn red small" type="button" data-role="remove" data-id="${row.id}">Remove</button>
         </div>
 
         <div class="room-grid">
           <div class="field">
-            <label>Room or area name</label>
-            <input type="text" value="${escapeHtml(row.roomName)}" data-role="room-name" data-id="${row.id}" placeholder="Example: Kitchen, Corridor, Function Room">
+            <label>Area type</label>
+            <select data-role="area-type" data-id="${row.id}">
+              ${buildAreaOptions(row.areaType || "")}
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Custom area name</label>
+            <input type="text" value="${escapeHtml(row.roomName)}" data-role="room-name" data-id="${row.id}" placeholder="Only use if Custom is selected">
           </div>
 
           <div class="field">
@@ -1041,6 +1099,7 @@
               <option value="rotary" ${row.method === "rotary" ? "selected" : ""}>Rotary bonnet</option>
               <option value="hybrid" ${row.method === "hybrid" ? "selected" : ""}>Hybrid Deep Clean</option>
               <option value="hwe" ${row.method === "hwe" ? "selected" : ""}>Hot water extraction</option>
+              <option value="hardfloor" ${row.method === "hardfloor" ? "selected" : ""}>Hard floor cleaning</option>
             </select>
           </div>
 
@@ -1095,6 +1154,7 @@
       roomCounter += 1;
       roomRows.push({
         id: roomCounter,
+        areaType: data.areaType || "",
         roomName: data.roomName || "",
         method: data.method || "rotary",
         sqm: Number(data.sqm || 0)
@@ -1131,6 +1191,12 @@
       addRoomRow();
     }
 
+    function getDisplayAreaName(row){
+      return row.areaType && row.areaType !== "Custom"
+        ? row.areaType
+        : (row.roomName || "Unnamed area");
+    }
+
     function calculate(){
       let subtotal = 0;
       const lines = [];
@@ -1148,7 +1214,7 @@
         subtotal += lineTotal;
 
         lines.push({
-          roomName: row.roomName || "Unnamed room",
+          roomName: getDisplayAreaName(row),
           method: methodLabel,
           sqm,
           band: band.label,
@@ -1363,6 +1429,7 @@
       if (!row) return;
 
       if (e.target.dataset.role === "method") row.method = e.target.value;
+      if (e.target.dataset.role === "area-type") row.areaType = e.target.value;
 
       updateRoomCard(id);
       renderSelected();
