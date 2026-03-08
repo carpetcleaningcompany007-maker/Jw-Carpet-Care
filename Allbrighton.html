@@ -2,50 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Albrighton Hall Commercial Calculator</title>
   <meta name="description" content="Private commercial cleaning calculator for Albrighton Hall Hotel and Spa." />
   <style>
     :root{
-      --bg:#eef4fb;
-      --ink:#122033;
-      --muted:#60718a;
+      --bg:#edf4fc;
+      --bg-soft:#f7fbff;
+      --ink:#142338;
+      --muted:#5f7088;
       --brand:#1f5fbf;
       --brand2:#163f7d;
       --brand3:#0d2548;
-      --green:#14945c;
-      --green2:#0f7447;
-      --red:#c62828;
+      --green:#17955e;
+      --green2:#0f7549;
+      --red:#cc3838;
       --card:#ffffff;
-      --line:rgba(12,24,40,.10);
-      --shadow:0 18px 48px rgba(13,27,45,.10);
+      --line:rgba(15,28,45,.10);
+      --shadow:0 20px 50px rgba(13,27,45,.10);
       --shadow-soft:0 10px 24px rgba(15,35,65,.07);
-      --r:22px;
-      --max:1500px;
+      --r:24px;
+      --max:1540px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     }
 
-    *{
-      box-sizing:border-box;
-      min-width:0;
-    }
-
-    html,body{
-      margin:0;
-      padding:0;
-      max-width:100%;
-      overflow-x:hidden;
-    }
-
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;overflow-x:hidden}
     body{
       font-family:var(--font);
       color:var(--ink);
       background:
         radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
         radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
-        linear-gradient(180deg, #0d1f39 0%, #15335e 300px, var(--bg) 301px);
+        linear-gradient(180deg, #0d1f39 0%, #15335e 320px, var(--bg) 321px);
       min-height:100vh;
-      padding-bottom:92px;
+      padding-bottom:96px;
     }
 
     a{text-decoration:none;color:inherit}
@@ -54,7 +45,7 @@
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:18px 18px 28px;
+      padding:20px 20px 32px;
     }
 
     .btn{
@@ -64,76 +55,43 @@
       gap:8px;
       border:0;
       cursor:pointer;
-      padding:11px 15px;
+      padding:13px 18px;
       border-radius:999px;
       font-weight:900;
-      font-size:13px;
+      font-size:14px;
       white-space:nowrap;
       box-shadow:0 12px 28px rgba(0,0,0,.16);
       transition:transform .12s ease, filter .12s ease;
     }
-
-    .btn:hover{
-      transform:translateY(-1px);
-      filter:saturate(1.03);
-    }
-
-    .btn.primary{
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      color:#fff;
-    }
-
-    .btn.ghost{
-      background:rgba(255,255,255,.12);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.16);
-    }
-
-    .btn.green{
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#fff;
-    }
-
-    .btn.red{
-      background:linear-gradient(135deg,#ef5350,#c62828);
-      color:#fff;
-    }
-
-    .btn.small{
-      padding:9px 12px;
-      font-size:12px;
-      box-shadow:none;
-    }
+    .btn:hover{transform:translateY(-1px);filter:saturate(1.03)}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
+    .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16)}
+    .btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
+    .btn.red{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
+    .btn.small{padding:10px 14px;font-size:13px;box-shadow:none}
 
     input,select{
       width:100%;
-      max-width:100%;
-      padding:12px 13px;
-      border-radius:14px;
-      border:1px solid rgba(12,24,40,.10);
+      padding:14px 15px;
+      border-radius:16px;
+      border:1px solid rgba(12,24,40,.12);
       background:#fff;
       font:inherit;
-      font-size:13px;
+      font-size:16px;
       outline:none;
       transition:border-color .12s ease, box-shadow .12s ease;
     }
-
     input:focus,select:focus{
       border-color:rgba(31,95,191,.55);
       box-shadow:0 0 0 4px rgba(31,95,191,.12);
     }
 
-    .field{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-
+    .field{display:flex;flex-direction:column;gap:8px}
     .field label{
-      font-size:12px;
+      font-size:14px;
       color:var(--muted);
-      font-weight:950;
-      letter-spacing:.02em;
+      font-weight:900;
+      letter-spacing:.01em;
     }
 
     .gate{
@@ -143,42 +101,36 @@
       justify-content:center;
       padding:20px;
     }
-
     .gate-card{
-      width:min(460px,100%);
-      background:rgba(255,255,255,.96);
+      width:min(480px,100%);
+      background:rgba(255,255,255,.98);
       border:1px solid rgba(255,255,255,.55);
-      border-radius:24px;
+      border-radius:26px;
       box-shadow:0 24px 60px rgba(0,0,0,.18);
       overflow:hidden;
     }
-
     .gate-head{
-      padding:22px 20px 18px;
+      padding:24px 22px 20px;
       background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
       color:#fff;
     }
-
     .gate-head h1{
       margin:0;
-      font-size:28px;
+      font-size:30px;
       line-height:1.05;
       letter-spacing:-.03em;
     }
-
     .gate-head p{
-      margin:8px 0 0;
-      opacity:.88;
-      font-size:14px;
+      margin:10px 0 0;
+      opacity:.9;
+      font-size:15px;
       line-height:1.5;
     }
-
-    .gate-body{padding:18px}
-
+    .gate-body{padding:22px}
     .error{
-      margin-top:10px;
+      margin-top:12px;
       color:var(--red);
-      font-size:13px;
+      font-size:14px;
       font-weight:800;
       display:none;
     }
@@ -187,24 +139,22 @@
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:14px;
+      gap:16px;
       flex-wrap:wrap;
       color:#fff;
-      padding:6px 0 14px;
+      padding:8px 0 16px;
     }
-
     .brand{
       display:flex;
       align-items:center;
-      gap:12px;
+      gap:14px;
       min-width:0;
     }
-
     .brand-badge{
-      height:48px;
-      min-width:48px;
-      padding:4px 14px;
-      border-radius:10px;
+      height:52px;
+      min-width:52px;
+      padding:4px 16px;
+      border-radius:12px;
       background:rgba(255,255,255,.10);
       display:flex;
       align-items:center;
@@ -213,29 +163,22 @@
       color:#fff;
       font-weight:1000;
       letter-spacing:.08em;
+      font-size:18px;
     }
-
-    .brand-copy{min-width:0}
-
     .brand-title{
-      font-size:13px;
+      font-size:14px;
       font-weight:900;
-      letter-spacing:.12em;
+      letter-spacing:.14em;
       text-transform:uppercase;
       opacity:.92;
     }
-
     .brand span{
       display:block;
-      font-size:13px;
-      opacity:.84;
+      font-size:15px;
+      opacity:.88;
       margin-top:4px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width:520px;
+      max-width:700px;
     }
-
     .top-actions{
       display:flex;
       gap:10px;
@@ -247,11 +190,10 @@
       overflow:hidden;
       background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
       color:#fff;
-      border-radius:24px;
-      padding:20px 20px 18px;
+      border-radius:28px;
+      padding:22px 22px 20px;
       box-shadow:0 24px 60px rgba(0,0,0,.18);
     }
-
     .hero::after{
       content:"";
       position:absolute;
@@ -261,7 +203,6 @@
       background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);
       pointer-events:none;
     }
-
     .hero-top{
       position:relative;
       z-index:1;
@@ -271,150 +212,135 @@
       gap:14px;
       flex-wrap:wrap;
     }
-
-    .hero-copy{max-width:760px}
-
+    .hero-copy{max-width:840px}
     .hero-kicker{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:6px 10px;
+      padding:7px 12px;
       border-radius:999px;
       background:rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.12);
-      font-size:11px;
+      font-size:12px;
       font-weight:900;
       letter-spacing:.08em;
       text-transform:uppercase;
-      margin-bottom:10px;
+      margin-bottom:12px;
     }
-
     .hero h1{
       margin:0;
-      font-size:30px;
+      font-size:34px;
       line-height:1.04;
       letter-spacing:-.03em;
     }
-
     .hero p{
-      margin:8px 0 0;
-      color:rgba(255,255,255,.86);
-      font-size:13.5px;
-      line-height:1.55;
-      max-width:68ch;
+      margin:10px 0 0;
+      color:rgba(255,255,255,.88);
+      font-size:16px;
+      line-height:1.6;
+      max-width:75ch;
     }
-
     .hero-total{
       display:flex;
       align-items:center;
       gap:10px;
-      padding:10px 12px;
-      border-radius:16px;
+      padding:12px 14px;
+      border-radius:18px;
       background:rgba(255,255,255,.10);
       border:1px solid rgba(255,255,255,.12);
       backdrop-filter:blur(10px);
     }
-
     .hero-total b{
       display:block;
-      font-size:18px;
+      font-size:22px;
     }
-
     .hero-total span{
       display:block;
-      font-size:12px;
+      font-size:13px;
       opacity:.84;
     }
-
     .hero-showcase{
       position:relative;
       z-index:1;
-      margin-top:14px;
-      border-radius:18px;
+      margin-top:16px;
+      border-radius:20px;
       overflow:hidden;
       border:1px solid rgba(255,255,255,.14);
       box-shadow:0 16px 34px rgba(0,0,0,.18);
     }
-
     .hero-showcase img{
       display:block;
       width:100%;
-      height:260px;
+      height:280px;
       object-fit:cover;
       object-position:center;
     }
 
-    .card{
-      background:rgba(255,255,255,.94);
+    .main-card,.summary-card{
+      background:rgba(255,255,255,.96);
       backdrop-filter:blur(10px);
       border:1px solid rgba(255,255,255,.55);
       border-radius:var(--r);
       box-shadow:var(--shadow);
       overflow:hidden;
-      margin-top:18px;
+      margin-top:20px;
+      width:100%;
     }
-
     .card-h{
-      padding:16px 16px 14px;
+      padding:18px 18px 16px;
       border-bottom:1px solid rgba(12,24,40,.08);
       background:linear-gradient(135deg, rgba(31,95,191,.08), rgba(20,148,92,.05));
     }
-
     .card-h h2{
       margin:0;
-      font-size:18px;
+      font-size:24px;
       letter-spacing:-.02em;
     }
-
     .card-h small{
       display:block;
-      margin-top:5px;
+      margin-top:6px;
       color:var(--muted);
       font-weight:800;
+      font-size:14px;
     }
-
-    .card-b{padding:16px}
+    .card-b{padding:18px}
 
     .summary{
       display:grid;
       grid-template-columns:1fr 1fr;
-      gap:12px;
-      margin-bottom:14px;
+      gap:14px;
+      margin-bottom:16px;
     }
-
     .total-box,.info-box{
       background:linear-gradient(135deg,#fff,#f7fbff);
       border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      padding:14px;
+      border-radius:20px;
+      padding:16px;
       box-shadow:var(--shadow-soft);
     }
-
     .total-box{
       background:
         radial-gradient(340px 120px at 0% 0%, rgba(31,95,191,.10), transparent 55%),
         linear-gradient(135deg,#fff,#f7fbff);
     }
-
     .total-box b{
       display:block;
-      font-size:32px;
+      font-size:38px;
       letter-spacing:-.04em;
       margin-top:6px;
       color:var(--brand3);
     }
-
     .total-box span,.info-box span{
       font-size:12px;
       color:var(--muted);
       font-weight:900;
       text-transform:uppercase;
-      letter-spacing:.04em;
+      letter-spacing:.06em;
     }
 
     .note{
-      font-size:12.5px;
-      line-height:1.55;
+      font-size:14px;
+      line-height:1.6;
       color:var(--muted);
       font-weight:700;
       margin:0;
@@ -425,15 +351,15 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      margin-top:16px;
-      padding-top:14px;
+      margin-top:20px;
+      padding-top:16px;
       border-top:1px dashed rgba(12,24,40,.12);
       font-weight:950;
+      font-size:20px;
     }
-
     .plus{
-      width:30px;
-      height:30px;
+      width:32px;
+      height:32px;
       border-radius:12px;
       display:inline-flex;
       align-items:center;
@@ -442,77 +368,70 @@
       background:linear-gradient(135deg,var(--brand),var(--brand2));
       margin-right:8px;
       box-shadow:0 10px 22px rgba(31,95,191,.25);
+      font-size:18px;
     }
 
     .items{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:12px;
-      margin-top:12px;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:14px;
+      margin-top:14px;
     }
-
     .item{
-      position:relative;
+      display:flex;
+      min-height:165px;
       background:
         radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.11), transparent 60%),
         linear-gradient(135deg,#ffffff,#f8fbff);
       border:1px solid rgba(31,95,191,.14);
-      border-radius:18px;
-      padding:13px;
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      align-items:flex-start;
+      border-radius:20px;
+      padding:16px;
       box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
     }
-
     .item h3{
       margin:0;
-      font-size:14px;
-      line-height:1.2;
+      font-size:18px;
+      line-height:1.25;
     }
-
     .item p{
-      margin:6px 0 0;
-      font-size:12px;
+      margin:8px 0 0;
+      font-size:14px;
       color:var(--muted);
       font-weight:800;
-      line-height:1.45;
+      line-height:1.55;
     }
-
     .price{
-      margin-top:8px;
+      margin-top:12px;
       color:var(--green);
-      font-size:14px;
+      font-size:19px;
       font-weight:950;
     }
 
     .room-entry{
       border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
+      border-radius:20px;
       background:#fff;
       box-shadow:var(--shadow-soft);
-      padding:14px;
-      margin-top:12px;
+      padding:16px;
+      margin-top:14px;
     }
 
     .room-list{
       display:flex;
       flex-direction:column;
       gap:14px;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .room-row{
       border:1px solid rgba(31,95,191,.14);
-      border-radius:18px;
-      padding:14px;
+      border-radius:20px;
+      padding:16px;
       background:
         radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.08), transparent 60%),
         linear-gradient(135deg,#ffffff,#f8fbff);
       box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
     }
-
     .room-top{
       display:flex;
       align-items:center;
@@ -520,109 +439,69 @@
       gap:10px;
       margin-bottom:12px;
     }
-
     .room-badge{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding:7px 10px;
+      padding:8px 12px;
       border-radius:999px;
       background:rgba(31,95,191,.08);
       color:var(--brand3);
-      font-size:11px;
+      font-size:12px;
       font-weight:1000;
       text-transform:uppercase;
       letter-spacing:.05em;
     }
 
-    .room-grid{
-      display:grid;
-      grid-template-columns:1.15fr 1.15fr 1fr .9fr;
-      gap:10px;
-      align-items:end;
-    }
-
-    .room-meta{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:10px;
-    }
-
-    .meta-box{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:14px;
-      padding:10px 12px;
-      background:#fff;
-    }
-
-    .meta-box span{
-      display:block;
-      font-size:11px;
-      color:var(--muted);
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-    }
-
-    .meta-box b{
-      display:block;
-      margin-top:4px;
-      font-size:14px;
-      color:var(--brand3);
-      line-height:1.35;
-    }
-
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .line{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-      padding:12px 12px;
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:16px;
-      background:linear-gradient(135deg,#fff,#f7faff);
-      box-shadow:0 8px 18px rgba(15,35,65,.05);
-    }
-
-    .line b{font-size:13px}
-
-    .line small{
-      display:block;
-      margin-top:4px;
-      color:var(--muted);
-      font-weight:850;
-      line-height:1.45;
-    }
-
-    .money{
-      font-weight:950;
-      color:var(--green);
-      white-space:nowrap;
-    }
-
     .mutebox{
-      padding:13px 14px;
+      padding:14px 16px;
       border:1px solid rgba(12,24,40,.08);
       border-radius:18px;
       background:linear-gradient(135deg,#fff,#f7faff);
-      font-size:12.5px;
-      line-height:1.55;
+      font-size:14px;
+      line-height:1.6;
       color:var(--muted);
       font-weight:700;
       box-shadow:var(--shadow-soft);
     }
 
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+
+    .line{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      padding:14px 14px;
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:18px;
+      background:linear-gradient(135deg,#fff,#f7faff);
+      box-shadow:0 8px 18px rgba(15,35,65,.05);
+    }
+    .line b{font-size:17px}
+    .line small{
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-weight:850;
+      line-height:1.5;
+      font-size:14px;
+    }
+    .money{
+      font-weight:950;
+      color:var(--green);
+      white-space:nowrap;
+      font-size:18px;
+    }
+
     .hr{
       height:1px;
       background:rgba(12,24,40,.10);
-      margin:12px 0;
+      margin:14px 0;
     }
 
     .cta{
@@ -630,7 +509,7 @@
       gap:10px;
       flex-wrap:wrap;
       align-items:center;
-      margin-top:12px;
+      margin-top:14px;
     }
 
     .sticky-bar{
@@ -646,7 +525,6 @@
       z-index:9999;
       backdrop-filter:blur(12px);
     }
-
     .sticky-inner{
       max-width:var(--max);
       margin:0 auto;
@@ -656,14 +534,12 @@
       gap:10px;
       flex-wrap:nowrap;
     }
-
     .sticky-total{
       display:flex;
       flex-direction:column;
       font-weight:900;
       min-width:112px;
     }
-
     .sticky-total span{
       font-size:11px;
       opacity:.80;
@@ -671,14 +547,12 @@
       text-transform:uppercase;
       letter-spacing:.05em;
     }
-
     .sticky-total b{
-      font-size:18px;
+      font-size:20px;
       letter-spacing:-.02em;
       line-height:1.1;
       margin-top:2px;
     }
-
     .sticky-actions{
       display:flex;
       gap:8px;
@@ -689,47 +563,125 @@
     footer{
       text-align:center;
       color:#5c6b80;
-      font-size:12px;
+      font-size:13px;
       font-weight:700;
       margin-top:20px;
       padding-top:8px;
     }
 
-    @media (max-width: 1080px){
-      .summary,.room-grid,.room-meta{grid-template-columns:1fr}
+    .modal{
+      position:fixed;
+      inset:0;
+      z-index:10050;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:rgba(6,16,30,.58);
+      backdrop-filter:blur(8px);
+    }
+    .modal.show{display:flex}
+    .modal-card{
+      width:min(860px,100%);
+      max-height:min(92vh,900px);
+      overflow:auto;
+      background:#fff;
+      border-radius:28px;
+      box-shadow:0 30px 80px rgba(0,0,0,.30);
+      border:1px solid rgba(255,255,255,.55);
+    }
+    .modal-head{
+      padding:22px 22px 18px;
+      background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
+      color:#fff;
+      position:sticky;
+      top:0;
+      z-index:2;
+    }
+    .modal-head h3{
+      margin:0;
+      font-size:28px;
+      line-height:1.05;
+      letter-spacing:-.03em;
+    }
+    .modal-head p{
+      margin:8px 0 0;
+      opacity:.9;
+      font-size:15px;
+      line-height:1.5;
+    }
+    .modal-body{padding:22px}
+    .modal-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+    .modal-summary{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+    .meta-box{
+      border:1px solid rgba(12,24,40,.08);
+      border-radius:18px;
+      padding:14px 16px;
+      background:#fff;
+      box-shadow:var(--shadow-soft);
+    }
+    .meta-box span{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+    .meta-box b{
+      display:block;
+      margin-top:6px;
+      font-size:18px;
+      color:var(--brand3);
+      line-height:1.4;
+    }
+
+    @media (max-width: 1200px){
+      .items{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media (max-width: 900px){
+      .summary,.modal-grid,.modal-summary{grid-template-columns:1fr}
       .hero-top{align-items:flex-start}
     }
 
-    @media (max-width: 600px){
-      body{padding-bottom:86px}
+    @media (max-width: 700px){
       .wrap{padding:12px 12px 20px}
       .topbar{padding:2px 0 10px}
       .top-actions{display:none}
       .brand-title,.brand span{display:none}
       .hero{padding:14px 12px;border-radius:18px}
       .hero-kicker,.hero-total{display:none}
-      .hero h1{font-size:20px}
-      .hero p{font-size:12.5px;line-height:1.45}
-      .hero-showcase img{
-        height:150px;
-        object-position:center;
-      }
-      .items{grid-template-columns:1fr;gap:10px}
-      .item{padding:11px;border-radius:16px}
-      .card-h{padding:13px 14px}
+      .hero h1{font-size:22px}
+      .hero p{font-size:13px;line-height:1.5}
+      .hero-showcase img{height:150px}
+      .card-h{padding:14px}
+      .card-h h2{font-size:20px}
       .card-b{padding:14px}
-      .room-entry{padding:12px}
+      .items{grid-template-columns:1fr}
+      .item{min-height:auto;padding:13px;border-radius:16px}
+      .item h3{font-size:17px}
+      .item p,.note,.mutebox,.line small{font-size:13px}
+      .total-box b{font-size:30px}
+      .line b{font-size:15px}
+      .money{font-size:16px}
+      .modal{padding:10px}
+      .modal-card{border-radius:18px}
+      .modal-head{padding:16px}
+      .modal-head h3{font-size:22px}
+      .modal-body{padding:16px}
       .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-      .sticky-inner{gap:8px}
-      .sticky-total{min-width:84px}
-      .sticky-total span{font-size:10px}
-      .sticky-total b{font-size:15px}
-      .sticky-actions{gap:6px}
-      .sticky-actions .btn{
-        padding:9px 10px;
-        font-size:12px;
-        box-shadow:none;
-      }
+      .sticky-total b{font-size:16px}
+      .sticky-actions .btn{padding:9px 10px;font-size:12px;box-shadow:none}
     }
   </style>
 </head>
@@ -773,7 +725,7 @@
           <div class="hero-copy">
             <div class="hero-kicker">Private estimate</div>
             <h1>Welcome to the Albrighton Hall calculator</h1>
-            <p>Enter each room or area, choose the cleaning method, type the square metres, and the calculator will work out the correct rate band automatically. Hybrid Deep Clean covers rotary bonnet cleaning with targeted hot water extraction on heavier traffic areas. Hard floor cleaning is also included for kitchens, toilets and similar areas.</p>
+            <p>Everything below has been set up to be easier to read and use. Add areas through a full screen style pop up form, choose the method, enter the square metres, and the calculator works out the rate band automatically.</p>
           </div>
           <div class="hero-total">
             <div>
@@ -788,10 +740,10 @@
         </div>
       </section>
 
-      <section class="card">
+      <section class="main-card">
         <div class="card-h">
           <h2>Build your quote</h2>
-          <small>Main calculator section full width for easier desktop use.</small>
+          <small>Main calculator full width with larger text and clearer layout</small>
         </div>
         <div class="card-b">
           <div class="summary">
@@ -801,7 +753,7 @@
             </div>
             <div class="info-box">
               <span>Helpful note</span>
-              <p class="note" style="margin-top:6px;">
+              <p class="note" style="margin-top:8px;">
                 Downloaded CSV includes area name, method, square metres, band, rate, line total, subtotal, VAT and final total.
               </p>
             </div>
@@ -824,6 +776,7 @@
             <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet plus targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
             <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
             <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
+            <article class="item"><div><h3>Hotel rooms</h3><p>Hybrid Deep Clean room rate</p><div class="price">£30 per room</div></div></article>
           </div>
 
           <div class="section-head">
@@ -833,6 +786,7 @@
             <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative carpet clean</p><div class="price">£3.40 per m²</div></div></article>
             <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size carpet area</p><div class="price">£3.10 per m²</div></div></article>
             <article class="item"><div><h3>301+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.80 per m²</div></div></article>
+            <article class="item"><div><h3>Hotel rooms</h3><p>Hot water extraction room rate</p><div class="price">£35 per room</div></div></article>
           </div>
 
           <div class="section-head">
@@ -842,15 +796,16 @@
             <article class="item"><div><h3>Up to 150 m²</h3><p>Kitchens, toilets and other hard floors</p><div class="price">£2.80 per m²</div></div></article>
             <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hard floor area</p><div class="price">£2.50 per m²</div></div></article>
             <article class="item"><div><h3>301+ m²</h3><p>Larger hard floor area</p><div class="price">£2.20 per m²</div></div></article>
+            <article class="item"><div><h3>Typical use</h3><p>Kitchen, washroom, hard floor corridor, back of house</p><div class="price">Variable by m²</div></div></article>
           </div>
 
           <div class="section-head">
-            <div><span class="plus">+</span>Room and area entry</div>
+            <div><span class="plus">+</span>Areas added to quote</div>
             <div><button class="btn primary" type="button" id="addRoomTop">Add area</button></div>
           </div>
 
           <div class="room-entry">
-            <div class="mutebox">Each area appears as a proper quote card below. Start with one row already open.</div>
+            <div class="mutebox">Click Add area and a proper pop up form will open. That form is now the main way to enter room details.</div>
             <div id="roomList" class="room-list"></div>
 
             <div class="cta">
@@ -874,12 +829,12 @@
               </select>
             </div>
 
-            <div class="field" style="margin-top:12px;">
+            <div class="field" style="margin-top:14px;">
               <label for="hotelRoomQty">Number of hotel rooms</label>
               <input id="hotelRoomQty" type="number" min="0" step="1" value="0">
             </div>
 
-            <div class="field" style="margin-top:12px;">
+            <div class="field" style="margin-top:14px;">
               <label for="includeVat" style="display:flex;align-items:center;gap:10px;">
                 <input id="includeVat" type="checkbox" style="width:18px;height:18px;flex:0 0 auto;">
                 Include VAT at 20%
@@ -897,17 +852,17 @@
               <input id="furnitureMoveDesc" type="text" placeholder="Example: Move beds, chairs, tables">
             </div>
 
-            <div class="field" style="margin-top:12px;">
+            <div class="field" style="margin-top:14px;">
               <label for="furnitureMovePrice">Furniture moving price</label>
               <input id="furnitureMovePrice" type="number" min="0" step="0.01" value="0">
             </div>
 
-            <div class="field" style="margin-top:12px;">
+            <div class="field" style="margin-top:14px;">
               <label for="extrasDesc">Chemicals or other extras description</label>
               <input id="extrasDesc" type="text" placeholder="Example: Extra chemicals, spotting, deodoriser, access time">
             </div>
 
-            <div class="field" style="margin-top:12px;">
+            <div class="field" style="margin-top:14px;">
               <label for="extrasPrice">Chemicals or other extras price</label>
               <input id="extrasPrice" type="number" min="0" step="0.01" value="0">
             </div>
@@ -915,17 +870,17 @@
         </div>
       </section>
 
-      <section class="card">
+      <section class="summary-card">
         <div class="card-h">
           <h2>Your selected items</h2>
-          <small>Full width summary moved below the main calculator</small>
+          <small>Full width summary with larger, clearer text</small>
         </div>
         <div class="card-b">
           <div class="list" id="selectedList"></div>
 
           <div class="hr"></div>
           <div class="mutebox">
-            The summary is now underneath the main build area, so the calculator itself has the full width of the page on desktop.
+            The area entry now uses a pop up form, the text is larger, and the pricing cards have been straightened so they line up properly.
           </div>
         </div>
       </section>
@@ -944,6 +899,63 @@
 
         <div class="sticky-actions">
           <button class="btn ghost" type="button" id="resetSticky">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="roomModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">Add area</h3>
+        <p>Fill this in clearly and save the area back into the quote.</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="field">
+            <label for="modalAreaType">Area type</label>
+            <select id="modalAreaType"></select>
+          </div>
+
+          <div class="field">
+            <label for="modalRoomName">Custom area name</label>
+            <input id="modalRoomName" type="text" placeholder="Only use if Custom is selected">
+          </div>
+
+          <div class="field">
+            <label for="modalMethod">Cleaning method</label>
+            <select id="modalMethod">
+              <option value="rotary">Rotary bonnet</option>
+              <option value="hybrid">Hybrid Deep Clean</option>
+              <option value="hwe">Hot water extraction</option>
+              <option value="hardfloor">Hard floor cleaning</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="modalSqm">Square metres</label>
+            <input id="modalSqm" type="number" min="0" step="0.1" value="0">
+          </div>
+        </div>
+
+        <div class="modal-summary">
+          <div class="meta-box">
+            <span>Price band</span>
+            <b id="modalBand">Waiting for square metres</b>
+          </div>
+          <div class="meta-box">
+            <span>Rate</span>
+            <b id="modalRate">—</b>
+          </div>
+          <div class="meta-box">
+            <span>Line total</span>
+            <b id="modalLineTotal">£0.00</b>
+          </div>
+        </div>
+
+        <div class="cta">
+          <button class="btn primary" type="button" id="saveModalBtn">Save area</button>
+          <button class="btn red" type="button" id="cancelModalBtn">Cancel</button>
         </div>
       </div>
     </div>
@@ -1010,6 +1022,7 @@
 
     let roomRows = [];
     let roomCounter = 0;
+    let editingRoomId = null;
 
     const fmt = n => "£" + (Math.round((Number(n) || 0) * 100) / 100).toFixed(2);
 
@@ -1059,6 +1072,12 @@
       return html;
     }
 
+    function getDisplayAreaName(row){
+      return row.areaType && row.areaType !== "Custom"
+        ? row.areaType
+        : (row.roomName || "Unnamed area");
+    }
+
     function createRoomRowElement(row, index){
       const totals = getRowTotals(row);
       const wrapper = document.createElement("div");
@@ -1068,50 +1087,19 @@
       wrapper.innerHTML = `
         <div class="room-top">
           <div class="room-badge">Area ${index + 1}</div>
-          <button class="btn red small" type="button" data-role="remove" data-id="${row.id}">Remove</button>
-        </div>
-
-        <div class="room-grid">
-          <div class="field">
-            <label>Area type</label>
-            <select data-role="area-type" data-id="${row.id}">
-              ${buildAreaOptions(row.areaType || "")}
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Custom area name</label>
-            <input type="text" value="${escapeHtml(row.roomName)}" data-role="room-name" data-id="${row.id}" placeholder="Only use if Custom is selected">
-          </div>
-
-          <div class="field">
-            <label>Method</label>
-            <select data-role="method" data-id="${row.id}">
-              <option value="rotary" ${row.method === "rotary" ? "selected" : ""}>Rotary bonnet</option>
-              <option value="hybrid" ${row.method === "hybrid" ? "selected" : ""}>Hybrid Deep Clean</option>
-              <option value="hwe" ${row.method === "hwe" ? "selected" : ""}>Hot water extraction</option>
-              <option value="hardfloor" ${row.method === "hardfloor" ? "selected" : ""}>Hard floor cleaning</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label>Square metres</label>
-            <input type="number" min="0" step="0.1" value="${row.sqm}" data-role="sqm" data-id="${row.id}">
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn primary small" type="button" data-role="edit" data-id="${row.id}">Edit</button>
+            <button class="btn red small" type="button" data-role="remove" data-id="${row.id}">Remove</button>
           </div>
         </div>
 
-        <div class="room-meta">
-          <div class="meta-box">
-            <span>Price band</span>
-            <b data-meta="band">${totals.bandLabel}</b>
-          </div>
-          <div class="meta-box">
-            <span>Rate</span>
-            <b data-meta="rate">${totals.band ? fmt(totals.unit) + " per m²" : "—"}</b>
-          </div>
-          <div class="meta-box">
-            <span>Line total</span>
-            <b data-meta="total">${fmt(totals.total)}</b>
+        <div class="list">
+          <div class="line">
+            <div>
+              <b>${escapeHtml(getDisplayAreaName(row))}</b>
+              <small>${escapeHtml(getMethodLabel(row.method))} · ${row.sqm || 0} m² · ${totals.bandLabel}</small>
+            </div>
+            <div class="money">${fmt(totals.total)}</div>
           </div>
         </div>
       `;
@@ -1124,21 +1112,6 @@
       roomRows.forEach((row, index) => {
         wrap.appendChild(createRoomRowElement(row, index));
       });
-    }
-
-    function updateRoomCard(id){
-      const row = roomRows.find(r => r.id === id);
-      const card = document.querySelector(`.room-row[data-id="${id}"]`);
-      if (!row || !card) return;
-
-      const totals = getRowTotals(row);
-      const bandEl = card.querySelector('[data-meta="band"]');
-      const rateEl = card.querySelector('[data-meta="rate"]');
-      const totalEl = card.querySelector('[data-meta="total"]');
-
-      if (bandEl) bandEl.textContent = totals.bandLabel;
-      if (rateEl) rateEl.textContent = totals.band ? fmt(totals.unit) + " per m²" : "—";
-      if (totalEl) totalEl.textContent = fmt(totals.total);
     }
 
     function addRoomRow(data = {}){
@@ -1180,12 +1153,6 @@
       document.getElementById("extrasDesc").value = "";
       document.getElementById("extrasPrice").value = 0;
       addRoomRow();
-    }
-
-    function getDisplayAreaName(row){
-      return row.areaType && row.areaType !== "Custom"
-        ? row.areaType
-        : (row.roomName || "Unnamed area");
     }
 
     function calculate(){
@@ -1230,7 +1197,6 @@
         }
 
         const lineTotal = hotelRoomQty * unit;
-
         subtotal += lineTotal;
 
         lines.push({
@@ -1293,7 +1259,7 @@
       const selected = document.getElementById("selectedList");
 
       if (!result.lines.length){
-        selected.innerHTML = `<div class="mutebox">No priced items yet. Start typing square metres or add hotel room quantities.</div>`;
+        selected.innerHTML = `<div class="mutebox">No priced items yet. Start by clicking Add area.</div>`;
         return;
       }
 
@@ -1307,8 +1273,8 @@
         return `
           <div class="line">
             <div>
-              <b>${line.roomName}</b>
-              <small>${subText}</small>
+              <b>${escapeHtml(line.roomName)}</b>
+              <small>${escapeHtml(subText)}</small>
             </div>
             <div class="money">${fmt(line.total)}</div>
           </div>
@@ -1397,47 +1363,107 @@
       }
     }
 
+    function populateModalAreaOptions(selected){
+      document.getElementById("modalAreaType").innerHTML = buildAreaOptions(selected || "");
+    }
+
+    function updateModalPreview(){
+      const method = document.getElementById("modalMethod").value;
+      const sqm = Math.max(0, Number(document.getElementById("modalSqm").value) || 0);
+      const bands = getBands(method);
+      const band = pickBand(sqm, bands);
+
+      document.getElementById("modalBand").textContent = band ? band.label : "Waiting for square metres";
+      document.getElementById("modalRate").textContent = band ? `${fmt(band.rate)} per m²` : "—";
+      document.getElementById("modalLineTotal").textContent = band ? fmt(sqm * band.rate) : "£0.00";
+    }
+
+    function openModalForNew(){
+      editingRoomId = null;
+      document.getElementById("modalTitle").textContent = "Add area";
+      populateModalAreaOptions("");
+      document.getElementById("modalRoomName").value = "";
+      document.getElementById("modalMethod").value = "rotary";
+      document.getElementById("modalSqm").value = 0;
+      updateModalPreview();
+      document.getElementById("roomModal").classList.add("show");
+    }
+
+    function openModalForEdit(id){
+      const row = roomRows.find(r => r.id === id);
+      if (!row) return;
+      editingRoomId = id;
+      document.getElementById("modalTitle").textContent = "Edit area";
+      populateModalAreaOptions(row.areaType || "");
+      document.getElementById("modalRoomName").value = row.roomName || "";
+      document.getElementById("modalMethod").value = row.method || "rotary";
+      document.getElementById("modalSqm").value = row.sqm || 0;
+      updateModalPreview();
+      document.getElementById("roomModal").classList.add("show");
+    }
+
+    function closeModal(){
+      document.getElementById("roomModal").classList.remove("show");
+      editingRoomId = null;
+    }
+
+    function saveModal(){
+      const areaType = document.getElementById("modalAreaType").value;
+      const roomName = document.getElementById("modalRoomName").value.trim();
+      const method = document.getElementById("modalMethod").value;
+      const sqm = Math.max(0, Number(document.getElementById("modalSqm").value) || 0);
+
+      if (editingRoomId === null){
+        addRoomRow({ areaType, roomName, method, sqm });
+      } else {
+        const row = roomRows.find(r => r.id === editingRoomId);
+        if (row){
+          row.areaType = areaType;
+          row.roomName = roomName;
+          row.method = method;
+          row.sqm = sqm;
+          renderRoomRows();
+          renderSelected();
+        }
+      }
+      closeModal();
+    }
+
     document.getElementById("unlockBtn").addEventListener("click", unlock);
     document.getElementById("passwordInput").addEventListener("keydown", e => {
       if (e.key === "Enter") unlock();
     });
 
-    document.getElementById("roomList").addEventListener("input", e => {
-      const id = Number(e.target.dataset.id);
-      const row = roomRows.find(r => r.id === id);
-      if (!row) return;
-
-      if (e.target.dataset.role === "room-name") row.roomName = e.target.value;
-      if (e.target.dataset.role === "sqm") row.sqm = Number(e.target.value || 0);
-
-      updateRoomCard(id);
-      renderSelected();
-    });
-
-    document.getElementById("roomList").addEventListener("change", e => {
-      const id = Number(e.target.dataset.id);
-      const row = roomRows.find(r => r.id === id);
-      if (!row) return;
-
-      if (e.target.dataset.role === "method") row.method = e.target.value;
-      if (e.target.dataset.role === "area-type") row.areaType = e.target.value;
-
-      updateRoomCard(id);
-      renderSelected();
-    });
-
-    document.getElementById("roomList").addEventListener("click", e => {
-      const btn = e.target.closest("[data-role='remove']");
-      if (!btn) return;
-      removeRoomRow(Number(btn.dataset.id));
-    });
-
-    document.getElementById("addRoomTop").addEventListener("click", () => addRoomRow());
-    document.getElementById("addRoomBottom").addEventListener("click", () => addRoomRow());
+    document.getElementById("addRoomTop").addEventListener("click", openModalForNew);
+    document.getElementById("addRoomBottom").addEventListener("click", openModalForNew);
     document.getElementById("resetBtn").addEventListener("click", resetAll);
     document.getElementById("resetTop").addEventListener("click", resetAll);
     document.getElementById("resetSticky").addEventListener("click", resetAll);
     document.getElementById("downloadBtn").addEventListener("click", downloadCsv);
+
+    document.getElementById("saveModalBtn").addEventListener("click", saveModal);
+    document.getElementById("cancelModalBtn").addEventListener("click", closeModal);
+    document.getElementById("roomModal").addEventListener("click", e => {
+      if (e.target.id === "roomModal") closeModal();
+    });
+
+    ["modalAreaType","modalRoomName","modalMethod","modalSqm"].forEach(id => {
+      document.getElementById(id).addEventListener("input", updateModalPreview);
+      document.getElementById(id).addEventListener("change", updateModalPreview);
+    });
+
+    document.getElementById("roomList").addEventListener("click", e => {
+      const editBtn = e.target.closest("[data-role='edit']");
+      if (editBtn){
+        openModalForEdit(Number(editBtn.dataset.id));
+        return;
+      }
+
+      const removeBtn = e.target.closest("[data-role='remove']");
+      if (removeBtn){
+        removeRoomRow(Number(removeBtn.dataset.id));
+      }
+    });
 
     [
       "hotelRoomQty",
