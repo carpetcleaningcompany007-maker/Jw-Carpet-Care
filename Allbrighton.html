@@ -21,7 +21,7 @@
       --shadow:0 18px 48px rgba(13,27,45,.10);
       --shadow-soft:0 10px 24px rgba(15,35,65,.07);
       --r:22px;
-      --max:1180px;
+      --max:1480px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     }
 
@@ -54,7 +54,7 @@
     .wrap{
       max-width:var(--max);
       margin:0 auto;
-      padding:18px 14px 28px;
+      padding:18px 18px 28px;
     }
 
     .btn{
@@ -233,7 +233,7 @@
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-      max-width:420px;
+      max-width:520px;
     }
 
     .top-actions{
@@ -248,7 +248,7 @@
       background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
       color:#fff;
       border-radius:24px;
-      padding:18px 18px 16px;
+      padding:20px 20px 18px;
       box-shadow:0 24px 60px rgba(0,0,0,.18);
     }
 
@@ -272,7 +272,7 @@
       flex-wrap:wrap;
     }
 
-    .hero-copy{max-width:700px}
+    .hero-copy{max-width:760px}
 
     .hero-kicker{
       display:inline-flex;
@@ -291,7 +291,7 @@
 
     .hero h1{
       margin:0;
-      font-size:28px;
+      font-size:30px;
       line-height:1.04;
       letter-spacing:-.03em;
     }
@@ -301,7 +301,7 @@
       color:rgba(255,255,255,.86);
       font-size:13.5px;
       line-height:1.55;
-      max-width:60ch;
+      max-width:68ch;
     }
 
     .hero-total{
@@ -339,15 +339,15 @@
     .hero-showcase img{
       display:block;
       width:100%;
-      height:220px;
+      height:260px;
       object-fit:cover;
       object-position:center;
     }
 
     .grid{
       display:grid;
-      grid-template-columns:1.05fr .95fr;
-      gap:18px;
+      grid-template-columns:1.15fr .85fr;
+      gap:20px;
       align-items:start;
       margin-top:18px;
     }
@@ -705,6 +705,7 @@
     @media (max-width: 980px){
       .grid,.summary,.room-grid,.room-meta{grid-template-columns:1fr}
       .hero-top{align-items:flex-start}
+      .wrap{padding:14px 12px 24px}
     }
 
     @media (max-width: 600px){
@@ -780,7 +781,7 @@
           <div class="hero-copy">
             <div class="hero-kicker">Private estimate</div>
             <h1>Welcome to the Albrighton Hall calculator</h1>
-            <p>Enter each room or area, choose the method, type the square metres, and the calculator will work out the right rate band automatically.</p>
+            <p>Enter each room or area, choose the method, type the square metres, and the calculator will work out the right rate band automatically. Hybrid Deep Clean covers rotary bonnet cleaning with targeted hot water extraction on heavier traffic areas.</p>
           </div>
           <div class="hero-total">
             <div>
@@ -799,7 +800,7 @@
         <section class="card">
           <div class="card-h">
             <h2>Build your quote</h2>
-            <small>Proper room cards, live totals, and a cleaner export.</small>
+            <small>Proper room cards, live totals, Hybrid Deep Clean, and a cleaner export.</small>
           </div>
           <div class="card-b">
             <div class="summary">
@@ -823,6 +824,15 @@
               <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size area</p><div class="price">£2.20 per m²</div></div></article>
               <article class="item"><div><h3>400 to 999 m²</h3><p>Larger commercial area</p><div class="price">£2.00 per m²</div></div></article>
               <article class="item"><div><h3>1000+ m²</h3><p>Large volume pricing</p><div class="price">£1.80 per m²</div></div></article>
+            </div>
+
+            <div class="section-head">
+              <div><span class="plus">+</span>Hybrid Deep Clean pricing</div>
+            </div>
+            <div class="items">
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet with targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
             </div>
 
             <div class="section-head">
@@ -859,6 +869,7 @@
                 <label for="hotelRoomMethod">Hotel room cleaning method</label>
                 <select id="hotelRoomMethod">
                   <option value="rotary">Rotary bonnet at £25 per room</option>
+                  <option value="hybrid">Hybrid Deep Clean at £30 per room</option>
                   <option value="hwe">Hot water extraction at £35 per room</option>
                 </select>
               </div>
@@ -914,7 +925,7 @@
 
             <div class="hr"></div>
             <div class="mutebox">
-              This version keeps the clean style you liked, but the room entry now behaves like part of the actual calculator instead of a cheap form.
+              This version is wider on desktop and includes Hybrid Deep Clean as the middle option between straight bonnet cleaning and full hot water extraction.
             </div>
           </div>
         </aside>
@@ -943,6 +954,7 @@
     const PASSWORD = "albrighton123";
     const VAT_RATE = 0.20;
     const ROTARY_ROOM_RATE = 25;
+    const HYBRID_ROOM_RATE = 30;
     const HWE_ROOM_RATE = 35;
 
     const ROTARY_BANDS = [
@@ -950,6 +962,12 @@
       { min: 151, max: 399, rate: 2.20, label: "151 to 399 m²" },
       { min: 400, max: 999, rate: 2.00, label: "400 to 999 m²" },
       { min: 1000, max: Infinity, rate: 1.80, label: "1000+ m²" }
+    ];
+
+    const HYBRID_BANDS = [
+      { min: 0, max: 150, rate: 2.90, label: "Up to 150 m²" },
+      { min: 151, max: 300, rate: 2.60, label: "151 to 300 m²" },
+      { min: 301, max: Infinity, rate: 2.40, label: "301+ m²" }
     ];
 
     const HWE_BANDS = [
@@ -972,6 +990,18 @@
         .replace(/'/g, "&#39;");
     }
 
+    function getBands(method){
+      if (method === "rotary") return ROTARY_BANDS;
+      if (method === "hybrid") return HYBRID_BANDS;
+      return HWE_BANDS;
+    }
+
+    function getMethodLabel(method){
+      if (method === "rotary") return "Rotary bonnet";
+      if (method === "hybrid") return "Hybrid Deep Clean";
+      return "Hot water extraction";
+    }
+
     function pickBand(m2, bands){
       if (m2 <= 0) return null;
       return bands.find(b => m2 >= b.min && m2 <= b.max) || bands[bands.length - 1];
@@ -979,8 +1009,8 @@
 
     function getRowTotals(row){
       const sqm = Math.max(0, Number(row.sqm) || 0);
-      const isRotary = row.method === "rotary";
-      const band = pickBand(sqm, isRotary ? ROTARY_BANDS : HWE_BANDS);
+      const bands = getBands(row.method);
+      const band = pickBand(sqm, bands);
       const unit = band ? band.rate : 0;
       const bandLabel = band ? band.label : "Waiting for square metres";
       const total = sqm > 0 ? sqm * unit : 0;
@@ -1009,6 +1039,7 @@
             <label>Method</label>
             <select data-role="method" data-id="${row.id}">
               <option value="rotary" ${row.method === "rotary" ? "selected" : ""}>Rotary bonnet</option>
+              <option value="hybrid" ${row.method === "hybrid" ? "selected" : ""}>Hybrid Deep Clean</option>
               <option value="hwe" ${row.method === "hwe" ? "selected" : ""}>Hot water extraction</option>
             </select>
           </div>
@@ -1108,8 +1139,9 @@
         const sqm = Math.max(0, Number(row.sqm) || 0);
         if (!sqm) return;
 
-        const isRotary = row.method === "rotary";
-        const band = pickBand(sqm, isRotary ? ROTARY_BANDS : HWE_BANDS);
+        const methodLabel = getMethodLabel(row.method);
+        const bands = getBands(row.method);
+        const band = pickBand(sqm, bands);
         if (!band) return;
 
         const lineTotal = sqm * band.rate;
@@ -1117,7 +1149,7 @@
 
         lines.push({
           roomName: row.roomName || "Unnamed room",
-          method: isRotary ? "Rotary bonnet" : "Hot water extraction",
+          method: methodLabel,
           sqm,
           band: band.label,
           rate: band.rate,
@@ -1129,8 +1161,17 @@
       const hotelRoomMethod = document.getElementById("hotelRoomMethod").value;
 
       if (hotelRoomQty > 0){
-        const unit = hotelRoomMethod === "rotary" ? ROTARY_ROOM_RATE : HWE_ROOM_RATE;
-        const methodLabel = hotelRoomMethod === "rotary" ? "Rotary bonnet hotel room" : "Hot water extraction hotel room";
+        let unit = ROTARY_ROOM_RATE;
+        let methodLabel = "Rotary bonnet hotel room";
+
+        if (hotelRoomMethod === "hybrid"){
+          unit = HYBRID_ROOM_RATE;
+          methodLabel = "Hybrid Deep Clean hotel room";
+        } else if (hotelRoomMethod === "hwe"){
+          unit = HWE_ROOM_RATE;
+          methodLabel = "Hot water extraction hotel room";
+        }
+
         const lineTotal = hotelRoomQty * unit;
 
         subtotal += lineTotal;
