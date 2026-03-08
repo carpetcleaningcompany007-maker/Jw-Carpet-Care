@@ -21,7 +21,7 @@
       --shadow:0 18px 48px rgba(13,27,45,.10);
       --shadow-soft:0 10px 24px rgba(15,35,65,.07);
       --r:22px;
-      --max:1260px;
+      --max:1280px;
       --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
     }
 
@@ -114,32 +114,12 @@
       box-shadow:0 12px 28px rgba(0,0,0,.16);
       transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
     }
-    .btn:hover{
-      transform:translateY(-1px);
-      filter:saturate(1.03);
-    }
-    .btn.primary{
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      color:#fff;
-    }
-    .btn.ghost{
-      background:rgba(255,255,255,.12);
-      color:#fff;
-      border:1px solid rgba(255,255,255,.16);
-    }
-    .btn.green{
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:#fff;
-    }
-    .btn.red{
-      background:linear-gradient(135deg,#ef5350,#c62828);
-      color:#fff;
-    }
-    .btn.small{
-      padding:10px 12px;
-      font-size:12px;
-      box-shadow:none;
-    }
+    .btn:hover{transform:translateY(-1px);filter:saturate(1.03)}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
+    .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16)}
+    .btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
+    .btn.red{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
+    .btn.small{padding:10px 12px;font-size:12px;box-shadow:none}
 
     .hero{
       position:relative;
@@ -171,7 +151,7 @@
       flex-wrap:wrap;
     }
 
-    .hero-copy{max-width:620px}
+    .hero-copy{max-width:720px}
 
     .hero-kicker{
       display:inline-flex;
@@ -200,7 +180,7 @@
       color:rgba(255,255,255,.86);
       font-size:13.5px;
       line-height:1.55;
-      max-width:58ch;
+      max-width:62ch;
     }
 
     .hero-total{
@@ -214,16 +194,8 @@
       backdrop-filter:blur(10px);
     }
 
-    .hero-total b{
-      display:block;
-      font-size:18px;
-    }
-
-    .hero-total span{
-      display:block;
-      font-size:12px;
-      opacity:.84;
-    }
+    .hero-total b{display:block;font-size:18px}
+    .hero-total span{display:block;font-size:12px;opacity:.84}
 
     .hero-showcase{
       position:relative;
@@ -245,7 +217,7 @@
 
     .grid{
       display:grid;
-      grid-template-columns:1.05fr .95fr;
+      grid-template-columns:1.1fr .9fr;
       gap:18px;
       align-items:start;
       margin-top:18px;
@@ -379,25 +351,9 @@
       box-shadow:0 16px 30px rgba(15,35,65,.12), 0 0 0 1px rgba(255,255,255,.85) inset;
     }
 
-    .item h3{
-      margin:0;
-      font-size:14px;
-      line-height:1.2;
-    }
-
-    .item p{
-      margin:6px 0 0;
-      font-size:12px;
-      color:var(--muted);
-      font-weight:800;
-    }
-
-    .price{
-      margin-top:8px;
-      color:var(--green);
-      font-size:14px;
-      font-weight:950;
-    }
+    .item h3{margin:0;font-size:14px;line-height:1.2}
+    .item p{margin:6px 0 0;font-size:12px;color:var(--muted);font-weight:800}
+    .price{margin-top:8px;color:var(--green);font-size:14px;font-weight:950}
 
     .qty{
       display:flex;
@@ -451,11 +407,7 @@
     }
 
     details.acc>summary::-webkit-details-marker{display:none}
-
-    .acc-body{
-      padding:12px 14px 14px;
-      border-top:1px solid rgba(12,24,40,.08);
-    }
+    .acc-body{padding:12px 14px 14px;border-top:1px solid rgba(12,24,40,.08)}
 
     .list{
       display:flex;
@@ -476,7 +428,6 @@
     }
 
     .line b{font-size:13px}
-
     .line small{
       display:block;
       margin-top:4px;
@@ -507,11 +458,15 @@
       margin:12px 0;
     }
 
-    .form-grid{
+    .form-grid,.doc-grid,.modal-grid,.modal-summary,.preview-grid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:10px;
       margin-top:10px;
+    }
+
+    .modal-summary{
+      grid-template-columns:repeat(3,1fr);
     }
 
     .field{
@@ -549,19 +504,24 @@
       box-shadow:0 0 0 4px rgba(31,95,191,.12);
     }
 
+    .input-error{
+      border-color:rgba(204,56,56,.7) !important;
+      box-shadow:0 0 0 4px rgba(204,56,56,.12) !important;
+    }
+
+    .help-error{
+      color:var(--red);
+      font-size:12px;
+      font-weight:900;
+      display:none;
+    }
+
     .cta{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       align-items:center;
       margin-top:12px;
-    }
-
-    .doc-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:10px;
     }
 
     .tickgrid{
@@ -592,15 +552,7 @@
       flex:0 0 auto;
     }
 
-    .protect-card{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      background:linear-gradient(135deg,#fff,#f7faff);
-      box-shadow:var(--shadow-soft);
-      padding:14px;
-    }
-
-    .gate-box{
+    .protect-card,.gate-box,.room-entry,.meta-box,.preview-box{
       border:1px solid rgba(12,24,40,.08);
       border-radius:18px;
       background:linear-gradient(135deg,#fff,#f7faff);
@@ -614,6 +566,49 @@
       font-size:12px;
       font-weight:900;
       margin-top:8px;
+    }
+
+    .area-cta{
+      margin-top:6px;
+      padding:16px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#f7fbff,#ffffff);
+      border:2px solid rgba(31,95,191,.16);
+      box-shadow:var(--shadow-soft);
+    }
+
+    .area-cta h3{margin:0 0 8px;font-size:20px;color:var(--brand3)}
+    .area-cta p{margin:0;font-size:13px;line-height:1.6;color:var(--muted);font-weight:700}
+
+    .room-list{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+    .room-row{
+      border:1px solid rgba(31,95,191,.14);
+      border-radius:18px;
+      padding:14px;
+      background:linear-gradient(135deg,#ffffff,#f8fbff);
+      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
+    }
+
+    .room-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .room-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(31,95,191,.08);
+      color:var(--brand3);
+      font-size:12px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.06em;
     }
 
     footer{
@@ -689,7 +684,9 @@
       background:rgba(6,16,30,.58);
       backdrop-filter:blur(8px);
     }
+
     .modal.show{display:flex}
+
     .modal-card{
       width:min(980px,96vw);
       max-height:94vh;
@@ -699,6 +696,7 @@
       box-shadow:0 30px 80px rgba(0,0,0,.30);
       border:1px solid rgba(255,255,255,.55);
     }
+
     .modal-head{
       padding:20px 20px 16px;
       background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
@@ -707,34 +705,18 @@
       top:0;
       z-index:2;
     }
-    .modal-head h3{
-      margin:0;
-      font-size:28px;
-      line-height:1.05;
-      letter-spacing:-.03em;
-    }
-    .modal-head p{
-      margin:8px 0 0;
-      opacity:.92;
-      font-size:14px;
-      line-height:1.5;
-    }
+
+    .modal-head h3{margin:0;font-size:28px;line-height:1.05;letter-spacing:-.03em}
+    .modal-head p{margin:8px 0 0;opacity:.92;font-size:14px;line-height:1.5}
     .modal-body{padding:18px}
 
-    .preview-box{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      padding:16px;
-      background:linear-gradient(135deg,#ffffff,#f8fbff);
-      box-shadow:var(--shadow-soft);
-      margin-top:12px;
-    }
     .preview-box h4{
       margin:0 0 8px;
       font-size:18px;
       line-height:1.1;
       color:var(--brand3);
     }
+
     .preview-box p{
       margin:0;
       font-size:13px;
@@ -743,8 +725,25 @@
       font-weight:700;
     }
 
+    .meta-box span{
+      display:block;
+      font-size:12px;
+      color:var(--muted);
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+
+    .meta-box b{
+      display:block;
+      margin-top:6px;
+      font-size:18px;
+      color:var(--brand3);
+      line-height:1.4;
+    }
+
     @media (max-width: 980px){
-      .grid,.form-grid,.summary,.doc-grid{grid-template-columns:1fr}
+      .grid,.form-grid,.summary,.doc-grid,.modal-grid,.modal-summary,.preview-grid{grid-template-columns:1fr}
       .hero-top{align-items:flex-start}
     }
 
@@ -759,10 +758,7 @@
       .hero-kicker,.hero-total{display:none}
       .hero h1{font-size:20px}
       .hero p{font-size:12.5px;line-height:1.45}
-      .hero-showcase img{
-        height:150px;
-        object-position:center;
-      }
+      .hero-showcase img{height:150px;object-position:center}
       .items{grid-template-columns:1fr;gap:10px}
       .item{padding:11px;border-radius:16px}
       .card-h{padding:13px 14px}
@@ -773,11 +769,7 @@
       .sticky-total span{font-size:10px}
       .sticky-total b{font-size:15px}
       .sticky-actions{gap:6px}
-      .sticky-actions .btn{
-        padding:9px 10px;
-        font-size:12px;
-        box-shadow:none;
-      }
+      .sticky-actions .btn{padding:9px 10px;font-size:12px;box-shadow:none}
       .modal-card{width:100%;border-radius:18px}
       .modal-head h3{font-size:22px}
     }
@@ -804,7 +796,7 @@
         <div class="hero-copy">
           <div class="hero-kicker">Instant estimate</div>
           <h1>Welcome to the JW Carpet Care calculator</h1>
-          <p>Add the rooms or items you want cleaned for a quick estimate. Simple to use, fast to update, and easy to send through when you are ready.</p>
+          <p>Add domestic rooms and items as normal, or open the commercial section to build area based pricing for larger work.</p>
         </div>
         <div class="hero-total">
           <div>
@@ -823,7 +815,7 @@
       <section class="card">
         <div class="card-h">
           <h2>Build your quote</h2>
-          <small>Select the items you want cleaned</small>
+          <small>Select domestic items or add commercial areas</small>
         </div>
         <div class="card-b">
           <div class="summary">
@@ -865,19 +857,135 @@
             </div>
           </details>
 
-          <details class="acc">
+          <details class="acc" open>
             <summary>
               <span><span class="plus">+</span>Commercial work</span>
-              <span><b id="comCount">0</b> items</span>
+              <span><b id="commercialAreaCount">0</b> areas</span>
             </summary>
             <div class="acc-body">
-              <div class="items" id="commercial"></div>
+              <div class="section-head" style="margin-top:0;padding-top:0;border-top:0;">
+                <div>Commercial pricing bands</div>
+              </div>
+
+              <details class="acc">
+                <summary>
+                  <span>Rotary bonnet pricing</span>
+                  <span>m² bands</span>
+                </summary>
+                <div class="acc-body">
+                  <div class="items">
+                    <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller carpeted commercial area</p><div class="price">£2.50 per m²</div></div></article>
+                    <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size carpeted area</p><div class="price">£2.20 per m²</div></div></article>
+                    <article class="item"><div><h3>400 to 999 m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.00 per m²</div></div></article>
+                    <article class="item"><div><h3>1000+ m²</h3><p>Large volume carpet pricing</p><div class="price">£1.80 per m²</div></div></article>
+                  </div>
+                </div>
+              </details>
+
+              <details class="acc">
+                <summary>
+                  <span>Hybrid Deep Clean pricing</span>
+                  <span>m² bands</span>
+                </summary>
+                <div class="acc-body">
+                  <div class="items">
+                    <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet plus targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
+                    <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
+                    <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
+                    <article class="item"><div><h3>Hotel rooms</h3><p>Hybrid Deep Clean room rate</p><div class="price">£30 per room</div></div></article>
+                  </div>
+                </div>
+              </details>
+
+              <details class="acc">
+                <summary>
+                  <span>Hot water extraction pricing</span>
+                  <span>m² bands</span>
+                </summary>
+                <div class="acc-body">
+                  <div class="items">
+                    <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative carpet clean</p><div class="price">£3.40 per m²</div></div></article>
+                    <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size carpet area</p><div class="price">£3.10 per m²</div></div></article>
+                    <article class="item"><div><h3>301+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.80 per m²</div></div></article>
+                    <article class="item"><div><h3>Hotel rooms</h3><p>Hot water extraction room rate</p><div class="price">£35 per room</div></div></article>
+                  </div>
+                </div>
+              </details>
+
+              <details class="acc">
+                <summary>
+                  <span>Hard floor cleaning pricing</span>
+                  <span>m² bands</span>
+                </summary>
+                <div class="acc-body">
+                  <div class="items">
+                    <article class="item"><div><h3>Up to 150 m²</h3><p>Kitchens, toilets and other hard floors</p><div class="price">£2.80 per m²</div></div></article>
+                    <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hard floor area</p><div class="price">£2.50 per m²</div></div></article>
+                    <article class="item"><div><h3>301+ m²</h3><p>Larger hard floor area</p><div class="price">£2.20 per m²</div></div></article>
+                    <article class="item"><div><h3>Typical use</h3><p>Kitchen, washroom, hard floor corridor, back of house</p><div class="price">Variable by m²</div></div></article>
+                  </div>
+                </div>
+              </details>
+
+              <div class="room-entry" style="margin-top:14px;">
+                <div class="area-cta">
+                  <h3>Add a commercial area</h3>
+                  <p>Use the add area button to create commercial areas with area name, cleaning method and square metres.</p>
+                </div>
+
+                <div class="cta">
+                  <button class="btn primary" type="button" id="addRoomTop">Add area</button>
+                  <button class="btn red" type="button" id="resetCommercialBtn">Reset commercial areas</button>
+                </div>
+
+                <div id="roomList" class="room-list"></div>
+
+                <div class="hr"></div>
+
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="hotelRoomMethod">Hotel room cleaning method</label>
+                    <select id="hotelRoomMethod">
+                      <option value="rotary">Rotary bonnet at £25 per room</option>
+                      <option value="hybrid">Hybrid Deep Clean at £30 per room</option>
+                      <option value="hwe">Hot water extraction at £35 per room</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="hotelRoomQty">Number of hotel rooms</label>
+                    <input id="hotelRoomQty" type="number" min="0" step="1" value="0">
+                  </div>
+                </div>
+
+                <div class="form-grid">
+                  <div class="field">
+                    <label for="furnitureMoveDesc">Furniture moving description</label>
+                    <input id="furnitureMoveDesc" type="text" placeholder="Example: Move beds, chairs, tables">
+                  </div>
+
+                  <div class="field">
+                    <label for="furnitureMovePrice">Furniture moving price</label>
+                    <input id="furnitureMovePrice" type="number" min="0" step="0.01" value="0">
+                  </div>
+
+                  <div class="field">
+                    <label for="extrasDesc">Chemicals or other extras description</label>
+                    <input id="extrasDesc" type="text" placeholder="Example: Extra chemicals, spotting, deodoriser, access time">
+                  </div>
+
+                  <div class="field">
+                    <label for="extrasPrice">Chemicals or other extras price</label>
+                    <input id="extrasPrice" type="number" min="0" step="0.01" value="0">
+                  </div>
+                </div>
+              </div>
             </div>
           </details>
 
           <div class="hr"></div>
           <div class="mutebox">
-            Tip: add hall, stairs and landing separately if you want a more accurate breakdown.
+            Domestic and commercial items can be combined into the same quote.
           </div>
         </div>
       </section>
@@ -1013,7 +1121,7 @@
 
                 <div class="field" style="margin-top:10px;">
                   <label for="commercialSectionText">Commercial section wording</label>
-                  <textarea id="commercialSectionText">This service has been priced to reflect the selected items and the practical requirements of the job.</textarea>
+                  <textarea id="commercialSectionText">This service has been priced to reflect the selected commercial areas and the practical requirements of the job.</textarea>
                 </div>
 
                 <div class="field" style="margin-top:10px;">
@@ -1045,6 +1153,10 @@
                   <div class="tickrow">
                     <input type="checkbox" id="includeNotesSection">
                     <label for="includeNotesSection" style="margin:0;">Include notes section</label>
+                  </div>
+                  <div class="tickrow">
+                    <input type="checkbox" id="includeVat">
+                    <label for="includeVat" style="margin:0;">Include VAT at 20 percent on commercial quote totals</label>
                   </div>
                 </div>
 
@@ -1102,6 +1214,68 @@
     </div>
   </div>
 
+  <div id="roomModal" class="modal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">Add area</h3>
+        <p>Fill this in clearly and save the commercial area back into the quote.</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-grid">
+          <div class="field">
+            <label for="modalAreaType">Area type</label>
+            <select id="modalAreaType"></select>
+            <div class="help-error" id="areaTypeError">Please choose an area type.</div>
+          </div>
+
+          <div class="field">
+            <label for="modalRoomName">Custom area name</label>
+            <input id="modalRoomName" type="text" placeholder="Only use if Custom is selected">
+            <div class="help-error" id="roomNameError">Please enter a custom area name.</div>
+          </div>
+
+          <div class="field">
+            <label for="modalMethod">Cleaning method</label>
+            <select id="modalMethod">
+              <option value="">Select method</option>
+              <option value="rotary">Rotary bonnet</option>
+              <option value="hybrid">Hybrid Deep Clean</option>
+              <option value="hwe">Hot water extraction</option>
+              <option value="hardfloor">Hard floor cleaning</option>
+            </select>
+            <div class="help-error" id="methodError">Please choose a cleaning method.</div>
+          </div>
+
+          <div class="field">
+            <label for="modalSqm">Square metres</label>
+            <input id="modalSqm" type="number" min="0" step="0.1" value="">
+            <div class="help-error" id="sqmError">Please enter square metres greater than 0.</div>
+          </div>
+        </div>
+
+        <div class="modal-summary">
+          <div class="meta-box">
+            <span>Price band</span>
+            <b id="modalBand">Waiting for details</b>
+          </div>
+          <div class="meta-box">
+            <span>Rate</span>
+            <b id="modalRate">—</b>
+          </div>
+          <div class="meta-box">
+            <span>Line total</span>
+            <b id="modalLineTotal">£0.00</b>
+          </div>
+        </div>
+
+        <div class="cta">
+          <button class="btn primary" type="button" id="saveModalBtn">Save area</button>
+          <button class="btn red" type="button" id="cancelModalBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="quotePreviewModal" class="modal">
     <div class="modal-card">
       <div class="modal-head">
@@ -1120,8 +1294,12 @@
   </div>
 
   <script>
+    const DOC_PASSWORD = "knickersniffer";
     const MIN_CHARGE = 80;
-    const DOC_PASSWORD = "jwdocs";
+    const VAT_RATE = 0.20;
+    const ROTARY_ROOM_RATE = 25;
+    const HYBRID_ROOM_RATE = 30;
+    const HWE_ROOM_RATE = 35;
 
     const ITEMS = {
       carpets: [
@@ -1145,29 +1323,48 @@
         { id:"sofa_3", name:"3 Seat Sofa", desc:"Fabric or leather", price:120 },
         { id:"seat", name:"Sofa Per Seat", desc:"Useful for corner sofas", price:40 },
         { id:"armchair", name:"Armchair", desc:"Single chair", price:30 }
-      ],
-      commercial: [
-        { id:"com_office_small", name:"Small Office Carpet Area", desc:"Light commercial carpet clean", price:120 },
-        { id:"com_office_medium", name:"Medium Office Carpet Area", desc:"Mid size commercial area", price:220 },
-        { id:"com_office_large", name:"Large Office Carpet Area", desc:"Larger commercial carpet clean", price:380 },
-        { id:"com_restaurant", name:"Restaurant or Pub Carpet Area", desc:"Commercial traffic area clean", price:260 },
-        { id:"com_communal", name:"Communal Area", desc:"Shared access carpet clean", price:140 },
-        { id:"com_hwe_area", name:"Commercial Deep Clean Area", desc:"Hot water extraction commercial area", price:320 },
-        { id:"com_upholstery_set", name:"Commercial Upholstery Set", desc:"Reception or waiting area seating", price:180 },
-        { id:"com_rug_large", name:"Large Commercial Rug", desc:"Reception or feature rug", price:95 }
       ]
     };
 
+    const ROTARY_BANDS = [
+      { min: 0, max: 150, rate: 2.50, label: "Up to 150 m²" },
+      { min: 151, max: 399, rate: 2.20, label: "151 to 399 m²" },
+      { min: 400, max: 999, rate: 2.00, label: "400 to 999 m²" },
+      { min: 1000, max: Infinity, rate: 1.80, label: "1000+ m²" }
+    ];
+
+    const HYBRID_BANDS = [
+      { min: 0, max: 150, rate: 2.90, label: "Up to 150 m²" },
+      { min: 151, max: 300, rate: 2.60, label: "151 to 300 m²" },
+      { min: 301, max: Infinity, rate: 2.40, label: "301+ m²" }
+    ];
+
+    const HWE_BANDS = [
+      { min: 0, max: 150, rate: 3.40, label: "Up to 150 m²" },
+      { min: 151, max: 300, rate: 3.10, label: "151 to 300 m²" },
+      { min: 301, max: Infinity, rate: 2.80, label: "301+ m²" }
+    ];
+
+    const HARD_FLOOR_BANDS = [
+      { min: 0, max: 150, rate: 2.80, label: "Up to 150 m²" },
+      { min: 151, max: 300, rate: 2.50, label: "151 to 300 m²" },
+      { min: 301, max: Infinity, rate: 2.20, label: "301+ m²" }
+    ];
+
+    const AREA_OPTIONS = [
+      "Function room","Hallway","Restaurant","Bar","Reception","Bedroom corridor",
+      "Stairs and landing","Meeting room","Lounge","Spa area","Gym","Office",
+      "Conference room","Dining area","Ballroom","Entrance lobby","Toilet area",
+      "Staff room","Kitchen","Kitchen access area","Banqueting room",
+      "Hard floor corridor","Hard floor washroom","Custom"
+    ];
+
     const state = { qty:{} };
+    let roomRows = [];
+    let roomCounter = 0;
+    let editingRoomId = null;
 
     const fmt = n => "£" + (Math.round((Number(n)||0) * 100) / 100).toFixed(2);
-
-    const allItems = () => [
-      ...ITEMS.carpets.map(x => ({...x, group:"Carpets"})),
-      ...ITEMS.rugs.map(x => ({...x, group:"Rugs"})),
-      ...ITEMS.upholstery.map(x => ({...x, group:"Sofas and Upholstery"})),
-      ...ITEMS.commercial.map(x => ({...x, group:"Commercial Work"}))
-    ];
 
     function escapeHtml(str){
       return String(str ?? "")
@@ -1181,6 +1378,12 @@
     function nl2br(str){
       return escapeHtml(str).replace(/\n/g, "<br>");
     }
+
+    const allDomesticItems = () => [
+      ...ITEMS.carpets.map(x => ({...x, group:"Carpets"})),
+      ...ITEMS.rugs.map(x => ({...x, group:"Rugs"})),
+      ...ITEMS.upholstery.map(x => ({...x, group:"Sofas and Upholstery"}))
+    ];
 
     function renderGroup(el, items){
       el.innerHTML = items.map(it => {
@@ -1202,11 +1405,257 @@
       }).join("");
     }
 
-    function calc(){
-      const lines = [];
-      let subtotal = 0;
+    function attachQtyHandlers(container){
+      container.addEventListener("click", (e) => {
+        const btn = e.target.closest(".qbtn");
+        if (!btn) return;
+        const card = btn.closest(".item");
+        if (!card) return;
+        const id = card.getAttribute("data-id");
+        const act = btn.getAttribute("data-act");
+        const cur = Number(state.qty[id] || 0);
+        state.qty[id] = act === "inc" ? cur + 1 : Math.max(0, cur - 1);
+        renderSelected();
+      });
+    }
 
-      for (const it of allItems()) {
+    function getBands(method){
+      if (method === "rotary") return ROTARY_BANDS;
+      if (method === "hybrid") return HYBRID_BANDS;
+      if (method === "hardfloor") return HARD_FLOOR_BANDS;
+      return HWE_BANDS;
+    }
+
+    function getMethodLabel(method){
+      if (method === "rotary") return "Rotary bonnet";
+      if (method === "hybrid") return "Hybrid Deep Clean";
+      if (method === "hardfloor") return "Hard floor cleaning";
+      return "Hot water extraction";
+    }
+
+    function pickBand(m2, bands){
+      if (m2 <= 0) return null;
+      return bands.find(b => m2 >= b.min && m2 <= b.max) || bands[bands.length - 1];
+    }
+
+    function buildAreaOptions(selected){
+      let html = `<option value="">Select area</option>`;
+      AREA_OPTIONS.forEach(option => {
+        html += `<option value="${escapeHtml(option)}" ${selected === option ? "selected" : ""}>${escapeHtml(option)}</option>`;
+      });
+      return html;
+    }
+
+    function getDisplayAreaName(row){
+      return row.areaType && row.areaType !== "Custom" ? row.areaType : (row.roomName || "Unnamed area");
+    }
+
+    function createRoomRowElement(row, index){
+      const sqm = Math.max(0, Number(row.sqm) || 0);
+      const band = pickBand(sqm, getBands(row.method));
+      const total = band ? sqm * band.rate : 0;
+      const bandLabel = band ? band.label : "Waiting for details";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "room-row";
+      wrapper.dataset.id = row.id;
+      wrapper.innerHTML = `
+        <div class="room-top">
+          <div class="room-badge">Area ${index + 1}</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn primary small" type="button" data-role="edit" data-id="${row.id}">Edit</button>
+            <button class="btn red small" type="button" data-role="remove" data-id="${row.id}">Remove</button>
+          </div>
+        </div>
+        <div class="list">
+          <div class="line">
+            <div>
+              <b>${escapeHtml(getDisplayAreaName(row))}</b>
+              <small>${escapeHtml(getMethodLabel(row.method))} · ${sqm} m² · ${bandLabel}</small>
+            </div>
+            <div class="money">${fmt(total)}</div>
+          </div>
+        </div>
+      `;
+      return wrapper;
+    }
+
+    function renderRoomRows(){
+      const wrap = document.getElementById("roomList");
+      document.getElementById("commercialAreaCount").textContent = roomRows.length;
+      if (!roomRows.length){
+        wrap.innerHTML = `<div class="mutebox">No commercial areas added yet. Click Add area to start building the commercial quote.</div>`;
+        return;
+      }
+      wrap.innerHTML = "";
+      roomRows.forEach((row, index) => wrap.appendChild(createRoomRowElement(row, index)));
+    }
+
+    function addRoomRow(data = {}){
+      roomCounter += 1;
+      roomRows.push({
+        id: roomCounter,
+        areaType: data.areaType || "",
+        roomName: data.roomName || "",
+        method: data.method || "",
+        sqm: Number(data.sqm || 0)
+      });
+      renderRoomRows();
+      renderSelected();
+    }
+
+    function removeRoomRow(id){
+      roomRows = roomRows.filter(r => r.id !== id);
+      renderRoomRows();
+      renderSelected();
+    }
+
+    function resetCommercialOnly(){
+      roomRows = [];
+      roomCounter = 0;
+      editingRoomId = null;
+      document.getElementById("hotelRoomMethod").value = "rotary";
+      document.getElementById("hotelRoomQty").value = 0;
+      document.getElementById("furnitureMoveDesc").value = "";
+      document.getElementById("furnitureMovePrice").value = 0;
+      document.getElementById("extrasDesc").value = "";
+      document.getElementById("extrasPrice").value = 0;
+      renderRoomRows();
+      renderSelected();
+    }
+
+    function clearModalErrors(){
+      ["modalAreaType","modalRoomName","modalMethod","modalSqm"].forEach(id => {
+        document.getElementById(id).classList.remove("input-error");
+      });
+      ["areaTypeError","roomNameError","methodError","sqmError"].forEach(id => {
+        document.getElementById(id).style.display = "none";
+      });
+    }
+
+    function populateModalAreaOptions(selected){
+      document.getElementById("modalAreaType").innerHTML = buildAreaOptions(selected || "");
+    }
+
+    function updateCustomNameRequirement(){
+      const areaType = document.getElementById("modalAreaType").value;
+      const roomNameInput = document.getElementById("modalRoomName");
+      roomNameInput.disabled = areaType !== "Custom";
+      if (areaType !== "Custom") roomNameInput.value = "";
+    }
+
+    function updateModalPreview(){
+      const areaType = document.getElementById("modalAreaType").value;
+      const method = document.getElementById("modalMethod").value;
+      const sqm = Math.max(0, Number(document.getElementById("modalSqm").value) || 0);
+
+      updateCustomNameRequirement();
+
+      if (!areaType || !method || sqm <= 0){
+        document.getElementById("modalBand").textContent = "Waiting for details";
+        document.getElementById("modalRate").textContent = "—";
+        document.getElementById("modalLineTotal").textContent = "£0.00";
+        return;
+      }
+
+      const band = pickBand(sqm, getBands(method));
+      document.getElementById("modalBand").textContent = band ? band.label : "Waiting for details";
+      document.getElementById("modalRate").textContent = band ? `${fmt(band.rate)} per m²` : "—";
+      document.getElementById("modalLineTotal").textContent = band ? fmt(sqm * band.rate) : "£0.00";
+    }
+
+    function openModalForNew(){
+      editingRoomId = null;
+      document.getElementById("modalTitle").textContent = "Add area";
+      populateModalAreaOptions("");
+      document.getElementById("modalRoomName").value = "";
+      document.getElementById("modalMethod").value = "";
+      document.getElementById("modalSqm").value = "";
+      clearModalErrors();
+      updateModalPreview();
+      document.getElementById("roomModal").classList.add("show");
+    }
+
+    function openModalForEdit(id){
+      const row = roomRows.find(r => r.id === id);
+      if (!row) return;
+      editingRoomId = id;
+      document.getElementById("modalTitle").textContent = "Edit area";
+      populateModalAreaOptions(row.areaType || "");
+      document.getElementById("modalRoomName").value = row.roomName || "";
+      document.getElementById("modalMethod").value = row.method || "";
+      document.getElementById("modalSqm").value = row.sqm || "";
+      clearModalErrors();
+      updateModalPreview();
+      document.getElementById("roomModal").classList.add("show");
+    }
+
+    function closeModal(){
+      document.getElementById("roomModal").classList.remove("show");
+      editingRoomId = null;
+      clearModalErrors();
+    }
+
+    function validateModal(){
+      clearModalErrors();
+      const areaType = document.getElementById("modalAreaType").value.trim();
+      const roomName = document.getElementById("modalRoomName").value.trim();
+      const method = document.getElementById("modalMethod").value.trim();
+      const sqm = Number(document.getElementById("modalSqm").value);
+      let ok = true;
+
+      if (!areaType){
+        document.getElementById("modalAreaType").classList.add("input-error");
+        document.getElementById("areaTypeError").style.display = "block";
+        ok = false;
+      }
+      if (areaType === "Custom" && !roomName){
+        document.getElementById("modalRoomName").classList.add("input-error");
+        document.getElementById("roomNameError").style.display = "block";
+        ok = false;
+      }
+      if (!method){
+        document.getElementById("modalMethod").classList.add("input-error");
+        document.getElementById("methodError").style.display = "block";
+        ok = false;
+      }
+      if (!(sqm > 0)){
+        document.getElementById("modalSqm").classList.add("input-error");
+        document.getElementById("sqmError").style.display = "block";
+        ok = false;
+      }
+      return ok;
+    }
+
+    function saveModal(){
+      if (!validateModal()) return;
+
+      const areaType = document.getElementById("modalAreaType").value;
+      const roomName = document.getElementById("modalRoomName").value.trim();
+      const method = document.getElementById("modalMethod").value;
+      const sqm = Math.max(0, Number(document.getElementById("modalSqm").value) || 0);
+
+      if (editingRoomId === null){
+        addRoomRow({ areaType, roomName, method, sqm });
+      } else {
+        const row = roomRows.find(r => r.id === editingRoomId);
+        if (row){
+          row.areaType = areaType;
+          row.roomName = roomName;
+          row.method = method;
+          row.sqm = sqm;
+          renderRoomRows();
+          renderSelected();
+        }
+      }
+      closeModal();
+    }
+
+    function calculate(){
+      let subtotal = 0;
+      const lines = [];
+
+      for (const it of allDomesticItems()) {
         const q = Number(state.qty[it.id] || 0);
         if (!q) continue;
 
@@ -1214,104 +1663,173 @@
         subtotal += rowTotal;
 
         lines.push({
-          label: it.name,
-          group: it.group,
-          qty: q,
-          unit: it.price,
-          total: rowTotal
+          roomName: it.name,
+          method: it.group,
+          methodKey: "domestic",
+          sqm: "",
+          band: it.group,
+          rate: it.price,
+          total: rowTotal,
+          qtyRooms: q,
+          group: it.group
         });
       }
 
-      const hasItems = lines.length > 0;
-      const total = hasItems ? Math.max(subtotal, MIN_CHARGE) : 0;
-      const minApplied = hasItems && subtotal < MIN_CHARGE;
+      roomRows.forEach(row => {
+        const sqm = Math.max(0, Number(row.sqm) || 0);
+        if (!sqm || !row.method) return;
+        const band = pickBand(sqm, getBands(row.method));
+        if (!band) return;
+        const total = sqm * band.rate;
+        subtotal += total;
+        lines.push({
+          roomName: getDisplayAreaName(row),
+          method: getMethodLabel(row.method),
+          methodKey: row.method,
+          sqm,
+          band: band.label,
+          rate: band.rate,
+          total,
+          group: "Commercial Work"
+        });
+      });
 
-      return { lines, subtotal, total, minApplied };
-    }
+      const hotelRoomQty = Math.max(0, Number(document.getElementById("hotelRoomQty").value) || 0);
+      const hotelRoomMethod = document.getElementById("hotelRoomMethod").value;
+      if (hotelRoomQty > 0){
+        let rate = ROTARY_ROOM_RATE;
+        let method = "Rotary bonnet hotel room";
+        let methodKey = "rotary";
+        if (hotelRoomMethod === "hybrid"){ rate = HYBRID_ROOM_RATE; method = "Hybrid Deep Clean hotel room"; methodKey = "hybrid"; }
+        if (hotelRoomMethod === "hwe"){ rate = HWE_ROOM_RATE; method = "Hot water extraction hotel room"; methodKey = "hwe"; }
+        const total = hotelRoomQty * rate;
+        subtotal += total;
+        lines.push({
+          roomName:"Hotel rooms",
+          method,
+          methodKey,
+          sqm:"",
+          band:"Room rate",
+          rate,
+          total,
+          qtyRooms:hotelRoomQty,
+          group:"Commercial Work"
+        });
+      }
 
-    function count(group){
-      return group.reduce((sum, it) => sum + (Number(state.qty[it.id]) || 0), 0);
+      const furnitureMoveDesc = document.getElementById("furnitureMoveDesc").value.trim() || "Furniture moving";
+      const furnitureMovePrice = Math.max(0, Number(document.getElementById("furnitureMovePrice").value) || 0);
+      if (furnitureMovePrice > 0){
+        subtotal += furnitureMovePrice;
+        lines.push({
+          roomName:furnitureMoveDesc,
+          method:"Manual extra",
+          methodKey:"extra",
+          sqm:"",
+          band:"Furniture moving",
+          rate:furnitureMovePrice,
+          total:furnitureMovePrice,
+          isManualExtra:true,
+          group:"Commercial Work"
+        });
+      }
+
+      const extrasDesc = document.getElementById("extrasDesc").value.trim() || "Chemicals or other extras";
+      const extrasPrice = Math.max(0, Number(document.getElementById("extrasPrice").value) || 0);
+      if (extrasPrice > 0){
+        subtotal += extrasPrice;
+        lines.push({
+          roomName:extrasDesc,
+          method:"Manual extra",
+          methodKey:"extra",
+          sqm:"",
+          band:"Chemicals / other",
+          rate:extrasPrice,
+          total:extrasPrice,
+          isManualExtra:true,
+          group:"Commercial Work"
+        });
+      }
+
+      const includeVat = document.getElementById("includeVat").checked;
+      const vat = includeVat ? subtotal * VAT_RATE : 0;
+      const total = subtotal + vat;
+
+      return { lines, subtotal, vat, total, includeVat };
     }
 
     function renderSelected(){
       renderGroup(document.getElementById("carpets"), ITEMS.carpets);
       renderGroup(document.getElementById("rugs"), ITEMS.rugs);
       renderGroup(document.getElementById("upholstery"), ITEMS.upholstery);
-      renderGroup(document.getElementById("commercial"), ITEMS.commercial);
 
-      document.getElementById("carpetCount").textContent = count(ITEMS.carpets);
-      document.getElementById("rugCount").textContent = count(ITEMS.rugs);
-      document.getElementById("upCount").textContent = count(ITEMS.upholstery);
-      document.getElementById("comCount").textContent = count(ITEMS.commercial);
+      document.getElementById("carpetCount").textContent = ITEMS.carpets.reduce((sum, it) => sum + (Number(state.qty[it.id]) || 0), 0);
+      document.getElementById("rugCount").textContent = ITEMS.rugs.reduce((sum, it) => sum + (Number(state.qty[it.id]) || 0), 0);
+      document.getElementById("upCount").textContent = ITEMS.upholstery.reduce((sum, it) => sum + (Number(state.qty[it.id]) || 0), 0);
 
-      const result = calc();
+      renderRoomRows();
+
+      const result = calculate();
       document.getElementById("total").textContent = fmt(result.total);
       document.getElementById("totalSticky").textContent = fmt(result.total);
-
-      const heroTotal = document.getElementById("heroTotal");
-      if (heroTotal) heroTotal.textContent = fmt(result.total);
-
+      document.getElementById("heroTotal").textContent = fmt(result.total);
       document.getElementById("totalHidden").value = fmt(result.total);
 
       const selected = document.getElementById("selectedList");
 
       if (!result.lines.length) {
-        selected.innerHTML = `<div class="mutebox">No items selected yet. Add rooms, furniture or commercial items to see the estimate.</div>`;
+        selected.innerHTML = `<div class="mutebox">No items selected yet. Add rooms, furniture or commercial areas to see the estimate.</div>`;
       } else {
-        selected.innerHTML = result.lines.map(x => `
+        let html = result.lines.map(line => {
+          const subText = line.isManualExtra
+            ? `${line.method} · ${line.band}`
+            : line.group === "Commercial Work" && line.qtyRooms
+              ? `${line.method} · ${line.qtyRooms} × ${fmt(line.rate)} · ${line.band}`
+              : line.group === "Commercial Work" && line.sqm
+                ? `${line.method} · ${line.sqm} m² × ${fmt(line.rate)} · ${line.band}`
+                : `${line.group} · ${line.qtyRooms} × ${fmt(line.rate)}`;
+
+          return `
+            <div class="line">
+              <div>
+                <b>${escapeHtml(line.roomName)}</b>
+                <small>${escapeHtml(subText)}</small>
+              </div>
+              <div class="money">${fmt(line.total)}</div>
+            </div>
+          `;
+        }).join("");
+
+        html += `
+          <div class="hr"></div>
           <div class="line">
-            <div>
-              <b>${x.label}</b>
-              <small>${x.group} · ${x.qty} × ${fmt(x.unit)}</small>
-            </div>
-            <div class="money">${fmt(x.total)}</div>
+            <div><b>Subtotal</b><small>Before VAT</small></div>
+            <div class="money">${fmt(result.subtotal)}</div>
           </div>
-        `).join("") + `
-        ${result.minApplied ? `
+        `;
+        if (result.includeVat){
+          html += `
+            <div class="line">
+              <div><b>VAT</b><small>20 percent added</small></div>
+              <div class="money">${fmt(result.vat)}</div>
+            </div>
+          `;
+        }
+        html += `
           <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
-            <div>
-              <b>Minimum charge applied</b>
-              <small>Minimum booking charge is ${fmt(MIN_CHARGE)}</small>
-            </div>
-            <div class="money">${fmt(MIN_CHARGE)}</div>
-          </div>
-        ` : ``}
-        <div class="hr"></div>
-        <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
-          <div><b>Total</b><small>Instant estimate</small></div>
-          <div class="money">${fmt(result.total)}</div>
-        </div>`;
+            <div><b>Total</b><small>Instant estimate</small></div>
+            <div class="money">${fmt(result.total)}</div>
+          </div>`;
+        selected.innerHTML = html;
       }
 
       const breakdown = [
-        ...result.lines.map(x => `${x.label} (${x.group}): ${x.qty} × ${fmt(x.unit)} = ${fmt(x.total)}`),
-        ...(result.minApplied ? [`Minimum charge applied: ${fmt(MIN_CHARGE)}`] : []),
+        ...result.lines.map(x => `${x.roomName}: ${fmt(x.total)}`),
         `Final total: ${fmt(result.total)}`
       ].join("\n");
 
       document.getElementById("breakdown").value = breakdown;
     }
-
-    function attachQtyHandlers(container){
-      container.addEventListener("click", (e) => {
-        const btn = e.target.closest(".qbtn");
-        if (!btn) return;
-        const card = btn.closest(".item");
-        if (!card) return;
-
-        const id = card.getAttribute("data-id");
-        const act = btn.getAttribute("data-act");
-        const cur = Number(state.qty[id] || 0);
-
-        state.qty[id] = act === "inc" ? cur + 1 : Math.max(0, cur - 1);
-        renderSelected();
-      });
-    }
-
-    attachQtyHandlers(document.getElementById("carpets"));
-    attachQtyHandlers(document.getElementById("rugs"));
-    attachQtyHandlers(document.getElementById("upholstery"));
-    attachQtyHandlers(document.getElementById("commercial"));
 
     function unlockDocTools(){
       const pw = document.getElementById("docPassword").value;
@@ -1346,7 +1864,7 @@
         quoteIntro: document.getElementById("quoteIntro").value.trim() || "This quote has been prepared based on the items selected in the calculator and is intended as a clear breakdown of the cleaning services requested.",
         quoteWorkText: document.getElementById("quoteWorkText").value.trim() || "All work will be carried out using professional carpet and upholstery cleaning equipment, together with solutions appropriate to the fibre type and level of soiling.",
         invoiceWorkText: document.getElementById("invoiceWorkText").value.trim() || "All work has been carried out using professional carpet and upholstery cleaning equipment, together with solutions appropriate to the fibre type and level of soiling.",
-        commercialSectionText: document.getElementById("commercialSectionText").value.trim() || "This service has been priced to reflect the selected items and the practical requirements of the job.",
+        commercialSectionText: document.getElementById("commercialSectionText").value.trim() || "This service has been priced to reflect the selected commercial areas and the practical requirements of the job.",
         notes: document.getElementById("quoteNotesDoc").value.trim() || "",
         includeFreeProtection: getBool("includeFreeProtection"),
         includeDescription: getBool("includeDescription"),
@@ -1360,29 +1878,44 @@
 
     function buildWhatsIncludedHtml(){
       const data = getDocData();
-      const result = calc();
+      const result = calculate();
 
-      const hasCarpets = result.lines.some(x => x.group === "Carpets");
+      const hasDomesticCarpets = result.lines.some(x => x.group === "Carpets");
       const hasRugs = result.lines.some(x => x.group === "Rugs");
       const hasUpholstery = result.lines.some(x => x.group === "Sofas and Upholstery");
       const hasCommercial = result.lines.some(x => x.group === "Commercial Work");
 
+      const usedMethods = new Set();
       const parts = [];
 
-      if (hasCarpets){
-        parts.push("Carpet cleaning has been included based on the selected rooms and areas. The service is intended to improve appearance, refresh the fibres and remove general soiling.");
+      if (hasDomesticCarpets){
+        parts.push("Carpet cleaning has been included based on the selected rooms and areas.");
       }
       if (hasRugs){
-        parts.push("Rug cleaning has been included for the selected rug items, with the cleaning approach matched to the type and size selected in the calculator.");
+        parts.push("Rug cleaning has been included for the selected rug items.");
       }
       if (hasUpholstery){
-        parts.push("Upholstery cleaning has been included for the selected seating items to improve appearance and refresh the fabric.");
+        parts.push("Upholstery cleaning has been included for the selected seating items.");
       }
-      if (hasCommercial){
-        parts.push("Commercial cleaning work has been included based on the selected commercial items in the calculator.");
-      }
-      if (data.includeFreeProtection && hasCarpets){
-        parts.push("Complimentary carpet protection has been included at no additional charge.");
+
+      result.lines.forEach(line => {
+        if (line.group !== "Commercial Work" || line.isManualExtra) return;
+        if (usedMethods.has(line.methodKey)) return;
+        usedMethods.add(line.methodKey);
+
+        if (line.methodKey === "rotary"){
+          parts.push("Rotary bonnet cleaning has been selected where appropriate for commercial carpeted areas to improve appearance and refresh the fibres." + (data.includeFreeProtection ? " Complimentary protection has been included at no additional charge." : ""));
+        } else if (line.methodKey === "hybrid"){
+          parts.push("A hybrid deep clean has been selected for commercial areas requiring a stronger level of cleaning." + (data.includeFreeProtection ? " Complimentary protection has been included at no additional charge." : ""));
+        } else if (line.methodKey === "hwe"){
+          parts.push("Hot water extraction has been selected for deeper restorative cleaning of commercial carpet areas." + (data.includeFreeProtection ? " Complimentary protection has been included at no additional charge." : ""));
+        } else if (line.methodKey === "hardfloor"){
+          parts.push("Hard floor cleaning has been included where appropriate to improve the appearance of non carpeted areas.");
+        }
+      });
+
+      if (!parts.length && hasCommercial){
+        parts.push("Commercial cleaning services have been included based on the selected areas.");
       }
 
       if (!parts.length){
@@ -1393,8 +1926,9 @@
     }
 
     function buildPreviewHtml(){
-      const result = calc();
+      const result = calculate();
       const data = getDocData();
+      const hasCommercial = result.lines.some(x => x.group === "Commercial Work");
 
       if (!result.lines.length){
         return `<div class="mutebox">Add at least one item before opening the quote preview.</div>`;
@@ -1403,8 +1937,8 @@
       const lineHtml = result.lines.map(x => `
         <div class="line">
           <div>
-            <b>${escapeHtml(x.label)}</b>
-            <small>${escapeHtml(x.group)} · ${x.qty} × ${fmt(x.unit)}</small>
+            <b>${escapeHtml(x.roomName)}</b>
+            <small>${escapeHtml(x.group)} · ${x.qtyRooms ? `${x.qtyRooms} × ${fmt(x.rate)}` : x.sqm ? `${x.sqm} m² × ${fmt(x.rate)}` : x.method}</small>
           </div>
           <div class="money">${fmt(x.total)}</div>
         </div>
@@ -1431,10 +1965,10 @@
 
         <div class="preview-box">
           <h4>Total quote</h4>
-          <p>Subtotal: ${fmt(result.subtotal)}${result.minApplied ? `<br>Minimum charge applied: ${fmt(MIN_CHARGE)}` : ""}<br><strong style="color:#14945c;font-size:28px;line-height:1.5;">Total: ${fmt(result.total)}</strong></p>
+          <p>Subtotal: ${fmt(result.subtotal)}${result.includeVat ? `<br>VAT: ${fmt(result.vat)}` : ""}<br><strong style="color:#14945c;font-size:28px;line-height:1.5;">Total: ${fmt(result.total)}</strong></p>
         </div>
 
-        ${data.includeCommercialSection && result.lines.some(x => x.group === "Commercial Work") ? `
+        ${data.includeCommercialSection && hasCommercial ? `
         <div class="preview-box">
           <h4>Commercial section</h4>
           <p>${escapeHtml(data.commercialSectionText)}</p>
@@ -1469,12 +2003,11 @@
       document.getElementById("quotePreviewModal").classList.remove("show");
     }
 
-    function buildCommercialDocumentHtml(mode = "quote"){
-      const result = calc();
+    function buildDocumentHtml(mode = "quote"){
+      const result = calculate();
       const data = getDocData();
       const hasCommercial = result.lines.some(x => x.group === "Commercial Work");
-      const date = new Date();
-      const dateStr = date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+      const dateStr = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
       const dueStr = data.invoiceDueDate
         ? new Date(data.invoiceDueDate).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
         : "Not entered";
@@ -1483,14 +2016,21 @@
       const docNumberLabel = mode === "invoice" ? "Invoice Number" : "Quote Number";
       const docNumber = mode === "invoice" ? data.invoiceRef : data.quoteRef;
 
-      const serviceLines = result.lines.map(line => `
-        <tr>
-          <td>${escapeHtml(line.label)}<div class="descsub">${escapeHtml(line.group)}</div></td>
-          <td class="num">${line.qty}</td>
-          <td class="num">${Number(line.unit).toFixed(2)}</td>
-          <td class="num">${Number(line.total).toFixed(2)}</td>
-        </tr>
-      `).join("");
+      const serviceLines = result.lines.map(line => {
+        let qty = "1.00";
+        let unitPrice = line.total;
+        if (line.qtyRooms){ qty = Number(line.qtyRooms).toFixed(2); unitPrice = line.rate; }
+        else if (!line.isManualExtra && line.sqm){ qty = Number(line.sqm).toFixed(2); unitPrice = line.rate; }
+
+        return `
+          <tr>
+            <td>${escapeHtml(line.roomName)}<div class="descsub">${escapeHtml(line.method)}</div></td>
+            <td class="num">${qty}</td>
+            <td class="num">${Number(unitPrice).toFixed(2)}</td>
+            <td class="num">${Number(line.total).toFixed(2)}</td>
+          </tr>
+        `;
+      }).join("");
 
       return `<!doctype html>
 <html lang="en">
@@ -1570,7 +2110,6 @@
     <div class="spacer"></div>
 
     ${mode === "quote" && data.includeQuoteIntro ? `<div style="margin-bottom:18px;font-size:15px;line-height:1.7;color:#333;">${escapeHtml(data.quoteIntro)}</div>` : ""}
-
     ${data.includeDescription ? `<div style="margin-bottom:16px;font-size:15px;line-height:1.7;color:#333;"><strong>Description:</strong> ${escapeHtml(data.description)}</div>` : ""}
 
     <table>
@@ -1592,11 +2131,7 @@
         <td>Subtotal</td>
         <td class="num">${Number(result.subtotal).toFixed(2)}</td>
       </tr>
-      ${result.minApplied ? `
-      <tr>
-        <td>Minimum Charge</td>
-        <td class="num">${Number(MIN_CHARGE).toFixed(2)}</td>
-      </tr>` : ``}
+      ${result.includeVat ? `<tr><td>VAT</td><td class="num">${Number(result.vat).toFixed(2)}</td></tr>` : ``}
       <tr class="grand">
         <td>TOTAL GBP</td>
         <td class="num">${Number(result.total).toFixed(2)}</td>
@@ -1632,7 +2167,7 @@
     }
 
     function openPdfQuote(){
-      const result = calc();
+      const result = calculate();
       if (!result.lines.length){
         alert("Please add at least one item before opening the PDF quote.");
         return;
@@ -1643,12 +2178,12 @@
         return;
       }
       win.document.open();
-      win.document.write(buildCommercialDocumentHtml("quote"));
+      win.document.write(buildDocumentHtml("quote"));
       win.document.close();
     }
 
     function openPdfInvoice(){
-      const result = calc();
+      const result = calculate();
       if (!result.lines.length){
         alert("Please add at least one item before opening the PDF invoice.");
         return;
@@ -1659,12 +2194,12 @@
         return;
       }
       win.document.open();
-      win.document.write(buildCommercialDocumentHtml("invoice"));
+      win.document.write(buildDocumentHtml("invoice"));
       win.document.close();
     }
 
     function downloadExcelQuote(){
-      const result = calc();
+      const result = calculate();
       const data = getDocData();
       const hasCommercial = result.lines.some(x => x.group === "Commercial Work");
       if (!result.lines.length){
@@ -1674,15 +2209,22 @@
 
       const dateStr = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
-      const rows = result.lines.map(line => `
-        <tr>
-          <td>${escapeHtml(line.label)}</td>
-          <td>${escapeHtml(line.group)}</td>
-          <td style="text-align:right;">${line.qty}</td>
-          <td style="text-align:right;">${Number(line.unit).toFixed(2)}</td>
-          <td style="text-align:right;">${Number(line.total).toFixed(2)}</td>
-        </tr>
-      `).join("");
+      const rows = result.lines.map(line => {
+        let qty = "1.00";
+        let unitPrice = line.total;
+        if (line.qtyRooms){ qty = Number(line.qtyRooms).toFixed(2); unitPrice = line.rate; }
+        else if (!line.isManualExtra && line.sqm){ qty = Number(line.sqm).toFixed(2); unitPrice = line.rate; }
+
+        return `
+          <tr>
+            <td>${escapeHtml(line.roomName)}</td>
+            <td>${escapeHtml(line.method)}</td>
+            <td style="text-align:right;">${qty}</td>
+            <td style="text-align:right;">${Number(unitPrice).toFixed(2)}</td>
+            <td style="text-align:right;">${Number(line.total).toFixed(2)}</td>
+          </tr>
+        `;
+      }).join("");
 
       const excelHtml = `
         <html xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -1709,10 +2251,10 @@
             ${data.includeQuoteIntro ? `<tr><td colspan="5">${escapeHtml(data.quoteIntro)}</td></tr>` : ``}
             ${data.includeDescription ? `<tr><td colspan="5"><strong>Description:</strong> ${escapeHtml(data.description)}</td></tr>` : ``}
             <tr><td class="noborder" colspan="5" style="height:24px;"></td></tr>
-            <tr><th>Item</th><th>Group</th><th>Quantity</th><th>Unit Price</th><th>Total</th></tr>
+            <tr><th>Description</th><th>Method</th><th>Quantity</th><th>Unit Price</th><th>Total</th></tr>
             ${rows}
             <tr><td colspan="4" class="right bold">Subtotal</td><td class="right">${Number(result.subtotal).toFixed(2)}</td></tr>
-            ${result.minApplied ? `<tr><td colspan="4" class="right bold">Minimum Charge</td><td class="right">${Number(MIN_CHARGE).toFixed(2)}</td></tr>` : ``}
+            ${result.includeVat ? `<tr><td colspan="4" class="right bold">VAT</td><td class="right">${Number(result.vat).toFixed(2)}</td></tr>` : ``}
             <tr><td colspan="4" class="right bold">TOTAL GBP</td><td class="right bold">${Number(result.total).toFixed(2)}</td></tr>
             ${data.includeCommercialSection && hasCommercial ? `<tr><td colspan="5"><strong>Commercial section</strong></td></tr><tr><td colspan="5">${escapeHtml(data.commercialSectionText)}</td></tr>` : ``}
             ${data.includeWorkText ? `<tr><td colspan="5"><strong>Work description</strong></td></tr><tr><td colspan="5">${escapeHtml(data.quoteWorkText)}</td></tr>` : ``}
@@ -1735,7 +2277,7 @@
     }
 
     function downloadExcelInvoice(){
-      const result = calc();
+      const result = calculate();
       const data = getDocData();
       if (!result.lines.length){
         alert("Please add at least one item before downloading the Excel invoice.");
@@ -1747,15 +2289,22 @@
         ? new Date(data.invoiceDueDate).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
         : "Not entered";
 
-      const rows = result.lines.map(line => `
-        <tr>
-          <td>${escapeHtml(line.label)}</td>
-          <td>${escapeHtml(line.group)}</td>
-          <td style="text-align:right;">${line.qty}</td>
-          <td style="text-align:right;">${Number(line.unit).toFixed(2)}</td>
-          <td style="text-align:right;">${Number(line.total).toFixed(2)}</td>
-        </tr>
-      `).join("");
+      const rows = result.lines.map(line => {
+        let qty = "1.00";
+        let unitPrice = line.total;
+        if (line.qtyRooms){ qty = Number(line.qtyRooms).toFixed(2); unitPrice = line.rate; }
+        else if (!line.isManualExtra && line.sqm){ qty = Number(line.sqm).toFixed(2); unitPrice = line.rate; }
+
+        return `
+          <tr>
+            <td>${escapeHtml(line.roomName)}</td>
+            <td>${escapeHtml(line.method)}</td>
+            <td style="text-align:right;">${qty}</td>
+            <td style="text-align:right;">${Number(unitPrice).toFixed(2)}</td>
+            <td style="text-align:right;">${Number(line.total).toFixed(2)}</td>
+          </tr>
+        `;
+      }).join("");
 
       const excelHtml = `
         <html xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -1781,10 +2330,10 @@
             </tr>
             ${data.includeDescription ? `<tr><td colspan="5"><strong>Description:</strong> ${escapeHtml(data.description)}</td></tr>` : ``}
             <tr><td class="noborder" colspan="5" style="height:24px;"></td></tr>
-            <tr><th>Item</th><th>Group</th><th>Quantity</th><th>Unit Price</th><th>Total</th></tr>
+            <tr><th>Description</th><th>Method</th><th>Quantity</th><th>Unit Price</th><th>Total</th></tr>
             ${rows}
             <tr><td colspan="4" class="right bold">Subtotal</td><td class="right">${Number(result.subtotal).toFixed(2)}</td></tr>
-            ${result.minApplied ? `<tr><td colspan="4" class="right bold">Minimum Charge</td><td class="right">${Number(MIN_CHARGE).toFixed(2)}</td></tr>` : ``}
+            ${result.includeVat ? `<tr><td colspan="4" class="right bold">VAT</td><td class="right">${Number(result.vat).toFixed(2)}</td></tr>` : ``}
             <tr><td colspan="4" class="right bold">TOTAL GBP</td><td class="right bold">${Number(result.total).toFixed(2)}</td></tr>
             ${data.includeWorkText ? `<tr><td colspan="5"><strong>Job note</strong></td></tr><tr><td colspan="5">${escapeHtml(data.invoiceWorkText)}</td></tr>` : ``}
             ${data.includeNotesSection ? `<tr><td colspan="5"><strong>Notes</strong></td></tr><tr><td colspan="5">${nl2br(data.notes)}</td></tr>` : ``}
@@ -1827,6 +2376,49 @@
       if (e.target.id === "quotePreviewModal") closeQuotePreview();
     });
 
+    document.getElementById("addRoomTop").addEventListener("click", openModalForNew);
+    document.getElementById("resetCommercialBtn").addEventListener("click", resetCommercialOnly);
+    document.getElementById("saveModalBtn").addEventListener("click", saveModal);
+    document.getElementById("cancelModalBtn").addEventListener("click", closeModal);
+    document.getElementById("roomModal").addEventListener("click", e => {
+      if (e.target.id === "roomModal") closeModal();
+    });
+
+    ["modalAreaType","modalRoomName","modalMethod","modalSqm"].forEach(id => {
+      document.getElementById(id).addEventListener("input", updateModalPreview);
+      document.getElementById(id).addEventListener("change", updateModalPreview);
+    });
+
+    document.getElementById("roomList").addEventListener("click", e => {
+      const editBtn = e.target.closest("[data-role='edit']");
+      if (editBtn){
+        openModalForEdit(Number(editBtn.dataset.id));
+        return;
+      }
+      const removeBtn = e.target.closest("[data-role='remove']");
+      if (removeBtn){
+        removeRoomRow(Number(removeBtn.dataset.id));
+      }
+    });
+
+    [
+      "hotelRoomQty","hotelRoomMethod","includeVat","includeFreeProtection","furnitureMoveDesc","furnitureMovePrice",
+      "extrasDesc","extrasPrice","clientNameDoc","siteNameDoc","addressDoc","quoteRef","invoiceRef",
+      "invoiceDueDate","descriptionDoc","quoteIntro","quoteWorkText","invoiceWorkText",
+      "commercialSectionText","quoteNotesDoc"
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (el){
+        el.addEventListener("input", renderSelected);
+        el.addEventListener("change", renderSelected);
+      }
+    });
+
+    attachQtyHandlers(document.getElementById("carpets"));
+    attachQtyHandlers(document.getElementById("rugs"));
+    attachQtyHandlers(document.getElementById("upholstery"));
+
+    renderRoomRows();
     renderSelected();
     window.handleSubmit = handleSubmit;
   </script>
