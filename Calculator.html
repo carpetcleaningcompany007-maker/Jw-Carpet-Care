@@ -1177,6 +1177,9 @@
             <div class="summary-card" style="margin-top:14px;">
               <span style="display:block;margin-bottom:8px;">Your current estimate</span>
               <div style="font-size:34px;font-weight:1000;color:var(--brand3);" id="step3Total">£0.00</div>
+              <div style="margin-top:8px;font-size:13px;line-height:1.6;color:var(--muted);font-weight:700;">
+                Please note a minimum charge of £100 applies.
+              </div>
             </div>
 
             <div class="cta">
@@ -2091,7 +2094,10 @@
         }
         html += `
           <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
-            <div><b>Total</b><small>Instant estimate</small></div>
+            <div>
+              <b>Total</b>
+              <small>Instant estimate. Please note a minimum charge of £100 applies.</small>
+            </div>
             <div class="money">${fmt(result.total)}</div>
           </div>`;
         selected.innerHTML = html;
@@ -2099,7 +2105,8 @@
 
       const breakdown = [
         ...result.lines.map(x => `${x.roomName}: ${fmt(x.total)}`),
-        `Final total: ${fmt(result.total)}`
+        `Final total: ${fmt(result.total)}`,
+        `Please note a minimum charge of £100 applies.`
       ].join("\n");
 
       document.getElementById("breakdown").value = breakdown;
@@ -2240,7 +2247,12 @@
 
         <div class="preview-box">
           <h4>Total quote</h4>
-          <p>Subtotal: ${fmt(result.subtotal)}${result.includeVat ? `<br>VAT: ${fmt(result.vat)}` : ""}<br><strong style="color:#14945c;font-size:28px;line-height:1.5;">Total: ${fmt(result.total)}</strong></p>
+          <p>
+            Subtotal: ${fmt(result.subtotal)}
+            ${result.includeVat ? `<br>VAT: ${fmt(result.vat)}` : ""}
+            <br><strong style="color:#14945c;font-size:28px;line-height:1.5;">Total: ${fmt(result.total)}</strong>
+            <br><span style="font-size:13px;color:#60718a;font-weight:700;">Please note a minimum charge of £100 applies.</span>
+          </p>
         </div>
 
         ${data.includeCommercialSection && hasCommercial ? `
@@ -2415,6 +2427,12 @@
       </tr>
     </table>
 
+    ${mode === "quote" ? `
+    <div class="section">
+      <h3>Important note</h3>
+      <div>Please note a minimum charge of £100 applies.</div>
+    </div>` : ""}
+
     ${mode === "quote" && data.includeCommercialSection && hasCommercial ? `
     <div class="section">
       <h3>Commercial section</h3>
@@ -2527,6 +2545,8 @@
             <tr><td colspan="4" class="right bold">Subtotal</td><td class="right">${Number(result.subtotal).toFixed(2)}</td></tr>
             ${result.includeVat ? `<tr><td colspan="4" class="right bold">VAT</td><td class="right">${Number(result.vat).toFixed(2)}</td></tr>` : ``}
             <tr><td colspan="4" class="right bold">TOTAL GBP</td><td class="right bold">${Number(result.total).toFixed(2)}</td></tr>
+            <tr><td colspan="5"><strong>Important note</strong></td></tr>
+            <tr><td colspan="5">Please note a minimum charge of £100 applies.</td></tr>
             ${data.includeCommercialSection && hasCommercial ? `<tr><td colspan="5"><strong>Commercial section</strong></td></tr><tr><td colspan="5">${escapeHtml(data.commercialSectionText)}</td></tr>` : ``}
             ${data.includeWorkText ? `<tr><td colspan="5"><strong>Work description</strong></td></tr><tr><td colspan="5">${escapeHtml(data.quoteWorkText)}</td></tr>` : ``}
             ${data.includeWhatsIncluded ? `<tr><td colspan="5"><strong>What is included</strong></td></tr><tr><td colspan="5">${buildWhatsIncludedHtml()}</td></tr>` : ``}
