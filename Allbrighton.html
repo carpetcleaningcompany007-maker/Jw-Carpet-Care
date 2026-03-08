@@ -830,9 +830,8 @@
             </div>
             <div class="items">
               <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative clean</p><div class="price">£3.40 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size area</p><div class="price">£3.10 per m²</div></div></article>
-              <article class="item"><div><h3>400 to 999 m²</h3><p>Larger commercial area</p><div class="price">£2.95 per m²</div></div></article>
-              <article class="item"><div><h3>1000+ m²</h3><p>Large volume pricing</p><div class="price">£2.80 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size area</p><div class="price">£3.10 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger commercial area</p><div class="price">£2.80 per m²</div></div></article>
             </div>
 
             <div class="section-head">
@@ -874,6 +873,32 @@
                   <input id="includeVat" type="checkbox" style="width:18px;height:18px;flex:0 0 auto;">
                   Include VAT at 20%
                 </label>
+              </div>
+            </div>
+
+            <div class="section-head">
+              <div><span class="plus">+</span>Optional extras</div>
+            </div>
+
+            <div class="room-entry">
+              <div class="field">
+                <label for="furnitureMoveDesc">Furniture moving description</label>
+                <input id="furnitureMoveDesc" type="text" placeholder="Example: Move beds, chairs, tables">
+              </div>
+
+              <div class="field" style="margin-top:12px;">
+                <label for="furnitureMovePrice">Furniture moving price</label>
+                <input id="furnitureMovePrice" type="number" min="0" step="0.01" value="0">
+              </div>
+
+              <div class="field" style="margin-top:12px;">
+                <label for="extrasDesc">Chemicals or other extras description</label>
+                <input id="extrasDesc" type="text" placeholder="Example: Extra chemicals, spotting, deodoriser, access time">
+              </div>
+
+              <div class="field" style="margin-top:12px;">
+                <label for="extrasPrice">Chemicals or other extras price</label>
+                <input id="extrasPrice" type="number" min="0" step="0.01" value="0">
               </div>
             </div>
           </div>
@@ -929,9 +954,8 @@
 
     const HWE_BANDS = [
       { min: 0, max: 150, rate: 3.40, label: "Up to 150 m²" },
-      { min: 151, max: 399, rate: 3.10, label: "151 to 399 m²" },
-      { min: 400, max: 999, rate: 2.95, label: "400 to 999 m²" },
-      { min: 1000, max: Infinity, rate: 2.80, label: "1000+ m²" }
+      { min: 151, max: 300, rate: 3.10, label: "151 to 300 m²" },
+      { min: 301, max: Infinity, rate: 2.80, label: "301+ m²" }
     ];
 
     let roomRows = [];
@@ -1069,6 +1093,10 @@
       document.getElementById("hotelRoomMethod").value = "rotary";
       document.getElementById("hotelRoomQty").value = 0;
       document.getElementById("includeVat").checked = false;
+      document.getElementById("furnitureMoveDesc").value = "";
+      document.getElementById("furnitureMovePrice").value = 0;
+      document.getElementById("extrasDesc").value = "";
+      document.getElementById("extrasPrice").value = 0;
       addRoomRow();
     }
 
@@ -1118,6 +1146,38 @@
         });
       }
 
+      const furnitureMoveDesc = document.getElementById("furnitureMoveDesc").value.trim() || "Furniture moving";
+      const furnitureMovePrice = Math.max(0, Number(document.getElementById("furnitureMovePrice").value) || 0);
+
+      if (furnitureMovePrice > 0){
+        subtotal += furnitureMovePrice;
+        lines.push({
+          roomName: furnitureMoveDesc,
+          method: "Manual extra",
+          sqm: "",
+          band: "Furniture moving",
+          rate: furnitureMovePrice,
+          total: furnitureMovePrice,
+          isManualExtra: true
+        });
+      }
+
+      const extrasDesc = document.getElementById("extrasDesc").value.trim() || "Chemicals or other extras";
+      const extrasPrice = Math.max(0, Number(document.getElementById("extrasPrice").value) || 0);
+
+      if (extrasPrice > 0){
+        subtotal += extrasPrice;
+        lines.push({
+          roomName: extrasDesc,
+          method: "Manual extra",
+          sqm: "",
+          band: "Chemicals / other",
+          rate: extrasPrice,
+          total: extrasPrice,
+          isManualExtra: true
+        });
+      }
+
       const includeVat = document.getElementById("includeVat").checked;
       const vat = includeVat ? subtotal * VAT_RATE : 0;
       const total = subtotal + vat;
@@ -1140,9 +1200,11 @@
       }
 
       let html = result.lines.map(line => {
-        const subText = line.qtyRooms
-          ? `${line.method} · ${line.qtyRooms} × ${fmt(line.rate)} · ${line.band}`
-          : `${line.method} · ${line.sqm} m² × ${fmt(line.rate)} · ${line.band}`;
+        const subText = line.isManualExtra
+          ? `${line.method} · ${line.band}`
+          : line.qtyRooms
+            ? `${line.method} · ${line.qtyRooms} × ${fmt(line.rate)} · ${line.band}`
+            : `${line.method} · ${line.sqm} m² × ${fmt(line.rate)} · ${line.band}`;
 
         return `
           <div class="line">
@@ -1195,7 +1257,7 @@
         rows.push([
           line.roomName,
           line.method,
-          line.qtyRooms ? `${line.qtyRooms} rooms` : line.sqm,
+          line.isManualExtra ? "" : (line.qtyRooms ? `${line.qtyRooms} rooms` : line.sqm),
           line.band,
           fmt(line.rate),
           fmt(line.total)
@@ -1278,7 +1340,15 @@
     document.getElementById("resetSticky").addEventListener("click", resetAll);
     document.getElementById("downloadBtn").addEventListener("click", downloadCsv);
 
-    ["hotelRoomQty","hotelRoomMethod","includeVat"].forEach(id => {
+    [
+      "hotelRoomQty",
+      "hotelRoomMethod",
+      "includeVat",
+      "furnitureMoveDesc",
+      "furnitureMovePrice",
+      "extrasDesc",
+      "extrasPrice"
+    ].forEach(id => {
       document.getElementById(id).addEventListener("input", renderSelected);
       document.getElementById(id).addEventListener("change", renderSelected);
     });
