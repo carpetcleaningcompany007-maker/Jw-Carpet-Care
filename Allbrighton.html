@@ -1,4 +1,4 @@
-Yes. Paste this in as the full HTML file:
+Paste this in as the full HTML:
 
 ```html
 <!doctype html>
@@ -788,19 +788,6 @@ Yes. Paste this in as the full HTML file:
       flex-direction:column;
       gap:12px;
       margin-top:14px;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(31,95,191,.08);
-      color:var(--brand3);
-      font-size:14px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.05em;
     }
 
     @media (max-width: 1280px){
@@ -1787,62 +1774,6 @@ Yes. Paste this in as the full HTML file:
       ["rotary","hybrid","hwe","hardfloor"].forEach(name => setAccordionState(name, false));
     }
 
-    function getMethodSalesCopy(methodKey){
-      if (methodKey === "rotary"){
-        return {
-          title: "Carpet clean with rotary bonnet cleaning",
-          text: "This is a very effective low moisture carpet cleaning method designed to improve appearance quickly, lift surface soiling, brighten the pile, and leave the carpets looking fresher and more presentable. Drying times are typically faster than a full restorative extraction clean. We have also added protection free of charge to help the carpets stay looking cleaner for longer."
-        };
-      }
-
-      if (methodKey === "hybrid"){
-        return {
-          title: "Hybrid Deep Clean",
-          text: "This is one of the best methods for heavily used commercial carpets because it combines rotary bonnet cleaning with targeted hot water extraction where needed. It gives a deeper clean, better appearance improvement, and stronger soil removal while still keeping the process efficient for larger hotel areas. We have also added protection free of charge to help maintain the finish after cleaning."
-        };
-      }
-
-      if (methodKey === "hwe"){
-        return {
-          title: "Carpet clean with hot water extraction",
-          text: "This is the deepest restorative carpet cleaning method and is ideal where a more thorough flush through clean is required. Hot water extraction helps remove embedded soil, freshen the carpet pile, and leave the fibres feeling properly cleaned. We have also added protection free of charge to help the carpets stay cleaner for longer after the clean."
-        };
-      }
-
-      if (methodKey === "hardfloor"){
-        return {
-          title: "Hard floor deep clean",
-          text: "This service is designed to improve the appearance of hard floor areas by removing built up soil, dullness, and general traffic contamination. It is ideal for back of house areas, corridors, kitchen access routes, washrooms, and other commercial floor surfaces that need a more professional presentation."
-        };
-      }
-
-      return {
-        title: "Professional cleaning service",
-        text: "This quote includes professional cleaning work tailored to the areas selected."
-      };
-    }
-
-    function buildMethodSummary(result){
-      const seen = new Set();
-      const blocks = [];
-
-      result.lines.forEach(line => {
-        if (line.isManualExtra) return;
-        if (!line.methodKey || seen.has(line.methodKey)) return;
-        seen.add(line.methodKey);
-        const copy = getMethodSalesCopy(line.methodKey);
-
-        blocks.push(`
-          <div class="preview-box">
-            <div class="pill">${escapeHtml(copy.title)}</div>
-            <p style="margin-top:12px;">${escapeHtml(copy.text)}</p>
-          </div>
-        `);
-      });
-
-      return blocks.join("");
-    }
-
     function buildCustomerMethodText(){
       const result = calculate();
       const used = new Set();
@@ -1855,18 +1786,18 @@ Yes. Paste this in as the full HTML file:
         used.add(key);
 
         if (key === "rotary"){
-          parts.push("Rotary bonnet cleaning has been selected where appropriate to improve appearance, lift surface soiling, and freshen the carpet quickly. Protection has been added free of charge to help carpets stay cleaner for longer.");
+          parts.push("Rotary bonnet cleaning has been selected where appropriate to improve overall appearance, lift surface soiling and refresh the carpet fibres. This method is particularly effective for commercial environments where carpets require a fast, effective improvement in presentation. As part of this service a protective treatment has been applied at no additional cost to help carpets remain cleaner for longer.");
         } else if (key === "hybrid"){
-          parts.push("Hybrid Deep Clean has been selected for areas needing a stronger result. This combines bonnet cleaning with targeted hot water extraction for a deeper professional finish. Protection has been added free of charge.");
+          parts.push("A hybrid deep clean has been selected for areas requiring a stronger level of cleaning. This method combines rotary bonnet agitation with targeted hot water extraction to achieve a deeper clean while maintaining efficiency across larger areas. A protective treatment has also been included at no additional charge to assist with ongoing maintenance.");
         } else if (key === "hwe"){
-          parts.push("Hot water extraction has been selected as the best method for a deeper restorative carpet clean, helping remove embedded soil and leave the fibres properly refreshed. Protection has been added free of charge.");
+          parts.push("Hot water extraction has been selected as the most suitable method for restoring heavily used carpet areas. This process helps remove embedded soil and residues from within the fibres while leaving the carpet refreshed and hygienically clean. A protective treatment has been included at no additional charge to help maintain the results achieved.");
         } else if (key === "hardfloor"){
-          parts.push("Hard floor cleaning has been included to improve presentation, remove built up traffic soil, and leave the selected areas cleaner and more professional in appearance.");
+          parts.push("Hard floor cleaning has been included where appropriate to remove built up traffic soil and restore the appearance of the flooring. The process is designed to improve presentation and ensure these areas match the overall standard of the cleaned carpeted spaces.");
         }
       });
 
       if (!parts.length){
-        return "Professional cleaning services have been selected based on the areas included in this quote.";
+        return "Professional cleaning services have been selected based on the areas included within this quotation. All work will be carried out using commercial grade equipment and appropriate cleaning solutions suited to the flooring type.";
       }
 
       return parts.map(p => `<p style="margin:0 0 10px;">${escapeHtml(p)}</p>`).join("");
@@ -2090,22 +2021,41 @@ Yes. Paste this in as the full HTML file:
     font-size:15px;
     font-weight:700;
   }
-  .notes, .methodbox{
-    margin-top:26px;
-    border:1px solid #d9e3f0;
-    border-radius:14px;
-    padding:18px;
-    background:#f9fbff;
+  .included-section{
+    margin-top:34px;
+    padding-top:18px;
+    border-top:1px solid #d7d7d7;
   }
-  .notes h3, .methodbox h3{
-    margin:0 0 8px;
-    color:#0d2548;
-    font-size:20px;
+  .included-section h3{
+    margin:0 0 10px;
+    color:#111;
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:.01em;
   }
-  .notes p, .methodbox p{
-    margin:0;
-    font-size:17px;
-    line-height:1.7;
+  .included-copy{
+    color:#333;
+    font-size:15px;
+    line-height:1.8;
+  }
+  .included-copy p{
+    margin:0 0 10px;
+  }
+  .notes-section{
+    margin-top:28px;
+    padding-top:18px;
+    border-top:1px solid #d7d7d7;
+  }
+  .notes-section h3{
+    margin:0 0 10px;
+    color:#111;
+    font-size:18px;
+    font-weight:700;
+  }
+  .notes-section div{
+    font-size:15px;
+    line-height:1.75;
+    color:#333;
   }
   .actions{
     max-width:900px;
@@ -2208,13 +2158,17 @@ Yes. Paste this in as the full HTML file:
 
     <div class="due">Quote valid for 30 days from ${escapeHtml(dateStr)}</div>
 
-    <div class="methodbox">
+    <div style="margin-top:16px;font-size:15px;line-height:1.7;color:#333;">
+      All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.
+    </div>
+
+    <div class="included-section">
       <h3>What is included</h3>
-      <div>${buildCustomerMethodText()}</div>
+      <div class="included-copy">${buildCustomerMethodText()}</div>
     </div>
 
     ${notes ? `
-      <div class="notes">
+      <div class="notes-section">
         <h3>Notes</h3>
         <div>${nl2br(notes)}</div>
       </div>
@@ -2254,36 +2208,34 @@ Yes. Paste this in as the full HTML file:
       const address = document.getElementById("quoteAddress").value.trim() || "Address not entered";
       const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
       const notes = document.getElementById("quoteNotes").value.trim();
-      const dateStr = new Date().toLocaleDateString();
+      const date = new Date();
+      const dateStr = date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
       const rows = result.lines.map(line => {
-        let qty = "";
-        if (line.isManualExtra){
-          qty = "Extra";
-        } else if (line.qtyRooms){
-          qty = `${line.qtyRooms} rooms`;
-        } else {
-          qty = `${line.sqm} m²`;
+        let qty = "1.00";
+        let unitPrice = line.total;
+
+        if (line.qtyRooms) {
+          qty = Number(line.qtyRooms).toFixed(2);
+          unitPrice = line.rate;
+        } else if (!line.isManualExtra && line.sqm) {
+          qty = Number(line.sqm).toFixed(2);
+          unitPrice = line.rate;
         }
 
         return `
           <tr>
             <td>${escapeHtml(line.roomName)}</td>
             <td>${escapeHtml(line.method)}</td>
-            <td>${escapeHtml(qty)}</td>
-            <td>${escapeHtml(line.band)}</td>
-            <td>${fmt(line.rate)}</td>
-            <td>${fmt(line.total)}</td>
+            <td style="text-align:right;">${qty}</td>
+            <td style="text-align:right;">${Number(unitPrice).toFixed(2)}</td>
+            <td style="text-align:right;">${Number(line.total).toFixed(2)}</td>
           </tr>
         `;
       }).join("");
 
-      const vatRow = result.includeVat ? `
-        <tr>
-          <td colspan="5" style="text-align:right;font-weight:bold;">VAT</td>
-          <td style="font-weight:bold;">${fmt(result.vat)}</td>
-        </tr>
-      ` : "";
+      const vatLabel = result.includeVat ? "VAT" : "NO VAT";
+      const vatValue = result.includeVat ? Number(result.vat).toFixed(2) : "0.00";
 
       const excelHtml = `
         <html xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -2301,39 +2253,96 @@ Yes. Paste this in as the full HTML file:
               </x:ExcelWorksheets>
             </x:ExcelWorkbook>
           </xml>
+          <style>
+            table{border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;width:100%}
+            td,th{border:1px solid #d9d9d9;padding:8px;vertical-align:top;font-size:14px}
+            .noborder{border:none}
+            .title{font-size:28px;font-weight:300}
+            .right{text-align:right}
+            .bold{font-weight:700}
+            .small{font-size:12px;color:#555}
+          </style>
         </head>
         <body>
-          <table border="1">
-            <tr><td colspan="6"><strong>The Carpet Cleaning Company</strong></td></tr>
-            <tr><td colspan="6">Hotel cleaning quote</td></tr>
-            <tr><td colspan="6"></td></tr>
-            <tr><td><strong>Client</strong></td><td colspan="2">${escapeHtml(clientName)}</td><td><strong>Date</strong></td><td colspan="2">${escapeHtml(dateStr)}</td></tr>
-            <tr><td><strong>Site</strong></td><td colspan="2">${escapeHtml(siteName)}</td><td><strong>Reference</strong></td><td colspan="2">${escapeHtml(quoteRef)}</td></tr>
-            <tr><td><strong>Address</strong></td><td colspan="5">${nl2br(address)}</td></tr>
-            <tr><td colspan="6"></td></tr>
+          <table>
             <tr>
-              <td><strong>Area</strong></td>
-              <td><strong>Method</strong></td>
-              <td><strong>Qty</strong></td>
-              <td><strong>Band</strong></td>
-              <td><strong>Rate</strong></td>
-              <td><strong>Line total</strong></td>
+              <td class="noborder" colspan="2">
+                <div class="title">QUOTE</div>
+                <div>${escapeHtml(clientName)}</div>
+                <div>${escapeHtml(siteName)}</div>
+                <div>${nl2br(address)}</div>
+              </td>
+              <td class="noborder">
+                <div class="bold">Quote Date</div>
+                <div>${escapeHtml(dateStr)}</div>
+                <br>
+                <div class="bold">Quote Number</div>
+                <div>${escapeHtml(quoteRef)}</div>
+              </td>
+              <td class="noborder" colspan="2">
+                <div>The Carpet Cleaning Company</div>
+                <div>1 Dun Cow Road</div>
+                <div>Ludlow</div>
+                <div>SHROPSHIRE</div>
+                <div>SY8 2BH</div>
+                <div>UNITED KINGDOM</div>
+              </td>
             </tr>
+
+            <tr><td class="noborder" colspan="5" style="height:24px;"></td></tr>
+
+            <tr>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Amount GBP</th>
+              <th class="noborder"></th>
+            </tr>
+
             ${rows}
-            <tr><td colspan="6"></td></tr>
+
+            <tr><td class="noborder" colspan="5" style="height:16px;"></td></tr>
+
             <tr>
-              <td colspan="5" style="text-align:right;font-weight:bold;">Subtotal</td>
-              <td style="font-weight:bold;">${fmt(result.subtotal)}</td>
+              <td class="noborder" colspan="2"></td>
+              <td class="right bold">Subtotal</td>
+              <td class="right">${Number(result.subtotal).toFixed(2)}</td>
+              <td class="noborder"></td>
             </tr>
-            ${vatRow}
             <tr>
-              <td colspan="5" style="text-align:right;font-weight:bold;">Total</td>
-              <td style="font-weight:bold;">${fmt(result.total)}</td>
+              <td class="noborder" colspan="2"></td>
+              <td class="right bold">TOTAL ${vatLabel}</td>
+              <td class="right">${vatValue}</td>
+              <td class="noborder"></td>
             </tr>
-            <tr><td colspan="6"></td></tr>
-            <tr><td colspan="6"><strong>Included summary</strong></td></tr>
-            <tr><td colspan="6">We have selected the most suitable cleaning methods for the areas in this quote to give a strong balance of appearance improvement, presentation, and practical drying times. Where carpet cleaning has been included, protection has been added free of charge.</td></tr>
-            ${notes ? `<tr><td colspan="6"></td></tr><tr><td colspan="6"><strong>Notes</strong></td></tr><tr><td colspan="6">${nl2br(notes)}</td></tr>` : ""}
+            <tr>
+              <td class="noborder" colspan="2"></td>
+              <td class="right bold">TOTAL GBP</td>
+              <td class="right bold">${Number(result.total).toFixed(2)}</td>
+              <td class="noborder"></td>
+            </tr>
+
+            <tr><td class="noborder" colspan="5" style="height:18px;"></td></tr>
+
+            <tr>
+              <td colspan="5">Quote valid for 30 days from ${escapeHtml(dateStr)}</td>
+            </tr>
+            <tr>
+              <td colspan="5">All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.</td>
+            </tr>
+            <tr>
+              <td colspan="5" class="bold">What is included</td>
+            </tr>
+            <tr>
+              <td colspan="5">${buildCustomerMethodText()}</td>
+            </tr>
+            ${notes ? `
+            <tr>
+              <td colspan="5" class="bold">Notes</td>
+            </tr>
+            <tr>
+              <td colspan="5">${nl2br(notes)}</td>
+            </tr>` : ""}
           </table>
         </body>
         </html>
@@ -2427,4 +2436,4 @@ Yes. Paste this in as the full HTML file:
 </html>
 ```
 
-The quote PDF in this version is now built in that cleaner invoice style you showed.
+And yes, your landing page form can feed this calculator automatically by passing values in the URL, like name, hotel, address, and reference.
