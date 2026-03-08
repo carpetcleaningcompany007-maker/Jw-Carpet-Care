@@ -1,130 +1,142 @@
-Here’s the whole code with the minimum charge shown properly in the quote area so it doesn’t look contradictory.
-
-Part 1 of 2
-
-```html
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>JW Carpet Care Instant Quote</title>
-  <meta name="description" content="JW Carpet Care instant quote calculator for carpets, rugs, upholstery and commercial work." />
-  <style>
-    :root{
-      --bg:#eef4fb;
-      --ink:#122033;
-      --muted:#60718a;
-      --brand:#1f5fbf;
-      --brand2:#163f7d;
-      --brand3:#0d2548;
-      --green:#14945c;
-      --green2:#0f7447;
-      --red:#cf3f3f;
-      --line:rgba(12,24,40,.10);
-      --shadow:0 18px 48px rgba(13,27,45,.10);
-      --shadow-soft:0 10px 24px rgba(15,35,65,.07);
-      --r:22px;
-      --max:1180px;
-      --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-    }
 
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;overflow-x:hidden}
-    body{
-      font-family:var(--font);
-      color:var(--ink);
-      background:
-        radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
-        radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
-        linear-gradient(180deg, #0d1f39 0%, #15335e 260px, var(--bg) 261px);
-      padding-bottom:104px;
-    }
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "vsrhmagiqm");
+</script>
 
-    a{text-decoration:none;color:inherit}
-    .hidden{display:none !important}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>JW Carpet Care Instant Quote</title>
+<meta name="description" content="JW Carpet Care instant quote calculator for carpets, rugs, upholstery and commercial work." />
 
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:18px 16px 28px;
-    }
+<style>
+:root{
+  --bg:#eef4fb;
+  --ink:#122033;
+  --muted:#60718a;
+  --brand:#1f5fbf;
+  --brand2:#163f7d;
+  --brand3:#0d2548;
+  --green:#14945c;
+  --green2:#0f7447;
+  --red:#cf3f3f;
+  --line:rgba(12,24,40,.10);
+  --shadow:0 18px 48px rgba(13,27,45,.10);
+  --shadow-soft:0 10px 24px rgba(15,35,65,.07);
+  --r:22px;
+  --max:1180px;
+  --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+}
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-      color:#fff;
-      padding:6px 0 14px;
-    }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;overflow-x:hidden}
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:
+    radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
+    radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
+    linear-gradient(180deg, #0d1f39 0%, #15335e 260px, var(--bg) 261px);
+  padding-bottom:104px;
+}
 
-    .brand img{
-      height:48px;
-      width:auto;
-      border-radius:10px;
-      background:rgba(255,255,255,.10);
-      padding:4px;
-      box-shadow:0 10px 22px rgba(0,0,0,.18);
-    }
+a{text-decoration:none;color:inherit}
+.hidden{display:none !important}
 
-    .brand-copy{min-width:0}
-    .brand-title{
-      font-size:13px;
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-      opacity:.92;
-    }
+.wrap{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:18px 16px 28px;
+}
 
-    .brand span{
-      display:block;
-      font-size:13px;
-      opacity:.84;
-      margin-top:4px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width:420px;
-    }
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  color:#fff;
+  padding:6px 0 14px;
+}
 
-    .top-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      border:0;
-      cursor:pointer;
-      padding:13px 18px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:14px;
-      white-space:nowrap;
-      box-shadow:0 12px 28px rgba(0,0,0,.16);
-      transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
-      max-width:100%;
-    }
-    .btn:hover{transform:translateY(-1px);filter:saturate(1.03)}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
-    .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16)}
-    .btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
-    .btn.red{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
-    .btn.white{background:#fff;color:var(--brand3)}
-    .btn.small{padding:10px 12px;font-size:12px;box-shadow:none}
+.brand img{
+  height:48px;
+  width:auto;
+  border-radius:10px;
+  background:rgba(255,255,255,.10);
+  padding:4px;
+  box-shadow:0 10px 22px rgba(0,0,0,.18);
+}
+
+.brand-copy{min-width:0}
+
+.brand-title{
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  opacity:.92;
+}
+
+.brand span{
+  display:block;
+  font-size:13px;
+  opacity:.84;
+  margin-top:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:420px;
+}
+
+.top-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:0;
+  cursor:pointer;
+  padding:13px 18px;
+  border-radius:999px;
+  font-weight:900;
+  font-size:14px;
+  white-space:nowrap;
+  box-shadow:0 12px 28px rgba(0,0,0,.16);
+  transition:transform .12s ease, box-shadow .12s ease, filter .12s ease;
+  max-width:100%;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+  filter:saturate(1.03);
+}
+
+.btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
+.btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16)}
+.btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
+.btn.red{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
+.btn.white{background:#fff;color:var(--brand3)}
+.btn.small{padding:10px 12px;font-size:12px;box-shadow:none}
 
     .hero{
       position:relative;
