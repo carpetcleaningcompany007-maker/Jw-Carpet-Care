@@ -344,14 +344,6 @@
       object-position:center;
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:20px;
-      align-items:start;
-      margin-top:18px;
-    }
-
     .card{
       background:rgba(255,255,255,.94);
       backdrop-filter:blur(10px);
@@ -359,6 +351,7 @@
       border-radius:var(--r);
       box-shadow:var(--shadow);
       overflow:hidden;
+      margin-top:18px;
     }
 
     .card-h{
@@ -703,7 +696,7 @@
     }
 
     @media (max-width: 1080px){
-      .grid,.summary,.room-grid,.room-meta{grid-template-columns:1fr}
+      .summary,.room-grid,.room-meta{grid-template-columns:1fr}
       .hero-top{align-items:flex-start}
     }
 
@@ -795,149 +788,147 @@
         </div>
       </section>
 
-      <div class="grid">
-        <section class="card">
-          <div class="card-h">
-            <h2>Build your quote</h2>
-            <small>Room cards, live totals, Hybrid Deep Clean, hard floors, and clean CSV export.</small>
-          </div>
-          <div class="card-b">
-            <div class="summary">
-              <div class="total-box">
-                <span>Total estimate</span>
-                <b id="total">£0.00</b>
-              </div>
-              <div class="info-box">
-                <span>Helpful note</span>
-                <p class="note" style="margin-top:6px;">
-                  Downloaded CSV includes area name, method, square metres, band, rate, line total, subtotal, VAT and final total.
-                </p>
-              </div>
+      <section class="card">
+        <div class="card-h">
+          <h2>Build your quote</h2>
+          <small>Main calculator section full width for easier desktop use.</small>
+        </div>
+        <div class="card-b">
+          <div class="summary">
+            <div class="total-box">
+              <span>Total estimate</span>
+              <b id="total">£0.00</b>
             </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Rotary bonnet pricing</div>
-            </div>
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller carpeted commercial area</p><div class="price">£2.50 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size carpeted area</p><div class="price">£2.20 per m²</div></div></article>
-              <article class="item"><div><h3>400 to 999 m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.00 per m²</div></div></article>
-              <article class="item"><div><h3>1000+ m²</h3><p>Large volume carpet pricing</p><div class="price">£1.80 per m²</div></div></article>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Hybrid Deep Clean pricing</div>
-            </div>
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet plus targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
-              <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Hot water extraction pricing</div>
-            </div>
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative carpet clean</p><div class="price">£3.40 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size carpet area</p><div class="price">£3.10 per m²</div></div></article>
-              <article class="item"><div><h3>301+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.80 per m²</div></div></article>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Hard floor cleaning pricing</div>
-            </div>
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Kitchens, toilets and other hard floors</p><div class="price">£2.80 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hard floor area</p><div class="price">£2.50 per m²</div></div></article>
-              <article class="item"><div><h3>301+ m²</h3><p>Larger hard floor area</p><div class="price">£2.20 per m²</div></div></article>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Room and area entry</div>
-              <div><button class="btn primary" type="button" id="addRoomTop">Add area</button></div>
-            </div>
-
-            <div class="room-entry">
-              <div class="mutebox">Each area appears as a proper quote card below. Start with one row already open.</div>
-              <div id="roomList" class="room-list"></div>
-
-              <div class="cta">
-                <button class="btn primary" type="button" id="addRoomBottom">Add area</button>
-                <button class="btn red" type="button" id="resetBtn">Reset all</button>
-                <button class="btn green" type="button" id="downloadBtn">Download CSV</button>
-              </div>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Hotel room pricing</div>
-            </div>
-
-            <div class="room-entry">
-              <div class="field">
-                <label for="hotelRoomMethod">Hotel room cleaning method</label>
-                <select id="hotelRoomMethod">
-                  <option value="rotary">Rotary bonnet at £25 per room</option>
-                  <option value="hybrid">Hybrid Deep Clean at £30 per room</option>
-                  <option value="hwe">Hot water extraction at £35 per room</option>
-                </select>
-              </div>
-
-              <div class="field" style="margin-top:12px;">
-                <label for="hotelRoomQty">Number of hotel rooms</label>
-                <input id="hotelRoomQty" type="number" min="0" step="1" value="0">
-              </div>
-
-              <div class="field" style="margin-top:12px;">
-                <label for="includeVat" style="display:flex;align-items:center;gap:10px;">
-                  <input id="includeVat" type="checkbox" style="width:18px;height:18px;flex:0 0 auto;">
-                  Include VAT at 20%
-                </label>
-              </div>
-            </div>
-
-            <div class="section-head">
-              <div><span class="plus">+</span>Optional extras</div>
-            </div>
-
-            <div class="room-entry">
-              <div class="field">
-                <label for="furnitureMoveDesc">Furniture moving description</label>
-                <input id="furnitureMoveDesc" type="text" placeholder="Example: Move beds, chairs, tables">
-              </div>
-
-              <div class="field" style="margin-top:12px;">
-                <label for="furnitureMovePrice">Furniture moving price</label>
-                <input id="furnitureMovePrice" type="number" min="0" step="0.01" value="0">
-              </div>
-
-              <div class="field" style="margin-top:12px;">
-                <label for="extrasDesc">Chemicals or other extras description</label>
-                <input id="extrasDesc" type="text" placeholder="Example: Extra chemicals, spotting, deodoriser, access time">
-              </div>
-
-              <div class="field" style="margin-top:12px;">
-                <label for="extrasPrice">Chemicals or other extras price</label>
-                <input id="extrasPrice" type="number" min="0" step="0.01" value="0">
-              </div>
+            <div class="info-box">
+              <span>Helpful note</span>
+              <p class="note" style="margin-top:6px;">
+                Downloaded CSV includes area name, method, square metres, band, rate, line total, subtotal, VAT and final total.
+              </p>
             </div>
           </div>
-        </section>
 
-        <aside class="card">
-          <div class="card-h">
-            <h2>Your selected items</h2>
-            <small>Updated live as you build the quote</small>
+          <div class="section-head">
+            <div><span class="plus">+</span>Rotary bonnet pricing</div>
           </div>
-          <div class="card-b">
-            <div class="list" id="selectedList"></div>
+          <div class="items">
+            <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller carpeted commercial area</p><div class="price">£2.50 per m²</div></div></article>
+            <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size carpeted area</p><div class="price">£2.20 per m²</div></div></article>
+            <article class="item"><div><h3>400 to 999 m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.00 per m²</div></div></article>
+            <article class="item"><div><h3>1000+ m²</h3><p>Large volume carpet pricing</p><div class="price">£1.80 per m²</div></div></article>
+          </div>
 
-            <div class="hr"></div>
-            <div class="mutebox">
-              This version is wider on desktop and includes carpets, hard floors, Hybrid Deep Clean, hotel room pricing and manual extras.
+          <div class="section-head">
+            <div><span class="plus">+</span>Hybrid Deep Clean pricing</div>
+          </div>
+          <div class="items">
+            <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet plus targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
+            <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
+            <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
+          </div>
+
+          <div class="section-head">
+            <div><span class="plus">+</span>Hot water extraction pricing</div>
+          </div>
+          <div class="items">
+            <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative carpet clean</p><div class="price">£3.40 per m²</div></div></article>
+            <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size carpet area</p><div class="price">£3.10 per m²</div></div></article>
+            <article class="item"><div><h3>301+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.80 per m²</div></div></article>
+          </div>
+
+          <div class="section-head">
+            <div><span class="plus">+</span>Hard floor cleaning pricing</div>
+          </div>
+          <div class="items">
+            <article class="item"><div><h3>Up to 150 m²</h3><p>Kitchens, toilets and other hard floors</p><div class="price">£2.80 per m²</div></div></article>
+            <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hard floor area</p><div class="price">£2.50 per m²</div></div></article>
+            <article class="item"><div><h3>301+ m²</h3><p>Larger hard floor area</p><div class="price">£2.20 per m²</div></div></article>
+          </div>
+
+          <div class="section-head">
+            <div><span class="plus">+</span>Room and area entry</div>
+            <div><button class="btn primary" type="button" id="addRoomTop">Add area</button></div>
+          </div>
+
+          <div class="room-entry">
+            <div class="mutebox">Each area appears as a proper quote card below. Start with one row already open.</div>
+            <div id="roomList" class="room-list"></div>
+
+            <div class="cta">
+              <button class="btn primary" type="button" id="addRoomBottom">Add area</button>
+              <button class="btn red" type="button" id="resetBtn">Reset all</button>
+              <button class="btn green" type="button" id="downloadBtn">Download CSV</button>
             </div>
           </div>
-        </aside>
-      </div>
+
+          <div class="section-head">
+            <div><span class="plus">+</span>Hotel room pricing</div>
+          </div>
+
+          <div class="room-entry">
+            <div class="field">
+              <label for="hotelRoomMethod">Hotel room cleaning method</label>
+              <select id="hotelRoomMethod">
+                <option value="rotary">Rotary bonnet at £25 per room</option>
+                <option value="hybrid">Hybrid Deep Clean at £30 per room</option>
+                <option value="hwe">Hot water extraction at £35 per room</option>
+              </select>
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label for="hotelRoomQty">Number of hotel rooms</label>
+              <input id="hotelRoomQty" type="number" min="0" step="1" value="0">
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label for="includeVat" style="display:flex;align-items:center;gap:10px;">
+                <input id="includeVat" type="checkbox" style="width:18px;height:18px;flex:0 0 auto;">
+                Include VAT at 20%
+              </label>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <div><span class="plus">+</span>Optional extras</div>
+          </div>
+
+          <div class="room-entry">
+            <div class="field">
+              <label for="furnitureMoveDesc">Furniture moving description</label>
+              <input id="furnitureMoveDesc" type="text" placeholder="Example: Move beds, chairs, tables">
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label for="furnitureMovePrice">Furniture moving price</label>
+              <input id="furnitureMovePrice" type="number" min="0" step="0.01" value="0">
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label for="extrasDesc">Chemicals or other extras description</label>
+              <input id="extrasDesc" type="text" placeholder="Example: Extra chemicals, spotting, deodoriser, access time">
+            </div>
+
+            <div class="field" style="margin-top:12px;">
+              <label for="extrasPrice">Chemicals or other extras price</label>
+              <input id="extrasPrice" type="number" min="0" step="0.01" value="0">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-h">
+          <h2>Your selected items</h2>
+          <small>Full width summary moved below the main calculator</small>
+        </div>
+        <div class="card-b">
+          <div class="list" id="selectedList"></div>
+
+          <div class="hr"></div>
+          <div class="mutebox">
+            The summary is now underneath the main build area, so the calculator itself has the full width of the page on desktop.
+          </div>
+        </div>
+      </section>
 
       <footer>
         © Private Albrighton Hall commercial calculator
