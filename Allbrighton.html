@@ -1,13 +1,10 @@
-Replace your file with this version:
-
-```html
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Albrighton Hall Commercial Calculator</title>
-  <meta name="description" content="Private commercial cleaning calculator for Albrighton Hall Hotel and Spa." />
+  <title>The Carpet Cleaning Company Hotel Calculator</title>
+  <meta name="description" content="Private commercial cleaning calculator for hotel carpet and hard floor cleaning." />
   <style>
     :root{
       --bg:#edf4fc;
@@ -370,26 +367,72 @@ Replace your file with this version:
       font-size:28px;
       line-height:1.2;
     }
-    .plus{
-      width:40px;
-      height:40px;
+
+    .accordion-btn{
+      width:100%;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      border:0;
+      background:transparent;
+      padding:0;
+      margin:0;
+      font:inherit;
+      color:inherit;
+      cursor:pointer;
+      text-align:left;
+    }
+    .accordion-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+    .accordion-text{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .accordion-title{
+      font-size:28px;
+      font-weight:950;
+      color:var(--ink);
+      line-height:1.2;
+    }
+    .accordion-hint{
+      font-size:16px;
+      font-weight:800;
+      color:var(--muted);
+      line-height:1.4;
+    }
+    .accordion-icon{
+      width:42px;
+      height:42px;
       border-radius:14px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       color:#fff;
       background:linear-gradient(135deg,var(--brand),var(--brand2));
-      margin-right:10px;
       box-shadow:0 10px 22px rgba(31,95,191,.25);
-      font-size:24px;
-      vertical-align:middle;
+      font-size:26px;
+      font-weight:900;
+      flex:0 0 auto;
+    }
+    .accordion-panel{
+      display:none;
+      margin-top:16px;
+    }
+    .accordion-panel.open{
+      display:block;
     }
 
     .items{
       display:grid;
       grid-template-columns:repeat(4,minmax(0,1fr));
       gap:16px;
-      margin-top:16px;
+      margin-top:0;
     }
     .item{
       display:flex;
@@ -728,6 +771,8 @@ Replace your file with this version:
       .card-h small{font-size:16px}
       .card-b{padding:16px}
       .section-head{font-size:24px}
+      .accordion-title{font-size:24px}
+      .accordion-hint{font-size:15px}
       .items{grid-template-columns:1fr}
       .item{min-height:auto;padding:16px;border-radius:18px}
       .item h3{font-size:22px}
@@ -771,7 +816,7 @@ Replace your file with this version:
   <div id="gate" class="gate">
     <div class="gate-card">
       <div class="gate-head">
-        <h1>Albrighton Hall calculator</h1>
+        <h1>The Carpet Cleaning Company Hotel Calculator</h1>
         <p>Enter the password to open the private pricing page.</p>
       </div>
       <div class="gate-body">
@@ -791,10 +836,10 @@ Replace your file with this version:
     <div class="wrap">
       <div class="topbar">
         <div class="brand">
-          <div class="brand-badge">AH</div>
+          <div class="brand-badge">TCC</div>
           <div class="brand-copy">
-            <div class="brand-title">Albrighton Hall Hotel and Spa</div>
-            <span>Commercial carpet and hard floor cleaning calculator</span>
+            <div class="brand-title">The Carpet Cleaning Company</div>
+            <span>Hotel calculator</span>
           </div>
         </div>
         <div class="top-actions">
@@ -806,7 +851,7 @@ Replace your file with this version:
         <div class="hero-top">
           <div class="hero-copy">
             <div class="hero-kicker">Private estimate</div>
-            <h1>Welcome to the Albrighton Hall calculator</h1>
+            <h1>Welcome to the hotel calculator</h1>
             <p>Everything below has been made larger and easier to read. Add areas through the pop up form, choose the cleaning method, enter the square metres, and the calculator works out the price band automatically.</p>
           </div>
           <div class="hero-total">
@@ -842,47 +887,87 @@ Replace your file with this version:
           </div>
 
           <div class="section-head">
-            <div><span class="plus">+</span>Rotary bonnet pricing</div>
+            <button class="accordion-btn" type="button" data-accordion="rotary">
+              <div class="accordion-left">
+                <span class="accordion-icon" id="icon-rotary">+</span>
+                <div class="accordion-text">
+                  <span class="accordion-title">Rotary bonnet pricing</span>
+                  <span class="accordion-hint">Click here to open the pricing cards</span>
+                </div>
+              </div>
+            </button>
           </div>
-          <div class="items">
-            <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller carpeted commercial area</p><div class="price">£2.50 per m²</div></div></article>
-            <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size carpeted area</p><div class="price">£2.20 per m²</div></div></article>
-            <article class="item"><div><h3>400 to 999 m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.00 per m²</div></div></article>
-            <article class="item"><div><h3>1000+ m²</h3><p>Large volume carpet pricing</p><div class="price">£1.80 per m²</div></div></article>
-          </div>
-
-          <div class="section-head">
-            <div><span class="plus">+</span>Hybrid Deep Clean pricing</div>
-          </div>
-          <div class="items">
-            <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet plus targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
-            <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
-            <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
-            <article class="item"><div><h3>Hotel rooms</h3><p>Hybrid Deep Clean room rate</p><div class="price">£30 per room</div></div></article>
-          </div>
-
-          <div class="section-head">
-            <div><span class="plus">+</span>Hot water extraction pricing</div>
-          </div>
-          <div class="items">
-            <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative carpet clean</p><div class="price">£3.40 per m²</div></div></article>
-            <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size carpet area</p><div class="price">£3.10 per m²</div></div></article>
-            <article class="item"><div><h3>301+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.80 per m²</div></div></article>
-            <article class="item"><div><h3>Hotel rooms</h3><p>Hot water extraction room rate</p><div class="price">£35 per room</div></div></article>
+          <div class="accordion-panel" id="panel-rotary">
+            <div class="items">
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller carpeted commercial area</p><div class="price">£2.50 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size carpeted area</p><div class="price">£2.20 per m²</div></div></article>
+              <article class="item"><div><h3>400 to 999 m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.00 per m²</div></div></article>
+              <article class="item"><div><h3>1000+ m²</h3><p>Large volume carpet pricing</p><div class="price">£1.80 per m²</div></div></article>
+            </div>
           </div>
 
           <div class="section-head">
-            <div><span class="plus">+</span>Hard floor cleaning pricing</div>
+            <button class="accordion-btn" type="button" data-accordion="hybrid">
+              <div class="accordion-left">
+                <span class="accordion-icon" id="icon-hybrid">+</span>
+                <div class="accordion-text">
+                  <span class="accordion-title">Hybrid Deep Clean pricing</span>
+                  <span class="accordion-hint">Click here to open the pricing cards</span>
+                </div>
+              </div>
+            </button>
           </div>
-          <div class="items">
-            <article class="item"><div><h3>Up to 150 m²</h3><p>Kitchens, toilets and other hard floors</p><div class="price">£2.80 per m²</div></div></article>
-            <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hard floor area</p><div class="price">£2.50 per m²</div></div></article>
-            <article class="item"><div><h3>301+ m²</h3><p>Larger hard floor area</p><div class="price">£2.20 per m²</div></div></article>
-            <article class="item"><div><h3>Typical use</h3><p>Kitchen, washroom, hard floor corridor, back of house</p><div class="price">Variable by m²</div></div></article>
+          <div class="accordion-panel" id="panel-hybrid">
+            <div class="items">
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet plus targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
+              <article class="item"><div><h3>Hotel rooms</h3><p>Hybrid Deep Clean room rate</p><div class="price">£30 per room</div></div></article>
+            </div>
           </div>
 
           <div class="section-head">
-            <div><span class="plus">+</span>Areas added to quote</div>
+            <button class="accordion-btn" type="button" data-accordion="hwe">
+              <div class="accordion-left">
+                <span class="accordion-icon" id="icon-hwe">+</span>
+                <div class="accordion-text">
+                  <span class="accordion-title">Hot water extraction pricing</span>
+                  <span class="accordion-hint">Click here to open the pricing cards</span>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div class="accordion-panel" id="panel-hwe">
+            <div class="items">
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative carpet clean</p><div class="price">£3.40 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size carpet area</p><div class="price">£3.10 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.80 per m²</div></div></article>
+              <article class="item"><div><h3>Hotel rooms</h3><p>Hot water extraction room rate</p><div class="price">£35 per room</div></div></article>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <button class="accordion-btn" type="button" data-accordion="hardfloor">
+              <div class="accordion-left">
+                <span class="accordion-icon" id="icon-hardfloor">+</span>
+                <div class="accordion-text">
+                  <span class="accordion-title">Hard floor cleaning pricing</span>
+                  <span class="accordion-hint">Click here to open the pricing cards</span>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div class="accordion-panel" id="panel-hardfloor">
+            <div class="items">
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Kitchens, toilets and other hard floors</p><div class="price">£2.80 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hard floor area</p><div class="price">£2.50 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger hard floor area</p><div class="price">£2.20 per m²</div></div></article>
+              <article class="item"><div><h3>Typical use</h3><p>Kitchen, washroom, hard floor corridor, back of house</p><div class="price">Variable by m²</div></div></article>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <div>Areas added to quote</div>
             <div><button class="btn primary" type="button" id="addRoomTop">Add area</button></div>
           </div>
 
@@ -903,7 +988,7 @@ Replace your file with this version:
           </div>
 
           <div class="section-head">
-            <div><span class="plus">+</span>Hotel room pricing</div>
+            <div>Hotel room pricing</div>
           </div>
 
           <div class="room-entry">
@@ -930,7 +1015,7 @@ Replace your file with this version:
           </div>
 
           <div class="section-head">
-            <div><span class="plus">+</span>Optional extras</div>
+            <div>Optional extras</div>
           </div>
 
           <div class="room-entry">
@@ -964,16 +1049,11 @@ Replace your file with this version:
         </div>
         <div class="card-b">
           <div class="list" id="selectedList"></div>
-
-          <div class="hr"></div>
-          <div class="mutebox">
-            The area entry uses a much larger pop up form, the text is bigger, and the pricing cards are easier to read.
-          </div>
         </div>
       </section>
 
       <footer>
-        © Private Albrighton Hall commercial calculator
+        © Private hotel calculator
       </footer>
     </div>
 
@@ -1240,6 +1320,7 @@ Replace your file with this version:
       document.getElementById("extrasDesc").value = "";
       document.getElementById("extrasPrice").value = 0;
       addRoomRow();
+      closeAllAccordions();
     }
 
     function calculate(){
@@ -1399,7 +1480,7 @@ Replace your file with this version:
       const result = calculate();
 
       const rows = [];
-      rows.push(["Albrighton Hall Commercial Quote"]);
+      rows.push(["Hotel Commercial Quote"]);
       rows.push(["Generated", new Date().toLocaleString()]);
       rows.push([]);
       rows.push(["Room / Area","Method","Square Metres","Band","Rate","Line Total"]);
@@ -1430,7 +1511,7 @@ Replace your file with this version:
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "albrighton_hall_quote.csv";
+      a.download = "hotel_quote.csv";
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -1516,6 +1597,31 @@ Replace your file with this version:
       closeModal();
     }
 
+    function setAccordionState(name, isOpen){
+      const panel = document.getElementById(`panel-${name}`);
+      const icon = document.getElementById(`icon-${name}`);
+      if (!panel || !icon) return;
+
+      if (isOpen){
+        panel.classList.add("open");
+        icon.textContent = "−";
+      } else {
+        panel.classList.remove("open");
+        icon.textContent = "+";
+      }
+    }
+
+    function toggleAccordion(name){
+      const panel = document.getElementById(`panel-${name}`);
+      if (!panel) return;
+      const isOpen = panel.classList.contains("open");
+      setAccordionState(name, !isOpen);
+    }
+
+    function closeAllAccordions(){
+      ["rotary","hybrid","hwe","hardfloor"].forEach(name => setAccordionState(name, false));
+    }
+
     document.getElementById("unlockBtn").addEventListener("click", unlock);
     document.getElementById("passwordInput").addEventListener("keydown", e => {
       if (e.key === "Enter") unlock();
@@ -1553,6 +1659,10 @@ Replace your file with this version:
       }
     });
 
+    document.querySelectorAll("[data-accordion]").forEach(btn => {
+      btn.addEventListener("click", () => toggleAccordion(btn.dataset.accordion));
+    });
+
     [
       "hotelRoomQty",
       "hotelRoomMethod",
@@ -1567,11 +1677,9 @@ Replace your file with this version:
     });
 
     ensureAtLeastOneRow();
+    closeAllAccordions();
     renderRoomRows();
     renderSelected();
   </script>
 </body>
 </html>
-```
-
-Main changes are the modal is much bigger, all text and inputs are larger, the summary is larger, and the Add area section is now far more obvious.
