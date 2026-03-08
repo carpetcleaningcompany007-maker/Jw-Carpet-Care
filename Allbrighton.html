@@ -1,2402 +1,372 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>The Carpet Cleaning Company Hotel Calculator</title>
-  <meta name="description" content="Private commercial cleaning calculator for hotel carpet and hard floor cleaning." />
-  <style>
-    :root{
-      --bg:#edf4fc;
-      --bg-soft:#f7fbff;
-      --ink:#142338;
-      --muted:#50627c;
-      --brand:#1f5fbf;
-      --brand2:#163f7d;
-      --brand3:#0d2548;
-      --green:#17955e;
-      --green2:#0f7549;
-      --red:#cc3838;
-      --card:#ffffff;
-      --line:rgba(15,28,45,.10);
-      --shadow:0 20px 50px rgba(13,27,45,.10);
-      --shadow-soft:0 10px 24px rgba(15,35,65,.07);
-      --r:24px;
-      --max:1640px;
-      --font:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-    }
-
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;overflow-x:hidden}
-    html{font-size:18px}
-    body{
-      font-family:var(--font);
-      color:var(--ink);
-      background:
-        radial-gradient(900px 440px at 10% 0%, rgba(31,95,191,.12), transparent 60%),
-        radial-gradient(700px 340px at 100% 10%, rgba(20,148,92,.08), transparent 55%),
-        linear-gradient(180deg, #0d1f39 0%, #15335e 320px, var(--bg) 321px);
-      min-height:100vh;
-      padding-bottom:110px;
-      line-height:1.5;
-    }
-
-    a{text-decoration:none;color:inherit}
-    .hidden{display:none !important}
-
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:24px 24px 34px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
-      border:0;
-      cursor:pointer;
-      padding:16px 22px;
-      border-radius:999px;
-      font-weight:900;
-      font-size:18px;
-      line-height:1;
-      white-space:nowrap;
-      box-shadow:0 12px 28px rgba(0,0,0,.16);
-      transition:transform .12s ease, filter .12s ease, opacity .12s ease;
-    }
-    .btn:hover{transform:translateY(-1px);filter:saturate(1.03)}
-    .btn.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
-    .btn.ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.16)}
-    .btn.green{background:linear-gradient(135deg,var(--green),var(--green2));color:#fff}
-    .btn.red{background:linear-gradient(135deg,#ef5350,#c62828);color:#fff}
-    .btn.small{padding:12px 16px;font-size:15px;box-shadow:none}
-    .btn:disabled{opacity:.55;cursor:not-allowed;transform:none;filter:none}
-
-    input,select,textarea{
-      width:100%;
-      padding:18px 18px;
-      border-radius:18px;
-      border:1px solid rgba(12,24,40,.12);
-      background:#fff;
-      font:inherit;
-      font-size:20px;
-      min-height:62px;
-      outline:none;
-      transition:border-color .12s ease, box-shadow .12s ease;
-    }
-    textarea{min-height:120px;resize:vertical}
-    input:focus,select:focus,textarea:focus{
-      border-color:rgba(31,95,191,.55);
-      box-shadow:0 0 0 4px rgba(31,95,191,.12);
-    }
-    .input-error{
-      border-color:rgba(204,56,56,.7) !important;
-      box-shadow:0 0 0 4px rgba(204,56,56,.12) !important;
-    }
-
-    .field{display:flex;flex-direction:column;gap:10px}
-    .field label{
-      font-size:18px;
-      color:var(--brand3);
-      font-weight:900;
-      letter-spacing:.01em;
-    }
-    .help-error{
-      color:var(--red);
-      font-size:15px;
-      font-weight:900;
-      display:none;
-      margin-top:2px;
-    }
-
-    .gate{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:20px;
-    }
-    .gate-card{
-      width:min(560px,100%);
-      background:rgba(255,255,255,.98);
-      border:1px solid rgba(255,255,255,.55);
-      border-radius:28px;
-      box-shadow:0 24px 60px rgba(0,0,0,.18);
-      overflow:hidden;
-    }
-    .gate-head{
-      padding:28px 26px 22px;
-      background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
-      color:#fff;
-    }
-    .gate-head h1{
-      margin:0;
-      font-size:40px;
-      line-height:1.02;
-      letter-spacing:-.03em;
-    }
-    .gate-head p{
-      margin:12px 0 0;
-      opacity:.92;
-      font-size:18px;
-      line-height:1.5;
-    }
-    .gate-body{padding:26px}
-    .error{
-      margin-top:14px;
-      color:var(--red);
-      font-size:16px;
-      font-weight:900;
-      display:none;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      flex-wrap:wrap;
-      color:#fff;
-      padding:8px 0 18px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      min-width:0;
-    }
-    .brand-badge{
-      height:60px;
-      min-width:60px;
-      padding:4px 18px;
-      border-radius:14px;
-      background:rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-shadow:0 10px 22px rgba(0,0,0,.18);
-      color:#fff;
-      font-weight:1000;
-      letter-spacing:.08em;
-      font-size:22px;
-    }
-    .brand-title{
-      font-size:16px;
-      font-weight:900;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      opacity:.92;
-    }
-    .brand span{
-      display:block;
-      font-size:20px;
-      opacity:.92;
-      margin-top:4px;
-      max-width:700px;
-    }
-    .top-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .hero{
-      position:relative;
-      overflow:hidden;
-      background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
-      color:#fff;
-      border-radius:30px;
-      padding:28px 28px 24px;
-      box-shadow:0 24px 60px rgba(0,0,0,.18);
-    }
-    .hero::after{
-      content:"";
-      position:absolute;
-      inset:auto -80px -100px auto;
-      width:320px;
-      height:320px;
-      background:radial-gradient(circle, rgba(255,255,255,.14), transparent 68%);
-      pointer-events:none;
-    }
-    .hero-top{
-      position:relative;
-      z-index:1;
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-    .hero-copy{max-width:980px}
-    .hero-kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 14px;
-      border-radius:999px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.12);
-      font-size:14px;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:14px;
-    }
-    .hero h1{
-      margin:0;
-      font-size:46px;
-      line-height:1.02;
-      letter-spacing:-.03em;
-    }
-    .hero p{
-      margin:12px 0 0;
-      color:rgba(255,255,255,.90);
-      font-size:21px;
-      line-height:1.6;
-      max-width:70ch;
-    }
-    .hero-total{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:16px 18px;
-      border-radius:20px;
-      background:rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(10px);
-      min-width:220px;
-      justify-content:center;
-    }
-    .hero-total b{
-      display:block;
-      font-size:32px;
-    }
-    .hero-total span{
-      display:block;
-      font-size:16px;
-      opacity:.88;
-    }
-    .hero-showcase{
-      position:relative;
-      z-index:1;
-      margin-top:20px;
-      border-radius:22px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      box-shadow:0 16px 34px rgba(0,0,0,.18);
-    }
-    .hero-showcase img{
-      display:block;
-      width:100%;
-      height:340px;
-      object-fit:cover;
-      object-position:center;
-    }
-
-    .main-card,.summary-card{
-      background:rgba(255,255,255,.97);
-      backdrop-filter:blur(10px);
-      border:1px solid rgba(255,255,255,.55);
-      border-radius:var(--r);
-      box-shadow:var(--shadow);
-      overflow:hidden;
-      margin-top:22px;
-      width:100%;
-    }
-    .card-h{
-      padding:22px 22px 18px;
-      border-bottom:1px solid rgba(12,24,40,.08);
-      background:linear-gradient(135deg, rgba(31,95,191,.08), rgba(20,148,92,.05));
-    }
-    .card-h h2{
-      margin:0;
-      font-size:34px;
-      letter-spacing:-.02em;
-      line-height:1.05;
-    }
-    .card-h small{
-      display:block;
-      margin-top:8px;
-      color:var(--muted);
-      font-weight:800;
-      font-size:18px;
-      line-height:1.5;
-    }
-    .card-b{padding:22px}
-
-    .summary{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-      margin-bottom:20px;
-    }
-    .total-box,.info-box{
-      background:linear-gradient(135deg,#fff,#f7fbff);
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:22px;
-      padding:20px;
-      box-shadow:var(--shadow-soft);
-    }
-    .total-box{
-      background:
-        radial-gradient(340px 120px at 0% 0%, rgba(31,95,191,.10), transparent 55%),
-        linear-gradient(135deg,#fff,#f7fbff);
-    }
-    .total-box b{
-      display:block;
-      font-size:52px;
-      letter-spacing:-.04em;
-      margin-top:8px;
-      color:var(--brand3);
-      line-height:1;
-    }
-    .total-box span,.info-box span{
-      font-size:14px;
-      color:var(--muted);
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-    }
-
-    .note{
-      font-size:18px;
-      line-height:1.65;
-      color:var(--muted);
-      font-weight:700;
-      margin:0;
-    }
-
-    .section-head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-top:24px;
-      padding-top:18px;
-      border-top:1px dashed rgba(12,24,40,.12);
-      font-weight:950;
-      font-size:28px;
-      line-height:1.2;
-    }
-
-    .accordion-btn{
-      width:100%;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      border:0;
-      background:transparent;
-      padding:0;
-      margin:0;
-      font:inherit;
-      color:inherit;
-      cursor:pointer;
-      text-align:left;
-    }
-    .accordion-left{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-    .accordion-text{
-      display:flex;
-      flex-direction:column;
-      gap:4px;
-    }
-    .accordion-title{
-      font-size:28px;
-      font-weight:950;
-      color:var(--ink);
-      line-height:1.2;
-    }
-    .accordion-hint{
-      font-size:16px;
-      font-weight:800;
-      color:var(--muted);
-      line-height:1.4;
-    }
-    .accordion-icon{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      color:#fff;
-      background:linear-gradient(135deg,var(--brand),var(--brand2));
-      box-shadow:0 10px 22px rgba(31,95,191,.25);
-      font-size:26px;
-      font-weight:900;
-      flex:0 0 auto;
-    }
-    .accordion-panel{
-      display:none;
-      margin-top:16px;
-    }
-    .accordion-panel.open{
-      display:block;
-    }
-
-    .items{
-      display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
-      gap:16px;
-      margin-top:0;
-    }
-    .item{
-      display:flex;
-      min-height:195px;
-      background:
-        radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.11), transparent 60%),
-        linear-gradient(135deg,#ffffff,#f8fbff);
-      border:1px solid rgba(31,95,191,.14);
-      border-radius:22px;
-      padding:20px;
-      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
-    }
-    .item h3{
-      margin:0;
-      font-size:26px;
-      line-height:1.2;
-    }
-    .item p{
-      margin:10px 0 0;
-      font-size:18px;
-      color:var(--muted);
-      font-weight:800;
-      line-height:1.55;
-    }
-    .price{
-      margin-top:16px;
-      color:var(--green);
-      font-size:28px;
-      font-weight:950;
-      line-height:1.2;
-    }
-
-    .room-entry{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:22px;
-      background:#fff;
-      box-shadow:var(--shadow-soft);
-      padding:20px;
-      margin-top:16px;
-    }
-
-    .room-list{
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-      margin-top:16px;
-    }
-
-    .room-row{
-      border:1px solid rgba(31,95,191,.14);
-      border-radius:22px;
-      padding:18px;
-      background:
-        radial-gradient(260px 120px at 0% 0%, rgba(31,95,191,.08), transparent 60%),
-        linear-gradient(135deg,#ffffff,#f8fbff);
-      box-shadow:0 12px 24px rgba(15,35,65,.08), 0 0 0 1px rgba(255,255,255,.70) inset;
-    }
-    .room-top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
-    }
-    .room-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(31,95,191,.08);
-      color:var(--brand3);
-      font-size:14px;
-      font-weight:1000;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-
-    .mutebox{
-      padding:18px 18px;
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:18px;
-      background:linear-gradient(135deg,#fff,#f7faff);
-      font-size:18px;
-      line-height:1.65;
-      color:var(--muted);
-      font-weight:800;
-      box-shadow:var(--shadow-soft);
-    }
-
-    .area-cta{
-      margin-top:14px;
-      padding:22px;
-      border-radius:22px;
-      background:
-        radial-gradient(340px 160px at 0% 0%, rgba(31,95,191,.12), transparent 60%),
-        linear-gradient(135deg,#f7fbff,#ffffff);
-      border:2px solid rgba(31,95,191,.16);
-      box-shadow:var(--shadow-soft);
-    }
-    .area-cta h3{
-      margin:0 0 8px;
-      font-size:34px;
-      line-height:1.05;
-      color:var(--brand3);
-      letter-spacing:-.02em;
-    }
-    .area-cta p{
-      margin:0;
-      font-size:20px;
-      line-height:1.65;
-      color:var(--muted);
-      font-weight:700;
-    }
-    .area-cta .btn{
-      margin-top:16px;
-      min-width:230px;
-      font-size:20px;
-      padding:18px 24px;
-    }
-
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:14px;
-    }
-
-    .line{
-      display:flex;
-      justify-content:space-between;
-      gap:14px;
-      align-items:flex-start;
-      padding:18px 18px;
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:20px;
-      background:linear-gradient(135deg,#fff,#f7faff);
-      box-shadow:0 8px 18px rgba(15,35,65,.05);
-    }
-    .line b{
-      font-size:24px;
-      line-height:1.2;
-      display:block;
-    }
-    .line small{
-      display:block;
-      margin-top:7px;
-      color:var(--muted);
-      font-weight:850;
-      line-height:1.6;
-      font-size:18px;
-    }
-    .money{
-      font-weight:950;
-      color:var(--green);
-      white-space:nowrap;
-      font-size:26px;
-      line-height:1.2;
-    }
-
-    .hr{
-      height:1px;
-      background:rgba(12,24,40,.10);
-      margin:16px 0;
-    }
-
-    .cta{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-      margin-top:18px;
-    }
-
-    .sticky-bar{
-      position:fixed;
-      left:0;
-      right:0;
-      bottom:0;
-      background:linear-gradient(135deg,#0e2a55,#091a32);
-      color:#fff;
-      border-top:1px solid rgba(255,255,255,.10);
-      box-shadow:0 -14px 34px rgba(0,0,0,.28);
-      padding:12px 14px calc(12px + env(safe-area-inset-bottom));
-      z-index:9999;
-      backdrop-filter:blur(12px);
-    }
-    .sticky-inner{
-      max-width:var(--max);
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:nowrap;
-    }
-    .sticky-total{
-      display:flex;
-      flex-direction:column;
-      font-weight:900;
-      min-width:140px;
-    }
-    .sticky-total span{
-      font-size:13px;
-      opacity:.84;
-      line-height:1.1;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-    .sticky-total b{
-      font-size:28px;
-      letter-spacing:-.02em;
-      line-height:1.1;
-      margin-top:2px;
-    }
-    .sticky-actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:nowrap;
-      align-items:center;
-    }
-
-    footer{
-      text-align:center;
-      color:#5c6b80;
-      font-size:16px;
-      font-weight:800;
-      margin-top:24px;
-      padding-top:8px;
-    }
-
-    .modal{
-      position:fixed;
-      inset:0;
-      z-index:10050;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:26px;
-      background:rgba(6,16,30,.58);
-      backdrop-filter:blur(8px);
-    }
-    .modal.show{display:flex}
-    .modal-card{
-      width:min(1180px,96vw);
-      max-height:min(94vh,1100px);
-      overflow:auto;
-      background:#fff;
-      border-radius:30px;
-      box-shadow:0 30px 80px rgba(0,0,0,.30);
-      border:1px solid rgba(255,255,255,.55);
-    }
-    .modal-head{
-      padding:28px 28px 22px;
-      background:linear-gradient(135deg,#10305d 0%, #0d2548 56%, #09182d 100%);
-      color:#fff;
-      position:sticky;
-      top:0;
-      z-index:2;
-    }
-    .modal-head h3{
-      margin:0;
-      font-size:46px;
-      line-height:1.02;
-      letter-spacing:-.03em;
-    }
-    .modal-head p{
-      margin:10px 0 0;
-      opacity:.92;
-      font-size:22px;
-      line-height:1.5;
-    }
-    .modal-body{padding:28px}
-    .modal-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:18px;
-    }
-    .modal-summary{
-      margin-top:22px;
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:16px;
-    }
-    .meta-box{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:20px;
-      padding:18px 18px;
-      background:#fff;
-      box-shadow:var(--shadow-soft);
-      min-height:120px;
-    }
-    .meta-box span{
-      display:block;
-      font-size:16px;
-      color:var(--muted);
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.06em;
-    }
-    .meta-box b{
-      display:block;
-      margin-top:8px;
-      font-size:32px;
-      color:var(--brand3);
-      line-height:1.35;
-    }
-
-    .preview-box{
-      border:1px solid rgba(12,24,40,.08);
-      border-radius:20px;
-      padding:20px;
-      background:linear-gradient(135deg,#ffffff,#f8fbff);
-      box-shadow:var(--shadow-soft);
-      margin-top:18px;
-    }
-    .preview-box h4{
-      margin:0 0 10px;
-      font-size:28px;
-      line-height:1.1;
-      color:var(--brand3);
-    }
-    .preview-box p{
-      margin:0;
-      font-size:18px;
-      line-height:1.7;
-      color:var(--muted);
-      font-weight:700;
-    }
-    .preview-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-      margin-top:18px;
-    }
-    .preview-list{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      margin-top:14px;
-    }
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:10px 14px;
-      border-radius:999px;
-      background:rgba(31,95,191,.08);
-      color:var(--brand3);
-      font-size:14px;
-      font-weight:900;
-      text-transform:uppercase;
-      letter-spacing:.05em;
-    }
-
-    @media (max-width: 1280px){
-      .items{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .item h3{font-size:23px}
-      .price{font-size:24px}
-    }
-
-    @media (max-width: 900px){
-      .summary,.modal-grid,.modal-summary,.preview-grid{grid-template-columns:1fr}
-      .hero-top{align-items:flex-start}
-      .hero h1{font-size:38px}
-      .hero p{font-size:19px}
-      .modal-card{width:min(1000px,96vw)}
-    }
-
-    @media (max-width: 700px){
-      html{font-size:16px}
-      .wrap{padding:12px 12px 20px}
-      .topbar{padding:2px 0 10px}
-      .top-actions{display:none}
-      .brand-title,.brand span{display:none}
-      .brand-badge{height:54px;min-width:54px;font-size:20px}
-      .hero{padding:18px 14px;border-radius:20px}
-      .hero-kicker,.hero-total{display:none}
-      .hero h1{font-size:30px}
-      .hero p{font-size:18px;line-height:1.55}
-      .hero-showcase img{height:170px}
-      .card-h{padding:16px}
-      .card-h h2{font-size:28px}
-      .card-h small{font-size:16px}
-      .card-b{padding:16px}
-      .section-head{font-size:24px}
-      .accordion-title{font-size:24px}
-      .accordion-hint{font-size:15px}
-      .items{grid-template-columns:1fr}
-      .item{min-height:auto;padding:16px;border-radius:18px}
-      .item h3{font-size:22px}
-      .item p,.note,.mutebox,.line small,.preview-box p{font-size:17px}
-      .total-box b{font-size:40px}
-      .line b{font-size:21px}
-      .money{font-size:22px}
-      .area-cta{padding:16px}
-      .area-cta h3{font-size:28px}
-      .area-cta p{font-size:18px}
-      .area-cta .btn{width:100%;min-width:0}
-      .modal{padding:8px}
-      .modal-card{
-        width:100%;
-        max-height:96vh;
-        border-radius:20px;
-      }
-      .modal-head{padding:18px 16px}
-      .modal-head h3{font-size:32px}
-      .modal-head p{font-size:18px}
-      .modal-body{padding:16px}
-      .meta-box{min-height:auto}
-      .meta-box b{font-size:26px}
-      .preview-box h4{font-size:24px}
-      .btn{
-        font-size:17px;
-        padding:14px 18px;
-      }
-      input,select,textarea{
-        font-size:18px;
-        min-height:58px;
-        padding:16px;
-      }
-      .field label{font-size:17px}
-      .sticky-bar{padding:8px 10px calc(8px + env(safe-area-inset-bottom))}
-      .sticky-total b{font-size:20px}
-      .sticky-actions .btn{padding:10px 12px;font-size:13px;box-shadow:none}
-    }
-  </style>
-</head>
-<body>
-  <div id="gate" class="gate">
-    <div class="gate-card">
-      <div class="gate-head">
-        <h1>The Carpet Cleaning Company Hotel Calculator</h1>
-        <p>Enter the password to open the private pricing page.</p>
-      </div>
-      <div class="gate-body">
-        <div class="field">
-          <label for="passwordInput">Password</label>
-          <input id="passwordInput" type="password" placeholder="Enter password">
-        </div>
-        <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
-          <button class="btn primary" id="unlockBtn" type="button">Open calculator</button>
-        </div>
-        <div class="error" id="passwordError">Password is incorrect.</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="app" class="hidden">
-    <div class="wrap">
-      <div class="topbar">
-        <div class="brand">
-          <div class="brand-badge">TCC</div>
-          <div class="brand-copy">
-            <div class="brand-title">The Carpet Cleaning Company</div>
-            <span>Hotel calculator</span>
-          </div>
-        </div>
-        <div class="top-actions">
-          <button class="btn ghost" type="button" id="resetTop">Reset</button>
-        </div>
-      </div>
-
-      <section class="hero">
-        <div class="hero-top">
-          <div class="hero-copy">
-            <div class="hero-kicker">Private estimate</div>
-            <h1>Welcome to the hotel calculator</h1>
-            <p>Add areas through the pop up form, choose the cleaning method, enter the square metres, and the calculator works out the price band automatically.</p>
-          </div>
-          <div class="hero-total">
-            <div>
-              <b id="heroTotal">£0.00</b>
-              <span>Live total</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-showcase">
-          <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1400&q=80" alt="Hotel carpet cleaning">
-        </div>
-      </section>
-
-      <section class="main-card">
-        <div class="card-h">
-          <h2>Build your quote</h2>
-          <small>Larger text, bigger controls, and a clearer layout</small>
-        </div>
-        <div class="card-b">
-          <div class="summary">
-            <div class="total-box">
-              <span>Total estimate</span>
-              <b id="total">£0.00</b>
-            </div>
-            <div class="info-box">
-              <span>Quote files</span>
-              <p class="note" style="margin-top:10px;">
-                Preview on screen, open a polished PDF version, or download an Excel quote sheet.
-              </p>
-            </div>
-          </div>
-
-          <div class="section-head">
-            <button class="accordion-btn" type="button" data-accordion="rotary">
-              <div class="accordion-left">
-                <span class="accordion-icon" id="icon-rotary">+</span>
-                <div class="accordion-text">
-                  <span class="accordion-title">Rotary bonnet pricing</span>
-                  <span class="accordion-hint">Click here to open the pricing cards</span>
-                </div>
-              </div>
-            </button>
-          </div>
-          <div class="accordion-panel" id="panel-rotary">
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Smaller carpeted commercial area</p><div class="price">£2.50 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size carpeted area</p><div class="price">£2.20 per m²</div></div></article>
-              <article class="item"><div><h3>400 to 999 m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.00 per m²</div></div></article>
-              <article class="item"><div><h3>1000+ m²</h3><p>Large volume carpet pricing</p><div class="price">£1.80 per m²</div></div></article>
-            </div>
-          </div>
-
-          <div class="section-head">
-            <button class="accordion-btn" type="button" data-accordion="hybrid">
-              <div class="accordion-left">
-                <span class="accordion-icon" id="icon-hybrid">+</span>
-                <div class="accordion-text">
-                  <span class="accordion-title">Hybrid Deep Clean pricing</span>
-                  <span class="accordion-hint">Click here to open the pricing cards</span>
-                </div>
-              </div>
-            </button>
-          </div>
-          <div class="accordion-panel" id="panel-hybrid">
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet plus targeted hot water extraction</p><div class="price">£2.90 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid clean</p><div class="price">£2.60 per m²</div></div></article>
-              <article class="item"><div><h3>301+ m²</h3><p>Larger hybrid clean</p><div class="price">£2.40 per m²</div></div></article>
-              <article class="item"><div><h3>Hotel rooms</h3><p>Hybrid Deep Clean room rate</p><div class="price">£30 per room</div></div></article>
-            </div>
-          </div>
-
-          <div class="section-head">
-            <button class="accordion-btn" type="button" data-accordion="hwe">
-              <div class="accordion-left">
-                <span class="accordion-icon" id="icon-hwe">+</span>
-                <div class="accordion-text">
-                  <span class="accordion-title">Hot water extraction pricing</span>
-                  <span class="accordion-hint">Click here to open the pricing cards</span>
-                </div>
-              </div>
-            </button>
-          </div>
-          <div class="accordion-panel" id="panel-hwe">
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Deep restorative carpet clean</p><div class="price">£3.40 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size carpet area</p><div class="price">£3.10 per m²</div></div></article>
-              <article class="item"><div><h3>301+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.80 per m²</div></div></article>
-              <article class="item"><div><h3>Hotel rooms</h3><p>Hot water extraction room rate</p><div class="price">£35 per room</div></div></article>
-            </div>
-          </div>
-
-          <div class="section-head">
-            <button class="accordion-btn" type="button" data-accordion="hardfloor">
-              <div class="accordion-left">
-                <span class="accordion-icon" id="icon-hardfloor">+</span>
-                <div class="accordion-text">
-                  <span class="accordion-title">Hard floor cleaning pricing</span>
-                  <span class="accordion-hint">Click here to open the pricing cards</span>
-                </div>
-              </div>
-            </button>
-          </div>
-          <div class="accordion-panel" id="panel-hardfloor">
-            <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Kitchens, toilets and other hard floors</p><div class="price">£2.80 per m²</div></div></article>
-              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hard floor area</p><div class="price">£2.50 per m²</div></div></article>
-              <article class="item"><div><h3>301+ m²</h3><p>Larger hard floor area</p><div class="price">£2.20 per m²</div></div></article>
-              <article class="item"><div><h3>Typical use</h3><p>Kitchen, washroom, hard floor corridor, back of house</p><div class="price">Variable by m²</div></div></article>
-            </div>
-          </div>
-
-          <div class="section-head">
-            <div>Areas added to quote</div>
-            <div><button class="btn primary" type="button" id="addRoomTop">Add area</button></div>
-          </div>
-
-          <div class="room-entry">
-            <div class="area-cta">
-              <h3>Add your area here</h3>
-              <p>Press the Add area button to open the large entry form. The area will only save if the required fields have been filled in properly.</p>
-              <button class="btn primary" type="button" id="addRoomCta">Add area now</button>
-            </div>
-
-            <div id="roomList" class="room-list"></div>
-
-            <div class="cta">
-              <button class="btn primary" type="button" id="addRoomBottom">Add area</button>
-              <button class="btn red" type="button" id="resetBtn">Reset all</button>
-              <button class="btn green" type="button" id="previewBtn">Preview customer quote</button>
-              <button class="btn green" type="button" id="downloadPdfBtn">Open PDF quote</button>
-              <button class="btn green" type="button" id="downloadExcelBtn">Download Excel quote</button>
-            </div>
-          </div>
-
-          <div class="section-head">
-            <div>Hotel room pricing</div>
-          </div>
-
-          <div class="room-entry">
-            <div class="field">
-              <label for="hotelRoomMethod">Hotel room cleaning method</label>
-              <select id="hotelRoomMethod">
-                <option value="rotary">Rotary bonnet at £25 per room</option>
-                <option value="hybrid">Hybrid Deep Clean at £30 per room</option>
-                <option value="hwe">Hot water extraction at £35 per room</option>
-              </select>
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="hotelRoomQty">Number of hotel rooms</label>
-              <input id="hotelRoomQty" type="number" min="0" step="1" value="0">
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="includeVat" style="display:flex;align-items:center;gap:12px;">
-                <input id="includeVat" type="checkbox" style="width:24px;height:24px;flex:0 0 auto;min-height:auto;padding:0;">
-                Include VAT at 20%
-              </label>
-            </div>
-          </div>
-
-          <div class="section-head">
-            <div>Optional extras</div>
-          </div>
-
-          <div class="room-entry">
-            <div class="field">
-              <label for="furnitureMoveDesc">Furniture moving description</label>
-              <input id="furnitureMoveDesc" type="text" placeholder="Example: Move beds, chairs, tables">
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="furnitureMovePrice">Furniture moving price</label>
-              <input id="furnitureMovePrice" type="number" min="0" step="0.01" value="0">
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="extrasDesc">Chemicals or other extras description</label>
-              <input id="extrasDesc" type="text" placeholder="Example: Extra chemicals, spotting, deodoriser, access time">
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="extrasPrice">Chemicals or other extras price</label>
-              <input id="extrasPrice" type="number" min="0" step="0.01" value="0">
-            </div>
-          </div>
-
-          <div class="section-head">
-            <div>Quote details</div>
-          </div>
-
-          <div class="room-entry">
-            <div class="field">
-              <label for="quoteClientName">Client name</label>
-              <input id="quoteClientName" type="text" placeholder="Enter client name">
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="quoteSiteName">Site or hotel name</label>
-              <input id="quoteSiteName" type="text" placeholder="Enter site name">
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="quoteAddress">Site address</label>
-              <textarea id="quoteAddress" placeholder="Enter address"></textarea>
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="quoteRef">Quote reference</label>
-              <input id="quoteRef" type="text" placeholder="Example: AH 001">
-            </div>
-
-            <div class="field" style="margin-top:16px;">
-              <label for="quoteNotes">Notes</label>
-              <textarea id="quoteNotes" placeholder="Optional notes, exclusions, or remarks"></textarea>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="summary-card">
-        <div class="card-h">
-          <h2>Your selected items</h2>
-          <small>Full width summary with larger, clearer text</small>
-        </div>
-        <div class="card-b">
-          <div class="list" id="selectedList"></div>
-        </div>
-      </section>
-
-      <footer>
-        © Private hotel calculator
-      </footer>
-    </div>
-
-    <div class="sticky-bar" id="stickyBar">
-      <div class="sticky-inner">
-        <div class="sticky-total">
-          <span>Your total</span>
-          <b id="totalSticky">£0.00</b>
-        </div>
-
-        <div class="sticky-actions">
-          <button class="btn ghost" type="button" id="resetSticky">Reset</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="roomModal" class="modal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h3 id="modalTitle">Add area</h3>
-        <p>Fill this in clearly and save the area back into the quote.</p>
-      </div>
-      <div class="modal-body">
-        <div class="modal-grid">
-          <div class="field">
-            <label for="modalAreaType">Area type</label>
-            <select id="modalAreaType"></select>
-            <div class="help-error" id="areaTypeError">Please choose an area type.</div>
-          </div>
-
-          <div class="field">
-            <label for="modalRoomName">Custom area name</label>
-            <input id="modalRoomName" type="text" placeholder="Only use if Custom is selected">
-            <div class="help-error" id="roomNameError">Please enter a custom area name.</div>
-          </div>
-
-          <div class="field">
-            <label for="modalMethod">Cleaning method</label>
-            <select id="modalMethod">
-              <option value="">Select method</option>
-              <option value="rotary">Rotary bonnet</option>
-              <option value="hybrid">Hybrid Deep Clean</option>
-              <option value="hwe">Hot water extraction</option>
-              <option value="hardfloor">Hard floor cleaning</option>
-            </select>
-            <div class="help-error" id="methodError">Please choose a cleaning method.</div>
-          </div>
-
-          <div class="field">
-            <label for="modalSqm">Square metres</label>
-            <input id="modalSqm" type="number" min="0" step="0.1" value="">
-            <div class="help-error" id="sqmError">Please enter square metres greater than 0.</div>
-          </div>
-        </div>
-
-        <div class="modal-summary">
-          <div class="meta-box">
-            <span>Price band</span>
-            <b id="modalBand">Waiting for details</b>
-          </div>
-          <div class="meta-box">
-            <span>Rate</span>
-            <b id="modalRate">—</b>
-          </div>
-          <div class="meta-box">
-            <span>Line total</span>
-            <b id="modalLineTotal">£0.00</b>
-          </div>
-        </div>
-
-        <div class="cta">
-          <button class="btn primary" type="button" id="saveModalBtn">Save area</button>
-          <button class="btn red" type="button" id="cancelModalBtn">Cancel</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="quotePreviewModal" class="modal">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h3>Customer quote preview</h3>
-        <p>This is the polished customer facing summary of the work included.</p>
-      </div>
-      <div class="modal-body">
-        <div id="quotePreviewContent"></div>
-        <div class="cta">
-          <button class="btn primary" type="button" id="printFromPreviewBtn">Open PDF quote</button>
-          <button class="btn green" type="button" id="excelFromPreviewBtn">Download Excel quote</button>
-          <button class="btn red" type="button" id="closePreviewBtn">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const PASSWORD = "albrighton123";
-    const VAT_RATE = 0.20;
-    const ROTARY_ROOM_RATE = 25;
-    const HYBRID_ROOM_RATE = 30;
-    const HWE_ROOM_RATE = 35;
-
-    const ROTARY_BANDS = [
-      { min: 0, max: 150, rate: 2.50, label: "Up to 150 m²" },
-      { min: 151, max: 399, rate: 2.20, label: "151 to 399 m²" },
-      { min: 400, max: 999, rate: 2.00, label: "400 to 999 m²" },
-      { min: 1000, max: Infinity, rate: 1.80, label: "1000+ m²" }
-    ];
-
-    const HYBRID_BANDS = [
-      { min: 0, max: 150, rate: 2.90, label: "Up to 150 m²" },
-      { min: 151, max: 300, rate: 2.60, label: "151 to 300 m²" },
-      { min: 301, max: Infinity, rate: 2.40, label: "301+ m²" }
-    ];
-
-    const HWE_BANDS = [
-      { min: 0, max: 150, rate: 3.40, label: "Up to 150 m²" },
-      { min: 151, max: 300, rate: 3.10, label: "151 to 300 m²" },
-      { min: 301, max: Infinity, rate: 2.80, label: "301+ m²" }
-    ];
-
-    const HARD_FLOOR_BANDS = [
-      { min: 0, max: 150, rate: 2.80, label: "Up to 150 m²" },
-      { min: 151, max: 300, rate: 2.50, label: "151 to 300 m²" },
-      { min: 301, max: Infinity, rate: 2.20, label: "301+ m²" }
-    ];
-
-    const AREA_OPTIONS = [
-      "Function room",
-      "Hallway",
-      "Restaurant",
-      "Bar",
-      "Reception",
-      "Bedroom corridor",
-      "Stairs and landing",
-      "Meeting room",
-      "Lounge",
-      "Spa area",
-      "Gym",
-      "Office",
-      "Conference room",
-      "Dining area",
-      "Ballroom",
-      "Entrance lobby",
-      "Toilet area",
-      "Staff room",
-      "Kitchen",
-      "Kitchen access area",
-      "Banqueting room",
-      "Hard floor corridor",
-      "Hard floor washroom",
-      "Custom"
-    ];
-
-    let roomRows = [];
-    let roomCounter = 0;
-    let editingRoomId = null;
-
-    const fmt = n => "£" + (Math.round((Number(n) || 0) * 100) / 100).toFixed(2);
-
-    function escapeHtml(str){
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-    }
-
-    function nl2br(str){
-      return escapeHtml(str).replace(/\n/g, "<br>");
-    }
-
-    function getBands(method){
-      if (method === "rotary") return ROTARY_BANDS;
-      if (method === "hybrid") return HYBRID_BANDS;
-      if (method === "hardfloor") return HARD_FLOOR_BANDS;
-      return HWE_BANDS;
-    }
-
-    function getMethodLabel(method){
-      if (method === "rotary") return "Rotary bonnet";
-      if (method === "hybrid") return "Hybrid Deep Clean";
-      if (method === "hardfloor") return "Hard floor cleaning";
-      return "Hot water extraction";
-    }
-
-    function pickBand(m2, bands){
-      if (m2 <= 0) return null;
-      return bands.find(b => m2 >= b.min && m2 <= b.max) || bands[bands.length - 1];
-    }
-
-    function getRowTotals(row){
-      const sqm = Math.max(0, Number(row.sqm) || 0);
-      const bands = getBands(row.method);
-      const band = pickBand(sqm, bands);
-      const unit = band ? band.rate : 0;
-      const bandLabel = band ? band.label : "Waiting for details";
-      const total = sqm > 0 ? sqm * unit : 0;
-      return { sqm, band, unit, bandLabel, total };
-    }
-
-    function buildAreaOptions(selected){
-      let html = `<option value="">Select area</option>`;
-      AREA_OPTIONS.forEach(option => {
-        html += `<option value="${escapeHtml(option)}" ${selected === option ? "selected" : ""}>${escapeHtml(option)}</option>`;
-      });
-      return html;
-    }
-
-    function getDisplayAreaName(row){
-      return row.areaType && row.areaType !== "Custom"
-        ? row.areaType
-        : (row.roomName || "Unnamed area");
-    }
-
-    function createRoomRowElement(row, index){
-      const totals = getRowTotals(row);
-      const wrapper = document.createElement("div");
-      wrapper.className = "room-row";
-      wrapper.dataset.id = row.id;
-
-      wrapper.innerHTML = `
-        <div class="room-top">
-          <div class="room-badge">Area ${index + 1}</div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button class="btn primary small" type="button" data-role="edit" data-id="${row.id}">Edit</button>
-            <button class="btn red small" type="button" data-role="remove" data-id="${row.id}">Remove</button>
-          </div>
-        </div>
-
-        <div class="list">
-          <div class="line">
-            <div>
-              <b>${escapeHtml(getDisplayAreaName(row))}</b>
-              <small>${escapeHtml(getMethodLabel(row.method))} · ${row.sqm} m² · ${totals.bandLabel}</small>
-            </div>
-            <div class="money">${fmt(totals.total)}</div>
-          </div>
-        </div>
-      `;
-      return wrapper;
-    }
-
-    function renderRoomRows(){
-      const wrap = document.getElementById("roomList");
-      if (!roomRows.length){
-        wrap.innerHTML = `<div class="mutebox">No areas added yet. Click Add area to start building the quote.</div>`;
-        return;
-      }
-
-      wrap.innerHTML = "";
-      roomRows.forEach((row, index) => {
-        wrap.appendChild(createRoomRowElement(row, index));
-      });
-    }
-
-    function addRoomRow(data = {}){
-      roomCounter += 1;
-      roomRows.push({
-        id: roomCounter,
-        areaType: data.areaType || "",
-        roomName: data.roomName || "",
-        method: data.method || "",
-        sqm: Number(data.sqm || 0)
-      });
-      renderRoomRows();
-      renderSelected();
-    }
-
-    function removeRoomRow(id){
-      roomRows = roomRows.filter(r => r.id !== id);
-      renderRoomRows();
-      renderSelected();
-    }
-
-    function resetAll(){
-      roomRows = [];
-      roomCounter = 0;
-      editingRoomId = null;
-
-      document.getElementById("hotelRoomMethod").value = "rotary";
-      document.getElementById("hotelRoomQty").value = 0;
-      document.getElementById("includeVat").checked = false;
-      document.getElementById("furnitureMoveDesc").value = "";
-      document.getElementById("furnitureMovePrice").value = 0;
-      document.getElementById("extrasDesc").value = "";
-      document.getElementById("extrasPrice").value = 0;
-
-      document.getElementById("quoteClientName").value = "";
-      document.getElementById("quoteSiteName").value = "";
-      document.getElementById("quoteAddress").value = "";
-      document.getElementById("quoteRef").value = "";
-      document.getElementById("quoteNotes").value = "";
-
-      renderRoomRows();
-      renderSelected();
-      closeAllAccordions();
-    }
-
-    function calculate(){
-      let subtotal = 0;
-      const lines = [];
-
-      roomRows.forEach(row => {
-        const sqm = Math.max(0, Number(row.sqm) || 0);
-        if (!sqm || !row.method) return;
-
-        const methodLabel = getMethodLabel(row.method);
-        const bands = getBands(row.method);
-        const band = pickBand(sqm, bands);
-        if (!band) return;
-
-        const lineTotal = sqm * band.rate;
-        subtotal += lineTotal;
-
-        lines.push({
-          roomName: getDisplayAreaName(row),
-          method: methodLabel,
-          methodKey: row.method,
-          sqm,
-          band: band.label,
-          rate: band.rate,
-          total: lineTotal
-        });
-      });
-
-      const hotelRoomQty = Math.max(0, Number(document.getElementById("hotelRoomQty").value) || 0);
-      const hotelRoomMethod = document.getElementById("hotelRoomMethod").value;
-
-      if (hotelRoomQty > 0){
-        let unit = ROTARY_ROOM_RATE;
-        let methodLabel = "Rotary bonnet hotel room";
-        let methodKey = "rotary";
-
-        if (hotelRoomMethod === "hybrid"){
-          unit = HYBRID_ROOM_RATE;
-          methodLabel = "Hybrid Deep Clean hotel room";
-          methodKey = "hybrid";
-        } else if (hotelRoomMethod === "hwe"){
-          unit = HWE_ROOM_RATE;
-          methodLabel = "Hot water extraction hotel room";
-          methodKey = "hwe";
-        }
-
-        const lineTotal = hotelRoomQty * unit;
-        subtotal += lineTotal;
-
-        lines.push({
-          roomName: "Hotel rooms",
-          method: methodLabel,
-          methodKey,
-          sqm: "",
-          band: "Room rate",
-          rate: unit,
-          total: lineTotal,
-          qtyRooms: hotelRoomQty
-        });
-      }
-
-      const furnitureMoveDesc = document.getElementById("furnitureMoveDesc").value.trim() || "Furniture moving";
-      const furnitureMovePrice = Math.max(0, Number(document.getElementById("furnitureMovePrice").value) || 0);
-
-      if (furnitureMovePrice > 0){
-        subtotal += furnitureMovePrice;
-        lines.push({
-          roomName: furnitureMoveDesc,
-          method: "Manual extra",
-          methodKey: "extra",
-          sqm: "",
-          band: "Furniture moving",
-          rate: furnitureMovePrice,
-          total: furnitureMovePrice,
-          isManualExtra: true
-        });
-      }
-
-      const extrasDesc = document.getElementById("extrasDesc").value.trim() || "Chemicals or other extras";
-      const extrasPrice = Math.max(0, Number(document.getElementById("extrasPrice").value) || 0);
-
-      if (extrasPrice > 0){
-        subtotal += extrasPrice;
-        lines.push({
-          roomName: extrasDesc,
-          method: "Manual extra",
-          methodKey: "extra",
-          sqm: "",
-          band: "Chemicals / other",
-          rate: extrasPrice,
-          total: extrasPrice,
-          isManualExtra: true
-        });
-      }
-
-      const includeVat = document.getElementById("includeVat").checked;
-      const vat = includeVat ? subtotal * VAT_RATE : 0;
-      const total = subtotal + vat;
-
-      return { lines, subtotal, vat, total, includeVat };
-    }
-
-    function renderSelected(){
-      const result = calculate();
-
-      document.getElementById("total").textContent = fmt(result.total);
-      document.getElementById("totalSticky").textContent = fmt(result.total);
-      document.getElementById("heroTotal").textContent = fmt(result.total);
-
-      const selected = document.getElementById("selectedList");
-
-      if (!result.lines.length){
-        selected.innerHTML = `<div class="mutebox">No priced items yet. Add at least one complete area or hotel room entry.</div>`;
-        return;
-      }
-
-      let html = result.lines.map(line => {
-        const subText = line.isManualExtra
-          ? `${line.method} · ${line.band}`
-          : line.qtyRooms
-            ? `${line.method} · ${line.qtyRooms} × ${fmt(line.rate)} · ${line.band}`
-            : `${line.method} · ${line.sqm} m² × ${fmt(line.rate)} · ${line.band}`;
-
-        return `
-          <div class="line">
-            <div>
-              <b>${escapeHtml(line.roomName)}</b>
-              <small>${escapeHtml(subText)}</small>
-            </div>
-            <div class="money">${fmt(line.total)}</div>
-          </div>
-        `;
-      }).join("");
-
-      html += `
-        <div class="hr"></div>
-        <div class="line">
-          <div><b>Subtotal</b><small>Before VAT</small></div>
-          <div class="money">${fmt(result.subtotal)}</div>
-        </div>
-      `;
-
-      if (result.includeVat){
-        html += `
-          <div class="line">
-            <div><b>VAT</b><small>20% added</small></div>
-            <div class="money">${fmt(result.vat)}</div>
-          </div>
-        `;
-      }
-
-      html += `
-        <div class="line" style="background:linear-gradient(135deg,#f3f7ff,#ffffff)">
-          <div><b>Total</b><small>Commercial estimate</small></div>
-          <div class="money">${fmt(result.total)}</div>
-        </div>
-      `;
-
-      selected.innerHTML = html;
-    }
-
-    function unlock(){
-      const input = document.getElementById("passwordInput");
-      const error = document.getElementById("passwordError");
-
-      if (input.value === PASSWORD){
-        document.getElementById("gate").classList.add("hidden");
-        document.getElementById("app").classList.remove("hidden");
-        error.style.display = "none";
-      } else {
-        error.style.display = "block";
-      }
-    }
-
-    function populateModalAreaOptions(selected){
-      document.getElementById("modalAreaType").innerHTML = buildAreaOptions(selected || "");
-    }
-
-    function clearModalErrors(){
-      ["modalAreaType","modalRoomName","modalMethod","modalSqm"].forEach(id => {
-        document.getElementById(id).classList.remove("input-error");
-      });
-      ["areaTypeError","roomNameError","methodError","sqmError"].forEach(id => {
-        document.getElementById(id).style.display = "none";
-      });
-    }
-
-    function updateCustomNameRequirement(){
-      const areaType = document.getElementById("modalAreaType").value;
-      const roomNameInput = document.getElementById("modalRoomName");
-      roomNameInput.disabled = areaType !== "Custom";
-      if (areaType !== "Custom"){
-        roomNameInput.value = "";
-      }
-    }
-
-    function updateModalPreview(){
-      const areaType = document.getElementById("modalAreaType").value;
-      const method = document.getElementById("modalMethod").value;
-      const sqm = Math.max(0, Number(document.getElementById("modalSqm").value) || 0);
-
-      updateCustomNameRequirement();
-
-      if (!areaType || !method || sqm <= 0){
-        document.getElementById("modalBand").textContent = "Waiting for details";
-        document.getElementById("modalRate").textContent = "—";
-        document.getElementById("modalLineTotal").textContent = "£0.00";
-        return;
-      }
-
-      const bands = getBands(method);
-      const band = pickBand(sqm, bands);
-
-      document.getElementById("modalBand").textContent = band ? band.label : "Waiting for details";
-      document.getElementById("modalRate").textContent = band ? `${fmt(band.rate)} per m²` : "—";
-      document.getElementById("modalLineTotal").textContent = band ? fmt(sqm * band.rate) : "£0.00";
-    }
-
-    function openModalForNew(){
-      editingRoomId = null;
-      document.getElementById("modalTitle").textContent = "Add area";
-      populateModalAreaOptions("");
-      document.getElementById("modalRoomName").value = "";
-      document.getElementById("modalMethod").value = "";
-      document.getElementById("modalSqm").value = "";
-      clearModalErrors();
-      updateModalPreview();
-      document.getElementById("roomModal").classList.add("show");
-    }
-
-    function openModalForEdit(id){
-      const row = roomRows.find(r => r.id === id);
-      if (!row) return;
-      editingRoomId = id;
-      document.getElementById("modalTitle").textContent = "Edit area";
-      populateModalAreaOptions(row.areaType || "");
-      document.getElementById("modalRoomName").value = row.roomName || "";
-      document.getElementById("modalMethod").value = row.method || "";
-      document.getElementById("modalSqm").value = row.sqm || "";
-      clearModalErrors();
-      updateModalPreview();
-      document.getElementById("roomModal").classList.add("show");
-    }
-
-    function closeModal(){
-      document.getElementById("roomModal").classList.remove("show");
-      editingRoomId = null;
-      clearModalErrors();
-    }
-
-    function validateModal(){
-      clearModalErrors();
-
-      const areaType = document.getElementById("modalAreaType").value.trim();
-      const roomName = document.getElementById("modalRoomName").value.trim();
-      const method = document.getElementById("modalMethod").value.trim();
-      const sqm = Number(document.getElementById("modalSqm").value);
-
-      let ok = true;
-
-      if (!areaType){
-        document.getElementById("modalAreaType").classList.add("input-error");
-        document.getElementById("areaTypeError").style.display = "block";
-        ok = false;
-      }
-
-      if (areaType === "Custom" && !roomName){
-        document.getElementById("modalRoomName").classList.add("input-error");
-        document.getElementById("roomNameError").style.display = "block";
-        ok = false;
-      }
-
-      if (!method){
-        document.getElementById("modalMethod").classList.add("input-error");
-        document.getElementById("methodError").style.display = "block";
-        ok = false;
-      }
-
-      if (!(sqm > 0)){
-        document.getElementById("modalSqm").classList.add("input-error");
-        document.getElementById("sqmError").style.display = "block";
-        ok = false;
-      }
-
-      return ok;
-    }
-
-    function saveModal(){
-      if (!validateModal()) return;
-
-      const areaType = document.getElementById("modalAreaType").value;
-      const roomName = document.getElementById("modalRoomName").value.trim();
-      const method = document.getElementById("modalMethod").value;
-      const sqm = Math.max(0, Number(document.getElementById("modalSqm").value) || 0);
-
-      if (editingRoomId === null){
-        addRoomRow({ areaType, roomName, method, sqm });
-      } else {
-        const row = roomRows.find(r => r.id === editingRoomId);
-        if (row){
-          row.areaType = areaType;
-          row.roomName = roomName;
-          row.method = method;
-          row.sqm = sqm;
-          renderRoomRows();
-          renderSelected();
-        }
-      }
-      closeModal();
-    }
-
-    function setAccordionState(name, isOpen){
-      const panel = document.getElementById(`panel-${name}`);
-      const icon = document.getElementById(`icon-${name}`);
-      if (!panel || !icon) return;
-
-      if (isOpen){
-        panel.classList.add("open");
-        icon.textContent = "−";
-      } else {
-        panel.classList.remove("open");
-        icon.textContent = "+";
-      }
-    }
-
-    function toggleAccordion(name){
-      const panel = document.getElementById(`panel-${name}`);
-      if (!panel) return;
-      const isOpen = panel.classList.contains("open");
-      setAccordionState(name, !isOpen);
-    }
-
-    function closeAllAccordions(){
-      ["rotary","hybrid","hwe","hardfloor"].forEach(name => setAccordionState(name, false));
-    }
-
-    function getMethodSalesCopy(methodKey){
-      if (methodKey === "rotary"){
-        return {
-          title: "Carpet clean with rotary bonnet cleaning",
-          text: "This is a very effective low moisture carpet cleaning method designed to improve appearance quickly, lift surface soiling, brighten the pile, and leave the carpets looking fresher and more presentable. Drying times are typically faster than a full restorative extraction clean. We have also added protection free of charge to help the carpets stay looking cleaner for longer."
-        };
-      }
-
-      if (methodKey === "hybrid"){
-        return {
-          title: "Hybrid Deep Clean",
-          text: "This is one of the best methods for heavily used commercial carpets because it combines rotary bonnet cleaning with targeted hot water extraction where needed. It gives a deeper clean, better appearance improvement, and stronger soil removal while still keeping the process efficient for larger hotel areas. We have also added protection free of charge to help maintain the finish after cleaning."
-        };
-      }
-
-      if (methodKey === "hwe"){
-        return {
-          title: "Carpet clean with hot water extraction",
-          text: "This is the deepest restorative carpet cleaning method and is ideal where a more thorough flush through clean is required. Hot water extraction helps remove embedded soil, freshen the carpet pile, and leave the fibres feeling properly cleaned. We have also added protection free of charge to help the carpets stay cleaner for longer after the clean."
-        };
-      }
-
-      if (methodKey === "hardfloor"){
-        return {
-          title: "Hard floor deep clean",
-          text: "This service is designed to improve the appearance of hard floor areas by removing built up soil, dullness, and general traffic contamination. It is ideal for back of house areas, corridors, kitchen access routes, washrooms, and other commercial floor surfaces that need a more professional presentation."
-        };
-      }
-
-      return {
-        title: "Professional cleaning service",
-        text: "This quote includes professional cleaning work tailored to the areas selected."
-      };
-    }
-
-    function buildMethodSummary(result){
-      const seen = new Set();
-      const blocks = [];
-
-      result.lines.forEach(line => {
-        if (line.isManualExtra) return;
-        if (!line.methodKey || seen.has(line.methodKey)) return;
-        seen.add(line.methodKey);
-        const copy = getMethodSalesCopy(line.methodKey);
-
-        blocks.push(`
-          <div class="preview-box">
-            <div class="pill">${escapeHtml(copy.title)}</div>
-            <p style="margin-top:12px;">${escapeHtml(copy.text)}</p>
-          </div>
-        `);
-      });
-
-      return blocks.join("");
-    }
-
-    function buildCustomerSummaryHtml(){
-      const result = calculate();
-      const clientName = document.getElementById("quoteClientName").value.trim() || "Your customer";
-      const siteName = document.getElementById("quoteSiteName").value.trim() || "Selected site";
-      const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
-      const notes = document.getElementById("quoteNotes").value.trim();
-
-      if (!result.lines.length){
-        return `
-          <div class="mutebox">Add at least one complete priced item before opening the customer quote preview.</div>
-        `;
-      }
-
-      const lineHtml = result.lines.map(line => {
-        let subText = line.isManualExtra
-          ? `${line.method} · ${line.band}`
-          : line.qtyRooms
-            ? `${line.method} · ${line.qtyRooms} rooms`
-            : `${line.method} · ${line.sqm} m²`;
-
-        return `
-          <div class="line">
-            <div>
-              <b>${escapeHtml(line.roomName)}</b>
-              <small>${escapeHtml(subText)}</small>
-            </div>
-            <div class="money">${fmt(line.total)}</div>
-          </div>
-        `;
-      }).join("");
-
-      const notesBlock = notes ? `
-        <div class="preview-box">
-          <h4>Additional notes</h4>
-          <p>${nl2br(notes)}</p>
-        </div>
-      ` : "";
-
-      return `
-        <div class="preview-box">
-          <h4>Quote overview</h4>
-          <p>This quote has been prepared for ${escapeHtml(clientName)} for work at ${escapeHtml(siteName)}. The pricing below includes the selected cleaning methods, any room based items, and any extras that have been added. Quote reference: ${escapeHtml(quoteRef)}.</p>
-        </div>
-
-        <div class="preview-grid">
-          <div class="preview-box">
-            <h4>What you have chosen</h4>
-            <div class="preview-list">${lineHtml}</div>
-          </div>
-
-          <div class="preview-box">
-            <h4>Total quote</h4>
-            <p>Subtotal: ${fmt(result.subtotal)}<br>${result.includeVat ? `VAT: ${fmt(result.vat)}<br>` : ""}<strong style="color:#17955e;font-size:32px;line-height:1.4;">Total: ${fmt(result.total)}</strong></p>
-          </div>
-        </div>
-
-        ${buildMethodSummary(result)}
-
-        <div class="preview-box">
-          <h4>Why this quote stands out</h4>
-          <p>We have selected the most appropriate cleaning methods for the areas included in this quote to give the best balance of appearance improvement, soil removal, practicality, and finish. Where carpet cleaning has been included, we have added protection free of charge to help the carpets stay looking cleaner for longer after the work has been completed.</p>
-        </div>
-
-        ${notesBlock}
-      `;
-    }
-
-    function openQuotePreview(){
-      const result = calculate();
-      if (!result.lines.length){
-        alert("Please add at least one complete priced item before opening the quote preview.");
-        return;
-      }
-
-      document.getElementById("quotePreviewContent").innerHTML = buildCustomerSummaryHtml();
-      document.getElementById("quotePreviewModal").classList.add("show");
-    }
-
-    function closeQuotePreview(){
-      document.getElementById("quotePreviewModal").classList.remove("show");
-    }
-
-    function buildQuoteDocumentHtml(){
-      const result = calculate();
-      const clientName = document.getElementById("quoteClientName").value.trim() || "Client name not entered";
-      const siteName = document.getElementById("quoteSiteName").value.trim() || "Site name not entered";
-      const address = document.getElementById("quoteAddress").value.trim() || "Address not entered";
-      const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
-      const notes = document.getElementById("quoteNotes").value.trim();
-      const dateStr = new Date().toLocaleDateString();
-
-      const lineRows = result.lines.map(line => {
-        let qty = "";
-        let rate = fmt(line.rate);
-
-        if (line.isManualExtra){
-          qty = "Extra";
-        } else if (line.qtyRooms){
-          qty = `${line.qtyRooms} rooms`;
-        } else {
-          qty = `${line.sqm} m²`;
-        }
-
-        return `
-          <tr>
-            <td>${escapeHtml(line.roomName)}</td>
-            <td>${escapeHtml(line.method)}</td>
-            <td>${escapeHtml(qty)}</td>
-            <td>${escapeHtml(line.band)}</td>
-            <td>${rate}</td>
-            <td>${fmt(line.total)}</td>
-          </tr>
-        `;
-      }).join("");
-
-      const vatRow = result.includeVat ? `
-        <tr>
-          <td colspan="5" class="totallabel">VAT</td>
-          <td class="totalvalue">${fmt(result.vat)}</td>
-        </tr>
-      ` : "";
-
-      const notesBlock = notes ? `
-        <div class="notes">
-          <h3>Notes</h3>
-          <p>${nl2br(notes)}</p>
-        </div>
-      ` : "";
-
-      const methodSummary = buildMethodSummary(result);
-
-      return `<!doctype html>
+<script>
+function buildInvoiceStyleQuoteHtml(){
+  const result = calculate();
+  const clientName = document.getElementById("quoteClientName").value.trim() || "Client name not entered";
+  const siteName = document.getElementById("quoteSiteName").value.trim() || "Site name not entered";
+  const address = document.getElementById("quoteAddress").value.trim() || "Address not entered";
+  const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
+  const notes = document.getElementById("quoteNotes").value.trim();
+  const date = new Date();
+  const dateStr = date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+
+  const companyName = "The Carpet Cleaning Company";
+  const companyAddress = [
+    "1 Dun Cow Road",
+    "Ludlow",
+    "SHROPSHIRE",
+    "SY8 2BH",
+    "UNITED KINGDOM"
+  ];
+
+  const serviceLines = result.lines.map(line => {
+    let qty = "1.00";
+    let unitPrice = line.total;
+
+    if (line.qtyRooms) {
+      qty = Number(line.qtyRooms).toFixed(2);
+      unitPrice = line.rate;
+    } else if (!line.isManualExtra && line.sqm) {
+      qty = Number(line.sqm).toFixed(2);
+      unitPrice = line.rate;
+    }
+
+    return `
+      <tr>
+        <td>${escapeHtml(line.roomName)}<div class="descsub">${escapeHtml(line.method)}</div></td>
+        <td class="num">${qty}</td>
+        <td class="num">${Number(unitPrice).toFixed(2)}</td>
+        <td class="num">${Number(line.total).toFixed(2)}</td>
+      </tr>
+    `;
+  }).join("");
+
+  const vatLabel = result.includeVat ? "VAT" : "NO VAT";
+  const vatValue = result.includeVat ? result.vat : 0;
+
+  return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Quote Sheet</title>
+<title>Quote</title>
 <style>
   body{
-    font-family: Arial, Helvetica, sans-serif;
-    color:#142338;
     margin:0;
-    background:#f4f7fb;
-    padding:30px;
+    background:#ececec;
+    font-family:Arial, Helvetica, sans-serif;
+    color:#111;
+    padding:24px;
   }
   .sheet{
-    max-width:1100px;
+    max-width:900px;
     margin:0 auto;
     background:#fff;
-    border-radius:18px;
-    box-shadow:0 10px 35px rgba(0,0,0,.08);
-    overflow:hidden;
-    border:1px solid #d9e3f0;
+    padding:44px 38px 56px;
+    box-shadow:0 6px 24px rgba(0,0,0,.08);
   }
-  .head{
-    background:linear-gradient(135deg,#10305d,#0d2548);
-    color:#fff;
-    padding:30px;
-  }
-  .head h1{
-    margin:0;
-    font-size:34px;
-    line-height:1.1;
-  }
-  .head p{
-    margin:8px 0 0;
-    font-size:18px;
-    opacity:.92;
-  }
-  .body{
-    padding:30px;
-  }
-  .meta{
+  .top{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-    margin-bottom:24px;
+    grid-template-columns:1.3fr .7fr .7fr;
+    gap:28px;
+    align-items:start;
   }
-  .box{
-    border:1px solid #d9e3f0;
-    border-radius:14px;
-    padding:18px;
-    background:#f9fbff;
+  .quote-title{
+    font-size:34px;
+    font-weight:300;
+    letter-spacing:.02em;
+    margin:0 0 8px;
   }
-  .box h3{
-    margin:0 0 10px;
+  .block p{
+    margin:2px 0;
     font-size:15px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:#5b6d86;
+    line-height:1.45;
   }
-  .box p{
-    margin:0;
-    font-size:20px;
-    line-height:1.6;
+  .label{
     font-weight:700;
+  }
+  .meta-line{
+    margin-bottom:10px;
+    font-size:15px;
+    line-height:1.35;
+  }
+  .spacer{
+    height:86px;
   }
   table{
     width:100%;
     border-collapse:collapse;
-    margin-top:10px;
   }
-  th,td{
-    padding:14px 12px;
-    border-bottom:1px solid #dde6f2;
+  thead th{
     text-align:left;
-    font-size:16px;
+    font-size:14px;
+    padding:10px 6px 8px;
+    border-bottom:1px solid #222;
+  }
+  tbody td{
+    font-size:15px;
+    padding:10px 6px;
+    border-bottom:1px solid #ddd;
     vertical-align:top;
   }
-  th{
-    background:#f1f6fd;
-    color:#0d2548;
-    font-size:15px;
-    text-transform:uppercase;
-    letter-spacing:.05em;
+  .descsub{
+    margin-top:4px;
+    color:#555;
+    font-size:13px;
   }
-  .totals{
-    margin-top:20px;
-  }
-  .totals table td{
-    border-bottom:1px solid #dde6f2;
-  }
-  .totallabel{
+  .num{
     text-align:right;
-    font-weight:800;
-    color:#334863;
-  }
-  .totalvalue{
-    font-weight:900;
-    font-size:20px;
-    color:#17955e;
     white-space:nowrap;
   }
-  .notes, .methodbox{
+  .totals{
+    width:320px;
+    margin-left:auto;
+    margin-top:8px;
+  }
+  .totals td{
+    padding:6px 0;
+    font-size:14px;
+  }
+  .totals .line td{
+    border-top:1px solid #222;
+    padding-top:8px;
+  }
+  .totals .grand td{
+    font-weight:700;
+    font-size:16px;
+    padding-top:8px;
+  }
+  .due{
+    margin-top:36px;
+    font-size:15px;
+    font-weight:700;
+  }
+  .notes{
     margin-top:26px;
-    border:1px solid #d9e3f0;
-    border-radius:14px;
-    padding:18px;
-    background:#f9fbff;
+    font-size:15px;
+    line-height:1.6;
   }
-  .notes h3, .methodbox h3{
-    margin:0 0 8px;
-    color:#0d2548;
-    font-size:20px;
-  }
-  .notes p, .methodbox p{
-    margin:0;
-    font-size:17px;
+  .included{
+    margin-top:26px;
+    font-size:15px;
     line-height:1.7;
   }
-  .printbar{
-    max-width:1100px;
-    margin:0 auto 16px;
+  .included h3, .notes h3{
+    margin:0 0 8px;
+    font-size:18px;
+  }
+  .actions{
+    max-width:900px;
+    margin:0 auto 14px;
     display:flex;
-    gap:12px;
+    gap:10px;
     flex-wrap:wrap;
   }
-  .printbtn{
+  .btn{
     border:0;
     cursor:pointer;
-    padding:14px 20px;
+    padding:12px 18px;
     border-radius:999px;
-    font-size:16px;
-    font-weight:900;
+    font-size:14px;
+    font-weight:700;
     color:#fff;
-    background:linear-gradient(135deg,#1f5fbf,#163f7d);
+    background:#163f7d;
   }
-  .printbtn.secondary{
-    background:linear-gradient(135deg,#17955e,#0f7549);
+  .btn.green{
+    background:#17955e;
   }
   @media print{
-    body{background:#fff;padding:0}
-    .printbar{display:none}
-    .sheet{box-shadow:none;border:none;border-radius:0}
+    body{
+      background:#fff;
+      padding:0;
+    }
+    .actions{
+      display:none;
+    }
+    .sheet{
+      box-shadow:none;
+      max-width:none;
+      padding:32px 28px 40px;
+    }
   }
 </style>
 </head>
 <body>
-  <div class="printbar">
-    <button class="printbtn" onclick="window.print()">Save or print PDF</button>
-    <button class="printbtn secondary" onclick="window.close()">Close</button>
+  <div class="actions">
+    <button class="btn" onclick="window.print()">Save or print PDF</button>
+    <button class="btn green" onclick="window.close()">Close</button>
   </div>
 
   <div class="sheet">
-    <div class="head">
-      <h1>The Carpet Cleaning Company</h1>
-      <p>Hotel cleaning quote sheet</p>
+    <div class="top">
+      <div class="block">
+        <h1 class="quote-title">QUOTE</h1>
+        <p>${escapeHtml(clientName)}</p>
+        <p>${escapeHtml(siteName)}</p>
+        <p>${nl2br(address)}</p>
+      </div>
+
+      <div class="block">
+        <div class="meta-line">
+          <div class="label">Quote Date</div>
+          <div>${escapeHtml(dateStr)}</div>
+        </div>
+        <div class="meta-line">
+          <div class="label">Quote Number</div>
+          <div>${escapeHtml(quoteRef)}</div>
+        </div>
+      </div>
+
+      <div class="block">
+        <p>${companyName}</p>
+        ${companyAddress.map(line => `<p>${line}</p>`).join("")}
+      </div>
     </div>
 
-    <div class="body">
-      <div class="meta">
-        <div class="box">
-          <h3>Client</h3>
-          <p>${escapeHtml(clientName)}</p>
-        </div>
-        <div class="box">
-          <h3>Quote details</h3>
-          <p>Date: ${escapeHtml(dateStr)}<br>Reference: ${escapeHtml(quoteRef)}</p>
-        </div>
-        <div class="box">
-          <h3>Site or hotel name</h3>
-          <p>${escapeHtml(siteName)}</p>
-        </div>
-        <div class="box">
-          <h3>Site address</h3>
-          <p>${nl2br(address)}</p>
-        </div>
-      </div>
+    <div class="spacer"></div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Area</th>
-            <th>Method</th>
-            <th>Qty</th>
-            <th>Band</th>
-            <th>Rate</th>
-            <th>Line total</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${lineRows || `<tr><td colspan="6">No priced items added.</td></tr>`}
-        </tbody>
-      </table>
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th class="num">Quantity</th>
+          <th class="num">Unit Price</th>
+          <th class="num">Amount GBP</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${serviceLines || `<tr><td colspan="4">No priced items added</td></tr>`}
+      </tbody>
+    </table>
 
-      <div class="totals">
-        <table>
-          <tr>
-            <td colspan="5" class="totallabel">Subtotal</td>
-            <td class="totalvalue">${fmt(result.subtotal)}</td>
-          </tr>
-          ${vatRow}
-          <tr>
-            <td colspan="5" class="totallabel">Total</td>
-            <td class="totalvalue">${fmt(result.total)}</td>
-          </tr>
-        </table>
-      </div>
+    <table class="totals">
+      <tr>
+        <td>Subtotal</td>
+        <td class="num">${Number(result.subtotal).toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td>TOTAL ${vatLabel}</td>
+        <td class="num">${Number(vatValue).toFixed(2)}</td>
+      </tr>
+      <tr class="line grand">
+        <td>TOTAL GBP</td>
+        <td class="num">${Number(result.total).toFixed(2)}</td>
+      </tr>
+    </table>
 
-      <div class="methodbox">
-        <h3>What is included</h3>
-        <p>We have selected the most suitable cleaning methods for the areas in this quote to give a strong balance of appearance improvement, professional presentation, and practical drying times. Where carpet cleaning has been included, we have added protection free of charge to help the carpets stay cleaner for longer after the clean.</p>
-      </div>
+    <div class="due">Quote valid for 30 days from ${escapeHtml(dateStr)}</div>
 
-      ${methodSummary.replace(/class="preview-box"/g, 'class="methodbox"').replace(/<h4>/g, '<h3>').replace(/<\/h4>/g, '</h3>')}
-
-      ${notesBlock}
+    <div class="included">
+      <h3>What is included</h3>
+      <div>${buildCustomerMethodText()}</div>
     </div>
+
+    ${notes ? `
+      <div class="notes">
+        <h3>Notes</h3>
+        <div>${nl2br(notes)}</div>
+      </div>
+    ` : ""}
   </div>
 </body>
 </html>`;
+}
+
+function buildCustomerMethodText(){
+  const result = calculate();
+  const used = new Set();
+  const parts = [];
+
+  result.lines.forEach(line => {
+    if (line.isManualExtra) return;
+    const key = line.methodKey || "";
+    if (!key || used.has(key)) return;
+    used.add(key);
+
+    if (key === "rotary"){
+      parts.push("Rotary bonnet cleaning has been selected where appropriate to improve appearance, lift surface soiling, and freshen the carpet quickly. Protection has been added free of charge to help carpets stay cleaner for longer.");
+    } else if (key === "hybrid"){
+      parts.push("Hybrid Deep Clean has been selected for areas needing a stronger result. This combines bonnet cleaning with targeted hot water extraction for a deeper professional finish. Protection has been added free of charge.");
+    } else if (key === "hwe"){
+      parts.push("Hot water extraction has been selected as the best method for a deeper restorative carpet clean, helping remove embedded soil and leave the fibres properly refreshed. Protection has been added free of charge.");
+    } else if (key === "hardfloor"){
+      parts.push("Hard floor cleaning has been included to improve presentation, remove built up traffic soil, and leave the selected areas cleaner and more professional in appearance.");
     }
+  });
 
-    function openPdfQuote(){
-      const result = calculate();
-      if (!result.lines.length){
-        alert("Please add at least one complete priced item before opening the PDF quote.");
-        return;
-      }
+  if (!parts.length){
+    return "Professional cleaning services have been selected based on the areas included in this quote.";
+  }
 
-      const html = buildQuoteDocumentHtml();
-      const win = window.open("", "_blank");
-      if (!win){
-        alert("Popup blocked. Please allow popups for this page.");
-        return;
-      }
-      win.document.open();
-      win.document.write(html);
-      win.document.close();
-    }
+  return parts.map(p => `<p style="margin:0 0 10px;">${escapeHtml(p)}</p>`).join("");
+}
 
-    function downloadExcelQuote(){
-      const result = calculate();
-      if (!result.lines.length){
-        alert("Please add at least one complete priced item before downloading the Excel quote.");
-        return;
-      }
+function buildCustomerSummaryHtml(){
+  const result = calculate();
+  const clientName = document.getElementById("quoteClientName").value.trim() || "Your customer";
+  const siteName = document.getElementById("quoteSiteName").value.trim() || "Selected site";
+  const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
 
-      const clientName = document.getElementById("quoteClientName").value.trim() || "Client name not entered";
-      const siteName = document.getElementById("quoteSiteName").value.trim() || "Site name not entered";
-      const address = document.getElementById("quoteAddress").value.trim() || "Address not entered";
-      const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
-      const notes = document.getElementById("quoteNotes").value.trim();
-      const dateStr = new Date().toLocaleDateString();
+  if (!result.lines.length){
+    return `<div class="mutebox">Add at least one complete priced item before opening the customer quote preview.</div>`;
+  }
 
-      const rows = result.lines.map(line => {
-        let qty = "";
-        if (line.isManualExtra){
-          qty = "Extra";
-        } else if (line.qtyRooms){
-          qty = `${line.qtyRooms} rooms`;
-        } else {
-          qty = `${line.sqm} m²`;
-        }
+  const lineHtml = result.lines.map(line => {
+    let subText = line.isManualExtra
+      ? `${line.method} · ${line.band}`
+      : line.qtyRooms
+        ? `${line.method} · ${line.qtyRooms} rooms`
+        : `${line.method} · ${line.sqm} m²`;
 
-        return `
-          <tr>
-            <td>${escapeHtml(line.roomName)}</td>
-            <td>${escapeHtml(line.method)}</td>
-            <td>${escapeHtml(qty)}</td>
-            <td>${escapeHtml(line.band)}</td>
-            <td>${fmt(line.rate)}</td>
-            <td>${fmt(line.total)}</td>
-          </tr>
-        `;
-      }).join("");
+    return `
+      <div class="line">
+        <div>
+          <b>${escapeHtml(line.roomName)}</b>
+          <small>${escapeHtml(subText)}</small>
+        </div>
+        <div class="money">${fmt(line.total)}</div>
+      </div>
+    `;
+  }).join("");
 
-      const vatRow = result.includeVat ? `
-        <tr>
-          <td colspan="5" style="text-align:right;font-weight:bold;">VAT</td>
-          <td style="font-weight:bold;">${fmt(result.vat)}</td>
-        </tr>
-      ` : "";
+  return `
+    <div class="preview-box">
+      <h4>Quote overview</h4>
+      <p>This quote has been prepared for ${escapeHtml(clientName)} for work at ${escapeHtml(siteName)}. Quote reference ${escapeHtml(quoteRef)}.</p>
+    </div>
 
-      const excelHtml = `
-        <html xmlns:o="urn:schemas-microsoft-com:office:office"
-              xmlns:x="urn:schemas-microsoft-com:office:excel"
-              xmlns="http://www.w3.org/TR/REC-html40">
-        <head>
-          <meta charset="UTF-8">
-          <xml>
-            <x:ExcelWorkbook>
-              <x:ExcelWorksheets>
-                <x:ExcelWorksheet>
-                  <x:Name>Quote</x:Name>
-                  <x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>
-                </x:ExcelWorksheet>
-              </x:ExcelWorksheets>
-            </x:ExcelWorkbook>
-          </xml>
-        </head>
-        <body>
-          <table border="1">
-            <tr><td colspan="6"><strong>The Carpet Cleaning Company</strong></td></tr>
-            <tr><td colspan="6">Hotel cleaning quote sheet</td></tr>
-            <tr><td colspan="6"></td></tr>
-            <tr><td><strong>Client</strong></td><td colspan="2">${escapeHtml(clientName)}</td><td><strong>Date</strong></td><td colspan="2">${escapeHtml(dateStr)}</td></tr>
-            <tr><td><strong>Site</strong></td><td colspan="2">${escapeHtml(siteName)}</td><td><strong>Reference</strong></td><td colspan="2">${escapeHtml(quoteRef)}</td></tr>
-            <tr><td><strong>Address</strong></td><td colspan="5">${nl2br(address)}</td></tr>
-            <tr><td colspan="6"></td></tr>
-            <tr>
-              <td><strong>Area</strong></td>
-              <td><strong>Method</strong></td>
-              <td><strong>Qty</strong></td>
-              <td><strong>Band</strong></td>
-              <td><strong>Rate</strong></td>
-              <td><strong>Line total</strong></td>
-            </tr>
-            ${rows}
-            <tr><td colspan="6"></td></tr>
-            <tr>
-              <td colspan="5" style="text-align:right;font-weight:bold;">Subtotal</td>
-              <td style="font-weight:bold;">${fmt(result.subtotal)}</td>
-            </tr>
-            ${vatRow}
-            <tr>
-              <td colspan="5" style="text-align:right;font-weight:bold;">Total</td>
-              <td style="font-weight:bold;">${fmt(result.total)}</td>
-            </tr>
-            <tr><td colspan="6"></td></tr>
-            <tr><td colspan="6"><strong>Included summary</strong></td></tr>
-            <tr><td colspan="6">We have selected the most suitable cleaning methods for the areas in this quote to give a strong balance of appearance improvement, presentation, and practical drying times. Where carpet cleaning has been included, protection has been added free of charge.</td></tr>
-            ${notes ? `<tr><td colspan="6"></td></tr><tr><td colspan="6"><strong>Notes</strong></td></tr><tr><td colspan="6">${nl2br(notes)}</td></tr>` : ""}
-          </table>
-        </body>
-        </html>
-      `;
+    <div class="preview-grid">
+      <div class="preview-box">
+        <h4>Included in this quote</h4>
+        <div class="preview-list">${lineHtml}</div>
+      </div>
 
-      const blob = new Blob([excelHtml], { type: "application/vnd.ms-excel;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "hotel_quote.xls";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
+      <div class="preview-box">
+        <h4>Total quote</h4>
+        <p>Subtotal: ${fmt(result.subtotal)}<br>${result.includeVat ? `VAT: ${fmt(result.vat)}<br>` : ""}<strong style="color:#17955e;font-size:32px;line-height:1.4;">Total: ${fmt(result.total)}</strong></p>
+      </div>
+    </div>
 
-    function openQuotePreviewAndMaybePrint(printAfter = false){
-      openQuotePreview();
-      if (printAfter){
-        setTimeout(() => openPdfQuote(), 120);
-      }
-    }
+    <div class="preview-box">
+      <h4>What the customer will get</h4>
+      <p>${buildCustomerMethodText().replace(/<[^>]+>/g, "")}</p>
+    </div>
+  `;
+}
 
-    document.getElementById("unlockBtn").addEventListener("click", unlock);
-    document.getElementById("passwordInput").addEventListener("keydown", e => {
-      if (e.key === "Enter") unlock();
-    });
+function openPdfQuote(){
+  const result = calculate();
+  if (!result.lines.length){
+    alert("Please add at least one complete priced item before opening the PDF quote.");
+    return;
+  }
 
-    document.getElementById("addRoomTop").addEventListener("click", openModalForNew);
-    document.getElementById("addRoomBottom").addEventListener("click", openModalForNew);
-    document.getElementById("addRoomCta").addEventListener("click", openModalForNew);
-    document.getElementById("resetBtn").addEventListener("click", resetAll);
-    document.getElementById("resetTop").addEventListener("click", resetAll);
-    document.getElementById("resetSticky").addEventListener("click", resetAll);
-
-    document.getElementById("previewBtn").addEventListener("click", openQuotePreview);
-    document.getElementById("downloadPdfBtn").addEventListener("click", openPdfQuote);
-    document.getElementById("downloadExcelBtn").addEventListener("click", downloadExcelQuote);
-
-    document.getElementById("saveModalBtn").addEventListener("click", saveModal);
-    document.getElementById("cancelModalBtn").addEventListener("click", closeModal);
-    document.getElementById("roomModal").addEventListener("click", e => {
-      if (e.target.id === "roomModal") closeModal();
-    });
-
-    document.getElementById("closePreviewBtn").addEventListener("click", closeQuotePreview);
-    document.getElementById("printFromPreviewBtn").addEventListener("click", openPdfQuote);
-    document.getElementById("excelFromPreviewBtn").addEventListener("click", downloadExcelQuote);
-    document.getElementById("quotePreviewModal").addEventListener("click", e => {
-      if (e.target.id === "quotePreviewModal") closeQuotePreview();
-    });
-
-    ["modalAreaType","modalRoomName","modalMethod","modalSqm"].forEach(id => {
-      document.getElementById(id).addEventListener("input", updateModalPreview);
-      document.getElementById(id).addEventListener("change", updateModalPreview);
-    });
-
-    document.getElementById("roomList").addEventListener("click", e => {
-      const editBtn = e.target.closest("[data-role='edit']");
-      if (editBtn){
-        openModalForEdit(Number(editBtn.dataset.id));
-        return;
-      }
-
-      const removeBtn = e.target.closest("[data-role='remove']");
-      if (removeBtn){
-        removeRoomRow(Number(removeBtn.dataset.id));
-      }
-    });
-
-    document.querySelectorAll("[data-accordion]").forEach(btn => {
-      btn.addEventListener("click", () => toggleAccordion(btn.dataset.accordion));
-    });
-
-    [
-      "hotelRoomQty",
-      "hotelRoomMethod",
-      "includeVat",
-      "furnitureMoveDesc",
-      "furnitureMovePrice",
-      "extrasDesc",
-      "extrasPrice",
-      "quoteClientName",
-      "quoteSiteName",
-      "quoteAddress",
-      "quoteRef",
-      "quoteNotes"
-    ].forEach(id => {
-      document.getElementById(id).addEventListener("input", renderSelected);
-      document.getElementById(id).addEventListener("change", renderSelected);
-    });
-
-    renderRoomRows();
-    closeAllAccordions();
-    renderSelected();
-  </script>
-</body>
-</html>
+  const html = buildInvoiceStyleQuoteHtml();
+  const win = window.open("", "_blank");
+  if (!win){
+    alert("Popup blocked. Please allow popups for this page.");
+    return;
+  }
+  win.document.open();
+  win.document.write(html);
+  win.document.close();
+}
+</script>
