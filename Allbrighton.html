@@ -1,6 +1,3 @@
-You’ve pasted the instructions into the HTML file as text. Delete everything in the file and paste only this code:
-
-```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -570,7 +567,7 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
           </div>
 
           <div class="section-head">
-            <div>Quote details</div>
+            <div>Document details</div>
           </div>
 
           <div class="room-entry">
@@ -602,6 +599,28 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
             <div class="field" style="margin-top:16px;">
               <label for="invoiceDueDate">Invoice due date</label>
               <input id="invoiceDueDate" type="date">
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+              <label for="includeFreeProtection" style="display:flex;align-items:center;gap:12px;">
+                <input id="includeFreeProtection" type="checkbox" style="width:24px;height:24px;flex:0 0 auto;min-height:auto;padding:0;">
+                Include free protection wording
+              </label>
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+              <label for="quoteIntro">Quote intro text</label>
+              <textarea id="quoteIntro" placeholder="Editable intro for the quote preview and quote PDF">This quote has been prepared for the site listed above based on the areas and services selected.</textarea>
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+              <label for="quoteWorkText">Quote work description text</label>
+              <textarea id="quoteWorkText" placeholder="Editable work description text">All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.</textarea>
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+              <label for="invoiceWorkText">Invoice work description text</label>
+              <textarea id="invoiceWorkText" placeholder="Editable invoice work description text">All work has been carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.</textarea>
             </div>
 
             <div class="field" style="margin-top:16px;">
@@ -873,10 +892,14 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
       ].forEach(id => document.getElementById(id).value = 0);
       document.getElementById("hotelRoomMethod").value = "rotary";
       document.getElementById("includeVat").checked = false;
+      document.getElementById("includeFreeProtection").checked = false;
       [
         "furnitureMoveDesc","extrasDesc","quoteClientName","quoteSiteName",
         "quoteAddress","quoteRef","invoiceRef","invoiceDueDate","quoteNotes"
       ].forEach(id => document.getElementById(id).value = "");
+      document.getElementById("quoteIntro").value = "This quote has been prepared for the site listed above based on the areas and services selected.";
+      document.getElementById("quoteWorkText").value = "All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
+      document.getElementById("invoiceWorkText").value = "All work has been carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
       renderRoomRows();
       renderSelected();
       closeAllAccordions();
@@ -1157,10 +1180,17 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
       ["rotary","hybrid","hwe","hardfloor"].forEach(name => setAccordionState(name, false));
     }
 
+    function getProtectionText(){
+      return document.getElementById("includeFreeProtection").checked
+        ? " A protective treatment has been included at no additional charge."
+        : "";
+    }
+
     function buildCustomerMethodText(){
       const result = calculate();
       const used = new Set();
       const parts = [];
+      const protection = getProtectionText();
 
       result.lines.forEach(line => {
         if (line.isManualExtra) return;
@@ -1169,18 +1199,18 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
         used.add(key);
 
         if (key === "rotary"){
-          parts.push("Rotary bonnet cleaning has been selected where appropriate to improve overall appearance, lift surface soiling and refresh the carpet fibres. This method is particularly effective for commercial environments where carpets require a fast, effective improvement in presentation. As part of this service a protective treatment has been applied at no additional cost to help carpets remain cleaner for longer.");
+          parts.push("Rotary bonnet cleaning has been selected where appropriate to improve overall appearance, lift surface soiling and refresh the carpet fibres. This method is particularly effective for commercial environments where carpets require a fast, effective improvement in presentation." + protection);
         } else if (key === "hybrid"){
-          parts.push("A hybrid deep clean has been selected for areas requiring a stronger level of cleaning. This method combines rotary bonnet agitation with targeted hot water extraction to achieve a deeper clean while maintaining efficiency across larger areas. A protective treatment has also been included at no additional charge to assist with ongoing maintenance.");
+          parts.push("A hybrid deep clean has been selected for areas requiring a stronger level of cleaning. This method combines rotary bonnet agitation with targeted hot water extraction to achieve a deeper clean while maintaining efficiency across larger areas." + protection);
         } else if (key === "hwe"){
-          parts.push("Hot water extraction has been selected as the most suitable method for restoring heavily used carpet areas. This process helps remove embedded soil and residues from within the fibres while leaving the carpet refreshed and hygienically clean. A protective treatment has been included at no additional charge to help maintain the results achieved.");
+          parts.push("Hot water extraction has been selected as the most suitable method for restoring heavily used carpet areas. This process helps remove embedded soil and residues from within the fibres while leaving the carpet refreshed and hygienically clean." + protection);
         } else if (key === "hardfloor"){
           parts.push("Hard floor cleaning has been included where appropriate to remove built up traffic soil and restore the appearance of the flooring. The process is designed to improve presentation and ensure these areas match the overall standard of the cleaned carpeted spaces.");
         }
       });
 
       if (!parts.length){
-        return "Professional cleaning services have been selected based on the areas included within this quotation. All work will be carried out using commercial grade equipment and appropriate cleaning solutions suited to the flooring type.";
+        return "Professional cleaning services have been selected based on the areas included within this document. All work will be carried out using commercial grade equipment and appropriate cleaning solutions suited to the flooring type.";
       }
 
       return parts.map(p => `<p style="margin:0 0 10px;">${escapeHtml(p)}</p>`).join("");
@@ -1192,6 +1222,8 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
       const siteName = document.getElementById("quoteSiteName").value.trim() || "Selected site";
       const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
       const notes = document.getElementById("quoteNotes").value.trim();
+      const quoteIntro = document.getElementById("quoteIntro").value.trim() || "This quote has been prepared for the site listed above based on the areas and services selected.";
+      const quoteWorkText = document.getElementById("quoteWorkText").value.trim() || "All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
 
       if (!result.lines.length){
         return `<div class="mutebox">Add at least one complete priced item before opening the customer quote preview.</div>`;
@@ -1218,7 +1250,8 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
       return `
         <div class="preview-box">
           <h4>Quote overview</h4>
-          <p>This quote has been prepared for ${escapeHtml(clientName)} for work at ${escapeHtml(siteName)}. Quote reference ${escapeHtml(quoteRef)}.</p>
+          <p>${escapeHtml(quoteIntro)}</p>
+          <p style="margin-top:10px;">Prepared for ${escapeHtml(clientName)} for work at ${escapeHtml(siteName)}. Quote reference ${escapeHtml(quoteRef)}.</p>
         </div>
 
         <div class="preview-grid">
@@ -1234,7 +1267,12 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
         </div>
 
         <div class="preview-box">
-          <h4>What the customer will get</h4>
+          <h4>Work description</h4>
+          <p>${escapeHtml(quoteWorkText)}</p>
+        </div>
+
+        <div class="preview-box">
+          <h4>What is included</h4>
           <p>${buildCustomerMethodText().replace(/<[^>]+>/g, "")}</p>
         </div>
 
@@ -1265,6 +1303,9 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
       const invoiceRef = document.getElementById("invoiceRef").value.trim() || "Not entered";
       const invoiceDueDate = document.getElementById("invoiceDueDate").value;
       const notes = document.getElementById("quoteNotes").value.trim();
+      const quoteIntro = document.getElementById("quoteIntro").value.trim() || "This quote has been prepared for the site listed above based on the areas and services selected.";
+      const quoteWorkText = document.getElementById("quoteWorkText").value.trim() || "All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
+      const invoiceWorkText = document.getElementById("invoiceWorkText").value.trim() || "All work has been carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
       const date = new Date();
       const dateStr = date.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
@@ -1381,6 +1422,8 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
 
     <div class="spacer"></div>
 
+    ${mode === "quote" ? `<div style="margin-bottom:18px;font-size:15px;line-height:1.7;color:#333;">${escapeHtml(quoteIntro)}</div>` : ""}
+
     <table>
       <thead>
         <tr>
@@ -1413,15 +1456,15 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
     <div class="doc-note">${escapeHtml(validityText)}</div>
 
     <div style="margin-top:16px;font-size:15px;line-height:1.7;color:#333;">
-      ${mode === "invoice"
-        ? "All work has been carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property."
-        : "All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property."}
+      ${escapeHtml(mode === "invoice" ? invoiceWorkText : quoteWorkText)}
     </div>
 
+    ${mode === "quote" ? `
     <div class="included-section">
-      <h3>${mode === "invoice" ? "Work carried out" : "What is included"}</h3>
+      <h3>What is included</h3>
       <div class="included-copy">${buildCustomerMethodText()}</div>
     </div>
+    ` : ""}
 
     ${notes ? `
       <div class="notes-section">
@@ -1463,6 +1506,8 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
       const address = document.getElementById("quoteAddress").value.trim() || "Address not entered";
       const quoteRef = document.getElementById("quoteRef").value.trim() || "Not entered";
       const notes = document.getElementById("quoteNotes").value.trim();
+      const quoteIntro = document.getElementById("quoteIntro").value.trim() || "This quote has been prepared for the site listed above based on the areas and services selected.";
+      const quoteWorkText = document.getElementById("quoteWorkText").value.trim() || "All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
       const dateStr = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
       const rows = result.lines.map(line => {
@@ -1507,6 +1552,7 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
               <td class="noborder"><div class="bold">Quote Date</div><div>${escapeHtml(dateStr)}</div><br><div class="bold">Quote Number</div><div>${escapeHtml(quoteRef)}</div></td>
               <td class="noborder" colspan="2"><div>The Carpet Cleaning Company</div><div>1 Dun Cow Road</div><div>Ludlow</div><div>SHROPSHIRE</div><div>SY8 2BH</div><div>UNITED KINGDOM</div></td>
             </tr>
+            <tr><td colspan="5">${escapeHtml(quoteIntro)}</td></tr>
             <tr><td class="noborder" colspan="5" style="height:24px;"></td></tr>
             <tr><th>Description</th><th>Quantity</th><th>Unit Price</th><th>Amount GBP</th><th class="noborder"></th></tr>
             ${rows}
@@ -1516,7 +1562,7 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
             <tr><td class="noborder" colspan="2"></td><td class="right bold">TOTAL GBP</td><td class="right bold">${Number(result.total).toFixed(2)}</td><td class="noborder"></td></tr>
             <tr><td class="noborder" colspan="5" style="height:18px;"></td></tr>
             <tr><td colspan="5">Quote valid for 30 days from ${escapeHtml(dateStr)}</td></tr>
-            <tr><td colspan="5">All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.</td></tr>
+            <tr><td colspan="5">${escapeHtml(quoteWorkText)}</td></tr>
             <tr><td colspan="5" class="bold">What is included</td></tr>
             <tr><td colspan="5">${buildCustomerMethodText()}</td></tr>
             ${notes ? `<tr><td colspan="5" class="bold">Notes</td></tr><tr><td colspan="5">${nl2br(notes)}</td></tr>` : ""}
@@ -1546,6 +1592,7 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
       const invoiceRef = document.getElementById("invoiceRef").value.trim() || "Not entered";
       const invoiceDueDate = document.getElementById("invoiceDueDate").value;
       const notes = document.getElementById("quoteNotes").value.trim();
+      const invoiceWorkText = document.getElementById("invoiceWorkText").value.trim() || "All work has been carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
       const dateStr = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
       const dueStr = invoiceDueDate ? new Date(invoiceDueDate).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "Not entered";
 
@@ -1600,7 +1647,7 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
             <tr><td class="noborder" colspan="2"></td><td class="right bold">TOTAL GBP</td><td class="right bold">${Number(result.total).toFixed(2)}</td><td class="noborder"></td></tr>
             <tr><td class="noborder" colspan="5" style="height:18px;"></td></tr>
             <tr><td colspan="5">Payment due by ${escapeHtml(dueStr)}</td></tr>
-            <tr><td colspan="5">All work has been carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.</td></tr>
+            <tr><td colspan="5">${escapeHtml(invoiceWorkText)}</td></tr>
             ${notes ? `<tr><td colspan="5" class="bold">Notes</td></tr><tr><td colspan="5">${nl2br(notes)}</td></tr>` : ""}
           </table>
         </body>
@@ -1660,14 +1707,18 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
     });
 
     [
-      "hotelRoomQty","hotelRoomMethod","includeVat","furnitureMoveDesc","furnitureMovePrice",
+      "hotelRoomQty","hotelRoomMethod","includeVat","includeFreeProtection","furnitureMoveDesc","furnitureMovePrice",
       "extrasDesc","extrasPrice","quoteClientName","quoteSiteName","quoteAddress","quoteRef",
-      "invoiceRef","invoiceDueDate","quoteNotes"
+      "invoiceRef","invoiceDueDate","quoteNotes","quoteIntro","quoteWorkText","invoiceWorkText"
     ].forEach(id => {
       const el = document.getElementById(id);
       el.addEventListener("input", renderSelected);
       el.addEventListener("change", renderSelected);
     });
+
+    document.getElementById("quoteIntro").value = "This quote has been prepared for the site listed above based on the areas and services selected.";
+    document.getElementById("quoteWorkText").value = "All work will be carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
+    document.getElementById("invoiceWorkText").value = "All work has been carried out using professional equipment and appropriate cleaning solutions suitable for the flooring types present within the property.";
 
     renderRoomRows();
     closeAllAccordions();
@@ -1675,6 +1726,3 @@ You’ve pasted the instructions into the HTML file as text. Delete everything i
   </script>
 </body>
 </html>
-```
-
-That will give you quote and invoice output from the same page.
