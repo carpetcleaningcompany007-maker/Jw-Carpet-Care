@@ -6,28 +6,27 @@
   <title>FibreLife Packages | The Carpet Cleaning Company</title>
   <meta
     name="description"
-    content="Luxury FibreLife carpet cleaning packages from The Carpet Cleaning Company. Commercial maintenance, restoration and protection with a premium hotel style presentation."
+    content="Luxury FibreLife carpet cleaning packages from The Carpet Cleaning Company. Elegant service presentation for commercial maintenance, protection and restoration."
   />
   <style>
     :root{
-      --bg-dark:#0f1714;
-      --bg-dark-2:#16201c;
-      --panel:#1d2823;
-      --panel-2:#24312b;
-      --card:#fbf8f1;
-      --card-2:#f4efe4;
-      --text:#1a241f;
-      --muted:#66746c;
-      --white:#fffdf7;
-      --line:rgba(255,255,255,0.10);
-      --brand:#d6b36a;
-      --brand-2:#ead5a4;
-      --accent:#7e9a84;
-      --forest:#31453c;
-      --deep-forest:#223129;
-      --gold-soft:#efe3c3;
-      --shadow:0 24px 70px rgba(0,0,0,0.18);
-      --shadow-soft:0 14px 36px rgba(26,36,31,0.10);
+      --bg:#121716;
+      --bg-soft:#1a211f;
+      --panel:#202826;
+      --panel-2:#28312e;
+      --cream:#f5f0e6;
+      --cream-2:#eee6d7;
+      --card:#fbf7ef;
+      --text:#1f2724;
+      --muted:#69756f;
+      --white:#fffdf8;
+      --gold:#c9a86a;
+      --gold-2:#e0c58f;
+      --forest:#31413b;
+      --forest-2:#3f5149;
+      --line:rgba(255,255,255,0.08);
+      --shadow:0 24px 70px rgba(0,0,0,0.20);
+      --shadow-soft:0 16px 40px rgba(25,32,29,0.12);
       --radius-xl:34px;
       --radius-lg:26px;
       --radius-md:18px;
@@ -38,27 +37,32 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;
-      font-family: "Inter", Arial, Helvetica, sans-serif;
       color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(214,179,106,0.12), transparent 24%),
-        radial-gradient(circle at top right, rgba(126,154,132,0.10), transparent 22%),
-        linear-gradient(180deg, #0f1714 0%, #17211d 43%, #f7f3ea 43%, #f7f3ea 100%);
+        radial-gradient(circle at top left, rgba(201,168,106,0.10), transparent 22%),
+        linear-gradient(180deg, #121716 0%, #171d1b 46%, #f6f1e8 46%, #f6f1e8 100%);
     }
 
     a{text-decoration:none;color:inherit}
+
     .wrap{
       width:min(var(--max), calc(100% - 32px));
       margin:0 auto;
+    }
+
+    .serif{
+      font-family:Georgia, "Times New Roman", serif;
+      letter-spacing:-0.02em;
     }
 
     .topbar{
       position:sticky;
       top:0;
       z-index:100;
-      background:rgba(15,23,20,0.82);
+      background:rgba(18,23,22,0.82);
       backdrop-filter:blur(14px);
-      border-bottom:1px solid rgba(255,255,255,0.07);
+      border-bottom:1px solid rgba(255,255,255,0.06);
     }
 
     .topbar-inner{
@@ -75,20 +79,22 @@
       gap:14px;
       color:#fff;
       font-weight:700;
-      letter-spacing:0.2px;
+      letter-spacing:0.04em;
+      text-transform:uppercase;
+      font-size:13px;
     }
 
     .brand-mark{
       width:48px;
       height:48px;
-      border-radius:16px;
+      border-radius:50%;
       display:grid;
       place-items:center;
-      background:linear-gradient(135deg, var(--brand), var(--brand-2));
-      color:#1d241f;
-      font-size:18px;
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#2d2418;
       font-weight:900;
-      box-shadow:0 12px 30px rgba(214,179,106,0.26);
+      font-size:18px;
+      box-shadow:0 10px 24px rgba(201,168,106,0.22);
     }
 
     .nav{
@@ -99,7 +105,7 @@
     }
 
     .nav a{
-      color:#e8e1d1;
+      color:#e9dfca;
       font-size:14px;
       padding:10px 14px;
       border-radius:999px;
@@ -107,7 +113,7 @@
     }
 
     .nav a:hover{
-      background:rgba(255,255,255,0.08);
+      background:rgba(255,255,255,0.07);
       color:#fff;
     }
 
@@ -119,10 +125,11 @@
       border:none;
       border-radius:999px;
       padding:15px 24px;
-      font-size:15px;
-      font-weight:800;
-      transition:0.2s ease;
+      font-size:14px;
+      font-weight:700;
+      letter-spacing:0.03em;
       cursor:pointer;
+      transition:0.2s ease;
     }
 
     .btn:hover{
@@ -130,21 +137,21 @@
     }
 
     .btn-primary{
-      background:linear-gradient(135deg, var(--brand), var(--brand-2));
-      color:#1d241f;
-      box-shadow:0 14px 30px rgba(214,179,106,0.24);
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#2c251a;
+      box-shadow:0 14px 30px rgba(201,168,106,0.22);
     }
 
     .btn-secondary{
-      background:rgba(255,255,255,0.06);
+      background:rgba(255,255,255,0.05);
       color:#fff;
       border:1px solid rgba(255,255,255,0.10);
     }
 
     .hero{
-      padding:96px 0 62px;
-      color:var(--white);
       position:relative;
+      padding:110px 0 78px;
+      color:var(--white);
       overflow:hidden;
     }
 
@@ -153,110 +160,107 @@
       position:absolute;
       inset:0;
       background:
-        linear-gradient(135deg, rgba(0,0,0,0.10), rgba(0,0,0,0.28)),
-        radial-gradient(circle at 20% 10%, rgba(214,179,106,0.12), transparent 24%),
-        radial-gradient(circle at 85% 20%, rgba(255,255,255,0.04), transparent 18%);
+        linear-gradient(180deg, rgba(8,10,10,0.18), rgba(8,10,10,0.36)),
+        radial-gradient(circle at 18% 12%, rgba(201,168,106,0.12), transparent 22%),
+        radial-gradient(circle at 85% 18%, rgba(255,255,255,0.05), transparent 16%);
       pointer-events:none;
     }
 
     .hero-grid{
       position:relative;
       display:grid;
-      grid-template-columns:1.1fr 0.9fr;
+      grid-template-columns:1.08fr 0.92fr;
       gap:34px;
-      align-items:center;
+      align-items:end;
     }
 
     .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:9px 15px;
-      border:1px solid rgba(255,255,255,0.10);
+      display:inline-block;
+      padding:10px 16px;
       border-radius:999px;
+      border:1px solid rgba(255,255,255,0.10);
       background:rgba(255,255,255,0.05);
-      color:#e7dcc1;
+      color:#e7dcc3;
       font-size:12px;
-      font-weight:700;
-      letter-spacing:0.14em;
       text-transform:uppercase;
-      margin-bottom:20px;
+      letter-spacing:0.16em;
+      margin-bottom:22px;
     }
 
     .hero h1{
       margin:0 0 18px;
-      font-size:clamp(2.8rem, 5vw, 5.4rem);
-      line-height:0.94;
-      letter-spacing:-1.9px;
-      max-width:820px;
-      font-weight:800;
+      font-size:clamp(3rem, 5vw, 5.8rem);
+      line-height:0.92;
+      font-weight:600;
+      max-width:780px;
     }
 
     .hero p{
       margin:0;
-      max-width:760px;
-      color:#d8d1c4;
+      max-width:720px;
+      color:#d8d0c2;
       font-size:18px;
-      line-height:1.8;
+      line-height:1.9;
     }
 
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
       gap:14px;
-      margin-top:32px;
+      margin-top:34px;
     }
 
-    .hero-points{
+    .hero-statbar{
       display:grid;
       grid-template-columns:repeat(3, minmax(0, 1fr));
       gap:14px;
-      margin-top:36px;
+      margin-top:42px;
     }
 
-    .hero-point{
-      padding:20px;
+    .hero-stat{
+      padding:22px 20px;
       border-radius:24px;
-      border:1px solid rgba(255,255,255,0.10);
       background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
       backdrop-filter:blur(12px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.10);
+      box-shadow:0 10px 24px rgba(0,0,0,0.10);
     }
 
-    .hero-point strong{
+    .hero-stat strong{
       display:block;
       color:#fff;
       margin-bottom:8px;
       font-size:16px;
+      font-weight:700;
     }
 
-    .hero-point span{
+    .hero-stat span{
       display:block;
-      color:#d7d1c5;
+      color:#d7cfc2;
       font-size:14px;
       line-height:1.6;
     }
 
     .hero-card{
-      position:relative;
-      padding:30px;
+      padding:34px;
       border-radius:32px;
       background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
-      border:1px solid rgba(255,255,255,0.10);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(14px);
       box-shadow:var(--shadow);
-      backdrop-filter:blur(12px);
+      position:relative;
       overflow:hidden;
     }
 
     .hero-card::after{
       content:"";
       position:absolute;
-      right:-55px;
-      bottom:-55px;
-      width:220px;
-      height:220px;
+      right:-70px;
+      bottom:-70px;
+      width:240px;
+      height:240px;
       border-radius:50%;
-      background:radial-gradient(circle, rgba(214,179,106,0.18), transparent 72%);
+      background:radial-gradient(circle, rgba(201,168,106,0.16), transparent 72%);
       pointer-events:none;
     }
 
@@ -264,34 +268,35 @@
       display:inline-block;
       padding:8px 12px;
       border-radius:999px;
-      background:rgba(234,213,164,0.12);
-      color:#f0e2bf;
-      border:1px solid rgba(234,213,164,0.18);
-      font-size:12px;
+      background:rgba(201,168,106,0.12);
+      color:#efe2c1;
+      border:1px solid rgba(201,168,106,0.20);
+      font-size:11px;
       font-weight:800;
+      letter-spacing:0.16em;
       text-transform:uppercase;
-      letter-spacing:0.13em;
       margin-bottom:16px;
     }
 
     .hero-card h3{
-      margin:0 0 10px;
+      margin:0 0 12px;
       color:#fff;
-      font-size:31px;
-      letter-spacing:-0.8px;
+      font-size:34px;
+      line-height:1.05;
+      font-weight:600;
     }
 
     .hero-card p{
       margin:0 0 18px;
-      color:#d9d2c6;
+      color:#d9d1c5;
       font-size:15px;
-      line-height:1.75;
+      line-height:1.8;
     }
 
     .hero-list{
       list-style:none;
-      margin:0;
       padding:0;
+      margin:0;
       display:grid;
       gap:12px;
     }
@@ -300,31 +305,24 @@
       position:relative;
       padding:16px 16px 16px 48px;
       border-radius:18px;
-      color:#f4f0e7;
       background:rgba(255,255,255,0.05);
       border:1px solid rgba(255,255,255,0.07);
-      line-height:1.55;
+      color:#f2ede5;
       font-size:15px;
+      line-height:1.6;
     }
 
     .hero-list li::before{
-      content:"✓";
+      content:"✦";
       position:absolute;
       left:16px;
-      top:14px;
-      width:18px;
-      height:18px;
-      border-radius:50%;
-      display:grid;
-      place-items:center;
-      background:linear-gradient(135deg, var(--brand), var(--brand-2));
-      color:#1d241f;
-      font-weight:900;
-      font-size:12px;
+      top:13px;
+      color:#e5c98e;
+      font-size:16px;
     }
 
     .section{
-      padding:84px 0;
+      padding:86px 0;
     }
 
     .section-head{
@@ -336,26 +334,25 @@
     .section-head .kicker{
       display:block;
       margin-bottom:12px;
-      color:#876b31;
+      color:#8c6e34;
       font-size:12px;
       font-weight:800;
-      letter-spacing:0.16em;
+      letter-spacing:0.18em;
       text-transform:uppercase;
     }
 
     .section-head h2{
       margin:0 0 12px;
-      color:#1a241f;
-      font-size:clamp(2.1rem, 4vw, 3.3rem);
-      letter-spacing:-1px;
-      font-weight:800;
+      font-size:clamp(2.2rem, 4vw, 3.5rem);
+      line-height:1.05;
+      font-weight:600;
     }
 
     .section-head p{
       margin:0;
       color:var(--muted);
       font-size:17px;
-      line-height:1.8;
+      line-height:1.9;
     }
 
     .packages{
@@ -366,98 +363,96 @@
     }
 
     .package{
-      position:relative;
-      display:flex;
-      flex-direction:column;
-      background:rgba(251,248,241,0.94);
-      border:1px solid rgba(26,36,31,0.08);
+      background:rgba(251,247,239,0.97);
+      border:1px solid rgba(31,39,36,0.07);
       border-radius:32px;
       overflow:hidden;
       box-shadow:var(--shadow-soft);
+      display:flex;
+      flex-direction:column;
       transition:0.25s ease;
+      position:relative;
     }
 
     .package:hover{
       transform:translateY(-8px);
-      box-shadow:0 24px 50px rgba(26,36,31,0.14);
+      box-shadow:0 24px 50px rgba(31,39,36,0.14);
     }
 
     .package.badge-popular{
       transform:scale(1.02);
-      border:1px solid rgba(214,179,106,0.42);
-      box-shadow:0 24px 50px rgba(214,179,106,0.18);
-    }
-
-    .package-top{
-      padding:30px 30px 24px;
-      background:linear-gradient(180deg, #fffdf8, #f5efe4);
-      border-bottom:1px solid rgba(26,36,31,0.06);
+      border:1px solid rgba(201,168,106,0.42);
+      box-shadow:0 24px 48px rgba(201,168,106,0.16);
     }
 
     .popular-tag{
       position:absolute;
       top:16px;
       right:16px;
+      background:linear-gradient(135deg, var(--gold), var(--gold-2));
+      color:#2d261c;
       padding:8px 13px;
       border-radius:999px;
-      background:linear-gradient(135deg, var(--brand), var(--brand-2));
-      color:#2a2a1d;
       font-size:12px;
       font-weight:900;
-      box-shadow:0 10px 22px rgba(214,179,106,0.18);
+      box-shadow:0 8px 18px rgba(201,168,106,0.18);
+    }
+
+    .package-top{
+      padding:32px 30px 24px;
+      background:linear-gradient(180deg, #fffdf8, #f4ecde);
+      border-bottom:1px solid rgba(31,39,36,0.06);
     }
 
     .icon{
-      width:60px;
-      height:60px;
+      width:62px;
+      height:62px;
       border-radius:20px;
       display:grid;
       place-items:center;
       margin-bottom:18px;
-      background:linear-gradient(135deg, #eadbb4, #f5ebd1);
-      color:#3d3420;
+      background:linear-gradient(135deg, #e8d7b0, #f5ead0);
+      color:#413521;
       font-size:24px;
       font-weight:900;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,0.55);
     }
 
     .package h3{
       margin:0;
-      font-size:32px;
-      letter-spacing:-0.8px;
-      color:#1a241f;
-      font-weight:800;
+      font-size:34px;
+      line-height:1.04;
+      font-weight:600;
     }
 
     .package .sub{
       margin-top:10px;
-      min-height:54px;
-      color:#5d6b64;
+      min-height:56px;
+      color:#5f6b65;
       font-size:15px;
-      line-height:1.7;
+      line-height:1.75;
     }
 
     .price-box{
       margin-top:22px;
-      padding:18px 18px;
+      padding:18px;
       border-radius:22px;
-      background:linear-gradient(135deg, #26332d, #32423a);
+      background:linear-gradient(135deg, #27322e, #34413c);
       color:#fff;
-      box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
     }
 
     .price-box .price{
       display:block;
-      margin-bottom:4px;
+      margin-bottom:5px;
       font-size:28px;
-      font-weight:900;
-      letter-spacing:-0.8px;
+      font-weight:800;
+      letter-spacing:-0.04em;
     }
 
     .price-box .small{
-      color:#d5cec0;
+      color:#d9d0c1;
       font-size:13px;
-      line-height:1.55;
+      line-height:1.6;
     }
 
     .package-body{
@@ -479,9 +474,9 @@
     .feature-list li{
       position:relative;
       padding-left:32px;
-      color:#2d3b34;
+      color:#2f3a35;
       font-size:15px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .feature-list li::before{
@@ -489,14 +484,14 @@
       position:absolute;
       left:10px;
       top:-1px;
-      color:#b89242;
+      color:#b99348;
       font-size:24px;
       line-height:1;
     }
 
     .ideal{
-      background:var(--card-2);
-      border:1px solid rgba(26,36,31,0.06);
+      background:var(--cream-2);
+      border:1px solid rgba(31,39,36,0.06);
       border-radius:22px;
       padding:17px;
     }
@@ -504,14 +499,13 @@
     .ideal strong{
       display:block;
       margin-bottom:6px;
-      color:#1a241f;
       font-size:14px;
     }
 
     .ideal span{
-      color:#607067;
+      color:#617069;
       font-size:14px;
-      line-height:1.6;
+      line-height:1.65;
     }
 
     .package-cta{
@@ -522,15 +516,15 @@
     }
 
     .ghost{
-      background:#f2ebdf;
-      color:#4f4734;
-      border:1px solid rgba(214,179,106,0.18);
+      background:#f1e9dc;
+      color:#504736;
+      border:1px solid rgba(201,168,106,0.16);
     }
 
     .solid{
-      background:linear-gradient(135deg, #c8a45b, #e5cb8d);
-      color:#2a271f;
-      box-shadow:0 14px 30px rgba(214,179,106,0.20);
+      background:linear-gradient(135deg, #c3a15f, #e1c88f);
+      color:#2e271d;
+      box-shadow:0 12px 24px rgba(201,168,106,0.20);
     }
 
     .benefits{
@@ -541,8 +535,8 @@
     }
 
     .benefit{
-      background:rgba(255,252,246,0.92);
-      border:1px solid rgba(26,36,31,0.06);
+      background:rgba(255,251,245,0.94);
+      border:1px solid rgba(31,39,36,0.06);
       border-radius:28px;
       padding:26px;
       box-shadow:var(--shadow-soft);
@@ -550,20 +544,19 @@
 
     .benefit h4{
       margin:12px 0 8px;
-      color:#1a241f;
-      font-size:19px;
-      font-weight:800;
+      font-size:20px;
+      font-weight:600;
     }
 
     .benefit p{
       margin:0;
-      color:#617068;
+      color:#62716a;
       font-size:15px;
-      line-height:1.7;
+      line-height:1.75;
     }
 
     .compare{
-      background:linear-gradient(135deg, #1a2520, #24312b);
+      background:linear-gradient(135deg, #1d2724, #29342f);
       color:#fff;
       border-radius:34px;
       padding:34px;
@@ -585,23 +578,23 @@
     }
 
     th{
-      color:#e7dcc1;
+      color:#e8ddc5;
       font-size:13px;
       text-transform:uppercase;
       letter-spacing:0.12em;
     }
 
     td{
-      color:#f5f1e7;
+      color:#f5f0e7;
     }
 
     .tick{
-      color:#ead39d;
+      color:#e5c98d;
       font-weight:900;
     }
 
     .cross{
-      color:#93a097;
+      color:#95a199;
       font-weight:900;
     }
 
@@ -610,10 +603,10 @@
       padding:18px 20px;
       border-radius:20px;
       background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.07);
       color:#e2dacd;
       font-size:15px;
-      line-height:1.7;
+      line-height:1.75;
     }
 
     .cta-panel{
@@ -621,32 +614,32 @@
       grid-template-columns:1fr auto;
       gap:24px;
       align-items:center;
-      padding:38px;
+      padding:40px;
       border-radius:34px;
-      background:linear-gradient(135deg, #1b2722, #2a3932);
+      background:linear-gradient(135deg, #1d2724, #2c3934);
       color:#fff;
       box-shadow:var(--shadow);
     }
 
     .cta-panel h3{
       margin:0 0 10px;
-      font-size:clamp(1.9rem, 3.5vw, 2.7rem);
-      letter-spacing:-0.8px;
-      font-weight:800;
+      font-size:clamp(2rem, 3.5vw, 2.9rem);
+      line-height:1.05;
+      font-weight:600;
     }
 
     .cta-panel p{
       margin:0;
       max-width:760px;
-      color:#d8d1c3;
+      color:#d8d1c4;
       font-size:16px;
-      line-height:1.8;
+      line-height:1.9;
     }
 
     .footer{
       padding:36px 0 64px;
       text-align:center;
-      color:#76847c;
+      color:#75827c;
       font-size:14px;
     }
 
@@ -658,7 +651,7 @@
         grid-template-columns:1fr;
       }
 
-      .hero-points{
+      .hero-statbar{
         grid-template-columns:1fr;
       }
 
@@ -678,7 +671,7 @@
       }
 
       .hero{
-        padding-top:48px;
+        padding-top:54px;
       }
 
       .section{
@@ -726,12 +719,11 @@
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow">Luxury carpet care packages from The Carpet Cleaning Company</div>
-        <h1>Elegant FibreLife packages with a luxury hotel feel</h1>
+        <div class="eyebrow">Elegant carpet care from The Carpet Cleaning Company</div>
+        <h1 class="serif">FibreLife packages with a refined luxury hotel feel</h1>
         <p>
-          Position FibreLife as a premium cleaning system with a calm, refined presentation.
-          These three packages make it easy for customers to choose between ongoing maintenance,
-          deeper restoration, and long lasting protection.
+          Present FibreLife as a premium system with calm, elegant styling and clear service levels.
+          Customers can instantly choose between ongoing maintenance, deeper restoration, and added protection.
         </p>
 
         <div class="hero-actions">
@@ -739,33 +731,33 @@
           <a href="tel:07802563213" class="btn btn-secondary">Call 07802 563213</a>
         </div>
 
-        <div class="hero-points">
-          <div class="hero-point">
+        <div class="hero-statbar">
+          <div class="hero-stat">
             <strong>FibreLife</strong>
             <span>Low moisture commercial maintenance cleaning with fast drying results.</span>
           </div>
-          <div class="hero-point">
+          <div class="hero-stat">
             <strong>FibreLife Protect</strong>
-            <span>Deep cleaning with stain protection for a richer, longer lasting finish.</span>
+            <span>Deep cleaning with premium stain protection for a longer lasting finish.</span>
           </div>
-          <div class="hero-point">
+          <div class="hero-stat">
             <strong>FibreLife Restore</strong>
-            <span>Restorative cleaning for heavier soiling and carpets needing deeper recovery.</span>
+            <span>Restorative cleaning for tired carpets needing deeper recovery work.</span>
           </div>
         </div>
       </div>
 
       <div class="hero-card">
         <span class="mini-label">Recommended presentation</span>
-        <h3>Make Protect your featured option</h3>
+        <h3 class="serif">Let Protect be the featured choice</h3>
         <p>
-          Put FibreLife Protect in the centre and frame it as the most popular choice.
-          That creates a natural upgrade path and gives the page the feel of a premium hotel service menu.
+          Put FibreLife Protect in the centre and frame it as your most popular option.
+          It creates a natural step up and gives the whole page the feel of a refined luxury service menu.
         </p>
 
         <ul class="hero-list">
           <li>FibreLife is your commercial maintenance system</li>
-          <li>Protect is your premium all round choice</li>
+          <li>Protect is your premium all round package</li>
           <li>Restore is your specialist restorative option</li>
         </ul>
       </div>
@@ -776,9 +768,9 @@
     <div class="wrap">
       <div class="section-head">
         <span class="kicker">Packages</span>
-        <h2>Three refined premium service levels</h2>
+        <h2 class="serif">Three refined service levels</h2>
         <p>
-          Styled to feel more elegant, more expensive, and more like a luxury hospitality website.
+          Designed to feel elegant, calm and expensive, with the kind of polish you would expect from a high end hotel website.
         </p>
       </div>
 
@@ -786,7 +778,7 @@
         <article class="package">
           <div class="package-top">
             <div class="icon">F</div>
-            <h3>FibreLife</h3>
+            <h3 class="serif">FibreLife</h3>
             <div class="sub">Commercial maintenance cleaning for regular appearance management and quick return to use.</div>
 
             <div class="price-box">
@@ -821,8 +813,8 @@
           <span class="popular-tag">Most Popular</span>
           <div class="package-top">
             <div class="icon">P</div>
-            <h3>FibreLife Protect</h3>
-            <div class="sub">Deep cleaning with professional stain protection for a more luxurious long lasting finish.</div>
+            <h3 class="serif">FibreLife Protect</h3>
+            <div class="sub">Deep cleaning with professional stain protection for a richer, longer lasting finish.</div>
 
             <div class="price-box">
               <span class="price">Restore price plus protection</span>
@@ -855,7 +847,7 @@
         <article class="package">
           <div class="package-top">
             <div class="icon">R</div>
-            <h3>FibreLife Restore</h3>
+            <h3 class="serif">FibreLife Restore</h3>
             <div class="sub">Premium restorative cleaning for dull, tired or heavily soiled carpets needing deeper recovery.</div>
 
             <div class="price-box">
@@ -893,34 +885,34 @@
     <div class="wrap">
       <div class="section-head">
         <span class="kicker">Why FibreLife</span>
-        <h2>Sell the system, not just the clean</h2>
+        <h2 class="serif">Sell the system, not just the clean</h2>
         <p>
-          FibreLife should feel like a structured premium method with clear outcomes and a hospitality style presentation.
+          FibreLife should feel like a structured premium method with clear outcomes and a luxury hospitality style presentation.
         </p>
       </div>
 
       <div class="benefits">
         <div class="benefit">
           <div class="icon">⏱</div>
-          <h4>Fast drying options</h4>
+          <h4 class="serif">Fast drying options</h4>
           <p>Ideal for commercial settings where carpets need to return to use quickly with minimal disruption.</p>
         </div>
 
         <div class="benefit">
           <div class="icon">🧼</div>
-          <h4>Clear service levels</h4>
+          <h4 class="serif">Clear service levels</h4>
           <p>Customers instantly understand the difference between maintenance, protection and restoration.</p>
         </div>
 
         <div class="benefit">
           <div class="icon">✨</div>
-          <h4>Luxury positioning</h4>
-          <p>The refined colours and structure make the offer feel calmer, more premium and more exclusive.</p>
+          <h4 class="serif">Luxury positioning</h4>
+          <p>The styling makes the offer feel calmer, more refined and more valuable than a generic carpet clean.</p>
         </div>
 
         <div class="benefit">
           <div class="icon">🛡</div>
-          <h4>Higher average spend</h4>
+          <h4 class="serif">Higher average spend</h4>
           <p>Protect gives you a natural upsell path without making the page feel cluttered or pushy.</p>
         </div>
       </div>
@@ -931,7 +923,7 @@
     <div class="wrap">
       <div class="section-head">
         <span class="kicker">Comparison</span>
-        <h2>Let customers compare in seconds</h2>
+        <h2 class="serif">Let customers compare in seconds</h2>
         <p>
           A clean comparison table helps people justify moving up the package ladder.
         </p>
@@ -1012,10 +1004,10 @@
     <div class="wrap">
       <div class="cta-panel">
         <div>
-          <h3>Ready to book or request a quote?</h3>
+          <h3 class="serif">Ready to book or request a quote?</h3>
           <p>
             The Carpet Cleaning Company offers premium carpet cleaning packages designed around maintenance,
-            restoration and long term protection with a presentation that feels calm, elegant and high end.
+            restoration and long term protection with an elegant high end presentation.
           </p>
         </div>
 
