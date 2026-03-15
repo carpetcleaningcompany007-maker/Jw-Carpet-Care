@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FibreLife Packages | The Carpet Cleaning Company</title>
+  <meta
+    name="description"
+    content="Explore FibreLife, FibreLife Protect and FibreLife Restore from The Carpet Cleaning Company. Professional carpet cleaning packages for commercial maintenance, protection and restorative cleaning."
+  />
+  <style>
+    :root{
+      --bg-dark:#071a16;
+      --bg-dark-2:#0c241f;
+      --panel:#103129;
+      --panel-2:#163d33;
+      --card:#ffffff;
+      --text:#eaf8f2;
+      --muted:#b7d2c7;
+      --line:rgba(255,255,255,0.12);
+      --brand:#2fa36b;
+      --brand-2:#66d19a;
+      --accent:#1d7f55;
+      --gold:#f3d27a;
+      --shadow:0 20px 60px rgba(0,0,0,0.22);
+      --radius:22px;
+      --max:1240px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(102,209,154,0.20), transparent 28%),
+        radial-gradient(circle at top right, rgba(47,163,107,0.14), transparent 24%),
+        linear-gradient(180deg, #071a16 0%, #0a211c 45%, #f4faf7 45%, #f4faf7 100%);
+      color:#13241f;
+    }
+
+    a{text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .wrap{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(12px);
+      background:rgba(7,26,22,0.78);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#fff;
+      font-weight:700;
+      letter-spacing:0.2px;
+    }
+
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      box-shadow:0 10px 30px rgba(47,163,107,0.35);
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-size:18px;
+      font-weight:800;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .nav a{
+      color:#ddf2e8;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:14px;
+      transition:0.25s ease;
+    }
+
+    .nav a:hover{
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      border-radius:999px;
+      padding:15px 22px;
+      font-weight:700;
+      font-size:15px;
+      cursor:pointer;
+      transition:transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#062118;
+      box-shadow:0 16px 36px rgba(47,163,107,0.28);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      border:1px solid rgba(255,255,255,0.12);
+    }
+
+    .hero{
+      padding:72px 0 48px;
+      color:var(--text);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.15fr 0.85fr;
+      gap:34px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 14px;
+      border:1px solid rgba(255,255,255,0.12);
+      border-radius:999px;
+      color:#d8f1e6;
+      font-size:13px;
+      background:rgba(255,255,255,0.04);
+      margin-bottom:18px;
+    }
+
+    .hero h1{
+      margin:0 0 18px;
+      font-size:clamp(2.4rem, 5vw, 4.7rem);
+      line-height:0.95;
+      letter-spacing:-1.5px;
+      color:#fff;
+    }
+
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.7;
+      max-width:720px;
+    }
+
+    .hero-actions{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:28px;
+    }
+
+    .hero-points{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:32px;
+    }
+
+    .hero-point{
+      padding:16px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,0.04);
+    }
+
+    .hero-point strong{
+      display:block;
+      color:#fff;
+      font-size:16px;
+      margin-bottom:6px;
+    }
+
+    .hero-point span{
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.5;
+    }
+
+    .hero-card{
+      position:relative;
+      padding:22px;
+      border-radius:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border:1px solid rgba(255,255,255,0.11);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      inset:auto -40px -40px auto;
+      width:180px;
+      height:180px;
+      border-radius:50%;
+      background:radial-gradient(circle, rgba(102,209,154,0.32), transparent 70%);
+    }
+
+    .mini-label{
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(243,210,122,0.12);
+      color:#ffe9aa;
+      border:1px solid rgba(243,210,122,0.25);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:0.3px;
+      text-transform:uppercase;
+      margin-bottom:16px;
+    }
+
+    .hero-card h3{
+      margin:0 0 8px;
+      color:#fff;
+      font-size:28px;
+    }
+
+    .hero-card p{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.7;
+    }
+
+    .hero-list{
+      display:grid;
+      gap:12px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+
+    .hero-list li{
+      padding:14px 14px 14px 44px;
+      border-radius:16px;
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#e8f7f0;
+      position:relative;
+      font-size:15px;
+      line-height:1.5;
+    }
+
+    .hero-list li::before{
+      content:"✓";
+      position:absolute;
+      left:16px;
+      top:12px;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      font-size:12px;
+      color:#082218;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      font-weight:800;
+    }
+
+    .section{
+      padding:70px 0;
+    }
+
+    .section-head{
+      text-align:center;
+      max-width:820px;
+      margin:0 auto 36px;
+    }
+
+    .section-head .kicker{
+      color:#21764f;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.18em;
+      font-size:12px;
+      margin-bottom:10px;
+      display:block;
+    }
+
+    .section-head h2{
+      margin:0 0 12px;
+      font-size:clamp(2rem, 4vw, 3rem);
+      letter-spacing:-1px;
+      color:#0d231c;
+    }
+
+    .section-head p{
+      margin:0;
+      color:#526a61;
+      font-size:17px;
+      line-height:1.75;
+    }
+
+    .packages{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .package{
+      background:var(--card);
+      border:1px solid rgba(16,49,41,0.08);
+      border-radius:26px;
+      box-shadow:0 18px 40px rgba(16,49,41,0.08);
+      overflow:hidden;
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      transition:transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .package:hover{
+      transform:translateY(-6px);
+      box-shadow:0 24px 48px rgba(16,49,41,0.14);
+    }
+
+    .package-top{
+      padding:26px 26px 22px;
+      background:linear-gradient(180deg, #ffffff, #f4fbf7);
+      border-bottom:1px solid rgba(16,49,41,0.06);
+    }
+
+    .package.badge-popular{
+      border:2px solid rgba(47,163,107,0.36);
+      transform:scale(1.02);
+    }
+
+    .popular-tag{
+      position:absolute;
+      top:16px;
+      right:16px;
+      background:linear-gradient(135deg, var(--gold), #ffe8ae);
+      color:#3a2a00;
+      font-weight:800;
+      font-size:12px;
+      padding:8px 12px;
+      border-radius:999px;
+      box-shadow:0 10px 24px rgba(243,210,122,0.22);
+    }
+
+    .icon{
+      width:56px;
+      height:56px;
+      border-radius:18px;
+      display:grid;
+      place-items:center;
+      font-size:24px;
+      margin-bottom:16px;
+      color:#082218;
+      font-weight:800;
+      background:linear-gradient(135deg, #dff7ea, #c8f2db);
+    }
+
+    .package h3{
+      margin:0;
+      font-size:30px;
+      letter-spacing:-0.8px;
+      color:#0d231c;
+    }
+
+    .package .sub{
+      margin-top:8px;
+      color:#50685f;
+      font-size:15px;
+      line-height:1.6;
+      min-height:48px;
+    }
+
+    .price-box{
+      margin-top:20px;
+      padding:16px 18px;
+      border-radius:18px;
+      background:#0f251e;
+      color:#fff;
+    }
+
+    .price-box .price{
+      display:block;
+      font-size:28px;
+      font-weight:800;
+      letter-spacing:-0.7px;
+      margin-bottom:4px;
+    }
+
+    .price-box .small{
+      color:#a8c2b7;
+      font-size:13px;
+    }
+
+    .package-body{
+      padding:22px 26px 26px;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+      flex:1;
+    }
+
+    .feature-list{
+      list-style:none;
+      margin:0;
+      padding:0;
+      display:grid;
+      gap:12px;
+    }
+
+    .feature-list li{
+      padding-left:30px;
+      position:relative;
+      color:#223a32;
+      line-height:1.55;
+      font-size:15px;
+    }
+
+    .feature-list li::before{
+      content:"•";
+      position:absolute;
+      left:10px;
+      top:-1px;
+      color:#2fa36b;
+      font-size:24px;
+      line-height:1;
+    }
+
+    .ideal{
+      background:#f3faf6;
+      border-radius:18px;
+      padding:16px;
+      border:1px solid rgba(16,49,41,0.06);
+    }
+
+    .ideal strong{
+      display:block;
+      margin-bottom:6px;
+      color:#0d231c;
+      font-size:14px;
+    }
+
+    .ideal span{
+      color:#556d64;
+      font-size:14px;
+      line-height:1.55;
+    }
+
+    .package-cta{
+      margin-top:auto;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .ghost{
+      background:#eef8f2;
+      color:#176a45;
+      border:1px solid rgba(47,163,107,0.18);
+    }
+
+    .solid{
+      background:linear-gradient(135deg, #1f8f5d, #55c487);
+      color:#fff;
+      box-shadow:0 14px 30px rgba(47,163,107,0.24);
+    }
+
+    .benefits{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:18px;
+      margin-top:30px;
+    }
+
+    .benefit{
+      background:#fff;
+      border-radius:22px;
+      padding:22px;
+      border:1px solid rgba(16,49,41,0.06);
+      box-shadow:0 14px 30px rgba(16,49,41,0.06);
+    }
+
+    .benefit h4{
+      margin:12px 0 8px;
+      color:#0d231c;
+      font-size:18px;
+    }
+
+    .benefit p{
+      margin:0;
+      color:#5a7269;
+      line-height:1.65;
+      font-size:15px;
+    }
+
+    .compare{
+      background:#0c201a;
+      color:#fff;
+      border-radius:30px;
+      padding:30px;
+      overflow:auto;
+      box-shadow:var(--shadow);
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:760px;
+    }
+
+    th, td{
+      text-align:left;
+      padding:16px 14px;
+      border-bottom:1px solid rgba(255,255,255,0.09);
+      font-size:15px;
+    }
+
+    th{
+      color:#cce4d8;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:0.12em;
+    }
+
+    td{
+      color:#eff9f4;
+    }
+
+    .tick{
+      color:#88f0ba;
+      font-weight:800;
+    }
+
+    .cross{
+      color:#7e9a8f;
+      font-weight:800;
+    }
+
+    .note-band{
+      margin-top:24px;
+      padding:16px 20px;
+      border-radius:18px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      color:#d7eee3;
+      line-height:1.65;
+      font-size:15px;
+    }
+
+    .cta-panel{
+      background:linear-gradient(135deg, #0d231c, #184233);
+      border-radius:30px;
+      padding:34px;
+      color:#fff;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:24px;
+      align-items:center;
+      box-shadow:var(--shadow);
+    }
+
+    .cta-panel h3{
+      margin:0 0 10px;
+      font-size:clamp(1.7rem, 3.4vw, 2.5rem);
+      letter-spacing:-0.8px;
+    }
+
+    .cta-panel p{
+      margin:0;
+      color:#bfd8cd;
+      line-height:1.7;
+      font-size:16px;
+      max-width:760px;
+    }
+
+    .footer{
+      padding:30px 0 60px;
+      text-align:center;
+      color:#70877d;
+      font-size:14px;
+    }
+
+    @media (max-width: 1100px){
+      .hero-grid,
+      .packages,
+      .benefits,
+      .cta-panel{
+        grid-template-columns:1fr;
+      }
+
+      .hero-points{
+        grid-template-columns:1fr;
+      }
+
+      .package.badge-popular{
+        transform:none;
+      }
+    }
+
+    @media (max-width: 720px){
+      .topbar-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .nav{
+        width:100%;
+      }
+
+      .hero{
+        padding-top:42px;
+      }
+
+      .section{
+        padding:54px 0;
+      }
+
+      .package-top,
+      .package-body,
+      .hero-card,
+      .cta-panel{
+        padding-left:20px;
+        padding-right:20px;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .package-cta .btn{
+        width:auto;
+        flex:1 1 auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a href="#top" class="brand">
+        <span class="brand-mark">F</span>
+        <span>The Carpet Cleaning Company</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#packages">Packages</a>
+        <a href="#benefits">Why FibreLife</a>
+        <a href="#compare">Compare</a>
+        <a href="#quote" class="btn btn-primary" style="padding:12px 18px;">Get a Quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">Professional carpet cleaning packages from The Carpet Cleaning Company</div>
+        <h1>FibreLife packages designed to look premium and sell clearly</h1>
+        <p>
+          Present FibreLife as a branded carpet cleaning system with three clear service levels.
+          Keep the choice simple, modern and easy to understand so customers can instantly see the
+          difference between commercial maintenance, added protection and full restoration.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#packages" class="btn btn-primary">View Packages</a>
+          <a href="tel:07802563213" class="btn btn-secondary">Call 07802 563213</a>
+        </div>
+
+        <div class="hero-points">
+          <div class="hero-point">
+            <strong>FibreLife</strong>
+            <span>Commercial maintenance package with fast drying low moisture results.</span>
+          </div>
+          <div class="hero-point">
+            <strong>FibreLife Protect</strong>
+            <span>Deep clean with added stain protection for longer lasting performance.</span>
+          </div>
+          <div class="hero-point">
+            <strong>FibreLife Restore</strong>
+            <span>Premium restorative cleaning for heavier soiling and deeper recovery.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <span class="mini-label">Recommended package layout</span>
+        <h3>Make Protect your featured package</h3>
+        <p>
+          FibreLife Protect should sit in the middle and be framed as the most popular option.
+          That gives customers a natural upgrade path and helps lift average job value.
+        </p>
+
+        <ul class="hero-list">
+          <li>FibreLife is your commercial maintenance system</li>
+          <li>Protect is your standout premium upgrade</li>
+          <li>Restore is your specialist heavy soil and recovery option</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="packages">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Packages</span>
+        <h2>Three clear FibreLife service levels</h2>
+        <p>
+          Built to help customers quickly understand what each package does while making the middle option
+          feel like the smartest choice.
+        </p>
+      </div>
+
+      <div class="packages">
+        <article class="package">
+          <div class="package-top">
+            <div class="icon">F</div>
+            <h3>FibreLife</h3>
+            <div class="sub">Commercial maintenance cleaning for regular appearance management and fast return to use.</div>
+
+            <div class="price-box">
+              <span class="price">From £1.80 to £3.00 per m²</span>
+              <span class="small">Best for routine commercial maintenance and repeat visits</span>
+            </div>
+          </div>
+
+          <div class="package-body">
+            <ul class="feature-list">
+              <li>Low moisture commercial maintenance clean</li>
+              <li>Pre vacuum where required</li>
+              <li>FibreLife pre treatment</li>
+              <li>CRB or rotary agitation</li>
+              <li>Encapsulation cleaning process</li>
+              <li>Fast drying with minimal disruption</li>
+            </ul>
+
+            <div class="ideal">
+              <strong>Ideal for</strong>
+              <span>Offices, hotels, pubs, communal areas, managed properties and regular upkeep contracts.</span>
+            </div>
+
+            <div class="package-cta">
+              <a href="tel:07802563213" class="btn ghost">Call Now</a>
+              <a href="#compare" class="btn solid">Compare</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="package badge-popular">
+          <span class="popular-tag">Most Popular</span>
+          <div class="package-top">
+            <div class="icon">P</div>
+            <h3>FibreLife Protect</h3>
+            <div class="sub">Deep cleaning plus professional stain protection to help carpets stay cleaner for longer.</div>
+
+            <div class="price-box">
+              <span class="price">Restore price plus protection</span>
+              <span class="small">Perfect for premium domestic work and customers who want the best long term value</span>
+            </div>
+          </div>
+
+          <div class="package-body">
+            <ul class="feature-list">
+              <li>Everything included in FibreLife Restore</li>
+              <li>Professional stain protection treatment</li>
+              <li>Helps reduce rapid resoiling</li>
+              <li>Supports easier ongoing maintenance</li>
+              <li>Excellent for family homes and better carpets</li>
+              <li>Premium finish with premium positioning</li>
+            </ul>
+
+            <div class="ideal">
+              <strong>Ideal for</strong>
+              <span>Homes with children, pets, quality carpets, landlords improving presentation and customers wanting the best overall package.</span>
+            </div>
+
+            <div class="package-cta">
+              <a href="tel:07802563213" class="btn solid">Choose Protect</a>
+              <a href="#benefits" class="btn ghost">Why it works</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="package">
+          <div class="package-top">
+            <div class="icon">R</div>
+            <h3>FibreLife Restore</h3>
+            <div class="sub">Premium restorative cleaning for heavier soiling, dull carpets and deeper recovery work.</div>
+
+            <div class="price-box">
+              <span class="price">From £75 first carpet</span>
+              <span class="small">Commercial work typically from around £3.00 to £4.50 per m² depending on condition and size</span>
+            </div>
+          </div>
+
+          <div class="package-body">
+            <ul class="feature-list">
+              <li>Pre vacuum and detailed inspection</li>
+              <li>FibreLife pre treatment</li>
+              <li>Mechanical agitation into the pile</li>
+              <li>Hot water extraction rinse</li>
+              <li>Odour neutralising finish where required</li>
+              <li>Designed for deeper restorative results</li>
+            </ul>
+
+            <div class="ideal">
+              <strong>Ideal for</strong>
+              <span>Domestic carpets, heavily soiled commercial areas, end of tenancy cleans and carpets needing a more intensive recovery clean.</span>
+            </div>
+
+            <div class="package-cta">
+              <a href="tel:07802563213" class="btn ghost">Request Restore</a>
+              <a href="#compare" class="btn solid">See Details</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="benefits">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Why FibreLife</span>
+        <h2>Sell the system, not just the clean</h2>
+        <p>
+          This is where you separate yourself from generic carpet cleaners.
+          FibreLife should feel like a structured method with clear outcomes and clear service levels.
+        </p>
+      </div>
+
+      <div class="benefits">
+        <div class="benefit">
+          <div class="icon">⏱</div>
+          <h4>Fast drying options</h4>
+          <p>Ideal for commercial settings where carpets need to return to use quickly with minimal disruption.</p>
+        </div>
+
+        <div class="benefit">
+          <div class="icon">🧼</div>
+          <h4>Clear service levels</h4>
+          <p>Customers instantly understand the difference between maintenance, protection and restoration.</p>
+        </div>
+
+        <div class="benefit">
+          <div class="icon">✨</div>
+          <h4>Premium positioning</h4>
+          <p>The naming makes your offer feel branded, specialist and more valuable than a generic steam clean.</p>
+        </div>
+
+        <div class="benefit">
+          <div class="icon">🛡</div>
+          <h4>Higher average spend</h4>
+          <p>Protect gives you a natural upsell path without making the page feel pushy or overcomplicated.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="compare">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Comparison</span>
+        <h2>Let people compare the packages in seconds</h2>
+        <p>
+          A simple comparison section helps customers justify moving up the package ladder.
+        </p>
+      </div>
+
+      <div class="compare">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>FibreLife</th>
+              <th>FibreLife Protect</th>
+              <th>FibreLife Restore</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Commercial maintenance clean</td>
+              <td class="tick">Yes</td>
+              <td class="cross">No</td>
+              <td class="cross">No</td>
+            </tr>
+            <tr>
+              <td>Low moisture process</td>
+              <td class="tick">Yes</td>
+              <td class="cross">No</td>
+              <td class="cross">No</td>
+            </tr>
+            <tr>
+              <td>Mechanical agitation</td>
+              <td class="tick">Yes</td>
+              <td class="tick">Yes</td>
+              <td class="tick">Yes</td>
+            </tr>
+            <tr>
+              <td>Hot water extraction rinse</td>
+              <td class="cross">No</td>
+              <td class="tick">Yes</td>
+              <td class="tick">Yes</td>
+            </tr>
+            <tr>
+              <td>Odour neutralising finish</td>
+              <td class="cross">No</td>
+              <td class="tick">Yes</td>
+              <td class="tick">Yes</td>
+            </tr>
+            <tr>
+              <td>Stain protection treatment</td>
+              <td class="cross">No</td>
+              <td class="tick">Yes</td>
+              <td class="cross">No</td>
+            </tr>
+            <tr>
+              <td>Best for heavy soil restoration</td>
+              <td class="cross">No</td>
+              <td class="tick">Good option</td>
+              <td class="tick">Best option</td>
+            </tr>
+            <tr>
+              <td>Best for routine commercial upkeep</td>
+              <td class="tick">Best option</td>
+              <td class="cross">No</td>
+              <td class="cross">No</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="note-band">
+          Suggested sales logic.
+          FibreLife is your commercial maintenance package.
+          Protect is your standout premium upgrade.
+          Restore is your specialist restorative option for carpets needing deeper intervention.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quote">
+    <div class="wrap">
+      <div class="cta-panel">
+        <div>
+          <h3>Ready to book or get a quote?</h3>
+          <p>
+            The Carpet Cleaning Company offers premium carpet cleaning packages designed around maintenance,
+            restoration and long term protection. Call now or visit the website to enquire.
+          </p>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="tel:07802563213" class="btn btn-primary">Call 07802 563213</a>
+          <a href="https://carpetcleaningcrew.co.uk" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Visit Website</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      The Carpet Cleaning Company • 07802 563213 • carpetcleaningcrew.co.uk
+    </div>
+  </footer>
+
+</body>
+</html>
