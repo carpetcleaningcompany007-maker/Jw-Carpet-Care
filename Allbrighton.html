@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>The Carpet Cleaning Company Hotel Calculator</title>
-  <meta name="description" content="Private commercial cleaning calculator for hotel carpet and hard floor cleaning." />
+  <meta name="description" content="Private commercial cleaning calculator for carpet and hard floor cleaning." />
   <style>
     :root{
       --bg:#edf4fc;
@@ -149,15 +149,15 @@
     .card-b{padding:22px}
 
     .summary{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
-    .total-box,.info-box,.info-box-wide{
+    .total-box,.info-box,.wide-box{
       background:linear-gradient(135deg,#fff,#f7fbff);border:1px solid rgba(12,24,40,.08);
       border-radius:22px;padding:20px;box-shadow:var(--shadow-soft);
     }
-    .info-box-wide{grid-column:1 / -1}
+    .wide-box{grid-column:1 / -1}
     .total-box b{
       display:block;font-size:52px;letter-spacing:-.04em;margin-top:8px;color:var(--brand3);line-height:1;
     }
-    .total-box span,.info-box span,.info-box-wide span{
+    .total-box span,.info-box span,.wide-box span{
       font-size:14px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.08em;
     }
     .note{font-size:18px;line-height:1.65;color:var(--muted);font-weight:700;margin:0}
@@ -415,11 +415,13 @@
               <span>Quote files</span>
               <p class="note" style="margin-top:10px;">Preview on screen, open a PDF quote, open a PDF invoice, or download Excel versions.</p>
             </div>
-            <div class="info-box-wide">
-              <span>Pricing structure under 150 m²</span>
+            <div class="wide-box">
+              <span>Pricing summary</span>
               <p class="note" style="margin-top:10px;">
-                FibreLife Deep Clean £4.00 per m². Rotary Bonnet £3.00 per m². Budget Commercial Clean £2.60 per m².
-                Office Commercial Floor Tiles from £2.80 per m². Out of hours adds 30%.
+                Carpet FibreLife Deep Clean starts at £4.00 per m². Carpet Rotary Bonnet starts at £3.00 per m².
+                Budget Commercial Clean starts at £2.60 per m². Office floor tiles rotary starts at £2.80 per m².
+                Office floor tiles FibreLife Deep Clean starts at £4.00 per m². Waxing starts at £2.00 per m².
+                Out of hours adds 30%.
               </p>
             </div>
           </div>
@@ -430,17 +432,17 @@
                 <span class="accordion-icon" id="icon-hybrid">+</span>
                 <div class="accordion-text">
                   <span class="accordion-title">FibreLife Deep Clean pricing</span>
-                  <span class="accordion-hint">Click here to open the pricing cards</span>
+                  <span class="accordion-hint">Carpet hot water extraction and rotary bonnet</span>
                 </div>
               </div>
             </button>
           </div>
           <div class="accordion-panel" id="panel-hybrid">
             <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Hot water extraction and rotary bonnet for the best possible result</p><div class="price">£4.00 per m²</div></div></article>
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Best possible deep clean for carpets</p><div class="price">£4.00 per m²</div></div></article>
               <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size hybrid deep clean</p><div class="price">£3.50 per m²</div></div></article>
               <article class="item"><div><h3>301+ m²</h3><p>Larger commercial hybrid clean</p><div class="price">£3.20 per m²</div></div></article>
-              <article class="item"><div><h3>Best for</h3><p>Heavier soiling, pets, deep restorative commercial work</p><div class="price">Premium option</div></div></article>
+              <article class="item"><div><h3>Best for</h3><p>Heavier soiling, pets, deep restorative work</p><div class="price">Premium option</div></div></article>
             </div>
           </div>
 
@@ -450,17 +452,17 @@
                 <span class="accordion-icon" id="icon-rotary">+</span>
                 <div class="accordion-text">
                   <span class="accordion-title">Rotary Bonnet pricing</span>
-                  <span class="accordion-hint">Click here to open the pricing cards</span>
+                  <span class="accordion-hint">Low moisture carpet cleaning</span>
                 </div>
               </div>
             </button>
           </div>
           <div class="accordion-panel" id="panel-rotary">
             <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Low moisture commercial clean with fast drying times</p><div class="price">£3.00 per m²</div></div></article>
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Fast drying carpet clean</p><div class="price">£3.00 per m²</div></div></article>
               <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size carpeted area</p><div class="price">£2.70 per m²</div></div></article>
               <article class="item"><div><h3>400+ m²</h3><p>Larger carpeted commercial area</p><div class="price">£2.50 per m²</div></div></article>
-              <article class="item"><div><h3>Best for</h3><p>Appearance improvement and regular maintenance cleans</p><div class="price">Mid tier option</div></div></article>
+              <article class="item"><div><h3>Best for</h3><p>Appearance improvement and maintenance work</p><div class="price">Mid tier option</div></div></article>
             </div>
           </div>
 
@@ -470,37 +472,77 @@
                 <span class="accordion-icon" id="icon-budget">+</span>
                 <div class="accordion-text">
                   <span class="accordion-title">Budget Commercial Clean pricing</span>
-                  <span class="accordion-hint">Click here to open the pricing cards</span>
+                  <span class="accordion-hint">Entry level carpet cleaning</span>
                 </div>
               </div>
             </button>
           </div>
           <div class="accordion-panel" id="panel-budget">
             <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Basic appearance improvement clean for maintenance work</p><div class="price">£2.60 per m²</div></div></article>
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Basic appearance improvement clean</p><div class="price">£2.60 per m²</div></div></article>
               <article class="item"><div><h3>151 to 399 m²</h3><p>Mid size maintenance clean</p><div class="price">£2.40 per m²</div></div></article>
               <article class="item"><div><h3>400+ m²</h3><p>Larger budget clean</p><div class="price">£2.20 per m²</div></div></article>
-              <article class="item"><div><h3>Best for</h3><p>Cost sensitive commercial work and light refresh cleans</p><div class="price">Entry option</div></div></article>
+              <article class="item"><div><h3>Best for</h3><p>Light refresh work and cost sensitive jobs</p><div class="price">Entry option</div></div></article>
             </div>
           </div>
 
           <div class="section-head">
-            <button class="accordion-btn" type="button" data-accordion="tiles">
+            <button class="accordion-btn" type="button" data-accordion="tilesRotary">
               <div class="accordion-left">
-                <span class="accordion-icon" id="icon-tiles">+</span>
+                <span class="accordion-icon" id="icon-tilesRotary">+</span>
                 <div class="accordion-text">
-                  <span class="accordion-title">Office Commercial Floor Tiles pricing</span>
-                  <span class="accordion-hint">Click here to open the pricing cards</span>
+                  <span class="accordion-title">Office floor tiles rotary pricing</span>
+                  <span class="accordion-hint">Office floor tiles only</span>
                 </div>
               </div>
             </button>
           </div>
-          <div class="accordion-panel" id="panel-tiles">
+          <div class="accordion-panel" id="panel-tilesRotary">
             <div class="items">
-              <article class="item"><div><h3>Up to 150 m²</h3><p>Office floor tiles, safety flooring and similar hard floors</p><div class="price">£2.80 per m²</div></div></article>
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Office floor tiles only</p><div class="price">£2.80 per m²</div></div></article>
               <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size office tile area</p><div class="price">£2.50 per m²</div></div></article>
               <article class="item"><div><h3>301+ m²</h3><p>Larger office tile area</p><div class="price">£2.20 per m²</div></div></article>
-              <article class="item"><div><h3>Typical use</h3><p>Office commercial floor tiles, kitchens, washrooms and corridors</p><div class="price">Variable by m²</div></div></article>
+              <article class="item"><div><h3>Method</h3><p>Rotary bonnet cleaning</p><div class="price">Hard floor</div></div></article>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <button class="accordion-btn" type="button" data-accordion="tilesHybrid">
+              <div class="accordion-left">
+                <span class="accordion-icon" id="icon-tilesHybrid">+</span>
+                <div class="accordion-text">
+                  <span class="accordion-title">Office floor tiles FibreLife Deep Clean pricing</span>
+                  <span class="accordion-hint">Rotary bonnet, hot water extraction and added protection</span>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div class="accordion-panel" id="panel-tilesHybrid">
+            <div class="items">
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Rotary bonnet, hot water extraction and added protection</p><div class="price">£4.00 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size tile deep clean</p><div class="price">£3.60 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger tile deep clean</p><div class="price">£3.20 per m²</div></div></article>
+              <article class="item"><div><h3>Best for</h3><p>Hard floor tiles needing a stronger clean and protection</p><div class="price">Premium option</div></div></article>
+            </div>
+          </div>
+
+          <div class="section-head">
+            <button class="accordion-btn" type="button" data-accordion="tilesWax">
+              <div class="accordion-left">
+                <span class="accordion-icon" id="icon-tilesWax">+</span>
+                <div class="accordion-text">
+                  <span class="accordion-title">Waxing pricing</span>
+                  <span class="accordion-hint">Additional hard floor waxing or sealing</span>
+                </div>
+              </div>
+            </button>
+          </div>
+          <div class="accordion-panel" id="panel-tilesWax">
+            <div class="items">
+              <article class="item"><div><h3>Up to 150 m²</h3><p>Waxing or sealing add on</p><div class="price">£2.00 per m²</div></div></article>
+              <article class="item"><div><h3>151 to 300 m²</h3><p>Mid size waxing area</p><div class="price">£1.80 per m²</div></div></article>
+              <article class="item"><div><h3>301+ m²</h3><p>Larger waxing area</p><div class="price">£1.60 per m²</div></div></article>
+              <article class="item"><div><h3>Best for</h3><p>Extra protection and finish on tile floors</p><div class="price">Add on</div></div></article>
             </div>
           </div>
 
@@ -707,7 +749,9 @@
               <option value="hybrid">FibreLife Deep Clean</option>
               <option value="rotary">Rotary bonnet</option>
               <option value="budget">Budget Commercial Clean</option>
-              <option value="tiles">Office Commercial Floor Tiles</option>
+              <option value="tiles_rotary">Office floor tiles rotary bonnet</option>
+              <option value="tiles_hybrid">Office floor tiles FibreLife Deep Clean</option>
+              <option value="tiles_wax">Office floor tiles waxing</option>
               <option value="hwe">Hot water extraction</option>
             </select>
             <div class="help-error" id="methodError">Please choose a cleaning method.</div>
@@ -804,18 +848,30 @@
       { min: 301, max: Infinity, rate: 2.80, label: "301+ m²" }
     ];
 
-    const TILE_BANDS = [
+    const TILE_ROTARY_BANDS = [
       { min: 0, max: 150, rate: 2.80, label: "Up to 150 m²" },
       { min: 151, max: 300, rate: 2.50, label: "151 to 300 m²" },
       { min: 301, max: Infinity, rate: 2.20, label: "301+ m²" }
+    ];
+
+    const TILE_HYBRID_BANDS = [
+      { min: 0, max: 150, rate: 4.00, label: "Up to 150 m²" },
+      { min: 151, max: 300, rate: 3.60, label: "151 to 300 m²" },
+      { min: 301, max: Infinity, rate: 3.20, label: "301+ m²" }
+    ];
+
+    const TILE_WAX_BANDS = [
+      { min: 0, max: 150, rate: 2.00, label: "Up to 150 m²" },
+      { min: 151, max: 300, rate: 1.80, label: "151 to 300 m²" },
+      { min: 301, max: Infinity, rate: 1.60, label: "301+ m²" }
     ];
 
     const AREA_OPTIONS = [
       "Main office","Back office","Office","Meeting room","Reception","Hallway",
       "Bedroom corridor","Stairs and landing","Restaurant","Bar","Lounge",
       "Conference room","Dining area","Entrance lobby","Toilet area","Staff room",
-      "Kitchen","Kitchen access area","Hard floor corridor","Office commercial floor tiles",
-      "Hard floor washroom","Custom"
+      "Kitchen","Kitchen access area","Hard floor corridor","Office floor tiles",
+      "Hard floor washroom","Safety flooring","Custom"
     ];
 
     let roomRows = [];
@@ -839,7 +895,9 @@
       if (method === "rotary") return ROTARY_BANDS;
       if (method === "hybrid") return HYBRID_BANDS;
       if (method === "budget") return BUDGET_BANDS;
-      if (method === "tiles") return TILE_BANDS;
+      if (method === "tiles_rotary") return TILE_ROTARY_BANDS;
+      if (method === "tiles_hybrid") return TILE_HYBRID_BANDS;
+      if (method === "tiles_wax") return TILE_WAX_BANDS;
       return HWE_BANDS;
     }
 
@@ -847,7 +905,9 @@
       if (method === "rotary") return "Rotary bonnet";
       if (method === "hybrid") return "FibreLife Deep Clean";
       if (method === "budget") return "Budget Commercial Clean";
-      if (method === "tiles") return "Office Commercial Floor Tiles";
+      if (method === "tiles_rotary") return "Office floor tiles rotary bonnet";
+      if (method === "tiles_hybrid") return "Office floor tiles FibreLife Deep Clean";
+      if (method === "tiles_wax") return "Office floor tiles waxing";
       return "Hot water extraction";
     }
 
@@ -1259,7 +1319,7 @@
     }
 
     function closeAllAccordions(){
-      ["hybrid","rotary","budget","tiles"].forEach(name => setAccordionState(name, false));
+      ["hybrid","rotary","budget","tilesRotary","tilesHybrid","tilesWax"].forEach(name => setAccordionState(name, false));
     }
 
     function getProtectionText(){
@@ -1286,8 +1346,12 @@
           parts.push("A FibreLife Deep Clean has been selected for areas requiring a stronger level of cleaning. This method combines rotary bonnet agitation with hot water extraction to achieve a deeper clean and is the best option for heavily used areas or sites with pets." + protection);
         } else if (key === "budget"){
           parts.push("A Budget Commercial Clean has been selected for suitable areas where a lower cost appearance improvement clean is required. This is ideal for light refresh work and more cost sensitive commercial jobs.");
-        } else if (key === "tiles"){
-          parts.push("Office Commercial Floor Tiles cleaning has been included where appropriate to remove built up traffic soil and restore the appearance of the flooring. This process is designed for office tile floors, safety flooring and similar commercial hard floor areas.");
+        } else if (key === "tiles_rotary"){
+          parts.push("Office floor tiles rotary bonnet cleaning has been included where appropriate to remove traffic soil and improve the presentation of office floor tiles.");
+        } else if (key === "tiles_hybrid"){
+          parts.push("Office floor tiles FibreLife Deep Clean has been included where a stronger hard floor clean is required. This combines rotary bonnet cleaning with hot water extraction and added protection for the best overall result on suitable tile flooring.");
+        } else if (key === "tiles_wax"){
+          parts.push("Waxing has been included as an additional hard floor treatment to improve the finish and provide extra protection on suitable floor tile areas.");
         } else if (key === "hwe"){
           parts.push("Hot water extraction has been selected as the most suitable method for restoring heavily used carpet areas. This process helps remove embedded soil and residues from within the fibres while leaving the carpet refreshed and hygienically clean." + protection);
         }
