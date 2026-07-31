@@ -389,6 +389,7 @@
               >
                 <input type="hidden" name="_subject" value="Bromsgrove Quote Request - JW Carpet Care" />
                 <input type="hidden" name="_format" value="plain" />
+                <input type="hidden" name="landing_area" value="Bromsgrove" />
                 <input type="hidden" name="landing_page" value="Bromsgrove" />
 
                 <div class="space-y-4">
@@ -418,6 +419,15 @@
                       <option>Upholstery cleaning</option>
                       <option>Carpets and upholstery</option>
                       <option>Commercial carpet cleaning</option>
+                    </select>
+                  </label>
+
+                  <label class="block">
+                    <span class="text-sm font-semibold text-slate-700">Upholstery seats <span class="font-normal text-slate-500">(if applicable)</span></span>
+                    <select name="upholstery_seats"
+                      class="premium-field mt-1 w-full rounded-xl border border-slate-300 px-3 py-2.5 text-sm bg-white">
+                      <option value="0">None</option><option>1</option><option>2</option><option>3</option>
+                      <option>4</option><option>5</option><option>6</option><option>7</option><option value="8">8+</option>
                     </select>
                   </label>
 
@@ -763,6 +773,28 @@
           let msg = "";
           try { msg = await res.text(); } catch(e){}
           throw new Error("Formspree submit failed: " + res.status + " " + msg);
+        }
+
+        const payload = new FormData(form);
+        const trackerPayload = new URLSearchParams();
+        const service = String(payload.get("service") || "");
+        const areaCount = parseInt(String(payload.get("areas") || "0"), 10) || 0;
+        ["name", "phone", "email", "postcode", "service", "upholstery_seats", "landing_area", "landing_page"]
+          .forEach((key) => trackerPayload.set(key, String(payload.get(key) || "")));
+        trackerPayload.set("rooms", /carpet/i.test(service) ? String(areaCount) : "0");
+        trackerPayload.set("status", "New lead");
+        trackerPayload.set("notes", String(payload.get("notes") || ""));
+        const clickParams = new URLSearchParams(window.location.search);
+        ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]
+          .forEach((key) => trackerPayload.set(key, clickParams.get(key) || ""));
+        try {
+          await fetch("https://script.google.com/macros/s/AKfycbxCEvbuVIQBk4-JIbffkK5OhxjOYZO8p2tqtetkGV-sNapkUGMXnAiHxxXcE9o2AUCpOQ/exec", {
+            method: "POST",
+            mode: "no-cors",
+            body: trackerPayload
+          });
+        } catch (trackingError) {
+          console.warn("JW lead tracker copy failed", trackingError);
         }
 
         window.location.href = "./thank-you.html";
